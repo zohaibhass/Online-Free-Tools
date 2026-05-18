@@ -65,7 +65,7 @@ export function Footer() {
           </div>
 
           {/* Follow */}
-          <div>
+          {/* <div>
             <h3 className="font-semibold mb-4">Follow</h3>
             <p className="text-sm text-muted-foreground mb-4">
               Stay updated with new tools and features.
@@ -79,7 +79,7 @@ export function Footer() {
                 GitHub
               </Link>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom */}
