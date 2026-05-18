@@ -4,23 +4,22 @@ import Link from 'next/link'
 import { Search, Moon, Sun } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { useState } from 'react'
-import { useTheme } from '@/components/ThemeProvider'
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 export function Header() {
   const [searchOpen, setSearchOpen] = useState(false)
-  const [isDark, setIsDark] = useState(false)
-  
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme, resolvedTheme } = useTheme()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted ? resolvedTheme === 'dark' : false
+
   const toggleTheme = () => {
-    const root = document.documentElement
-    const newDark = !isDark
-    if (newDark) {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
-    localStorage.setItem('theme', newDark ? 'dark' : 'light')
-    setIsDark(newDark)
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -48,6 +47,9 @@ export function Header() {
             </Link>
             <Link href="/category/document" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Documents
+            </Link>
+            <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Contact
             </Link>
           </nav>
 

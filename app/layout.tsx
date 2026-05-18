@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://tools.example.com'
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
 
 export const metadata: Metadata = {
   title: {
@@ -109,9 +110,22 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
+          <meta
+            name="google-site-verification"
+            content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}
+          />
+        )}
+        {adsenseClientId && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body className="font-sans antialiased">
-        <ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </ThemeProvider>

@@ -1,5 +1,4 @@
-'use client'
-
+import { Metadata } from 'next'
 import { ToolLayout } from '@/components/ToolLayout'
 import { JsonFormatterTool } from '@/components/tools/JsonFormatterTool'
 import { Base64EncoderTool } from '@/components/tools/Base64EncoderTool'
@@ -38,7 +37,20 @@ import { MorseCodeTranslatorTool } from '@/components/tools/MorseCodeTranslatorT
 import { UnitCalculatorTool } from '@/components/tools/UnitCalculatorTool'
 import { getToolBySlug } from '@/lib/tools'
 import { notFound } from 'next/navigation'
-import { use } from 'react'
+import { generateToolMetadata } from '@/lib/seo'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const tool = getToolBySlug(params.slug)
+
+  if (!tool) {
+    return {
+      title: 'Tool Not Found | Free Online Tools',
+      description: 'Tool not found',
+    }
+  }
+
+  return generateToolMetadata(tool)
+}
 
 // Map of tool slugs to their components
 const toolComponents: Record<string, React.ReactNode> = {
@@ -83,13 +95,12 @@ const toolComponents: Record<string, React.ReactNode> = {
   'unit-calculator': <UnitCalculatorTool />,
 }
 
-export default function ToolPage({
+export default async function ToolPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: { slug: string }
 }) {
-  const { slug } = use(params)
-  const tool = getToolBySlug(slug)
+  const tool = getToolBySlug(params.slug)
 
   if (!tool) {
     notFound()

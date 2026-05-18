@@ -1,7 +1,22 @@
+import { Metadata } from 'next'
 import { getCategory, getToolsByCategory } from '@/lib/tools'
 import { ToolCard } from '@/components/ToolCard'
 import { AdSenseAd } from '@/components/AdSenseAd'
 import { notFound } from 'next/navigation'
+import { generateCategoryMetadata } from '@/lib/seo'
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const category = getCategory(params.id)
+
+  if (!category) {
+    return {
+      title: 'Category Not Found | Free Online Tools',
+      description: 'Category not found',
+    }
+  }
+
+  return generateCategoryMetadata(category)
+}
 
 export default async function CategoryPage({
   params,
