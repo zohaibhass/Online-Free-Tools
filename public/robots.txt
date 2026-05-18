@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Allow: /tools/
+Allow: /category/
+
+Disallow: /api/private
+Disallow: /*.json$
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+
+Sitemap: https://tools.example.com/sitemap.xml
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
