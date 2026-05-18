@@ -39,6 +39,7 @@ export const tools: Tool[] = [
     icon: 'Search',
     slug: 'regex-tester',
     keywords: ['regex', 'regexp', 'pattern', 'test'],
+    featured: true,
   },
   {
     id: 'sql-formatter',

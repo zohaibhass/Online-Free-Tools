@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { ToolCard } from '@/components/ToolCard'
@@ -9,25 +9,46 @@ import { tools, categories } from '@/lib/tools'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Search, Sparkles } from 'lucide-react'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+} from '@/components/ui/pagination'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 9
 
   const filteredTools = useMemo(() => {
     return tools.filter(tool => {
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch =
+        searchQuery === '' ||
         tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.keywords.some(k => k.toLowerCase().includes(searchQuery.toLowerCase()))
-      
+
       const matchesCategory = selectedCategory === null || tool.category === selectedCategory
-      
+
       return matchesSearch && matchesCategory
     })
   }, [searchQuery, selectedCategory])
 
   const featuredTools = tools.filter(tool => tool.featured).slice(0, 6)
+  const showFeaturedSection = searchQuery === '' && selectedCategory === null
+  const visibleTools = showFeaturedSection
+    ? filteredTools.filter(tool => !tool.featured)
+    : filteredTools
+  const pageCount = Math.max(1, Math.ceil(visibleTools.length / pageSize))
+  const paginatedTools = visibleTools.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery, selectedCategory])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-card/50 flex flex-col">
@@ -124,19 +145,63 @@ export default function Home() {
           )}
 
           {/* Tools Grid */}
-          {filteredTools.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {filteredTools.map(tool => (
-                <ToolCard
-                  key={tool.id}
-                  name={tool.name}
-                  description={tool.description}
-                  icon={tool.icon}
-                  slug={tool.slug}
-                  featured={tool.featured}
-                />
-              ))}
-            </div>
+          {paginatedTools.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {paginatedTools.map(tool => (
+                  <ToolCard
+                    key={tool.id}
+                    name={tool.name}
+                    description={tool.description}
+                    icon={tool.icon}
+                    slug={tool.slug}
+                    featured={tool.featured}
+                  />
+                ))}
+              </div>
+
+              {pageCount > 1 && (
+                <div className="flex justify-center mb-12">
+                  <Pagination>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={(event) => {
+                        event.preventDefault()
+                        setCurrentPage(prev => Math.max(prev - 1, 1))
+                      }}
+                      disabled={currentPage === 1}
+                    />
+                    <PaginationContent>
+                      {Array.from({ length: pageCount }, (_, index) => {
+                        const page = index + 1
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              href="#"
+                              isActive={currentPage === page}
+                              onClick={(event) => {
+                                event.preventDefault()
+                                setCurrentPage(page)
+                              }}
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        )
+                      })}
+                    </PaginationContent>
+                    <PaginationNext
+                      href="#"
+                      onClick={(event) => {
+                        event.preventDefault()
+                        setCurrentPage(prev => Math.min(prev + 1, pageCount))
+                      }}
+                      disabled={currentPage === pageCount}
+                    />
+                  </Pagination>
+                </div>
+              )}
+            </>
           ) : (
             <div className="text-center py-12">
               <p className="text-muted-foreground text-lg">No tools found matching your search.</p>

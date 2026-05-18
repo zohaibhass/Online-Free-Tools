@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { tools, categories } from '@/lib/tools'
 import { ToolCard } from '@/components/ToolCard'
 import { AdSenseAd } from '@/components/AdSenseAd'
@@ -8,10 +8,20 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Search } from 'lucide-react'
 import { Metadata } from 'next'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+} from '@/components/ui/pagination'
 
 export default function ToolsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 9
 
   const filteredTools = useMemo(() => {
     return tools.filter(tool => {
@@ -24,6 +34,13 @@ export default function ToolsPage() {
 
       return matchesSearch && matchesCategory
     })
+  }, [searchQuery, selectedCategory])
+
+  const pageCount = Math.max(1, Math.ceil(filteredTools.length / pageSize))
+  const paginatedTools = filteredTools.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+
+  useEffect(() => {
+    setCurrentPage(1)
   }, [searchQuery, selectedCategory])
 
   return (
@@ -80,19 +97,63 @@ export default function ToolsPage() {
       </div>
 
       {/* Tools Grid */}
-      {filteredTools.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredTools.map(tool => (
-            <ToolCard
-              key={tool.id}
-              name={tool.name}
-              description={tool.description}
-              icon={tool.icon}
-              slug={tool.slug}
-              featured={tool.featured}
-            />
-          ))}
-        </div>
+      {paginatedTools.length > 0 ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {paginatedTools.map(tool => (
+              <ToolCard
+                key={tool.id}
+                name={tool.name}
+                description={tool.description}
+                icon={tool.icon}
+                slug={tool.slug}
+                featured={tool.featured}
+              />
+            ))}
+          </div>
+
+          {pageCount > 1 && (
+            <div className="flex justify-center mb-12">
+              <Pagination>
+                <PaginationPrevious
+                  href="#"
+                  onClick={(event) => {
+                    event.preventDefault()
+                    setCurrentPage(prev => Math.max(prev - 1, 1))
+                  }}
+                  disabled={currentPage === 1}
+                />
+                <PaginationContent>
+                  {Array.from({ length: pageCount }, (_, index) => {
+                    const page = index + 1
+                    return (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          href="#"
+                          isActive={currentPage === page}
+                          onClick={(event) => {
+                            event.preventDefault()
+                            setCurrentPage(page)
+                          }}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  })}
+                </PaginationContent>
+                <PaginationNext
+                  href="#"
+                  onClick={(event) => {
+                    event.preventDefault()
+                    setCurrentPage(prev => Math.min(prev + 1, pageCount))
+                  }}
+                  disabled={currentPage === pageCount}
+                />
+              </Pagination>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12">
           <p className="text-muted-foreground text-lg">No tools found matching your search.</p>
