@@ -85,7 +85,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
           <p>&copy; {year} Free Online Tools. All rights reserved.</p>
-          <p className="mt-4 sm:mt-0">Made with care for developers everywhere</p>
+          <p className="mt-4 sm:mt-0"></p>
         </div>
       </div>
     </footer>
