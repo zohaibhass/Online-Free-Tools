@@ -39,8 +39,9 @@ import { getToolBySlug } from '@/lib/tools'
 import { notFound } from 'next/navigation'
 import { generateToolMetadata } from '@/lib/seo'
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const tool = getToolBySlug(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const tool = getToolBySlug(slug)
 
   if (!tool) {
     return {
@@ -95,21 +96,28 @@ const toolComponents: Record<string, React.ReactNode> = {
   'unit-calculator': <UnitCalculatorTool />,
 }
 
-export default async function ToolPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
-  const tool = getToolBySlug(params.slug)
+export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const tool = getToolBySlug(slug)
 
-  if (!tool) {
-    notFound()
+  // If the tool isn't in our list (for example during incremental additions),
+  // render a friendly placeholder page instead of returning a 404. This
+  // keeps previously-working /tools/<slug> links available and matches the
+  // original behavior where unfinished tools still showed a page.
+  const currentTool = tool ?? {
+    id: slug,
+    name: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    description: 'This tool is currently being developed. Please check back soon!',
+    category: 'utility',
+    icon: 'Zap',
+    slug,
+    keywords: [],
   }
 
-  const content = toolComponents[tool.slug] || (
+  const content = toolComponents[currentTool.slug] || (
     <div className="text-center py-12">
-      <p className="text-muted-foreground text-lg mb-4">{tool.name}</p>
-      <p className="text-muted-foreground mb-6">{tool.description}</p>
+      <p className="text-muted-foreground text-lg mb-4">{currentTool.name}</p>
+      <p className="text-muted-foreground mb-6">{currentTool.description}</p>
       <div className="mt-8 p-8 bg-muted/50 rounded-lg border border-border">
         <p className="text-muted-foreground">This tool is currently being developed. Please check back soon!</p>
       </div>
