@@ -1,7 +1,11 @@
-'use client'
-
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About - Free Online Tools',
+  description: 'Learn more about Free Online Tools and our mission to provide fast, browser-based utilities for developers and creators.',
+}
 
 export default function AboutPage() {
   return (

@@ -94,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background">
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -148,7 +148,7 @@ export default function RootLayout({
           }`}
         </Script>
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}

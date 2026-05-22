@@ -35,7 +35,7 @@ import { DiceRollerTool } from '@/components/tools/DiceRollerTool'
 import { CoinFlipperTool } from '@/components/tools/CoinFlipperTool'
 import { MorseCodeTranslatorTool } from '@/components/tools/MorseCodeTranslatorTool'
 import { UnitCalculatorTool } from '@/components/tools/UnitCalculatorTool'
-import { getToolBySlug } from '@/lib/tools'
+import { getToolBySlug, getToolDetails } from '@/lib/tools'
 import { notFound } from 'next/navigation'
 import { generateToolMetadata } from '@/lib/seo'
 
@@ -100,35 +100,19 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const tool = getToolBySlug(slug)
 
-  // If the tool isn't in our list (for example during incremental additions),
-  // render a friendly placeholder page instead of returning a 404. This
-  // keeps previously-working /tools/<slug> links available and matches the
-  // original behavior where unfinished tools still showed a page.
-  const currentTool = tool ?? {
-    id: slug,
-    name: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-    description: 'This tool is currently being developed. Please check back soon!',
-    category: 'utility',
-    icon: 'Zap',
-    slug,
-    keywords: [],
+  if (!tool) {
+    notFound()
   }
 
-  const content = toolComponents[currentTool.slug] || (
-    <div className="text-center py-12">
-      <p className="text-muted-foreground text-lg mb-4">{currentTool.name}</p>
-      <p className="text-muted-foreground mb-6">{currentTool.description}</p>
-      <div className="mt-8 p-8 bg-muted/50 rounded-lg border border-border">
-        <p className="text-muted-foreground">This tool is currently being developed. Please check back soon!</p>
-      </div>
-    </div>
-  )
+  const toolDetails = getToolDetails(tool)
+  const content = toolComponents[tool.slug]
 
   return (
     <ToolLayout
       title={tool.name}
       description={tool.description}
       showAds={true}
+      toolDetails={toolDetails}
     >
       {content}
     </ToolLayout>
