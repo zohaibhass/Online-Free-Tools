@@ -1,8 +1,8 @@
-'use client'
+ 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ChevronRight, Home } from 'lucide-react'
+import { ChevronRight, Home, Maximize2, Minimize2 } from 'lucide-react'
 import { AdSenseAd } from '@/components/AdSenseAd'
 
 interface Breadcrumb {
@@ -32,6 +32,53 @@ export function ToolLayout({
   ]
 
   const finalBreadcrumbs = breadcrumbs.length > 0 ? breadcrumbs : defaultBreadcrumbs
+
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  useEffect(() => {
+    function onFullChange() {
+      const fs = !!document.fullscreenElement
+      setIsFullscreen(fs)
+    }
+
+    document.addEventListener('fullscreenchange', onFullChange)
+    return () => document.removeEventListener('fullscreenchange', onFullChange)
+  }, [])
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape' && isFullscreen) {
+        exitFullscreen()
+      }
+    }
+
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [isFullscreen])
+
+  const enterFullscreen = async () => {
+    try {
+      if (containerRef.current && containerRef.current.requestFullscreen) {
+        await containerRef.current.requestFullscreen()
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  const exitFullscreen = async () => {
+    try {
+      if (document.exitFullscreen) await document.exitFullscreen()
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  const toggleFullscreen = () => {
+    if (isFullscreen) exitFullscreen()
+    else enterFullscreen()
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,15 +116,28 @@ export function ToolLayout({
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">{title}</h1>
-          <p className="text-lg text-muted-foreground">{description}</p>
+        <div className="mb-8 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">{title}</h1>
+            <p className="text-lg text-muted-foreground">{description}</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              aria-pressed={isFullscreen}
+              onClick={toggleFullscreen}
+              title={isFullscreen ? 'Exit full screen' : 'Full screen'}
+              className="inline-flex items-center justify-center rounded-md p-2 text-sm hover:bg-accent/50"
+            >
+              {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
+              <span className="sr-only">Toggle full screen</span>
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Tool Content */}
           <div className="lg:col-span-2">
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+            <div ref={containerRef} className="bg-card border border-border rounded-lg p-6 shadow-sm" tabIndex={-1}>
               {children}
             </div>
           </div>
