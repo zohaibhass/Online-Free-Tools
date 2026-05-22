@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://tools.example.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://online-free-tools.vercel.app'
 
 export function generateToolMetadata(tool: {
   name: string

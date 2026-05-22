@@ -9,7 +9,7 @@ import Script from 'next/script';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://tools.example.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://online-free-tools.vercel.app'
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
 
 export const metadata: Metadata = {

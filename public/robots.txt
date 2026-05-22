@@ -8,7 +8,7 @@ Disallow: /*.json$
 Disallow: /*?*sort=
 Disallow: /*?*filter=
 
-Sitemap: https://tools.example.com/sitemap.xml
+Sitemap: https://https://online-free-tools.vercel.app/sitemap.xml
 
 User-agent: AdsBot-Google
 Allow: /
