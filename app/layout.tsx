@@ -73,6 +73,12 @@ export const metadata: Metadata = {
       },
     ],
     apple: '/apple-icon.png',
+    other: [
+      {
+        rel: 'manifest',
+        url: '/site.webmanifest',
+      },
+    ],
   },
 }
 
@@ -113,6 +119,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="manifest" href="/site.webmanifest" />
 
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <meta
@@ -130,6 +137,16 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
+
+        <Script id="register-service-worker" strategy="afterInteractive">
+          {`if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+              navigator.serviceWorker.register('/sw.js').catch(function (error) {
+                console.error('Service worker registration failed:', error)
+              })
+            })
+          }`}
+        </Script>
       </head>
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Search, Moon, Sun } from 'lucide-react'
+import { Search, Moon, Sun, Menu } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
@@ -48,12 +49,15 @@ export function Header() {
             <Link href="/category/document" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Documents
             </Link>
+            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </Link>
             <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </Link>
           </nav>
 
-          {/* Search & CTA */}
+          {/* Search & Mobile Menu */}
           <div className="flex items-center gap-2">
             <div className="hidden sm:flex relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
@@ -71,6 +75,42 @@ export function Header() {
             >
               <Search className="w-5 h-5" />
             </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="icon" className="sm:hidden">
+                  <Menu className="w-5 h-5" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-xs p-6">
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Menu</p>
+                    <div className="border-b border-border" />
+                  </div>
+                  <nav className="flex flex-col gap-4">
+                    <Link href="/tools" className="text-base font-medium text-foreground hover:text-primary">
+                      All Tools
+                    </Link>
+                    <Link href="/category/developer" className="text-base font-medium text-foreground hover:text-primary">
+                      Developer
+                    </Link>
+                    <Link href="/category/calculator" className="text-base font-medium text-foreground hover:text-primary">
+                      Calculators
+                    </Link>
+                    <Link href="/category/document" className="text-base font-medium text-foreground hover:text-primary">
+                      Documents
+                    </Link>
+                    <Link href="/about" className="text-base font-medium text-foreground hover:text-primary">
+                      About
+                    </Link>
+                    <Link href="/contact" className="text-base font-medium text-foreground hover:text-primary">
+                      Contact
+                    </Link>
+                  </nav>
+                </div>
+              </DialogContent>
+            </Dialog>
             <Button
               variant="ghost"
               size="icon"
@@ -80,6 +120,19 @@ export function Header() {
               {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
             </Button>
           </div>
+
+          {searchOpen && (
+            <div className="sm:hidden mt-4 w-full">
+              <div className="relative">
+                <Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search tools..."
+                  className="pl-10 w-full h-10 text-sm"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>
