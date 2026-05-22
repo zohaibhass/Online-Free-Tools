@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { tools, categories } from '@/lib/tools'
 import { ToolCard } from '@/components/ToolCard'
 import { AdSenseAd } from '@/components/AdSenseAd'
@@ -17,10 +18,16 @@ import {
 } from '@/components/ui/pagination'
 
 export default function ToolsPageClient() {
+  const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 9
+
+  useEffect(() => {
+    const query = searchParams.get('search') ?? ''
+    setSearchQuery(query)
+  }, [searchParams])
 
   const filteredTools = useMemo(() => {
     return tools.filter(tool => {
@@ -61,7 +68,13 @@ export default function ToolsPageClient() {
             className="pl-10 h-12"
           />
         </div>
-        <Button>Search</Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => setSearchQuery('')}
+        >
+          Clear
+        </Button>
       </div>
 
       {/* Category Filter */}

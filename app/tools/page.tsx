@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import ToolsPageClient from './ToolsPageClient'
 
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function ToolsPage() {
-  return <ToolsPageClient />
+  return (
+    <Suspense fallback={<div className="py-20 text-center text-muted-foreground">Loading tools...</div>}>
+      <ToolsPageClient />
+    </Suspense>
+  )
 }

@@ -1,21 +1,30 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Search, Moon, Sun, Menu } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useTheme } from 'next-themes'
 
 export function Header() {
+  const router = useRouter()
   const [searchOpen, setSearchOpen] = useState(false)
+  const [searchText, setSearchText] = useState('')
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme, resolvedTheme } = useTheme()
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const query = searchText.trim()
+    router.push(query ? `/tools?search=${encodeURIComponent(query)}` : '/tools')
+  }
 
   const isDark = mounted ? resolvedTheme === 'dark' : false
 
@@ -24,7 +33,7 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -52,6 +61,9 @@ export function Header() {
             <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               About
             </Link>
+            <Link href="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              FAQ
+            </Link>
             <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </Link>
@@ -59,14 +71,16 @@ export function Header() {
 
           {/* Search & Mobile Menu */}
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex relative">
+            <form onSubmit={handleSearch} className="hidden sm:flex relative">
               <Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search tools..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
                 className="pl-10 w-48 h-10 text-sm"
               />
-            </div>
+            </form>
             <Button
               variant="ghost"
               size="icon"
@@ -104,6 +118,9 @@ export function Header() {
                     <Link href="/about" className="text-base font-medium text-foreground hover:text-primary">
                       About
                     </Link>
+                    <Link href="/faq" className="text-base font-medium text-foreground hover:text-primary">
+                      FAQ
+                    </Link>
                     <Link href="/contact" className="text-base font-medium text-foreground hover:text-primary">
                       Contact
                     </Link>
@@ -123,14 +140,16 @@ export function Header() {
 
           {searchOpen && (
             <div className="sm:hidden mt-4 w-full">
-              <div className="relative">
+              <form onSubmit={handleSearch} className="relative">
                 <Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
                 <Input
                   type="search"
                   placeholder="Search tools..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
                   className="pl-10 w-full h-10 text-sm"
                 />
-              </div>
+              </form>
             </div>
           )}
         </div>

@@ -2,8 +2,11 @@
 
 import { ReactNode, useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ChevronRight, Home, Maximize2, Minimize2 } from 'lucide-react'
+import { ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
 import { AdSenseAd } from '@/components/AdSenseAd'
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
+import type { ToolDetails } from '@/lib/tools'
 
 interface Breadcrumb {
   name: string
@@ -16,6 +19,7 @@ interface ToolLayoutProps {
   description: string
   breadcrumbs?: Breadcrumb[]
   showAds?: boolean
+  toolDetails?: ToolDetails
 }
 
 export function ToolLayout({
@@ -24,6 +28,7 @@ export function ToolLayout({
   description,
   breadcrumbs = [],
   showAds = true,
+  toolDetails,
 }: ToolLayoutProps) {
   const defaultBreadcrumbs: Breadcrumb[] = [
     { name: 'Home', href: '/' },
@@ -82,6 +87,7 @@ export function ToolLayout({
 
   return (
     <div className="min-h-screen bg-background">
+
       {/* Breadcrumb Navigation */}
       <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,6 +158,50 @@ export function ToolLayout({
           )}
         </div>
 
+        {toolDetails && (
+          <section className="mt-10 space-y-10">
+            <div className="bg-card border border-border rounded-3xl p-8">
+              <h2 className="text-2xl font-semibold mb-4">About {title}</h2>
+              <p className="text-muted-foreground leading-7">{toolDetails.longDescription}</p>
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div className="bg-card border border-border rounded-3xl p-8">
+                <h2 className="text-2xl font-semibold mb-4">How to use this tool</h2>
+                <ol className="list-decimal list-inside space-y-3 text-muted-foreground">
+                  {toolDetails.howToUse.map((step, index) => (
+                    <li key={index}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="bg-card border border-border rounded-3xl p-8">
+                <h2 className="text-2xl font-semibold mb-4">Example</h2>
+                <p className="text-muted-foreground mb-4">Input</p>
+                <pre className="rounded-2xl bg-slate-950/60 p-4 text-sm text-slate-100 overflow-x-auto whitespace-pre-wrap">
+                  {toolDetails.exampleInput}
+                </pre>
+                <p className="text-muted-foreground mt-6 mb-4">Output</p>
+                <pre className="rounded-2xl bg-slate-950/60 p-4 text-sm text-slate-100 overflow-x-auto whitespace-pre-wrap">
+                  {toolDetails.exampleOutput}
+                </pre>
+              </div>
+            </div>
+
+            <div className="bg-card border border-border rounded-3xl p-8">
+              <h2 className="text-2xl font-semibold mb-4">Frequently asked questions</h2>
+              <div className="space-y-6 text-muted-foreground">
+                {toolDetails.faq.map((item, index) => (
+                  <div key={index}>
+                    <h3 className="text-lg font-semibold">{item.question}</h3>
+                    <p className="mt-2 leading-7">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Bottom Ad */}
         {showAds && (
           <div className="mt-12 border-t border-border pt-8">
@@ -159,6 +209,7 @@ export function ToolLayout({
           </div>
         )}
       </main>
+      <Footer />
     </div>
   )
 }
