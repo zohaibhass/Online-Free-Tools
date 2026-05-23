@@ -189,6 +189,22 @@ export function ToolLayout({
             </div>
 
             <div className="bg-card border border-border rounded-3xl p-8">
+              <h2 className="text-2xl font-semibold mb-4">Tool guide</h2>
+              <article aria-label="Tool guide" className="space-y-6 text-muted-foreground">
+                {toolDetails.guideSections.map((section, sectionIndex) => (
+                  <section key={sectionIndex}>
+                    <h3 className="text-lg font-semibold mb-3">{section.heading}</h3>
+                    {section.paragraphs.map((paragraph, paragraphIndex) => (
+                      <p className="mt-3 leading-7" key={paragraphIndex}>
+                        {paragraph}
+                      </p>
+                    ))}
+                  </section>
+                ))}
+              </article>
+            </div>
+
+            <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">Frequently asked questions</h2>
               <div className="space-y-6 text-muted-foreground">
                 {toolDetails.faq.map((item, index) => (
