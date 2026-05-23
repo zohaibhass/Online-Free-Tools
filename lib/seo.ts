@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://online-free-tools.vercel.app'
+import { SITE_URL, OG_IMAGE } from './config'
 
 export function generateToolMetadata(tool: {
   name: string
@@ -8,7 +7,7 @@ export function generateToolMetadata(tool: {
   slug: string
   keywords: string[]
 }): Metadata {
-  const canonicalUrl = `${baseUrl}/tools/${tool.slug}`
+  const canonicalUrl = `${SITE_URL}/tools/${tool.slug}`
   
   return {
     title: `${tool.name} - Free Online Tool`,
@@ -20,7 +19,7 @@ export function generateToolMetadata(tool: {
       url: canonicalUrl,
       type: 'website',
       images: [{
-        url: `${baseUrl}/og-image.jpg`,
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
       }],
@@ -41,7 +40,7 @@ export function generateCategoryMetadata(category: {
   description: string
   id: string
 }): Metadata {
-  const canonicalUrl = `${baseUrl}/category/${category.id}`
+  const canonicalUrl = `${SITE_URL}/category/${category.id}`
   
   return {
     title: `${category.name} - Free Online Tools`,

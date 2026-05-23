@@ -17,6 +17,7 @@ export interface ToolGuideSection {
 export interface ToolDetails {
   purpose: string
   longDescription: string
+  aboutBlurb: string
   howToUse: string[]
   exampleInput: string
   exampleOutput: string
@@ -105,6 +106,43 @@ const toolActions: Record<string, string> = {
   'coin-flipper': 'flip a coin',
   'morse-code-translator': 'translate Morse code',
   'unit-calculator': 'calculate units with formulas',
+}
+
+const toolAboutBlurbs: Record<string, string> = {
+  'json-formatter': 'JSON Formatter is essential for any developer working with APIs, configuration files, or data exchanges. Paste minified or messy JSON, and instantly get a clean, readable, properly indented version. Perfect for debugging API responses, validating configurations, and understanding data structures at a glance.',
+  'jwt-decoder': 'JWT Decoder is a security tool for developers, backend engineers, and security teams to inspect authentication tokens without writing code. Decode any JWT to view the header, payload, and signature, verify claims, and check expiration dates. Ideal for debugging authentication flows and auditing token contents.',
+  'base64-encoder': 'Base64 Encoder/Decoder handles encoding and decoding for developers, system administrators, and anyone working with data transmission. Use it to encode text for APIs, decode credentials from authentication headers, or prepare data for safe text-only transmission systems like email.',
+  'hash-generator': 'Hash Generator creates cryptographic fingerprints of your data with support for MD5, SHA-1, SHA-256, and SHA-512. Essential for verifying file integrity, storing passwords securely, and creating unique identifiers. Developers rely on this tool for checksums and data validation in production systems.',
+  'regex-tester': 'Regex Tester is the go-to tool for developers and technical writers who build and debug regular expressions. Test patterns in real-time, see exactly what matches, and validate your regex logic before using it in code. Perfect for form validation, data extraction, and log file analysis.',
+  'image-compressor': 'Image Compressor reduces file sizes for web designers, content creators, and developers optimizing website performance. Compress JPG, PNG, and other formats while keeping visual quality high. Ideal for reducing page load times, meeting social media size limits, and cutting storage costs.',
+  'url-encoder': 'URL Encoder/Decoder is indispensable for API developers, web developers, and anyone building URLs with special characters. Encode spaces, ampersands, and other characters for safe query parameters; decode to troubleshoot malformed URLs. Essential for debugging API requests and OAuth redirects.',
+  'sql-formatter': 'SQL Formatter helps database administrators, backend developers, and data analysts write and share clean SQL queries. Format minified queries for readability, review complex joins, and prepare SQL for documentation. Makes code review easier and helps catch logic errors before running against production databases.',
+  'color-converter': 'Color Converter is invaluable for designers, frontend developers, and brand teams working across different color formats. Convert between HEX, RGB, and HSL instantly when moving colors from design tools into CSS or working with color palettes. Essential for maintaining consistency across digital projects.',
+  'code-minifier': 'Code Minifier compresses CSS, JavaScript, and HTML to reduce file sizes and improve website performance. Frontend developers and DevOps teams use this tool to shrink code for production deployment, cutting bandwidth and improving page load times for users worldwide.',
+  'diff-checker': 'Diff Checker allows developers, content editors, and data analysts to compare two versions of text and highlight exact differences. Perfect for code reviews, version control, and spotting changes in documents, configurations, or data exports. See exactly what changed, line by line.',
+  'xml-formatter': 'XML Formatter is used by backend developers, data engineers, and API specialists to format and validate XML documents. Clean up XML from data exchanges, config files, and APIs; spot structural errors instantly. Essential for SOAP APIs, data imports, and legacy system integration.',
+  'uuid-generator': 'UUID Generator creates unique identifiers for developers building databases, testing, and creating prototypes. Generate v1, v4, and other UUID versions instantly for use as primary keys, test data IDs, and distributed system identifiers. No signup required—just generate and copy.',
+  'word-counter': 'Word Counter is essential for writers, content creators, and students tracking essay and article length. Count words, characters, paragraphs, and get accurate reading time estimates. Use it to meet assignment requirements, plan content, and optimize writing for readability and SEO.',
+  'qr-code-generator': 'QR Code Generator creates scannable codes from URLs, text, and contact details. Marketers, event organizers, and business owners use this to link print materials to websites, share WiFi, and distribute contact info. Instant QR codes ready to print or share online.',
+  'markdown-editor': 'Markdown Editor is perfect for technical writers, documentation specialists, and developers who work with Markdown syntax. Write in Markdown, preview rendered output instantly, and verify formatting before publishing to blogs, GitHub, or documentation sites.',
+  'text-to-speech': 'Text to Speech converts written text into natural-sounding audio, helping content creators, educators, and accessibility specialists. Generate audio files for videos, presentations, and blogs. Great for reaching audiences who prefer listening and for making content accessible to people with visual impairments.',
+  'json-to-csv': 'JSON to CSV transforms structured data into spreadsheet-ready format for data analysts, business intelligence teams, and developers. Convert API responses or data exports to CSV instantly for analysis in Excel, Google Sheets, or data visualization tools.',
+  'text-to-html': 'Text to HTML converts plain text into proper HTML markup for web developers, content managers, and bloggers. Transform paragraphs, line breaks, and simple formatting into valid HTML ready to paste into websites, CMSs, or email templates.',
+  'unit-converter': 'Unit Converter handles conversions across length, weight, volume, and temperature for students, engineers, and international professionals. Quick, accurate conversions for homework, recipes, science projects, and working across measurement systems globally.',
+  'loan-calculator': 'Loan Calculator helps borrowers, financial planners, and students understand monthly payments, total interest, and payoff schedules. Input loan amount, rate, and term to see exact payments and plan finances. Perfect for mortgages, car loans, and personal loans.',
+  'percentage-calculator': 'Percentage Calculator quickly answers percentage questions for students, shoppers, and business professionals. Calculate what percent one number is of another, find percentage increases/decreases, and solve discount and tip calculations without a calculator.',
+  'mortgage-calculator': 'Mortgage Calculator helps homebuyers, real estate agents, and financial advisors estimate monthly payments and compare loan options. See total interest paid and compare different down payments and interest rates to make informed decisions.',
+  'age-calculator': 'Age Calculator determines exact age and days between important dates. Perfect for birthday planning, calculating time until milestones, and verifying ages for forms and records. Simple, instant results.',
+  'bmi-calculator': 'BMI Calculator computes Body Mass Index for health professionals, fitness enthusiasts, and individuals tracking wellness. See BMI value and health category (underweight, normal, overweight, obese) instantly using metric or imperial units.',
+  'discount-calculator': 'Discount Calculator figures out final prices, savings amounts, and discounted costs for shoppers and sales staff. Perfect for sales negotiations, budget planning, and understanding how much you are saving during promotions.',
+  'tip-calculator': 'Tip Calculator splits bills and calculates tips instantly for diners, servers, and group payments. Handle complex splits, multiple people, and varying tip percentages. Perfect for restaurants, taxis, and shared meals.',
+  'password-generator': 'Password Generator creates strong, random passwords for IT professionals and anyone securing accounts. Customize length and character types (uppercase, lowercase, numbers, symbols) to meet password requirements for any service.',
+  'random-name-generator': 'Random Name Generator produces character names for writers, game developers, and tabletop RPG players. Great for fantasy worlds, fiction writing, and creating diverse character backgrounds. Instant inspiration for your next project.',
+  'todo-list': 'Todo List is a simple task manager for students, professionals, and anyone organizing their day. Add, check off, and organize tasks without installing apps or creating accounts. Keep your priorities visible and stay on track.',
+  'timer-stopwatch': 'Timer & Stopwatch lets you count down to a deadline or measure elapsed time with simple, reliable controls. Perfect for productivity, workouts, cooking, presentations, and any activity that needs precise timing. Optional sound alerts included.',
+  'dice-roller': 'Dice Roller simulates realistic dice rolls for tabletop gamers, probability students, and game designers. Roll any number of dice with any sides; see individual results and totals instantly. Perfect for D&D, board games, and game balance testing.',
+  'coin-flipper': 'Coin Flipper makes virtual coin tosses for making decisions, settling disputes, or testing probability. Realistic animation and instant results. Perfect for games, choosing between options, and fair decision-making.',
+  'morse-code-translator': 'Morse Code Translator encodes and decodes Morse code for history enthusiasts, amateur radio operators, and curious learners. Convert text to dots and dashes or vice versa. Great for learning telegraphy and experimenting with alternative communication.',
 }
 
 const toolExamples: Record<string, { input: string; output: string }> = {
@@ -747,6 +785,7 @@ export function getToolDetails(tool: Tool): ToolDetails {
   return {
     purpose: `Use ${tool.name} to ${tool.description.toLowerCase()}.`,
     longDescription: `The ${tool.name} is a browser-based utility that helps ${audience} ${useCase}. It offers a clean, responsive interface with fast results delivered in the browser, so you can work without installing software or creating an account. The tool makes it easy to ${action} and then copy or export the result immediately for use in your project or workflow. Built for both beginners and advanced users, it saves time by removing manual steps and improving accuracy. You can use the tool on desktop and mobile devices, and the interface includes clear examples to help you verify output quickly. Whether you are preparing a document, troubleshooting data, or planning a project, ${tool.name} is designed to reduce friction and keep your work moving. This makes it a practical, dependable choice for anyone looking for a polished online utility.`,
+    aboutBlurb: toolAboutBlurbs[tool.slug] ?? `${tool.name} is a browser-based utility for ${audience}. Use it to ${action} quickly and easily in your browser without installing software or creating an account.`,
     howToUse: [
       `Enter or paste your ${tool.name.toLowerCase()} input into the tool interface.`,
       `Adjust any available options for the result format, output style, or calculation settings.`,
