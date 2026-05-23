@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { SITE_URL, OG_IMAGE, SITE_NAME } from '@/lib/config'
 import './globals.css'
 // First, add this import at the top of the file
 import Script from 'next/script';
@@ -9,7 +10,6 @@ import Script from 'next/script';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://online-free-tools.vercel.app'
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
 
 export const metadata: Metadata = {
@@ -36,12 +36,12 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: baseUrl,
-    siteName: 'Free Online Tools',
+    url: SITE_URL,
+    siteName: SITE_NAME,
     title: 'Free Online Tools - 30+ Developer & Productivity Tools',
     description: 'Discover 30+ free online tools for developers and content creators. Fast, reliable, and browser-based.',
     images: [{
-      url: `${baseUrl}/og-image.jpg`,
+      url: OG_IMAGE,
       width: 1200,
       height: 630,
     }],
@@ -50,10 +50,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Free Online Tools',
     description: 'Access 30+ free online tools for developers and productivity.',
-    images: [`${baseUrl}/og-image.jpg`],
+    images: [OG_IMAGE],
   },
   alternates: {
-    canonical: baseUrl,
+    canonical: SITE_URL,
   },
   generator: 'Next.js',
   applicationName: 'Free Online Tools',
@@ -104,7 +104,7 @@ export default function RootLayout({
               '@type': 'WebApplication',
               name: 'Free Online Tools',
               description: 'Access 30+ free online tools for developers and content creators',
-              url: baseUrl,
+              url: SITE_URL,
               applicationCategory: 'UtilityApplication',
               offers: {
                 '@type': 'Offer',

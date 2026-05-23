@@ -162,7 +162,7 @@ export function ToolLayout({
           <section className="mt-10 space-y-10">
             <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">About {title}</h2>
-              <p className="text-muted-foreground leading-7">{toolDetails.longDescription}</p>
+              <p className="text-muted-foreground leading-7">{toolDetails.aboutBlurb}</p>
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
