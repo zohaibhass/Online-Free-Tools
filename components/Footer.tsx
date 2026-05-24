@@ -11,7 +11,7 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">About</h3>
             <p className="text-sm text-muted-foreground">
-              Free Online Tools - A collection of 30+ useful utilities for developers and content creators.
+              Free Online Tools offers a curated collection of 30+ browser-based utilities plus a blog with practical guides, quick tips, and tool tutorials.
             </p>
           </div>
 
@@ -22,6 +22,11 @@ export function Footer() {
               <li>
                 <Link href="/tools" className="hover:text-foreground transition-colors">
                   All Tools
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-foreground transition-colors">
+                  Blog
                 </Link>
               </li>
               <li>
