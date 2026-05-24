@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { SITE_URL, OG_IMAGE } from '@/lib/config'
-import { blogPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-posts'
+import { getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-posts'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Card } from '@/components/ui/card'
@@ -48,10 +49,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             canonical: url,
         },
     }
-}
-
-export function generateStaticParams() {
-    return blogPosts.map((post) => ({ slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
