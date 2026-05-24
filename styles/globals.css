@@ -122,4 +122,15 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .prose img,
+  .prose video,
+  .prose iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prose table {
+    width: 100%;
+  }
 }

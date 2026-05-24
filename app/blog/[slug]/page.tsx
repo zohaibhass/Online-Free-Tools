@@ -64,26 +64,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="min-h-screen flex flex-col bg-background">
             <Header />
 
-            <main className="flex-1 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="mb-10">
+            <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                <div className="mb-8">
                     <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Blog
                     </Link>
                 </div>
 
-                <article className="bg-card border border-border rounded-3xl p-10 shadow-sm">
-                    <div className="mb-10">
+                <article className="bg-card border border-border rounded-3xl p-6 sm:p-10 shadow-sm overflow-hidden">
+                    <div className="mb-8">
                         <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">{post.category}</p>
-                        <h1 className="text-4xl font-bold tracking-tight mt-2">{post.title}</h1>
-                        <p className="text-lg text-muted-foreground mt-4">{post.description}</p>
+                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mt-2">{post.title}</h1>
+                        <p className="text-base sm:text-lg text-muted-foreground mt-4">{post.description}</p>
                         <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted-foreground">
                             <span>{post.date}</span>
                             <span>{post.readTime}</span>
                         </div>
                     </div>
 
-                    <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />
+                    <div className="prose prose-slate dark:prose-invert max-w-full overflow-x-auto" dangerouslySetInnerHTML={{ __html: post.content }} />
                 </article>
 
                 {post.relatedTools.length > 0 && (
