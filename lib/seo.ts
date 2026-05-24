@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { SITE_URL, OG_IMAGE } from './config'
+import { SITE_URL, OG_IMAGE, SITE_NAME } from './config'
 
 export function generateToolMetadata(tool: {
   name: string
@@ -10,24 +10,27 @@ export function generateToolMetadata(tool: {
   const canonicalUrl = `${SITE_URL}/tools/${tool.slug}`
   
   return {
-    title: `${tool.name} - Free Online Tool`,
+    title: `${tool.name} | ${SITE_NAME}`,
     description: tool.description,
-    keywords: [...tool.keywords, 'free tool', 'online'],
+    keywords: [...tool.keywords, 'free tool', 'online', 'utility'],
     openGraph: {
-      title: `${tool.name} - Free Online Tool`,
+      title: `${tool.name} | ${SITE_NAME}`,
       description: tool.description,
       url: canonicalUrl,
       type: 'website',
+      siteName: SITE_NAME,
       images: [{
         url: OG_IMAGE,
         width: 1200,
         height: 630,
+        alt: `${tool.name} preview image`,
       }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${tool.name} - Free Online Tool`,
+      title: `${tool.name} | ${SITE_NAME}`,
       description: tool.description,
+      images: [OG_IMAGE],
     },
     alternates: {
       canonical: canonicalUrl,

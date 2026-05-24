@@ -725,6 +725,404 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
     ],
     relatedTools: ['diff-checker', 'json-formatter', 'regex-tester'],
   },
+
+  'password-generator': {
+    sections: [
+      {
+        heading: 'What is a secure password?',
+        paragraphs: [
+          'A secure password is a string of characters that is hard for attackers to guess or brute force. It should be long enough to resist automated guessing, include a mix of letters, numbers, and symbols, and avoid common patterns such as "password123" or "qwerty". Strong passwords are essential for protecting accounts, personal data, and sensitive systems from unauthorized access.',
+          'Random passwords are safer than passwords based on dictionary words or predictable substitutions. Reusing the same password across multiple sites also increases risk—if one service is breached, attackers can try that password elsewhere. That is why a password generator that creates unique, complex passwords is so valuable for modern security practices.',
+          'This Password Generator produces passwords instantly without storing them. Use it when you need a quick, strong password for a new account, a password manager entry, or a temporary credential during setup. Strong passwords reduce the chance of account compromise and make your login security much more robust.',
+        ],
+      },
+      {
+        heading: 'When should you use the Password Generator?',
+        paragraphs: [
+          'Create new passwords for online accounts, especially banking, email, social media, and work-related services. Strong passwords are the first line of defense against unauthorized access.',
+          'Generate one-time temporary passwords for shared accounts or guest access that you plan to rotate later. A randomly generated password is easier to manage when you do not need to remember it long-term.',
+          'Use the generator before setting up a password manager entry. Many password managers will remember the generated password, so you only need to store it once in a secure vault instead of memorizing it.',
+          'When recovering accounts or changing credentials after a breach, generate a fresh password and avoid reusing old ones. This helps ensure the compromised credential cannot be used again.',
+        ],
+      },
+      {
+        heading: 'How to use the Password Generator',
+        paragraphs: [
+          'Step 1: Choose the password length and character options. Longer passwords with uppercase, lowercase, numbers, and symbols are stronger. Aim for at least 12 characters for general use and 16 or more for sensitive accounts.',
+          'Step 2: Click generate to create a new password instantly. The tool will produce a random string that avoids predictable patterns and maximizes entropy.',
+          'Step 3: Review the generated password and, if needed, click generate again until you find one you want to use. Each click creates a unique password.',
+          'Step 4: Copy the password and paste it into the account creation or password reset field. Store it in a secure password manager rather than writing it down in plain text.',
+          'Step 5: If you need multiple passwords, generate them one at a time and save each securely. Do not reuse the same generated password across different services.',
+        ],
+      },
+      {
+        heading: 'Best practices',
+        paragraphs: [
+          'Never reuse passwords across sites. If one service is compromised, reused passwords allow attackers to access your other accounts.',
+          'Prefer passphrases or long random strings if your service supports them. A longer password is usually stronger than one with more symbols but shorter length.',
+          'Use a reputable password manager to store generated passwords securely. Password managers help you keep unique credentials for every account without memorization.',
+          'Avoid storing generated passwords in plain text files or notes apps. If you need a temporary note, remove it immediately after storing the password safely.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Hash Generator: Learn how passwords are protected using hash functions and why hashes are used instead of storing raw passwords.',
+          'JWT Decoder: If you are working on authentication systems, JWT Decoder helps inspect token payloads and understand session-based security.',
+          'Base64 Encoder/Decoder: Some authentication systems encode tokens or credentials in Base64 before storage or transmission. Use this tool to validate those values.',
+        ],
+      },
+    ],
+    relatedTools: ['hash-generator', 'jwt-decoder', 'base64-encoder'],
+  },
+
+  'random-name-generator': {
+    sections: [
+      {
+        heading: 'What is a random name generator?',
+        paragraphs: [
+          'A random name generator creates creative and unexpected names for characters, projects, businesses, or teams. Instead of spending time inventing names manually, this tool gives you instant inspiration with combinations that you might not think of on your own.',
+          'This tool helps writers, game designers, and content creators break through naming blocks. It can produce names for fantasy characters, modern personas, product ideas, or playful aliases based on the options you choose.',
+          'Random names are useful in many contexts, from brainstorming fiction characters to naming placeholders in design mockups. A good generator balances variety and readability so the names feel both original and usable.',
+        ],
+      },
+      {
+        heading: 'When should you use the Random Name Generator?',
+        paragraphs: [
+          'When writing fiction or creating a game, use the generator to find names for protagonists, supporting characters, and NPCs. It can help spark ideas when story names feel stale.',
+          'When naming a project, product, or app prototype. A generated name can act as a starting point for branding or internal code names.',
+          'When working on creative exercises, screenplays, or role-playing game campaigns, the generator provides ready-to-use names so you can focus on the story rather than the naming itself.',
+          'When building sample data or demo content, use randomly generated names to make examples feel more natural and less repetitive.',
+        ],
+      },
+      {
+        heading: 'How to use the Random Name Generator',
+        paragraphs: [
+          'Step 1: Choose any available settings, such as theme, name length, or style, if the tool offers them. This helps tailor results to your use case.',
+          'Step 2: Click generate to produce one or more names instantly. The tool will combine options in ways that are unique and easy to read.',
+          'Step 3: Review the generated names and select the ones that fit your project. You can regenerate if you want additional options or a different tone.',
+          'Step 4: Copy the selected name into your document, spreadsheet, or project notes. If you need more names, repeat generation until you have enough good choices.',
+          'Step 5: If you are using names for characters or story elements, consider their personalities and backstories to ensure the name matches the tone and setting.',
+        ],
+      },
+      {
+        heading: 'Tips for getting better names',
+        paragraphs: [
+          'Use the tool as a starting point, then refine the names manually. A generated name can be modified slightly to match your style or brand.',
+          'Try multiple generations if you do not immediately find a fit. The best names often appear after a few rounds of randomization.',
+          'Combine generated words or adjust spelling if you want a more unique result. This is especially useful for fictional worlds or product names.',
+          'Think about context: names for a fantasy story should feel different from names for a modern startup or a children’s game.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Todo List: Pair generated names with tasks in your creative workflow when planning characters, projects, or story arcs.',
+          'Markdown Editor: Use the Markdown Editor to document your characters, settings, or product ideas with properly formatted notes.',
+          'QR Code Generator: Create QR codes for project names, character sheets, or event names to share them quickly with collaborators.',
+        ],
+      },
+    ],
+    relatedTools: ['todo-list', 'markdown-editor', 'qr-code-generator'],
+  },
+
+  'todo-list': {
+    sections: [
+      {
+        heading: 'What is a todo list tool?',
+        paragraphs: [
+          'A todo list tool helps you manage tasks, track priorities, and stay organized. It provides a simple way to capture work items, mark them complete, and keep everything visible in one place. Whether you are planning errands, managing a project, or organizing daily work, a todo list is a core productivity tool.',
+          'This tool is designed for quick task entry without the overhead of complex project management software. It is ideal for short-term planning, checklists, and lightweight task tracking that you can use immediately in your browser.',
+          'Todo lists work best when they are simple and focused. The tool helps you avoid forgetting important items and gives you a satisfying way to mark progress as you complete tasks.',
+        ],
+      },
+      {
+        heading: 'When should you use the Todo List?',
+        paragraphs: [
+          'Use the todo list when planning a day’s work or handling a short-term project. It is perfect for shopping lists, quick work sprints, and event prep.',
+          'Use it to break a larger project into smaller steps. Capturing each action item separately makes the work feel more manageable.',
+          'Use the list when juggling personal and professional tasks at once. Having a single list helps you keep both types of work visible and avoid missing deadlines.',
+          'Use it for recurring routines or checklists, like packing for travel, preparing presentations, or coordinating meeting agendas.',
+        ],
+      },
+      {
+        heading: 'How to use the Todo List',
+        paragraphs: [
+          'Step 1: Enter each task in the input field, one item at a time. Keep tasks short and actionable to make them easier to complete.',
+          'Step 2: Arrange tasks by priority if the tool supports reordering. Put the most important or time-sensitive items at the top.',
+          'Step 3: Mark tasks complete as you finish them. This gives you immediate feedback and helps you track progress.',
+          'Step 4: Remove completed tasks or archive them if you want to keep the list focused on what remains. Clearing finished tasks keeps the list clean and easy to read.',
+          'Step 5: Revisit the list regularly. Update it with new tasks, adjust priorities, and add notes as your plan evolves.',
+        ],
+      },
+      {
+        heading: 'Productivity tips',
+        paragraphs: [
+          'Use short, specific task descriptions like “Email project update” rather than vague entries like “Work on project.” Specific items are easier to complete.',
+          'Group related tasks together. For example, batch all research tasks separately from communication tasks to maintain focus.',
+          'If a task is too large, break it into smaller steps. Smaller tasks are easier to finish and make your progress more visible.',
+          'Keep the list visible while you work. A browser-based todo list is convenient for quick reference during the day.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Timer & Stopwatch: Time work sessions with the timer to stay focused while you complete the tasks on your list.',
+          'Markdown Editor: Keep meeting notes, project plans, and task details formatted neatly in Markdown alongside your todo list.',
+          'Random Name Generator: Use generated names for project codenames, task labels, or creative organization.',
+        ],
+      },
+    ],
+    relatedTools: ['timer-stopwatch', 'markdown-editor', 'random-name-generator'],
+  },
+
+  'timer-stopwatch': {
+    sections: [
+      {
+        heading: 'What is a timer and stopwatch tool?',
+        paragraphs: [
+          'A timer and stopwatch tool lets you count down from a set duration or measure elapsed time. The countdown timer is useful for timed tasks, workouts, cooking, or presentations. The stopwatch is ideal for tracking how long an activity takes, creating time logs, or measuring performance.',
+          'This type of tool is useful for anyone who wants to manage time better without needing a separate app or device. It keeps timing simple and accessible directly in the browser, with start, stop, pause, and reset controls.',
+          'The stopwatch mode helps you record durations accurately; the timer mode helps you work toward a deadline. Both are valuable for productivity, learning, and everyday routines.',
+        ],
+      },
+      {
+        heading: 'When should you use the Timer & Stopwatch?',
+        paragraphs: [
+          'Use the timer for focused work sessions, such as Pomodoro intervals, study blocks, or short sprints. It helps you stay accountable and finish tasks within a fixed time window.',
+          'Use the stopwatch to measure performance, such as how long it takes to complete a task, run a set, or finish an exercise. It is useful for fitness, practice, and time tracking.',
+          'Use the timer in the kitchen or during meetings to keep things on schedule. A browser timer is handy when you need a quick countdown without opening another app.',
+          'Use the stopwatch for experiments or tests where precise duration matters. It is also helpful for measuring reaction times and time-based tasks.',
+        ],
+      },
+      {
+        heading: 'How to use the Timer & Stopwatch',
+        paragraphs: [
+          'Step 1: Choose countdown timer mode or stopwatch mode. Enter the desired time for countdown mode, or simply start the stopwatch to begin timing.',
+          'Step 2: Click start to begin timing. The display will update in real time so you can watch the remaining time or elapsed time.',
+          'Step 3: Use pause and resume controls if you need to stop timing temporarily. This is helpful if your task is interrupted and you want to continue later without losing progress.',
+          'Step 4: Stop and reset when you are finished. Review the final duration and use it to improve your next session or log your results.',
+          'Step 5: If the tool offers alerts, enable sound reminders so you know when the timer ends even if you are not watching the screen closely.',
+        ],
+      },
+      {
+        heading: 'Timing best practices',
+        paragraphs: [
+          'Use consistent intervals for work and breaks. Techniques like Pomodoro use 25-minute work sessions followed by short breaks to stay productive without burning out.',
+          'Track how long recurring tasks take over several sessions. This helps you estimate future work more accurately and manage your schedule better.',
+          'Use the stopwatch for benchmarking. If you want to improve speed or efficiency, measure the same task multiple times and compare results.',
+          'Avoid multitasking while timing a focused session. The timer works best when you concentrate on one task and stop when the interval ends.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Todo List: Combine timed work sessions with your task list to make steady progress and track completion.',
+          'Dice Roller: If you are running games or events with time limits, use the timer alongside game mechanics managed by the dice roller.',
+          'Coin Flipper: Use this with timed decisions or quick choices during games, meetings, or planning sessions.',
+        ],
+      },
+    ],
+    relatedTools: ['todo-list', 'dice-roller', 'coin-flipper'],
+  },
+
+  'dice-roller': {
+    sections: [
+      {
+        heading: 'What is a dice roller tool?',
+        paragraphs: [
+          'A dice roller simulates rolling one or more dice with any number of sides. It is useful for tabletop gaming, probability experiments, decision-making, and role-playing sessions. The tool produces random results instantly, so you can focus on gameplay rather than physical dice.',
+          'Dice rollers are especially handy when you need non-standard dice like d20, d12, d10, or custom dice with more sides. They remove the need to carry multiple dice sets and make digital game sessions easier to manage.',
+          'Random number generation in this tool is designed to behave like real dice rolls, giving each side an equal chance. It is a convenient way to resolve game actions, simulate outcomes, and run quick probability tests.',
+        ],
+      },
+      {
+        heading: 'When should you use the Dice Roller?',
+        paragraphs: [
+          'Use the dice roller during tabletop RPG sessions to resolve attacks, skill checks, saving throws, and other chance-based actions.',
+          'Use it for board games that require dice rolls, especially when you don’t have the right physical dice available.',
+          'Use it for probability experiments, statistics homework, or math practice when you need repeated random rolls for analysis.',
+          'Use it to make quick decisions when you want a fair random result with multiple weighted outcomes.',
+        ],
+      },
+      {
+        heading: 'How to use the Dice Roller',
+        paragraphs: [
+          'Step 1: Choose the number of dice and the number of sides per die. Common choices include 6-sided dice for classic games or 20-sided dice for role-playing games.',
+          'Step 2: Click roll to generate the random outcomes. The tool will display each die result and the total if multiple dice are rolled.',
+          'Step 3: Review the result and apply it to your game, decision, or experiment. If needed, roll again to simulate another round or try a different configuration.',
+          'Step 4: Use the output to compare probabilities or verify game mechanics. For example, rolling multiple dice helps illustrate how averages and extremes behave over repeated rolls.',
+        ],
+      },
+      {
+        heading: 'Gaming and probability tips',
+        paragraphs: [
+          'For role-playing games, choose the correct die type for the action. A d20 is common for checks and attacks, while damage rolls often use d6, d8, or d10.',
+          'If the game uses advantage or disadvantage, roll twice and take the higher or lower result accordingly. This tool can simulate those mechanics quickly.',
+          'Use multiple-roll summaries to understand the overall outcome, especially when rolling several dice at once. Knowing the total and individual results helps with strategy and bookkeeping.',
+          'Remember that each roll is independent. A streak of high or low rolls is normal, so avoid assuming patterns in random outcomes.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Coin Flipper: Use the coin flipper for binary decisions in games or when a simple yes/no outcome is needed.',
+          'Timer & Stopwatch: Keep game rounds and timed activities on track with the timer while you roll dice for actions.',
+          'Random Name Generator: Generate character or NPC names for your tabletop campaigns and role-playing sessions.',
+        ],
+      },
+    ],
+    relatedTools: ['coin-flipper', 'timer-stopwatch', 'random-name-generator'],
+  },
+
+  'coin-flipper': {
+    sections: [
+      {
+        heading: 'What is the Coin Flipper tool?',
+        paragraphs: [
+          'The Coin Flipper tool simulates a fair coin toss for making quick decisions, settling disputes, or testing probability. It generates either Heads or Tails with equal likelihood, just like a real coin flip.',
+          'This tool is useful when you need a neutral, random choice and want to avoid bias. It is perfect for deciding who goes first, choosing between two options, or adding a random element to games and experiments.',
+          'Unlike physical coins, the digital Coin Flipper is always available and consistent. It works anywhere you have a browser, and it removes the possibility of coins being lost or unavailable when you need a quick decision.',
+        ],
+      },
+      {
+        heading: 'When should you use the Coin Flipper?',
+        paragraphs: [
+          'Use it when you want a quick yes/no decision or need to choose between two equally valid options.',
+          'Use it for game mechanics that require a coin toss, such as determining the starting player or resolving binary outcomes.',
+          'Use it for simple probability demonstrations or classroom activities that explore randomness and fairness.',
+          'Use it during meetings or group decisions when a neutral, impartial method is needed to break ties.',
+        ],
+      },
+      {
+        heading: 'How to use the Coin Flipper',
+        paragraphs: [
+          'Step 1: Open the Coin Flipper tool in your browser. You do not need any preparation—just click the flip button.',
+          'Step 2: Click the flip button to simulate the toss. The tool will display either Heads or Tails with animation and instant results.',
+          'Step 3: Use the result to make your decision, assign teams, or progress your game. If you need a new toss, click flip again.',
+          'Step 4: Repeat as often as needed. The tool behaves like repeated fair coin tosses, so each flip is independent and has a 50/50 chance.',
+        ],
+      },
+      {
+        heading: 'Fairness and probability',
+        paragraphs: [
+          'Each flip is independent, which means previous results do not affect future flips. A streak of heads or tails is normal in random sequences.',
+          'The tool is designed to keep outcomes balanced over many flips. If you want to verify fairness, flip the coin repeatedly and observe the distribution over time.',
+          'Use the coin flipper for binary decisions only. If you need more than two options, consider using the Dice Roller instead.',
+          'Avoid using the same result for serious decisions without agreement. This tool is best for low-stakes choices and quick group decisions.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Dice Roller: Use the Dice Roller when you need more than two outcomes or want to simulate structured game mechanics.',
+          'Timer & Stopwatch: Time decision windows or game rounds while using the Coin Flipper for tie-breaking or turn order.',
+          'Todo List: If your team needs a quick way to assign small tasks or choose a responsibility, use the coin flip as the neutral selector.',
+        ],
+      },
+    ],
+    relatedTools: ['dice-roller', 'timer-stopwatch', 'todo-list'],
+  },
+
+  'morse-code-translator': {
+    sections: [
+      {
+        heading: 'What is Morse code?',
+        paragraphs: [
+          'Morse code is a method of encoding text using dots and dashes. Each letter and number is represented by a unique short-and-long signal pattern. Originally developed for telegraph systems in the 19th century, Morse code remains a useful way to send text through simple audio, light, or radio signals.',
+          'This tool converts plain text into Morse code and vice versa. It helps learners, hobbyists, and communication enthusiasts translate messages quickly without needing to memorize the full alphabet.',
+          'Morse code is still used today by amateur radio operators, emergency responders, and anyone who wants an alternate way to communicate when voice or text may not be available.',
+        ],
+      },
+      {
+        heading: 'When should you use the Morse Code Translator?',
+        paragraphs: [
+          'Use it when you want to encode a message into Morse code for learning or demonstration purposes.',
+          'Use it to decode Morse code you receive in audio or text form so you can read the message clearly.',
+          'Use it as an educational aid when practicing telegraphy, amateur radio, or historic communication systems.',
+          'Use it for creative projects, puzzles, or games that involve secret messages and alternative encoding.',
+        ],
+      },
+      {
+        heading: 'How to use the Morse Code Translator',
+        paragraphs: [
+          'Step 1: Enter the text you want to encode, or paste Morse code to decode. The tool accepts letters, numbers, and common punctuation in standard Morse encoding.',
+          'Step 2: Choose encode or decode mode, if available. Enter plain text for encoding or dot-and-dash text for decoding.',
+          'Step 3: Review the translated output. Encoded text will appear as dots and dashes, while decoded Morse code will appear as readable letters and numbers.',
+          'Step 4: Copy the result and use it in your learning materials, messages, or creative projects. If you are decoding, verify the spacing between letters and words for accurate translation.',
+          'Step 5: Practice regularly to build familiarity with common Morse patterns. Short codes like SOS (... --- ...) become much easier to recognize over time.',
+        ],
+      },
+      {
+        heading: 'Learning tips',
+        paragraphs: [
+          'Start with the most common letters and numbers, then gradually learn less frequent symbols. Knowing the Morse code for E, T, A, N, and I gives you a strong foundation.',
+          'Listen to Morse code audio or tap it out yourself for muscle memory. Visual patterns alone are useful, but sound-based practice helps a lot with real-world decoding.',
+          'Use this tool to check your translations and practice both encoding and decoding. Try encoding a short message and then decoding it again to verify accuracy.',
+          'Remember that proper spacing is critical. In Morse code, a short gap separates elements of a letter, a medium gap separates letters, and a longer gap separates words.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Text to HTML: Create formatted guides or cheatsheets for Morse code lessons that you can publish online.',
+          'Random Name Generator: Generate sample text or character names to encode in Morse code for practice.',
+          'QR Code Generator: Share Morse code messages with others through QR codes that link to your encoded content.',
+        ],
+      },
+    ],
+    relatedTools: ['text-to-html', 'random-name-generator', 'qr-code-generator'],
+  },
+
+  'unit-calculator': {
+    sections: [
+      {
+        heading: 'What is the Unit Calculator?',
+        paragraphs: [
+          'The Unit Calculator solves mathematical formulas that include units, such as converting between different measurement systems or calculating values with physical dimensions. It helps you compute results accurately without manually converting units or applying the wrong formula.',
+          'This tool is useful for students, engineers, and anyone working with formulas involving length, mass, volume, temperature, or other measurable quantities. It reduces errors by combining calculation and unit conversion in one step.',
+          'The Unit Calculator is ideal when you need to compute a value that depends on more than one variable, such as converting distance and time into speed, or using area and rate to determine total volume.',
+        ],
+      },
+      {
+        heading: 'When should you use the Unit Calculator?',
+        paragraphs: [
+          'Use it for physics homework and science problems that require unit-based formulas, such as speed, force, density, or energy.',
+          'Use it when you need to convert between units as part of a calculation, such as converting miles per hour into meters per second.',
+          'Use it for recipe scaling, construction measurements, or engineering estimates where units must remain consistent.',
+          'Use it when working across systems, such as converting imperial values into metric units to avoid mistakes in the final result.',
+        ],
+      },
+      {
+        heading: 'How to use the Unit Calculator',
+        paragraphs: [
+          'Step 1: Enter the formula or values with their units into the input field. Be explicit about units to make sure the tool computes correctly.',
+          'Step 2: If available, select the desired output unit or let the tool choose the most appropriate unit automatically.',
+          'Step 3: Run the calculation and review the result. Check that the units and numeric value make sense for your problem.',
+          'Step 4: Use the output in your homework, report, or project. If the result seems unexpected, verify each input and unit before trusting the result.',
+          'Step 5: When doing multiple calculations, keep your inputs consistent and avoid mixing units unless the tool can handle the conversion automatically.',
+        ],
+      },
+      {
+        heading: 'Unit calculation tips',
+        paragraphs: [
+          'Always include units in your input when possible. Units are part of the value and help the tool produce accurate results.',
+          'Check unit compatibility. The tool should only combine values when the units make sense together, such as converting length and time into speed.',
+          'Use standard unit names and symbols. Accept recognizable formats like “m”, “km”, “lb”, and “°C” to avoid misinterpretation.',
+          'If you are unsure, perform a simple conversion first to confirm the tool handles the units correctly before using it in more complex formulas.',
+        ],
+      },
+      {
+        heading: 'Related tools',
+        paragraphs: [
+          'Unit Converter: Convert individual units between different measurement systems before using them in more complex formulas.',
+          'Calculator Tools: Use other calculators like the Loan Calculator or Mortgage Calculator when your project combines financial math with unit-based analysis.',
+          'Percentage Calculator: Use this when you need percentage-based adjustments or ratios within unit-based calculations.',
+        ],
+      },
+    ],
+    relatedTools: ['unit-converter', 'percentage-calculator', 'loan-calculator'],
+  },
 }
 
 export function getToolDetails(tool: Tool): ToolDetails {
