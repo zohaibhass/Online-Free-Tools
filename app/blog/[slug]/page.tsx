@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
         }
     }
 
-    const url = `${SITE_URL}/blog/${params.slug}`
+    const url = `${SITE_URL}/blog/${slug}`
 
     return {
         title: post.title,
