@@ -13,6 +13,72 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://online-free-tools.vercel.app/blog</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/what-is-json</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/what-is-jwt-token</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/base64-encoding-explained</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/md5-vs-sha256</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/regex-guide-beginners</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/image-compression-guide</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/free-developer-tools</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/sql-formatting-best-practices</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/url-encoding-explained</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://online-free-tools.vercel.app/blog/color-formats-hex-rgb-hsl</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://online-free-tools.vercel.app/category/developer</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>

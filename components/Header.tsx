@@ -49,6 +49,9 @@ export function Header() {
             <Link href="/tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               All Tools
             </Link>
+            <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Blog
+            </Link>
             <Link href="/category/developer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Developer
             </Link>
@@ -105,6 +108,9 @@ export function Header() {
                   <nav className="flex flex-col gap-4">
                     <Link href="/tools" className="text-base font-medium text-foreground hover:text-primary">
                       All Tools
+                    </Link>
+                    <Link href="/blog" className="text-base font-medium text-foreground hover:text-primary">
+                      Blog
                     </Link>
                     <Link href="/category/developer" className="text-base font-medium text-foreground hover:text-primary">
                       Developer
