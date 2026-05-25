@@ -33,12 +33,12 @@ A comprehensive, production-ready website featuring 30+ free online tools for de
 **Calculators & Conversions (8)**
 - Unit Converter - Convert measurements
 - Loan Calculator - Calculate loans
-- Mortgage Calculator - Mortgage calculations
-- Percentage Calculator - Percentage math
-- Tip Calculator - Calculate tips
+- Mortgage Calculator - Estimate payments, schedules, and interest
+- Percentage Calculator - Percentage math, ratios, and reverse values
+- Tip Calculator - Calculate tips, split bills, and per-person totals
 - Age Calculator - Calculate age
-- BMI Calculator - Body mass index
-- Discount Calculator - Calculate discounts
+- BMI Calculator - Body mass index with ideal weight range
+- Discount Calculator - Calculate discounts and fixed savings
 
 **Utilities (6)**
 - Password Generator - Generate secure passwords
