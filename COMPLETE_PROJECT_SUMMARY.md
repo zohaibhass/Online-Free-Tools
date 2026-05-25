@@ -41,12 +41,12 @@ All 39 tools have been fully implemented with light/dark theme support and lucid
 ### 4. CALCULATOR TOOLS (8 Total)
 1. **Unit Converter** - Convert length, weight, temperature
 2. **Loan Calculator** - Calculate loan payments and interest
-3. **Percentage Calculator** - Calculate percentages and changes
-4. **Mortgage Calculator** - Calculate mortgage payments
+3. **Percentage Calculator** - Calculate percentages, ratios, and reverse values
+4. **Mortgage Calculator** - Estimate mortgage payments, amortization, and loan details
 5. **Age Calculator** - Calculate age from birth date
-6. **BMI Calculator** - Calculate Body Mass Index
-7. **Discount Calculator** - Calculate discounts and sale prices
-8. **Tip Calculator** - Calculate tips and split bills
+6. **BMI Calculator** - Calculate Body Mass Index and ideal weight range
+7. **Discount Calculator** - Calculate discounts, savings, and final price
+8. **Tip Calculator** - Calculate tips, split bills, and per-person totals
 
 ### 5. UTILITY TOOLS (8 Total)
 1. **Password Generator** - Generate secure random passwords
