@@ -225,7 +225,6 @@ export function ToolLayout({
           </div>
         )}
       </main>
-      <Footer />
     </div>
   )
 }
