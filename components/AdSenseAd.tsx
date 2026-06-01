@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface AdSenseAdProps {
   slot: string
@@ -15,18 +15,29 @@ export function AdSenseAd({
   responsive = true,
   className = '',
 }: AdSenseAdProps) {
+  const [mounted, setMounted] = useState(false)
+
   useEffect(() => {
-    try {
-      if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
-        (window as any).adsbygoogle.push({})
-      }
-    } catch (e) {
-      // AdSense might not be loaded yet
-    }
+    setMounted(true)
   }, [])
 
+  useEffect(() => {
+    if (mounted && typeof window !== 'undefined' && (window as any).adsbygoogle) {
+      try {
+        (window as any).adsbygoogle.push({})
+      } catch (e) {
+        // AdSense might not be loaded yet or already processed
+      }
+    }
+  }, [mounted])
+
+  // Don't render until after hydration to prevent mismatch
+  if (!mounted) {
+    return null
+  }
+
   return (
-    <div className={`${className} flex justify-center`}>
+    <div className={`${className} flex justify-center`} suppressHydrationWarning>
       <ins
         className="adsbygoogle"
         style={{

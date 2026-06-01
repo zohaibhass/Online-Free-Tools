@@ -13,6 +13,7 @@ export default function PrivacyPage() {
       <Header />
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
+        <p className="text-sm text-muted-foreground mb-8 italic">Last Updated: June 2026</p>
 
         <div className="prose prose-invert max-w-none space-y-6 text-foreground">
           <section>
@@ -59,7 +60,7 @@ export default function PrivacyPage() {
               <strong>Google AdSense:</strong> We use Google AdSense to display advertisements on our website. Google may use cookies and web beacons to collect information about your visits to this and other websites to create personalized ads. Google's use of cookies is subject to <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
             </p>
             <p className="text-muted-foreground">
-              <strong>Google Analytics:</strong> We use Google Analytics to track website performance and user behavior. This helps us understand how our tools are used and make improvements. Google Analytics collects anonymized data and is governed by <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+              <strong>Google Analytics:</strong> We use GA4 (Google Analytics 4) to track anonymous usage patterns and website performance. This helps us understand how our tools are used and make improvements. All data collected is anonymized and aggregated. See <a href="https://google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">google.com/privacy</a> for more information.
             </p>
             <p className="text-muted-foreground">
               <strong>Data Sharing:</strong> We do not sell, rent, or share your personal information with third parties for marketing purposes. We only share information as necessary to provide our services and comply with legal obligations.
@@ -111,7 +112,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">8. Children's Privacy</h2>
             <p className="text-muted-foreground">
-              Our website is not intended for children under 13. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal information, we will delete such information promptly. If you believe we have collected information from a child under 13, please contact us immediately.
+              <strong>Children:</strong> We do not collect personal data from users under 13 years of age. Our website is not intended for children under 13. If we become aware that a child under 13 has provided personal information, we will delete it promptly. If you believe we have collected information from a child under 13, please contact us immediately at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.
             </p>
           </section>
 
