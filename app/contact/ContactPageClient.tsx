@@ -117,7 +117,7 @@ export default function ContactPageClient() {
                                 <div className="space-y-4 text-sm text-muted-foreground">
                                     <div>
                                         <p className="font-medium text-foreground">Email</p>
-                                        <p>zohaibdev121@gmail.com</p>
+                                        <p>onlinefreetools@zohomail.com</p>
                                     </div>
                                     <div>
                                         <p className="font-medium text-foreground">Help center</p>

@@ -16,10 +16,15 @@ export default function AboutPage() {
           <section className="bg-card border border-border rounded-3xl p-10 shadow-sm">
             <h1 className="text-4xl font-bold tracking-tight">About Online Free Tools</h1>
             <p className="mt-4 text-lg text-muted-foreground leading-8">
-              Online Free Tools is built to make everyday digital tasks easier, faster, and completely free.
-              From developers to students, designers to curious users, our growing collection of browser-based utilities
-              helps you encode, format, calculate, convert, and troubleshoot without installing software or signing up.
+              Hi, I'm Zohaib, a web developer from Pakistan. I built Online Free Tools to help developers, students, and creators get things done faster without installing software or signing up for accounts. Every tool here is hand-picked and tested to make sure it works reliably.
             </p>
+
+            <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-border">
+              <p className="text-sm text-muted-foreground"><strong>Founder:</strong> Zohaib</p>
+              <p className="text-sm text-muted-foreground"><strong>Location:</strong> Pakistan</p>
+              <p className="text-sm text-muted-foreground"><strong>Year Founded:</strong> 2024</p>
+              <p className="text-sm text-muted-foreground"><strong>Contact:</strong> <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a></p>
+            </div>
           </section>
 
           <section className="grid gap-8 lg:grid-cols-2">

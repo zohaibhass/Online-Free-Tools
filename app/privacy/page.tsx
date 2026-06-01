@@ -16,51 +16,144 @@ export default function PrivacyPage() {
 
         <div className="prose prose-invert max-w-none space-y-6 text-foreground">
           <section>
-            <h2 className="text-2xl font-bold mb-4">1. Information We Collect</h2>
+            <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
             <p className="text-muted-foreground">
-              Most of the tools on Free Online Tools process data directly in your browser. We do not store the content you enter into each tool unless a specific feature explicitly requires it.
+              Welcome to Online Free Tools ("we", "us", "our", or "Site"). We are committed to protecting your privacy and ensuring you have a positive experience on our website. This Privacy Policy explains what information we collect, how we use it, how we protect it, and your rights regarding your data. Please read this policy carefully. By accessing and using Online Free Tools, you acknowledge that you have read and understood this Privacy Policy.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">2. How We Use Information</h2>
+            <h2 className="text-2xl font-bold mb-4">2. Information We Collect</h2>
             <p className="text-muted-foreground">
-              Input and processing happen locally whenever possible. The site may collect anonymous usage information to help improve tool performance and user experience.
+              <strong>Personal Information:</strong> We collect minimal personal information. When you contact us via the contact form, we collect your name, email address, and message. This information is used solely to respond to your inquiry.
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Tool Data Processing:</strong> Most tools process data directly in your browser without storing it on our servers. For example, when you use the JSON Formatter, image compression, or code minifier tools, all processing happens locally on your device. We do not collect or store the content you enter into these tools unless you explicitly save it to your account (if you create one).
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Usage Information:</strong> We automatically collect certain information about how you use the Site, including IP address, browser type, operating system, referring URL, and pages visited. This information helps us understand user behavior and improve our services.
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Cookies and Similar Technologies:</strong> We use cookies and similar tracking technologies to remember your preferences, track site usage, and serve personalized content. You can control cookies through your browser settings. Some tools may not function properly if cookies are disabled.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">3. Cookies</h2>
+            <h2 className="text-2xl font-bold mb-4">3. How We Use Your Information</h2>
             <p className="text-muted-foreground">
-              We use cookies to remember preferences and support site features. You can disable cookies in your browser if you prefer, but some functionality may be reduced.
+              We use the information we collect for the following purposes:
             </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li>To respond to your inquiries and provide customer support</li>
+              <li>To improve and optimize our website and tools</li>
+              <li>To send you updates about new tools or features (only if you opt-in)</li>
+              <li>To analyze website traffic and user engagement</li>
+              <li>To detect and prevent fraud, abuse, and security incidents</li>
+              <li>To comply with legal obligations</li>
+            </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">4. Third-Party Services</h2>
+            <h2 className="text-2xl font-bold mb-4">4. Third-Party Services and Data Sharing</h2>
             <p className="text-muted-foreground">
-              We use Google AdSense for advertising. Google may use cookies and anonymous identifiers to serve relevant ads. We do not share your personal login credentials or private data with AdSense.
+              <strong>Google AdSense:</strong> We use Google AdSense to display advertisements on our website. Google may use cookies and web beacons to collect information about your visits to this and other websites to create personalized ads. Google's use of cookies is subject to <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Google Analytics:</strong> We use Google Analytics to track website performance and user behavior. This helps us understand how our tools are used and make improvements. Google Analytics collects anonymized data and is governed by <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Data Sharing:</strong> We do not sell, rent, or share your personal information with third parties for marketing purposes. We only share information as necessary to provide our services and comply with legal obligations.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-bold mb-4">5. Data Security</h2>
             <p className="text-muted-foreground">
-              We follow standard security practices to protect the website and its infrastructure. However, no internet service is completely risk-free, so please avoid sharing highly sensitive personal data.
+              We implement appropriate technical and organizational security measures to protect your personal information from unauthorized access, alteration, disclosure, and destruction. Our website uses HTTPS encryption to protect data in transit. However, no security measure is 100% secure, and we cannot guarantee absolute security. You are responsible for maintaining the confidentiality of your credentials and for all activities that occur under your account.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">6. Contact Us</h2>
+            <h2 className="text-2xl font-bold mb-4">6. Your Data Rights (GDPR and Privacy Laws)</h2>
             <p className="text-muted-foreground">
-              If you have questions about our privacy practices, contact us at <a href="mailto:zohaibdev121@gmail.com" className="text-primary hover:underline">zohaibdev121@gmail.com</a>.
+              If you are a resident of the European Union or have rights under privacy laws like GDPR, you have the following rights:
+            </p>
+            <ul className="list-disc list-inside text-muted-foreground space-y-2">
+              <li><strong>Right to Access:</strong> You can request a copy of the personal data we hold about you</li>
+              <li><strong>Right to Rectification:</strong> You can request that we correct inaccurate information</li>
+              <li><strong>Right to Erasure:</strong> You can request that we delete your personal data (right to be forgotten)</li>
+              <li><strong>Right to Restrict Processing:</strong> You can request that we limit how we process your data</li>
+              <li><strong>Right to Data Portability:</strong> You can request your data in a portable format</li>
+              <li><strong>Right to Withdraw Consent:</strong> You can withdraw consent for cookies and tracking at any time</li>
+              <li><strong>Right to Lodge a Complaint:</strong> You can file a complaint with your local data protection authority</li>
+            </ul>
+            <p className="text-muted-foreground mt-4">
+              To exercise any of these rights, contact us at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold mb-4">7. Policy Updates</h2>
+            <h2 className="text-2xl font-bold mb-4">7. Cookies and Tracking</h2>
             <p className="text-muted-foreground">
-              We may update this policy periodically. We encourage users to review it regularly for any changes.
+              <strong>Necessary Cookies:</strong> Required for the website to function (authentication, theme preferences, tool state).
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Analytical Cookies:</strong> Used by Google Analytics to understand user behavior.
+            </p>
+            <p className="text-muted-foreground">
+              <strong>Advertising Cookies:</strong> Used by Google AdSense to serve personalized advertisements.
+            </p>
+            <p className="text-muted-foreground">
+              You can manage your cookie preferences in your browser settings or use the cookie consent tools on our website.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">8. Children's Privacy</h2>
+            <p className="text-muted-foreground">
+              Our website is not intended for children under 13. We do not knowingly collect personal information from children under 13. If we become aware that a child under 13 has provided us with personal information, we will delete such information promptly. If you believe we have collected information from a child under 13, please contact us immediately.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">9. Data Retention</h2>
+            <p className="text-muted-foreground">
+              We retain your personal information only for as long as necessary to fulfill the purposes for which it was collected or as required by law. Contact form submissions are retained for one year unless you request deletion. Analytics data is retained by Google according to their retention policies. You can request deletion of your data at any time.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">10. International Data Transfers</h2>
+            <p className="text-muted-foreground">
+              Our website is hosted on servers that may be located outside your country of residence. By using our website, you consent to the transfer of your information to countries outside your country of residence, which may have data protection laws different from your home country. We take appropriate safeguards to ensure your information remains protected.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">11. Links to Third-Party Websites</h2>
+            <p className="text-muted-foreground">
+              Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites. We encourage you to review the privacy policies of any third-party websites before providing your information.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">12. Contact Information</h2>
+            <p className="text-muted-foreground">
+              If you have questions about this Privacy Policy, wish to exercise your data rights, or have privacy concerns, please contact us at:
+            </p>
+            <div className="mt-4 p-4 bg-muted/50 rounded-lg border border-border">
+              <p className="text-sm text-muted-foreground"><strong>Email:</strong> <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a></p>
+              <p className="text-sm text-muted-foreground"><strong>Website:</strong> <a href="https://onlinefreetools.online" className="text-primary hover:underline">https://onlinefreetools.online</a></p>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">13. Policy Updates</h2>
+            <p className="text-muted-foreground">
+              We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of significant changes by posting the updated policy on this page and updating the "Last Updated" date below. Your continued use of the website after such changes indicates your acceptance of the updated Privacy Policy.
+            </p>
+            <p className="text-muted-foreground mt-4 text-sm">
+              <strong>Last Updated:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </section>
         </div>
