@@ -130,12 +130,9 @@ export default function RootLayout({
 
         {/* Google AdSense - Proper Next.js way */}
         {adsenseClientId && (
-          <Script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            crossOrigin="anonymous"
-            strategy="afterInteractive"
-          />
+          <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3491641485391296"
+            crossOrigin="anonymous"></script>
         )}
 
         <Script id="register-service-worker" strategy="afterInteractive">
