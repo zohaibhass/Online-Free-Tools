@@ -5,6 +5,9 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'About - Free Online Tools',
   description: 'Learn more about Free Online Tools and our mission to provide fast, browser-based utilities for developers and creators.',
+  authors: [{ name: 'Zohaib' }],
+  creator: 'Zohaib',
+  publisher: 'Zohaib',
 }
 
 export default function AboutPage() {
@@ -16,11 +19,11 @@ export default function AboutPage() {
           <section className="bg-card border border-border rounded-3xl p-10 shadow-sm">
             <h1 className="text-4xl font-bold tracking-tight">About Online Free Tools</h1>
             <p className="mt-4 text-lg text-muted-foreground leading-8">
-              Hi, I'm Zohaib, a web developer from Pakistan. I built Online Free Tools to help developers, students, and creators get things done faster without installing software or signing up for accounts. Every tool here is hand-picked and tested to make sure it works reliably.
+              Hi, I'm Zohaib, a web developer from Pakistan. I built OnlineFreeTools to help developers, students, and creators get everyday tasks done faster — without installing software or creating accounts. Every tool is hand-picked and tested.
             </p>
 
             <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-border">
-              <p className="text-sm text-muted-foreground"><strong>Founder:</strong> Zohaib</p>
+              <p className="text-sm text-muted-foreground"><strong>Founder:</strong> Zohaib Hassan</p>
               <p className="text-sm text-muted-foreground"><strong>Location:</strong> Pakistan</p>
               <p className="text-sm text-muted-foreground"><strong>Year Founded:</strong> 2024</p>
               <p className="text-sm text-muted-foreground"><strong>Contact:</strong> <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a></p>

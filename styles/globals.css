@@ -133,4 +133,82 @@
   .prose table {
     width: 100%;
   }
+
+  .shimmer-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.92));
+  }
+
+  .shimmer-shell {
+    width: min(100%, 66rem);
+    padding: 1.5rem;
+  }
+
+  .shimmer-card {
+    width: 100%;
+    border-radius: 2rem;
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(15, 23, 42, 0.98);
+    box-shadow: 0 40px 120px rgba(15, 23, 42, 0.55);
+    padding: 2rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .shimmer-line,
+  .shimmer-box {
+    position: relative;
+    overflow: hidden;
+    background: rgba(148, 163, 184, 0.16);
+  }
+
+  .shimmer-line::before,
+  .shimmer-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-120%);
+    background: linear-gradient(90deg, rgba(148, 163, 184, 0), rgba(255, 255, 255, 0.42), rgba(148, 163, 184, 0));
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  .shimmer-title {
+    height: 2rem;
+    width: 42%;
+    border-radius: 9999px;
+  }
+
+  .shimmer-text {
+    height: 1rem;
+    width: 100%;
+    border-radius: 9999px;
+  }
+
+  .shimmer-short {
+    width: 65%;
+  }
+
+  .shimmer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .shimmer-box {
+    min-height: 8rem;
+    border-radius: 1.5rem;
+  }
+
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-120%);
+    }
+    100% {
+      transform: translateX(120%);
+    }
+  }
 }
