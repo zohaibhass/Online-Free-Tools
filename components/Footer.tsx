@@ -81,9 +81,9 @@ export function Footer() {
               Built by Zohaib, a web developer from Pakistan.
             </p>
             <div className="flex gap-2 flex-wrap">
-              <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+              {/* <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                 Twitter
-              </Link>
+              </Link> */}
               <span className="text-muted-foreground">•</span>
               <Link href="https://github.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                 GitHub
@@ -98,7 +98,7 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; {year} Free Online Tools by Zohaib. All rights reserved.</p>
+          <p>&copy; {year} Free Online Tools by Zohaib Hassan. All rights reserved.</p>
           <p className="mt-4 sm:mt-0"><Link href="https://onlinefreetools.online" className="text-primary hover:underline">Online Free Tools</Link> - Created with ❤️ for developers</p>
         </div>
       </div>
