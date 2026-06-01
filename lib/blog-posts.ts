@@ -5,6 +5,7 @@ export interface BlogPost {
   category: string
   date: string
   readTime: string
+  author: string
   content: string
   relatedTools: { name: string; url: string }[]
 }
@@ -17,6 +18,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Developer Guide',
     date: '2026-05-20',
     readTime: '8 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'JSON Formatter', url: '/tools/json-formatter' }],
     content: `
       <h2>What is JSON?</h2>
@@ -121,6 +123,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>JSON is the backbone of modern web development. Understanding its structure, syntax rules, and common pitfalls will make you a more effective developer. Whether you are building APIs, consuming third-party services, or storing configuration data, JSON is a skill you will use every day. Remember the key rules: objects use curly braces, arrays use square brackets, keys must be quoted, commas separate items, and strings must use double quotes. With these fundamentals mastered, you can work confidently with JSON in any project.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 20, 2026</p>
+      </div>
     `
   },
 
@@ -131,6 +141,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Developer Guide',
     date: '2026-05-19',
     readTime: '10 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'JWT Decoder', url: '/tools/jwt-decoder' }],
     content: `
       <h2>What is JWT?</h2>
@@ -201,6 +212,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>JWT tokens are a modern, scalable approach to authentication that fits perfectly with distributed systems, microservices, and mobile applications. By encoding user information and signing it cryptographically, JWTs allow servers to verify user identity without session storage. While they require careful attention to security (using HTTPS, protecting secret keys, setting expiration times), they offer significant advantages in performance and scalability. Understanding how JWTs work is essential for any modern web developer.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 19, 2026</p>
+      </div>
     `
   },
 
@@ -211,6 +230,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Developer Guide',
     date: '2026-05-18',
     readTime: '9 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Base64 Encoder/Decoder', url: '/tools/base64-encoder' }],
     content: `
       <h2>What is Base64 Encoding?</h2>
@@ -284,6 +304,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>Base64 is a fundamental encoding scheme used throughout web development for transmitting binary data safely through text-only systems. Whether you are working with APIs, emails, or storing images as data URLs, Base64 is a tool you will encounter regularly. Remember that Base64 is not encryption—it is purely a format conversion—so never use it to protect sensitive information. For security, use proper cryptographic encryption methods instead.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 18, 2026</p>
+      </div>
     `
   },
 
@@ -294,6 +322,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Security',
     date: '2026-05-17',
     readTime: '10 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Hash Generator', url: '/tools/hash-generator' }],
     content: `
       <h2>What is Hashing?</h2>
@@ -382,6 +411,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>MD5 and SHA1 are broken and deprecated. SHA256 is the modern standard for cryptographic hashing and should be your default choice. For password storage, go beyond simple hashing and use dedicated password hashing algorithms like bcrypt or Argon2. Understanding these differences is crucial for building secure applications and verifying data integrity in your projects.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 17, 2026</p>
+      </div>
     `
   },
 
@@ -392,6 +429,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Developer Guide',
     date: '2026-05-16',
     readTime: '11 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Regex Tester', url: '/tools/regex-tester' }],
     content: `
       <h2>What is Regular Expression (Regex)?</h2>
@@ -483,6 +521,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>Regular expressions are powerful tools that every developer should master. They enable you to validate input, extract data, search efficiently, and manipulate text at scale. Start with basic patterns (literal characters, dots, asterisks), test your patterns with the Regex Tester tool, and gradually work up to complex validations like email addresses and strong passwords. With regex in your toolkit, you will solve text processing problems in seconds that would otherwise take hours.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 16, 2026</p>
+      </div>
     `
   },
 
@@ -493,6 +539,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Productivity',
     date: '2026-05-15',
     readTime: '9 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Image Compressor', url: '/tools/image-compressor' }],
     content: `
       <h2>Why Image Compression Matters</h2>
@@ -569,6 +616,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>Image compression is one of the most impactful optimizations for web performance. By understanding lossy vs lossless compression, choosing the right format (JPEG for photos, PNG for graphics, WebP for modern browsers), and applying smart compression settings (75-85% quality for JPEG), you can reduce file sizes by 80-95% while maintaining visual quality. This speeds up your website, improves SEO rankings, reduces bandwidth costs, and provides a better user experience. Every developer should have image compression in their optimization toolkit.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 15, 2026</p>
+      </div>
     `
   },
 
@@ -578,6 +633,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Productivity',
     date: '2026-05-14',
     readTime: '8 min read',
+    author: 'Zohaib',
     relatedTools: [
       { name: 'JSON Formatter', url: '/tools/json-formatter' },
       { name: 'JWT Decoder', url: '/tools/jwt-decoder' },
@@ -634,6 +690,14 @@ export const blogPosts: BlogPost[] = [
 
       <h2>Conclusion</h2>
       <p>Bookmark these 10 tools and watch your development workflow become faster and more efficient. Whether you are debugging APIs, optimizing code, validating data, or testing patterns, having reliable online tools instantly available is invaluable. These are the tools that professional developers use every day to accelerate their work and eliminate friction from repetitive tasks.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 14, 2026</p>
+      </div>
     `
   },
 
@@ -644,6 +708,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Developer Guide',
     date: '2026-05-13',
     readTime: '10 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'SQL Formatter', url: '/tools/sql-formatter' }],
     content: `
       <h2>Why SQL Formatting Matters</h2>
@@ -758,6 +823,14 @@ ORDER BY total_value DESC;</code></pre>
 
       <h2>Conclusion</h2>
       <p>Well-formatted SQL is easier to write, easier to read, easier to debug, and easier to maintain. Invest time in learning SQL formatting best practices now, and your development workflow will be faster and your code more reliable. Use the SQL Formatter tool to clean up messy queries, establish team standards, and watch code review become more productive as everyone reads cleaner, more consistent SQL.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 13, 2026</p>
+      </div>
     `
   },
 
@@ -768,6 +841,7 @@ ORDER BY total_value DESC;</code></pre>
     category: 'Developer Guide',
     date: '2026-05-12',
     readTime: '9 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'URL Encoder', url: '/tools/url-encoder' }],
     content: `
       <h2>What is URL Encoding?</h2>
@@ -892,6 +966,14 @@ message=Hello%20World%21%20This%20is%20a%20test%3F</code></pre>
 
       <h2>Conclusion</h2>
       <p>URL encoding is fundamental to web development. Special characters cannot be used directly in URLs because they have reserved meanings or are unsafe for transmission. By understanding the percent-encoding standard and using URL encoding tools, you avoid bugs in API calls, OAuth integrations, form submissions, and dynamic URL generation. Remember: when in doubt, encode it.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 12, 2026</p>
+      </div>
     `
   },
 
@@ -902,6 +984,7 @@ message=Hello%20World%21%20This%20is%20a%20test%3F</code></pre>
     category: 'Developer Guide',
     date: '2026-05-11',
     readTime: '9 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Color Converter', url: '/tools/color-converter' }],
     content: `
       <h2>The Three Main CSS Color Formats</h2>
@@ -1029,6 +1112,14 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
       <h2>Conclusion</h2>
       <p>HEX, RGB, and HSL each serve different purposes. HEX is great for design-to-code communication, RGB is essential when transparency is needed, and HSL is powerful for programmatic color generation. By understanding all three formats and the strengths of each, you will write more maintainable CSS, collaborate better with designers, and create flexible color systems. Use the Color Converter tool whenever you need to switch between formats, and remember that HSL makes it easy to create color variations and themes automatically.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 11, 2026</p>
+      </div>
     `
   },
   {
@@ -1038,6 +1129,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
     category: 'Security',
     date: '2026-05-15',
     readTime: '8 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Password Generator', url: '/tools/password-generator' }, { name: 'Hash Generator', url: '/tools/hash-generator' }],
     content: `
       <h2>Why Password Storage Matters</h2>
@@ -1064,6 +1156,14 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
       </ul>
       <h2>Conclusion</h2>
       <p>Storing passwords securely is one of the most important tasks for any web application. Hash every password, use a unique salt, choose a strong algorithm, and never store plaintext passwords. These steps protect your users and reduce the risk of a full account compromise.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 15, 2026</p>
+      </div>
     `
   },
   {
@@ -1105,6 +1205,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
     category: 'Developer Guide',
     date: '2026-05-13',
     readTime: '8 min read',
+    author: 'Zohaib',
     relatedTools: [{ name: 'Regex Tester', url: '/tools/regex-tester' }],
     content: `
       <h2>Regex Testing Starts with Good Sample Data</h2>
@@ -1119,6 +1220,14 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
       <p>Characters like ., *, +, ?, and [] have special meanings. Escape them with backslashes when you want to match them literally.</p>
       <h2>Conclusion</h2>
       <p>Regex testing is an iterative process. Use real sample data, test one feature at a time, and make use of the regex tester tool to validate your patterns quickly. Better regex testing saves time and avoids bugs in parsing, validation, and search logic.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 13, 2026</p>
+      </div>
     `
   },
 ]

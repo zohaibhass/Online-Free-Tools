@@ -75,27 +75,31 @@ export function Footer() {
           </div>
 
           {/* Follow */}
-          {/* <div>
-            <h3 className="font-semibold mb-4">Follow</h3>
+          <div>
+            <h3 className="font-semibold mb-4">Creator</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              Stay updated with new tools and features.
+              Built by Zohaib, a web developer from Pakistan.
             </p>
-            <div className="flex gap-2">
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <div className="flex gap-2 flex-wrap">
+              <Link href="https://twitter.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                 Twitter
               </Link>
               <span className="text-muted-foreground">•</span>
-              <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="https://github.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                 GitHub
               </Link>
+              <span className="text-muted-foreground">•</span>
+              <Link href="/sitemap.xml" className="text-muted-foreground hover:text-foreground transition-colors">
+                Sitemap
+              </Link>
             </div>
-          </div> */}
+          </div>
         </div>
 
         {/* Bottom */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; {year} Free Online Tools. All rights reserved.</p>
-          <p className="mt-4 sm:mt-0"></p>
+          <p>&copy; {year} Free Online Tools by Zohaib. All rights reserved.</p>
+          <p className="mt-4 sm:mt-0"><Link href="https://onlinefreetools.online" className="text-primary hover:underline">Online Free Tools</Link> - Created with ❤️ for developers</p>
         </div>
       </div>
     </footer>

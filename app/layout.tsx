@@ -10,7 +10,7 @@ import Script from 'next/script';
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5508801810212450'
 
 export const metadata: Metadata = {
   title: {
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   description: 'Access 30+ free online tools for developers, content creators, and productivity. JSON formatter, image compression, code generators, calculators, and more.',
   keywords: ['free tools', 'online tools', 'developer tools', 'productivity', 'converters', 'generators'],
-  authors: [{ name: 'Tools Team' }],
-  creator: 'Tools Team',
-  publisher: 'Tools',
+  authors: [{ name: 'Zohaib' }],
+  creator: 'Zohaib',
+  publisher: 'Zohaib',
   robots: {
     index: true,
     follow: true,
@@ -121,6 +121,25 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="manifest" href="/site.webmanifest" />
 
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || 'G-BKCT5KC2W4'}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || 'G-BKCT5KC2W4'}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <meta
             name="google-site-verification"
@@ -131,7 +150,7 @@ export default function RootLayout({
         {/* Google AdSense - Proper Next.js way */}
         {adsenseClientId && (
           <script async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3491641485391296"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
             crossOrigin="anonymous"></script>
         )}
 

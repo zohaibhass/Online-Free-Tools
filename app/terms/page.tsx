@@ -67,7 +67,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">8. Contact Information</h2>
             <p className="text-muted-foreground">
-              For questions about these terms, contact us at <a href="mailto:zohaibdev121@gmail.com" className="text-primary hover:underline">zohaibdev121@gmail.com</a>.
+              For questions about these terms, contact us at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.
             </p>
           </section>
         </div>

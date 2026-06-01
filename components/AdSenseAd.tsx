@@ -35,7 +35,7 @@ export function AdSenseAd({
         }}
         data-ad-layout={format}
         data-ad-format={format}
-        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-xxxxxxxxxxxxxxxx'}
+        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5508801810212450'}
         data-ad-slot={slot}
         data-ad-responsive={responsive ? 'true' : 'false'}
       />

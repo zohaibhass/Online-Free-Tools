@@ -75,6 +75,10 @@ export default function BlogPageClient({ blogPosts, categories }: BlogPageClient
                             <div className="flex-1">
                                 <h2 className="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">{post.title}</h2>
                                 <p className="text-sm text-muted-foreground leading-relaxed">{post.description}</p>
+                                <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                                    <span>By {post.author}</span>
+                                    <span>{post.date}</span>
+                                </div>
                             </div>
 
                             <div className="mt-6 flex items-center justify-between gap-4">
