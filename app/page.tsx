@@ -4,10 +4,10 @@ import HomePageClient from './HomePageClient'
 
 export const metadata: Metadata = {
   title: 'Free Online Tools for Developers, Students & Creators',
-  description: 'Access 30+ free online tools for formatting, converting, calculating, and generating content directly in your browser — no signup required.',
+  description: 'Free browser tools for developers & creators — format JSON, compress images, decode JWTs and more. No signup, instant results.',
   openGraph: {
     title: 'Free Online Tools for Developers, Students & Creators',
-    description: 'Access 30+ free online tools for formatting, converting, calculating, and generating content directly in your browser — no signup required.',
+    description: 'Free browser tools for developers & creators — format JSON, compress images, decode JWTs and more. No signup, instant results.',
     url: SITE_URL,
     type: 'website',
     images: [{
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Free Online Tools',
-    description: 'Access 30+ free online tools for formatting, converting, calculating, and generating content.',
+    description: 'Free browser tools for developers & creators — format JSON, compress images, decode JWTs and more. No signup, instant results.',
     images: [OG_IMAGE],
   },
   alternates: {
