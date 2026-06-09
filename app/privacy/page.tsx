@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Free Online Tools',
-  description: 'Privacy policy for Free Online Tools',
+  description: 'Privacy policy for Free Online Tools. Learn how we collect, use, and protect your data, including cookies and GDPR compliance.',
 }
 
 export default function PrivacyPage() {
@@ -105,7 +105,7 @@ export default function PrivacyPage() {
               <strong>Advertising Cookies:</strong> Used by Google AdSense to serve personalized advertisements.
             </p>
             <p className="text-muted-foreground">
-              You can manage your cookie preferences in your browser settings or use the cookie consent tools on our website.
+              You can manage your cookie preferences using our cookie consent banner (displayed on your first visit), or through your browser settings at any time. Your choice is remembered via local storage.
             </p>
           </section>
 

@@ -1,0 +1,27 @@
+{
+    "env": {
+        "ANTHROPIC_AUTH_TOKEN": "ollama",
+        "ANTHROPIC_BASE_URL": "http://localhost:11434",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "qwen2.5-coder:7b",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "qwen2.5-coder:7b",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "qwen2.5-coder:7b",
+        "CLAUDE_CODE_SUBAGENT_MODEL": "qwen2.5-coder:7b",
+        "FALLBACK_OPUS_MODEL": "qwen2.5-coder:7b",
+        "FALLBACK_SONNET_MODEL": "qwen2.5-coder:7b",
+        "FALLBACK_HAIKU_MODEL": "qwen2.5-coder:7b"
+    },
+    "permissions": {
+        "allow": [
+            "Bash",
+            "Read",
+            "Edit",
+            "Write",
+            "Glob",
+            "Grep",
+            "WebFetch",
+            "WebSearch",
+            "Task",
+            "PowerShell"
+        ]
+    }
+}

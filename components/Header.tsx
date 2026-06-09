@@ -67,6 +67,9 @@ export function Header() {
             <Link href="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               FAQ
             </Link>
+            <Link href="/disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Disclaimer
+            </Link>
             <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </Link>
@@ -126,6 +129,9 @@ export function Header() {
                     </Link>
                     <Link href="/faq" className="text-base font-medium text-foreground hover:text-primary">
                       FAQ
+                    </Link>
+                    <Link href="/disclaimer" className="text-base font-medium text-foreground hover:text-primary">
+                      Disclaimer
                     </Link>
                     <Link href="/contact" className="text-base font-medium text-foreground hover:text-primary">
                       Contact

@@ -121,5 +121,20 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Improve text rendering and prevent CLS from fonts */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure images don't cause layout shift */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Smooth scrolling for better UX */
+  html {
+    scroll-behavior: smooth;
   }
 }

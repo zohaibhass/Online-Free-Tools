@@ -2,13 +2,21 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SITE_URL, OG_IMAGE, SITE_NAME } from '@/lib/config'
+import { CookieConsent } from '@/components/CookieConsent'
+import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME, AUTHOR_EMAIL } from '@/lib/config'
 import './globals.css'
-// First, add this import at the top of the file
-import Script from 'next/script';
+import Script from 'next/script'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const _geist = Geist({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
+const _geistMono = Geist_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+});
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-3491641485391296'
 
@@ -19,9 +27,9 @@ export const metadata: Metadata = {
   },
   description: 'Access 30+ free online tools for developers, content creators, and productivity. JSON formatter, image compression, code generators, calculators, and more.',
   keywords: ['free tools', 'online tools', 'developer tools', 'productivity', 'converters', 'generators'],
-  authors: [{ name: 'Zohaib' }],
-  creator: 'Zohaib',
-  publisher: 'Zohaib',
+  authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
+  creator: AUTHOR_NAME,
+  publisher: AUTHOR_NAME,
   robots: {
     index: true,
     follow: true,
@@ -96,6 +104,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-background" suppressHydrationWarning>
       <head>
+        {/* Content-Security-Policy meta tag (fallback for environments without header support) */}
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google-analytics.com https://*.google.com https://*.googleapis.com; font-src 'self' data:; frame-src 'self' https://googleads.g.doubleclick.net https://*.google.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.vercel-insights.com; manifest-src 'self';"
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -106,10 +120,38 @@ export default function RootLayout({
               description: 'Access 30+ free online tools for developers and content creators',
               url: SITE_URL,
               applicationCategory: 'UtilityApplication',
+              operatingSystem: 'All',
+              browserRequirements: 'Modern browser with JavaScript enabled',
               offers: {
                 '@type': 'Offer',
                 price: '0',
                 priceCurrency: 'USD'
+              },
+              author: {
+                '@type': 'Person',
+                name: AUTHOR_NAME,
+                url: SITE_URL
+              }
+            })
+          }}
+        />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: SITE_URL,
+              description: 'Access 30+ free online tools for developers and content creators',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${SITE_URL}/tools?search={search_term_string}`
+                },
+                'query-input': 'required name=search_term_string'
               }
             })
           }}
@@ -120,6 +162,23 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <link rel="manifest" href="/site.webmanifest" />
+
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(function () {
+            try {
+              var theme = window.localStorage.getItem('theme')
+              if (theme === 'light' || theme === 'dark') {
+                document.documentElement.classList.toggle('dark', theme === 'dark')
+              } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark')
+              } else {
+                document.documentElement.classList.remove('dark')
+              }
+            } catch (e) {
+              console.warn('Theme init failed', e)
+            }
+          })()`}
+        </Script>
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || 'G-BKCT5KC2W4'}`}
@@ -168,6 +227,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
+          <CookieConsent />
         </ThemeProvider>
       </body>
     </html>
