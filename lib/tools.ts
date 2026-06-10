@@ -1123,6 +1123,538 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
     ],
     relatedTools: ['unit-converter', 'percentage-calculator', 'loan-calculator'],
   },
+  'color-converter': {
+    sections: [
+      {
+        heading: 'Understanding color space conversions',
+        paragraphs: [
+          'Converting between hex, RGB, HSL, and named color formats is common in front-end development, but each color space has different characteristics. Hex and RGB are device-dependent and describe color as additive light mixes, while HSL (hue-saturation-lightness) maps more closely to how humans perceive color. When you convert between them, rounding differences can shift the value by 1 in any channel, which matters for brand-color precision.',
+          'Modern CSS also supports OKLCH and Display P3, which offer wider gamuts than sRGB. If your project targets wide-gamut displays, consider keeping colors in OKLCH or P3 rather than converting to hex and losing information. Our converter preserves the full float precision during intermediate calculations so round-trip conversions stay lossless.',
+        ],
+        tips: [
+          'Use HSL when building programmatic color schemes (complementary, triadic) because hue rotations behave predictably, unlike hex-channel manipulation.',
+          'When matching a brand color, verify the result in both hex and RGB — a 1-digit shift in hex (like #1a1a1a vs #1a1a1b) is imperceptible but can fail a visual regression test.',
+        ],
+      },
+      {
+        heading: 'Practical color workflow for developers',
+        paragraphs: [
+          'Color conversion is essential when translating design tokens from Figma (which often exports OKLCH or P3) into CSS custom properties. Rather than eyeballing the difference, use this tool to confirm the sRGB equivalent stays within acceptable Delta E. You can also convert Tailwind or Material Design palette values between formats when migrating a design system.',
+          'Dark-theme development frequently requires inverting or adjusting lightness while preserving hue and saturation. HSL conversion makes this trivial: keep H and S constant, tweak L. For example, a surface color at L=95% for light mode becomes L=10% for dark mode using the same H and S values.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Why does #0000ff convert to hsl(240, 100%, 50%) but rgb(0, 0, 255) shows the same?', answer: 'They are mathematically identical. Hex #0000ff and rgb(0, 0, 255) both represent pure blue. HSL represents the same point in color space using different coordinates: hue 240° (blue on the color wheel), 100% saturation, 50% lightness.' },
+      { question: 'Can I lose color accuracy converting between formats?', answer: 'Hex uses 8-bit per channel (256 values), while HSL uses float percentages. Rounding during conversion can shift a channel by ±1. For brand-critical colors, keep the original format and convert only for delivery — our tool uses double-precision math to minimize error.' },
+      { question: 'What is the CSS color() function and should I use it?', answer: 'The CSS color() function (e.g., color(display-p3 0.5 0.3 0.8)) lets you specify colors in any supported color space. It is useful for wide-gamut displays but has limited browser support. Convert to fallback hex or RGB for broader compatibility.' },
+    ],
+    relatedTools: ['json-formatter', 'image-compressor'],
+  },
+  'code-minifier': {
+    sections: [
+      {
+        heading: 'Minification strategies beyond whitespace removal',
+        paragraphs: [
+          'JavaScript minification goes far beyond stripping comments and whitespace. Advanced minifiers rename local variables to single letters, eliminate dead code branches, inline constant expressions, and even rewrite if-else chains into ternary operators. Our tool applies these transformations safely, preserving semantics while reducing the AST footprint. For production builds, pair minification with tree-shaking so unused exports are removed before the minifier runs.',
+          'HTML minification is trickier because it must respect conditional comments, inline SVG, and script template literals. Our minifier handles these edge cases by parsing the DOM structure rather than using naive regex. CSS minification similarly merges identical selectors, removes unused @keyframes, and compresses color values to their shortest hex form (e.g., #ff8800 → #f80).',
+        ],
+        tips: [
+          'Always serve minified assets with a Content-Encoding header (gzip or brotli) for maximum savings — minification plus compression beats either alone.',
+          'Keep source maps in a separate .map file (not inlined) so the browser can still show debuggable code in DevTools without bloating the production payload.',
+        ],
+      },
+      {
+        heading: 'When NOT to minify',
+        paragraphs: [
+          'Avoid minifying code that will be consumed by other tools or libraries — for instance, Web Workers, service workers, or dynamic import() paths often depend on readable function names. Similarly, polyfill bundles that need to remain self-documented should stay unminified during development. Our tool lets you toggle specific transformations so you can keep names readable while still removing whitespace.',
+          'Server-side rendering (SSR) frameworks like Next.js and Nuxt handle minification at build time. Minifying their output again can double-process templates and cause hydration mismatches. Let the framework handle it and use this tool for standalone scripts, bookmarklets, or inline <script> blocks.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Does minification always break stack traces?', answer: 'Yes, if you do not publish source maps. Without source maps, errors point to the minified file (e.g., main.js:1:2345). Generate a .map file and upload it to your error tracking service (Sentry, Datadog) to restore readable stack traces.' },
+      { question: 'Can I minify and obfuscate at the same time?', answer: 'Minification and obfuscation are separate goals. Minification reduces size; obfuscation intentionally makes code hard to reverse-engineer. Our tool focuses on safe size reduction. For obfuscation, use a dedicated tool that renames strings, inserts junk code, and applies control-flow flattening.' },
+      { question: 'What is the difference between UglifyJS, Terser, and esbuild minification?', answer: 'Terser (fork of UglifyJS) supports ES6+ syntax and is the standard for Webpack 5. esbuild minifies 10-100x faster but applies fewer optimizations. Our tool uses Terser-style transformations for maximum compression while being compatible with modern JavaScript.' },
+    ],
+    relatedTools: ['json-formatter', 'diff-checker', 'regex-tester'],
+  },
+  'diff-checker': {
+    sections: [
+      {
+        heading: 'How diff algorithms compare text',
+        paragraphs: [
+          'Our diff checker implements the Myers diff algorithm (used by Git) with a patience-mode fallback for structured text. The Myers algorithm finds the shortest edit script between two sequences in O(ND) time, where N is total text length and D is the number of differences. For most file comparisons, this completes in milliseconds. For large files (10,000+ lines), patience mode reduces spurious matches on repeated lines like import statements or closing braces.',
+          'The tool also highlights intra-line changes (word-level or character-level diff) so you can spot spelling fixes or variable renames within a modified line. This is powered by a secondary diff pass on each changed line segment, splitting on whitespace and punctuation boundaries.',
+        ],
+        tips: [
+          'Use unified diff format when sharing changes with teammates — it includes 3 lines of context around each change, making reviews faster.',
+          'For configuration files (YAML, JSON), sort keys before diffing to avoid false positives from key reordering.',
+        ],
+      },
+      {
+        heading: 'Real-world diffing workflows',
+        paragraphs: [
+          'Before refactoring, diff the original and refactored versions to confirm the only changes are structural (renames, extracted functions) — the behavioral output should be identical. This is especially useful when modernizing legacy jQuery code to vanilla JS or React hooks.',
+          'When reviewing pull requests, paste the raw diff into this tool and toggle unified/split view to catch non-obvious changes like whitespace-only modifications or accidental semicolon insertion that could introduce ASI bugs. The character-level diff helps spot differences in long hex strings or UUIDs that are easy to miss.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is the difference between unified and split view?', answer: 'Unified view shows both versions interleaved with +/- markers (compact, good for small diffs). Split view shows old and new side-by-side (better for wide files or visual comparison). Our tool supports both.' },
+      { question: 'Can I compare two JSON files structurally?', answer: 'For structural JSON comparison (ignoring key order), use the JSON Formatter tool first to normalize both files, then diff the normalized output. This avoids false positives from key reordering.' },
+      { question: 'Why does the tool say everything is different when files seem identical?', answer: 'Check for trailing whitespace, different line endings (CRLF vs LF), or encoding differences (UTF-8 with/without BOM). Our tool highlights whitespace changes when you enable the "Show whitespace" toggle.' },
+    ],
+    relatedTools: ['json-formatter', 'xml-formatter', 'code-minifier'],
+  },
+  'xml-formatter': {
+    sections: [
+      {
+        heading: 'XML formatting and validity',
+        paragraphs: [
+          'XML is stricter than HTML: every opening tag must have a corresponding closing tag, attribute values must be quoted, and the document must have exactly one root element. Our formatter parses the XML into a DOM tree and serializes it with configurable indentation (2 or 4 spaces), which also catches structural errors. If the input is malformed, the tool reports the exact line and column of the parsing failure, saving you from hunting through thousands of lines.',
+          'Beyond formatting, the tool preserves CDATA sections, processing instructions, and namespace declarations. Namespace prefixes (xmlns) are especially tricky — our formatter maintains the correct namespace context even when elements are deeply nested or when default namespaces change mid-document.',
+        ],
+        tips: [
+          'Use the minify toggle to strip whitespace-only text nodes before shipping XML over the wire — this reduces payload size without affecting the logical structure.',
+          'When editing XSLT or SVG files, format first to verify the nesting is correct; a misplaced closing tag in SVG can cause the entire graphic to fail to render.',
+        ],
+      },
+      {
+        heading: 'XML vs JSON: when to use each',
+        paragraphs: [
+          'XML supports attributes, namespaces, schemas (XSD), and mixed content (text + elements in any order), making it more expressive than JSON for complex documents. Use XML when you need document validation, namespaced vocabularies (like SOAP, RSS, or SVG), or when interop with legacy enterprise systems is required. JSON is better for most API payloads because it is lighter and natively parsed by JavaScript.',
+          'Our XML formatter helps when you receive minified XML from a legacy API — format it immediately to inspect the structure, then use XPath or XSLT to extract the data you need. The tool also compresses formatted XML back to a compact single line for efficient storage.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Will my XML look different after formatting?', answer: 'Formatting only changes whitespace — it adds newlines and indentation between elements. Attribute order, namespace declarations, and CDATA sections are preserved exactly as written.' },
+      { question: 'Does this tool validate against an XSD schema?', answer: 'No, the formatter checks well-formedness (correct nesting, matching tags, quoted attributes) but does not validate against a schema. Use a dedicated XML validator with XSD support for schema-level validation.' },
+      { question: 'Can it handle very large XML files?', answer: 'Our tool processes files up to ~5 MB in the browser. For larger enterprise XML files (10+ MB), consider streaming XML parsers like SAX or StAX rather than loading the full DOM into memory.' },
+    ],
+    relatedTools: ['json-formatter', 'sql-formatter', 'diff-checker'],
+  },
+  'uuid-generator': {
+    sections: [
+      {
+        heading: 'UUID versions and when to use them',
+        paragraphs: [
+          'UUID v4 is the most common — it generates 122 random bits (6 bits are reserved for the version/variant), giving about 5.3 x 10^36 possible values. Collision probability is negligible for typical use (the birthday paradox says you need ~2.7 x 10^18 IDs for a 50% collision chance). UUID v7 (time-ordered) is newer and sortable by creation time, making it better for database indexes because it avoids B-tree fragmentation. Our tool supports v4 (random), v1 (time-based with MAC), and v7 (time-ordered).',
+          'For database primary keys, UUIDv7 is increasingly preferred over auto-increment integers because it prevents enumeration attacks and works across distributed systems without coordination. PostgreSQL extensions like pg_uuidv7 implement this natively. Our v7 generator uses the current timestamp in milliseconds plus random node bits, producing keys that sort chronologically.',
+        ],
+        tips: [
+          'Use crypto.getRandomValues() in browser environments instead of Math.random() for UUID generation — Math.random() is not cryptographically secure and can produce predictable IDs.',
+          'When using UUIDs as database primary keys, always use UUIDv7 (time-ordered) to avoid index fragmentation. UUIDv4 random distribution causes page splits in B-tree indexes.',
+        ],
+      },
+      {
+        heading: 'UUID validation and normalization',
+        paragraphs: [
+          'UUIDs come in different casing (upper/lower) and with or without hyphens. Our generator provides options for uppercase, lowercase, and compact (no hyphens) formats. UUIDs are case-insensitive per RFC 4122, but some systems (like file systems on Linux) treat them as case-sensitive. Standardize on lowercase with hyphens for maximum compatibility.',
+          'The validator component checks the RFC 4122 format: 8-4-4-4-12 hex digits (32 chars total, 36 with hyphens). It also verifies the version nibble (the 13th character: 1-8) and variant bits (the 17th character must be 8, 9, a, or b). This catches copy-paste errors and truncated IDs.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'How many UUIDs can I generate before a collision?', answer: 'For UUID v4, the probability of collision reaches 50% after generating about 2.7 quintillion UUIDs (2.7 x 10^18). For practical purposes, collisions are not a concern unless you are generating billions per second across many machines.' },
+      { question: 'Should I use UUIDs or auto-increment IDs?', answer: 'Use UUIDs when you need globally unique IDs across distributed systems, databases, or offline clients. Use auto-increment IDs for simple single-server applications where sequential ordering and smaller index size matter.' },
+      { question: 'Why are UUIDs so long?', answer: 'A UUID is 128 bits (16 bytes) of data, typically encoded as 36 characters. The length ensures global uniqueness without a central authority. For shorter unique IDs, consider NanoID (21 chars, 128 bits of entropy) or Snowflake-style IDs (64-bit, time-sorted).' },
+    ],
+    relatedTools: ['hash-generator', 'password-generator', 'random-name-generator'],
+  },
+  'word-counter': {
+    sections: [
+      {
+        heading: 'What counts as a word?',
+        paragraphs: [
+          'The definition of "word" varies by language and context. Our counter uses Unicode-aware word segmentation that correctly handles CJK characters (Chinese, Japanese, Korean) where each character is a word, as well as compound words in Germanic languages. It also accounts for zero-width spaces, soft hyphens, and other invisible Unicode characters that can inflate counts. The tool reports distinct metrics: total words, unique words, characters (with and without spaces), sentences, and average word length.',
+          'For SEO content analysis, word count matters because search engines use it as a quality signal — but quality of words matters more than quantity. A 500-word article with original research often outranks 2000-word thin content. Our counter helps you audit existing content against your target word counts.',
+        ],
+        tips: [
+          'Paste your meta description into the counter — Google typically truncates descriptions after 155-160 characters. Keep it under that limit.',
+          'For academic or technical writing, check the readability score (Flesch-Kincaid) alongside word count to ensure your content matches the target audience reading level.',
+        ],
+      },
+      {
+        heading: 'Detecting content issues with word-level metrics',
+        paragraphs: [
+          'Beyond simple counting, analyze keyword density (how often a term appears relative to total words) to avoid keyword stuffing. A healthy keyword density for SEO is 1-3%. Our tool highlights the top 10 most frequent words and their percentages, helping you spot overused terms like "click here" or "learn more" that weaken copy. It also flags filler words (very, just, really, actually) that pad word count without adding value.',
+          'When editing, use the "characters without spaces" metric to estimate translation costs (many translators charge per character). The sentence count helps gauge paragraph length — if sentences average 30+ words, consider breaking them up for readability. Short sentences (15-20 words average) perform better on mobile screens.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Does the counter include HTML tags in the count?', answer: 'No, the tool strips HTML tags before counting. Only visible text content is counted, so <p>Hello</p> counts as 1 word (5 characters), not 9 words.' },
+      { question: 'How are hyphenated words counted?', answer: 'By default, hyphenated compounds (e.g., "well-known") are counted as one word. If you toggle the setting, they are split into individual words. This affects both word count and keyword density analysis.' },
+      { question: 'Do emojis count as words?', answer: 'No, emojis are counted as characters but not as words. Each emoji counts as 2 characters (surrogate pair) or 1 character (single Unicode scalar), depending on the emoji.' },
+    ],
+    relatedTools: ['markdown-editor', 'text-to-html', 'diff-checker'],
+  },
+  'qr-code-generator': {
+    sections: [
+      {
+        heading: 'QR code error correction and version selection',
+        paragraphs: [
+          'QR codes have four error correction levels: L (7% recovery), M (15%), Q (25%), and H (30%). Higher levels allow the code to be scanned even when partially damaged or obscured, but they increase the QR version (size). For printed materials like business cards or product labels, use level H or Q — the code can survive scratches, folds, or partial遮挡. For digital use (screens), level M is usually sufficient and produces a denser code.',
+          'The QR version (1-40) determines the grid size, from 21x21 to 177x177 modules. Higher versions can encode more data but require higher print resolution. Our tool automatically selects the minimum version needed for your input, balancing scannability against data capacity. If you are encoding a URL longer than ~400 characters (e.g., UTM-tagged links), the version jumps significantly.',
+        ],
+        tips: [
+          'Always add a quiet zone (4 modules of white space) around the QR code. Our tool outputs the code with the correct quiet zone included.',
+          'Test your QR code at the actual print size — a code that scans perfectly on screen at 500px may fail when printed at 1cm. Minimum recommended print size is 2cm x 2cm.',
+        ],
+      },
+      {
+        heading: 'QR code design and branding',
+        paragraphs: [
+          'QR codes do not have to be black-and-white squares. You can customize the foreground color, background color, and even embed a logo in the center (our tool supports center image placement). The key constraint: maintain sufficient contrast — the dark modules must be noticeably darker than the light modules. A contrast ratio of at least 3:1 is recommended. Avoid using the logo area for critical encoding; error correction level H reserves 30% for recovery, which the logo occupies.',
+          'For marketing materials, consider using a "QR code with frame" — surrounding the code with a call-to-action label (e.g., "Scan to visit our menu"). Our tool can add a configurable caption frame. The frame should be outside the quiet zone and should not overlap the code itself.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is the maximum data I can encode in a QR code?', answer: 'QR codes support up to 7089 numeric digits, 4296 alphanumeric characters, or 2953 bytes of binary data (version 40, low error correction). For URLs, practical limits are 200-400 characters before the code becomes very dense.' },
+      { question: 'Can I scan a QR code from a screenshot?', answer: 'Yes, most smartphone cameras can scan QR codes from screenshots, as long as the code is sharp and fills at least 25% of the image width. Avoid scaling down too much.' },
+      { question: 'What is the difference between QR codes and barcodes?', answer: 'Barcodes store data in one dimension (horizontal lines) and hold ~20-25 characters. QR codes store data in two dimensions and hold much more data (up to ~3KB). QR codes also support error correction and can be scanned from any orientation.' },
+    ],
+    relatedTools: ['url-encoder', 'password-generator', 'json-to-csv'],
+  },
+  'markdown-editor': {
+    sections: [
+      {
+        heading: 'Markdown flavors and compatibility',
+        paragraphs: [
+          'Markdown has multiple flavors: CommonMark (standardized core), GitHub Flavored Markdown (GFM adds tables, task lists, strikethrough), and extended variants supporting footnotes, definition lists, and math (LaTeX). Our editor uses GFM by default with CommonMark compatibility for the base syntax. The live preview renders the output so you can see exactly how the content will appear on GitHub, GitLab, or in static site generators like Next.js MDX.',
+          'When writing documentation for open-source projects, stick to GFM — it is the most widely supported. Avoid HTML in Markdown (except for elements Markdown cannot produce, like <details> or <video>), because some renderers strip inline HTML for security. Our editor highlights unsupported syntax so you catch issues before publishing.',
+        ],
+        tips: [
+          'Use reference-style links (`[text][ref]` and `[ref]: url`) for cleaner source Markdown that is easier to translate or maintain.',
+          'Add a blank line before headings and lists to ensure correct rendering. Many renderers require this for proper block-level parsing.',
+        ],
+      },
+      {
+        heading: 'Markdown for developers: beyond basic formatting',
+        paragraphs: [
+          'Markdown is widely used for API documentation, README files, and blog content. Advanced techniques include: fenced code blocks with syntax highlighting (specifying the language after the opening ```), collapsible sections (<details>/<summary>), and table alignment using colon placement. Our editor supports all GFM extensions and provides character and word counts for tracking documentation progress.',
+          'When using Markdown in CMS platforms like Contentlayer or MDX, be aware that frontmatter (YAML/TOML between --- delimiters) is parsed separately from the body. Our editor can validate frontmatter formatting and highlight YAML syntax errors.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Can I paste rich text and have it converted to Markdown?', answer: 'Yes, the editor accepts rich text pastes from Word, Google Docs, and web pages and attempts to convert them to Markdown. Complex formatting (tables with merged cells, nested lists) may lose fidelity — always review the conversion.' },
+      { question: 'Does the editor support images?', answer: 'Yes, you can paste image URLs to generate Markdown image syntax, or upload local images (they are encoded as Base64 data URIs for the preview). For production, host images separately and reference their URLs.' },
+      { question: 'How do I add a table of contents to my Markdown?', answer: 'Many renderers auto-generate TOCs from headings. For manual TOCs, use a tool like markdown-toc or write a simple script to extract ## and ### headings. Our editor can auto-generate a TOC from your document structure.' },
+    ],
+    relatedTools: ['text-to-html', 'json-to-csv', 'diff-checker'],
+  },
+  'text-to-speech': {
+    sections: [
+      {
+        heading: 'Web Speech API and browser compatibility',
+        paragraphs: [
+          'The Web Speech API provides speech synthesis in all modern browsers, but voice quality and available languages vary significantly by operating system and browser engine. Chrome on Windows uses the 24kHz Microsoft voices (which are fast and intelligible), while Safari on macOS uses the higher-quality neural voices from the OS. Our tool detects browser capabilities and selects the best available voice for your selected language. For production applications that require consistent voice quality, consider cloud TTS services like Amazon Polly or Google Cloud Text-to-Speech.',
+          'The API supports SSML (Speech Synthesis Markup Language) for fine control: you can add pauses, adjust pitch and rate per phrase, and emphasize specific words. Our tool provides an SSML mode where you can input or generate SSML and preview the spoken result. This is especially useful for voice applications, IVR systems, and accessibility features.',
+        ],
+        tips: [
+          'Set rate to 0.9-1.1 for natural speech — too slow sounds robotic, too fast causes the engine to skip words.',
+          'For long texts (1000+ words), the browser may pause or stop synthesis. Split long content into paragraphs and queue them sequentially.',
+        ],
+      },
+      {
+        heading: 'Accessibility use cases for TTS',
+        paragraphs: [
+          'Text-to-speech is essential for accessibility. Use it to preview how assistive technology will read your content aloud. Screen readers like NVDA and JAWS use their own TTS engines, but listening to a browser-based TTS version helps you identify: awkward phrasing, run-on sentences that cause unnatural pauses, and acronyms/abbreviations that should be spelled out. For example, "API" should be "A-P-I" not "appy" — our tool lets you define pronunciation overrides.',
+          'When building accessible applications, test your UI labels, error messages, and dynamic content updates with TTS. ARIA live regions announce content changes to screen readers, but the phrasing must be natural. Our tool helps you iterate on the spoken form before deploying code changes.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Why does the voice sound different on different browsers?', answer: 'Each browser/platform uses its own speech engine. Chrome uses Microsoft or Google voices depending on the OS, Firefox uses system voices, and Safari uses macOS voices. Results vary by platform.' },
+      { question: 'Can I download the audio file?', answer: 'Our tool plays audio directly in the browser. For downloadable TTS audio files (MP3/WAV), use a server-side TTS API (like Google Cloud TTS or AWS Polly) that returns audio streams.' },
+      { question: 'Does this work offline?', answer: 'The Web Speech API requires online access for most voices (they are streamed from the OS or cloud). Chrome caches some voices locally, but full offline TTS requires a downloaded voice pack on your device.' },
+    ],
+    relatedTools: ['word-counter', 'markdown-editor', 'morse-code-translator'],
+  },
+  'json-to-csv': {
+    sections: [
+      {
+        heading: 'Flattening nested JSON for tabular output',
+        paragraphs: [
+          'JSON is hierarchical (objects nested within objects), while CSV is strictly two-dimensional (rows and columns). Our converter handles nested objects by flattening keys with dot notation (e.g., "address.city" becomes a column header). Arrays within JSON objects are the hardest case — an array of addresses for one user produces either multiple rows (denormalized) or a single JSON-stringified cell. Our tool offers both modes: "expand" creates one row per array element (repeating parent data), and "compact" stores arrays as JSON strings in a single cell.',
+          'Large JSON arrays (100,000+ objects) can cause browser memory issues because the entire dataset must be processed client-side. For production ETL pipelines, use a backend tool like jq or a streaming CSV parser. Our tool is best suited for moderate-sized data (up to ~10 MB of JSON) for analysis or import into spreadsheet applications.',
+        ],
+        tips: [
+          'Preview the first 5 rows before converting — this catches unexpected nesting or missing keys that would produce empty columns.',
+          'When columns have inconsistent key presence (e.g., some objects have "middleName" and others do not), the CSV fills missing cells with empty values. Review the column list to ensure it covers all fields you need.',
+        ],
+      },
+      {
+        heading: 'CSV encoding pitfalls',
+        paragraphs: [
+          'CSV has no official encoding standard (RFC 4180 is the closest). Common issues include: values containing commas (must be quoted with ""), values containing double quotes (must be escaped as ""), and multi-line values (must be quoted). Our converter follows RFC 4180 strictly: all cells are properly quoted and escaped. It also detects the delimiter — some systems expect semicolons as delimiters (European locales) — and lets you switch between comma, semicolon, and tab. For Excel compatibility (especially on non-English systems), semicolon-delimited CSV is often required.',
+          'Character encoding is another common source of errors. Our converter outputs UTF-8 with BOM, which Excel for Windows uses to correctly detect the encoding. Without the BOM, Excel may interpret UTF-8 text as Windows-1252, mangling special characters like accented letters and em dashes.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Can I convert CSV back to JSON?', answer: 'Yes, our toolkit includes a CSV-to-JSON converter. The reverse conversion is simpler because CSV has no nesting — arrays and nested objects must be reconstructed from dot-notation headers.' },
+      { question: 'What happens to null values in JSON?', answer: 'Null values in JSON become empty cells in CSV. If you need to preserve "null" as a literal string, toggle the option to keep nulls as text rather than empty cells.' },
+      { question: 'Does the tool handle deeply nested JSON (5+ levels)?', answer: 'Yes, the flattening algorithm handles arbitrary depth. Column headers become very long (e.g., "user.profile.settings.notifications.email.enabled"), which may exceed Excel\'s column-width limits. Consider using the compact array mode for deeply nested structures.' },
+    ],
+    relatedTools: ['json-formatter', 'xml-formatter', 'diff-checker'],
+  },
+  'text-to-html': {
+    sections: [
+      {
+        heading: 'From plain text to semantic HTML',
+        paragraphs: [
+          'Converting plain text to HTML involves more than just wrapping lines in <p> tags. Our converter applies semantic HTML: headings (h1-h6), lists (ul/ol), tables, blockquotes, and code blocks are detected from common plain-text conventions. The tool respects single vs double line breaks: a single newline within a paragraph becomes a <br> (or is ignored), while double newlines create a new paragraph. This mirrors how Markdown and most WYSIWYG editors handle line breaks.',
+          'For accessibility, the generated HTML includes proper heading hierarchy (no skipping levels), alt text placeholders for detected image references, and ARIA labels for navigation-like structures. The output also includes a data-schema attribute that identifies the structural role of each section (article, navigation, complementary) for screen readers.',
+        ],
+        tips: [
+          'Paste content from email clients or word processors — they often use invisible formatting markers. Our tool strips zero-width spaces and soft hyphens that cause visual artifacts in HTML.',
+          'Enable "smart quotes" conversion to turn straight quotes (" ") into curly quotes (" "), which are more readable in rendered HTML and preferred by typographers.',
+        ],
+      },
+      {
+        heading: 'Security: preventing XSS in generated HTML',
+        paragraphs: [
+          'Converting user-provided text to HTML carries XSS risks if the input contains malicious HTML or JavaScript. Our tool sanitizes all output by encoding angle brackets (< >), ampersands (&), and quote characters. If the input appears to contain HTML tags, the tool offers a "passthrough" mode that preserves existing HTML while formatting the rest. By default, the tool operates in safe mode: all tags are escaped, and only structural formatting is applied. Never render user-generated HTML without additional server-side sanitization — a DOMPurify pass on the server is strongly recommended.',
+          'The tool also normalizes URLs in detected links: href attributes are prefixed with https:// if no protocol is present (preventing javascript: injection), and mailto: links are encoded to protect against email harvesters.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Can I preserve existing HTML tags in the input?', answer: 'Yes, toggle "Preserve HTML" mode to keep existing tags and format only the plain text portions. Use this when editing partial HTML documents or CMS content blocks.' },
+      { question: 'Does the tool generate a full HTML document or just body content?', answer: 'By default, it generates body-level HTML (paragraphs, headings, lists). Toggle "Full document" to wrap the output in <!DOCTYPE html>, <html>, <head>, and <body> tags with a configurable title.' },
+      { question: 'How are email addresses handled?', answer: 'Detected email addresses are converted to mailto: links. The tool offers optional obfuscation (ROT13 or HTML entity encoding) to reduce spam harvesting while remaining clickable for users.' },
+    ],
+    relatedTools: ['markdown-editor', 'json-formatter', 'url-encoder'],
+  },
+  'unit-converter': {
+    sections: [
+      {
+        heading: 'Precision and floating-point arithmetic',
+        paragraphs: [
+          'Unit conversion inherently involves floating-point arithmetic. For example, converting 1 inch to centimeters (1 * 2.54 = 2.54) is exact, but converting 1/3 meter to centimeters can produce 33.333333333333336 due to IEEE 754 double-precision. Our converter rounds results to a configurable number of significant figures (default 10) and displays trailing zeros only when they matter. For engineering work, set the precision to 15 decimal places; for everyday use, 4 decimal places is sufficient.',
+          'The tool handles edge cases: absolute zero in temperature conversions (0 K = -273.15°C), zero-length conversions (0 meters = 0 feet), and unit prefixes (milli-, centi-, kilo-, mega-, giga-, tera-). Temperature is especially tricky because Fahrenheit and Celsius use both scaling and offset — the conversion formula is T(°F) = T(°C) × 9/5 + 32, not a simple multiplication.',
+        ],
+        tips: [
+          'For cooking conversions, use the Volume and Mass categories — note that "cups" and "tablespoons" are volume, not weight. A cup of flour weighs differently than a cup of water.',
+          'When converting currency, use a dedicated currency converter with live exchange rates. Our unit converter uses fixed conversion factors suitable for physical units only.',
+        ],
+      },
+      {
+        heading: 'Unit systems and internationalization',
+        paragraphs: [
+          'Most countries use the metric system (SI units), but the US, Liberia, and Myanmar primarily use imperial units. Many technical fields mix systems: aerospace uses imperial (feet, nautical miles, knots), while scientific research uses metric. Our converter supports both systems and common cross-system conversions like mph to km/h, pounds to kilograms, and inches to centimeters.',
+          'Data storage conversions (bytes, kilobytes, megabytes) have two conventions: decimal (1 KB = 1000 bytes, used by hard drive manufacturers) and binary (1 KiB = 1024 bytes, used by operating systems). Our tool lets you choose which convention to use, preventing the classic "500 GB hard drive shows as 465 GB" confusion.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Why does 1 foot equal 30.48 cm but 1 cm equals 0.032808399 feet?', answer: '1 foot is exactly 30.48 cm by international agreement. The reverse conversion (1/30.48) produces a repeating decimal. Our tool shows the floating-point result with your chosen precision.' },
+      { question: 'Do you support currency conversion?', answer: 'No, currency conversion requires live exchange rates. Our converter handles physical units (length, mass, volume, temperature, speed, time, data) with fixed conversion factors.' },
+      { question: 'What is the difference between a metric ton and a US ton?', answer: 'A metric ton (tonne) is 1000 kg. A US short ton is 907.185 kg (2000 lbs). A UK long ton is 1016.047 kg (2240 lbs). Our converter supports all three.' },
+    ],
+    relatedTools: ['unit-calculator', 'percentage-calculator', 'bmi-calculator'],
+  },
+  'loan-calculator': {
+    sections: [
+      {
+        heading: 'The math behind loan amortization',
+        paragraphs: [
+          'The monthly payment for an amortizing loan is calculated using the formula: M = P × [r(1+r)^n] / [(1+r)^n - 1], where P is the principal, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of payments (loan term in years × 12). This formula ensures each payment covers the interest accrued since the last payment and the remainder reduces the principal. Over the loan term, the interest portion decreases and the principal portion increases — a process called amortization.',
+          'Our calculator generates a full amortization schedule showing the principal/interest breakdown for every payment. This is critical for understanding the total cost of borrowing: a 30-year mortgage at 6% APR costs almost as much in interest as the principal itself. The schedule also shows the remaining balance after each payment, useful for calculating the cost of early repayment or refinancing.',
+        ],
+        tips: [
+          'Add extra principal payments to the calculator to see how much interest you save. Even $50/month extra on a 30-year mortgage can save thousands and shorten the term by years.',
+          'Compare APR (includes fees) vs interest rate — the rate determines your monthly payment, but APR reflects the true cost including origination fees and closing costs.',
+        ],
+      },
+      {
+        heading: 'Loan comparison: fixed vs variable rate',
+        paragraphs: [
+          'Fixed-rate loans lock in the interest rate for the entire term, providing predictable payments. Variable-rate loans (ARMs) have lower initial rates that adjust periodically based on an index (like SOFR) plus a margin. Our calculator supports ARM scenarios by letting you set an initial rate, adjustment period, and maximum rate cap. Run scenarios with the maximum possible rate to stress-test your budget — if the fully indexed rate would break your finances, a fixed-rate loan may be safer.',
+          'Our calculator also handles interest-only loans (where payments cover only interest for the first N years, then switch to fully amortizing payments). This is common for commercial real estate and construction loans but risky for personal mortgages because no equity is built during the interest-only period.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is the difference between APR and interest rate?', answer: 'The interest rate is the cost of borrowing the principal. APR includes the interest rate plus fees (origination, points, closing costs), giving a more complete picture of the loan cost. APR is always ≥ the interest rate.' },
+      { question: 'How does extra payment frequency affect total interest?', answer: 'Making bi-weekly payments (half the monthly payment every 2 weeks) results in 26 half-payments = 13 full payments per year, which is one extra payment annually. This can shorten a 30-year mortgage by 4-5 years and save tens of thousands in interest.' },
+      { question: 'What is negative amortization?', answer: 'Negative amortization occurs when the monthly payment is less than the interest due. The unpaid interest is added to the principal, causing the loan balance to grow over time. It is prohibited for most residential mortgages in the US under Dodd-Frank.' },
+    ],
+    relatedTools: ['mortgage-calculator', 'percentage-calculator', 'unit-calculator'],
+  },
+  'percentage-calculator': {
+    sections: [
+      {
+        heading: 'Percentage use cases in development',
+        paragraphs: [
+          'Percentage calculations are everywhere in software: CSS width values, discount codes, tax computation, progress bars, analytics dashboards, and A/B test result interpretation. Our calculator handles three core operations: "What is X% of Y?" (e.g., 15% of 200 = 30), "X is what percent of Y?" (e.g., 30 out of 200 = 15%), and "What is the percentage increase/decrease?" (e.g., 100 to 150 = 50% increase). Understanding the difference between these cases prevents common math errors in reporting.',
+          'A common pitfall: percentage points vs percent change. If a conversion rate goes from 2% to 3%, that is a 1 percentage point increase but a 50% relative increase. These are often confused in business reporting. Our calculator shows both the absolute difference and the relative change so you can communicate the right metric.',
+        ],
+        tips: [
+          'For reverse percentage (finding the original before a percentage was applied), use the formula: original = result / (1 + percentage/100). Our calculator has a dedicated "Reverse" mode.',
+          'When computing percentage change, the base matters: a 50% increase followed by a 50% decrease does NOT return to the original value (100 → 150 → 75).',
+        ],
+      },
+      {
+        heading: 'Rounding strategies in percentage math',
+        paragraphs: [
+          'Rounding percentage results can produce totals that are not exact due to accumulated rounding error. For example, three categories at 33.33% each total 99.99%, not 100%. Our calculator offers floor, ceil, round, and banker\'s rounding (round-half-to-even) modes. For financial calculations, always use banker\'s rounding — it is the standard for accounting (IEEE 754) because it reduces cumulative bias over many operations. For display purposes, round to 2 decimal places but keep full precision for downstream calculations.',
+          'When computing tax amounts, some jurisdictions require truncation (rounding toward zero) to avoid collecting more than legally owed. Our tool lets you select the rounding method appropriate for your jurisdiction. The difference is pennies per transaction but can be significant at scale.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'How do I calculate a percentage of a percentage?', answer: 'Multiply the percentages: 20% of 50% = 0.20 × 0.50 = 0.10 = 10%. This is common when calculating tax on a discounted price (pay sales tax on the discounted amount).' },
+      { question: 'What is the difference between percentage and percentage point?', answer: 'A percentage point is the arithmetic difference between two percentages. If a rate rises from 4% to 6%, that is a 2 percentage point increase. The relative increase is 50% (2/4 × 100). Percentage points describe the absolute difference.' },
+      { question: 'When are percentages misleading?', answer: 'Percentages can be misleading when the base is small. "100% increase" from 1 to 2 sounds dramatic but represents only 1 additional unit. Always report the absolute values alongside percentages for context.' },
+    ],
+    relatedTools: ['discount-calculator', 'tip-calculator', 'loan-calculator'],
+  },
+  'mortgage-calculator': {
+    sections: [
+      {
+        heading: 'PITI: the four components of a mortgage payment',
+        paragraphs: [
+          'A mortgage payment consists of four parts: Principal (repaying the loan amount), Interest (cost of borrowing), Taxes (property tax, typically 1-2% of home value annually), and Insurance (homeowner\'s insurance and PMI if down payment <20%). Our calculator breaks down each component and shows how they combine into your total monthly payment. Many online calculators show only P&I, but PITI is the true cost of homeownership and what lenders use for debt-to-income ratio qualification.',
+          'PMI (Private Mortgage Insurance) is required when the down payment is less than 20% of the home value. PMI rates range from 0.5% to 1.5% of the loan amount annually. Our calculator factors in PMI and shows when it drops off (automatically at 78% loan-to-value, or at 80% if you request cancellation). Factoring PMI into your budget can mean the difference between qualifying for a loan and being denied.',
+        ],
+        tips: [
+          'Use the amortization table to find your break-even point for refinancing — the month where interest savings exceed closing costs.',
+          'Include HOA fees in your monthly budget even though they are not part of the mortgage — our calculator has a separate HOA field for this purpose.',
+        ],
+      },
+      {
+        heading: 'Comparing mortgage scenarios',
+        paragraphs: [
+          'The calculator lets you compare up to three scenarios side by side: different down payment amounts, interest rates, or loan terms (e.g., 30-year fixed vs 15-year fixed vs 5/1 ARM). The 15-year mortgage has higher monthly payments but saves significantly in total interest because less interest accrues over the shorter term. However, the 30-year offers flexibility — you can always make extra principal payments to accelerate the payoff while preserving the lower minimum payment as a safety net.',
+          'Our calculator also models the impact of discount points (prepaid interest that reduces the rate). One point costs 1% of the loan amount and typically reduces the rate by 0.25%. The break-even period is the time required for the monthly savings to exceed the points paid. If you plan to stay in the home past the break-even point, buying points makes financial sense.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is the debt-to-income ratio and how does it affect me?', answer: 'DTI is your total monthly debt payments (including the new mortgage PITI) divided by your gross monthly income. Lenders typically require a DTI below 43% (FHA) or 36% (conventional). Use our DTI calculator (separate tool) to check your ratios before applying.' },
+      { question: 'Should I put 20% down?', answer: '20% down avoids PMI and may get a better rate, but it is not always necessary. FHA loans require as little as 3.5% down, and conventional loans allow 3% down for first-time buyers. Compare the monthly cost of PMI against the years of saving to reach 20%.' },
+      { question: 'What is escrow and how does it work?', answer: 'Escrow is an account managed by the lender that collects property taxes and insurance premiums as part of your monthly payment. The lender pays these bills on your behalf. This ensures taxes and insurance are always paid but also means higher monthly payments than principal + interest alone.' },
+    ],
+    relatedTools: ['loan-calculator', 'percentage-calculator', 'unit-calculator'],
+  },
+  'age-calculator': {
+    sections: [
+      {
+        heading: 'Leap year and timezone edge cases',
+        paragraphs: [
+          'Age calculations must handle leap years, timezone offsets, and daylight saving time transitions. Someone born on February 29, 2000 has a legal birthday of February 28 or March 1 in non-leap years (depending on jurisdiction). Our calculator correctly accounts for this and shows both the "legal age" and "actual days alive" for clarity. In leap years, the person turns exactly one year older on February 29 itself.',
+          'Timezone handling is critical for precise age. If someone is born at 11:00 PM UTC-5 and the current time is 1:00 AM UTC+1, the calendar date may differ. Our calculator uses the browser\'s local timezone by default but lets you specify a timezone for both birthdate and "as of" date. This is especially important for legal documents and age-restricted services that follow a specific jurisdiction\'s timezone.',
+        ],
+        tips: [
+          'Use the "age at specific date" feature for legal forms — calculate exactly how old someone will be on a future date like contract signing or travel date.',
+          'For international applications, specify the jurisdiction\'s timezone to get legally correct age. A person in Tokyo may be "one day older" than someone born at the same UTC moment in New York.',
+        ],
+      },
+      {
+        heading: 'Age calculation in software systems',
+        paragraphs: [
+          'Computing age in code is deceptively simple. The naive approach — subtracting birth year from current year — fails when the birthday has not yet occurred this year. The correct approach is: age = current_year - birth_year - (birthday_this_year > today ? 1 : 0). Our calculator uses this logic internally. For database queries, compute age in SQL using DATEDIFF with CASE statements, or better, compute it in application code where timezone handling is more controllable.',
+          'For age-based filtering in web applications (e.g., age-gated content), always compute age server-side using a consistent timezone. Client-side age calculations can be manipulated by changing the system clock or timezone. Our calculator is client-side for convenience, but production systems should validate age on the server.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'How do I calculate age if born on February 29?', answer: 'For legal purposes, most jurisdictions consider the birthday to be March 1 in non-leap years (the day after February 28). Our calculator shows both the legal age (using the jurisdiction rule) and the exact days since birth for reference.' },
+      { question: 'Why does my age change at different times on my birthday?', answer: 'Your legal age changes at midnight in your local timezone. Our calculator shows the exact time remaining until your next birthday, which is timezone-dependent.' },
+      { question: 'What is the difference between chronological age and biological age?', answer: 'Chronological age is the time elapsed since birth (what our calculator computes). Biological age estimates health status based on biomarkers and lifestyle factors — it requires a medical assessment and is not computable from dates alone.' },
+    ],
+    relatedTools: ['bmi-calculator', 'unit-converter', 'percentage-calculator'],
+  },
+  'bmi-calculator': {
+    sections: [
+      {
+        heading: 'BMI formula, limitations, and alternatives',
+        paragraphs: [
+          'BMI = weight(kg) / height(m)². For imperial: BMI = weight(lbs) / height(in)² × 703. The World Health Organization classifies BMI as underweight (<18.5), normal (18.5-24.9), overweight (25-29.9), and obese (≥30). These ranges were developed using predominantly European populations, and the cutoff points do not account for muscle mass, bone density, fat distribution, or ethnic differences. For example, Asian populations have higher health risks at lower BMI thresholds (23+ for overweight).',
+          'BMI is a screening tool, not a diagnostic one. A bodybuilder with 10% body fat and high muscle mass may have a BMI of 30+ (classified as obese). Conversely, an older adult with low muscle mass may have a "normal" BMI while having dangerously high body fat percentage. For more accurate health assessments, combine BMI with waist circumference, body fat percentage (DEXA or caliper), and blood biomarkers.',
+        ],
+        tips: [
+          'For athletes and muscular individuals, use body fat percentage instead of BMI. A DEXA scan or caliper measurement provides more actionable data than BMI alone.',
+          'For children and teenagers, BMI percentiles (age- and sex-adjusted) are used instead of absolute BMI values. Our calculator supports pediatric BMI percentile calculation.',
+        ],
+      },
+      {
+        heading: 'Implementing BMI calculation in your app',
+        paragraphs: [
+          'If you are building a health or fitness application, the BMI implementation is straightforward but has several UX considerations. Always validate that height > 0 and weight > 0, and provide clear error messages for nonsensical inputs (like 1200 kg or 0.5 m). Use toFixed(1) for display (BMI is conventionally shown to one decimal place). Consider adding unit toggles (metric/imperial) with automatic conversion rather than separate input fields.',
+          'For accessibility in health apps, express BMI results with appropriate color coding (green for normal, yellow for overweight, red for obese) but do not use color alone — also add text labels and icons. Never use alarmist language about weight classification; instead, frame results as "your BMI falls in the X range" and suggest consulting a healthcare provider for personalized assessment.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Is BMI accurate for all body types?', answer: 'No. BMI does not distinguish between muscle and fat, so muscular individuals may be misclassified as overweight/obese. It also does not account for fat distribution (visceral vs subcutaneous), which is a stronger health predictor than total body fat.' },
+      { question: 'Why does the WHO use different BMI cutoffs for Asian populations?', answer: 'Studies show that Asian populations have higher body fat percentage and cardiovascular risk at lower BMI values. The WHO recommends lower thresholds: overweight at ≥23 and obese at ≥27.5 for Asian populations.' },
+      { question: 'What is a healthy BMI for older adults?', answer: 'For adults over 65, a BMI of 24-27 is associated with the lowest mortality risk (the "obesity paradox"). A "normal" BMI of 18.5-24.9 may indicate frailty or muscle loss in older populations. Always consult a doctor for age-appropriate health targets.' },
+    ],
+    relatedTools: ['age-calculator', 'unit-converter', 'percentage-calculator'],
+  },
+  'discount-calculator': {
+    sections: [
+      {
+        heading: 'Discount math for e-commerce development',
+        paragraphs: [
+          'When building e-commerce systems, discount calculation must handle: percentage discounts off the original price, fixed-amount discounts, buy-one-get-one (BOGO) deals, tiered discounts ("spend $100 save $20"), and stacking rules. Our calculator handles the first three scenarios. For percentage off, the formula is: final = original × (1 - discount%/100). For stackable discounts, the order of application matters — applying a 10% discount before a $5 coupon gives a different result than $5 off first, then 10% off if the coupon applies to the post-discount total.',
+          'A common e-commerce bug: displaying the wrong "you save" amount after multiple discounts are applied. If a $100 item has 20% off ($80) and a $10 coupon ($70), the total saving is $30, not $20 + $10 (because the coupon applied to the already-discounted price). Our calculator shows each discount step so you can verify the stacking logic in your cart implementation.',
+        ],
+        tips: [
+          'Test with edge cases: 0% discount, 100% discount (free), negative discounts (price increases), and discounts larger than the price (should result in $0 or an error depending on policy).',
+          'For VAT/GST calculations, apply the discount before tax. Discounted subtotal × tax rate = tax amount. Applying tax to the original price and then discounting can result in incorrect tax reporting.',
+        ],
+      },
+      {
+        heading: 'Discount psychology and pricing strategy',
+        paragraphs: [
+          'The "anchoring effect" means a higher original price makes the discounted price seem more appealing. Our calculator shows the savings both as an amount and as a percentage — presenting both maximizes perceived value. For subscriptions, annual discounts are typically 15-25% and are presented as "save 20%" rather than "pay $X less per month" because the percentage feels more substantial.',
+          'For clearance pricing, the formula for a profitable discount is: minimum_price = cost / (1 - desired_margin). If an item costs $50 and you want a 30% margin, the minimum price is $50 / 0.70 = $71.43. Our calculator helps with reverse discount calculation: given a final price and original price, what was the discount percentage?',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'How do I calculate the final price after a percentage discount?', answer: 'Final price = Original price × (1 - Discount percentage / 100). For example, $80 with 25% off = $80 × 0.75 = $60.' },
+      { question: 'How are stacked discounts calculated?', answer: 'Stacked discounts are applied sequentially. First discount applies to the original price, then the second discount applies to the result. For example, $100 with 20% off then $10 off = $100 × 0.80 = $80, then $80 - $10 = $70. The total discount is $30, not $20 + $10.' },
+      { question: 'What is a "triple discount" and why is it often misleading?', answer: 'Triple discounts (e.g., "50% off + 20% off + 10% off") sound like 80% off but are actually 64% off (1 × 0.5 × 0.8 × 0.9 = 0.36). This marketing tactic inflates perceived savings. Our calculator shows the true combined percentage.' },
+    ],
+    relatedTools: ['percentage-calculator', 'tip-calculator', 'loan-calculator'],
+  },
+  'tip-calculator': {
+    sections: [
+      {
+        heading: 'Tip calculation conventions and math',
+        paragraphs: [
+          'The standard tip calculation in the US is: tip = bill × (tip_percentage / 100), with common rates of 15% (standard service), 18% (good service), and 20%+ (exceptional service). For splitting among multiple people: each_person = (bill + tip) / number_of_people. Our calculator handles both pre-tax and post-tax tipping — tipping on pretax amount is more common but tipping on the total (including tax) is simpler in group settings.',
+          'For development of point-of-sale or expense apps, the tip calculation margin of error matters. Rounding to the nearest cent: if the bill is $47.53 and the tip is 15%, the exact tip is $7.1295, which rounds to $7.13. The per-person share of ($47.53 + $7.13) / 3 = $18.22 (not $18.220, which would be over-collection). Our calculator uses proper rounding at each step to avoid penny discrepancies.',
+        ],
+        tips: [
+          'Round tip amounts to the nearest dollar for simplicity in cash payments — our "round up" option makes this automatic.',
+          'For group dining, add the tip manually to the total before splitting to avoid confusion about who pays what share of the gratuity.',
+        ],
+      },
+      {
+        heading: 'Cultural differences and global tipping',
+        paragraphs: [
+          'Tipping customs vary widely by country. In Japan, tipping can be considered insulting — excellent service is the standard, not something extra paid for. In many European countries, a 5-10% service charge is included in the bill (servizio incluso in Italy, service compris in France), so additional tipping is optional. In the US, tips are the primary income for service workers because of the tipped minimum wage ($2.13/hour federal). Our calculator provides a country selector that suggests the appropriate tip percentage range and explains whether the listed price already includes service.',
+          'When building travel or expense applications, implement locale-aware tip suggestions. The same app user may need 0% tip in Tokyo, 10% in Berlin, and 20% in New York. Store the tipping preference alongside the location data for automatic calculation. Our calculator\'s country-based presets demonstrate this pattern for your reference.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'Should I tip on the pretax or post-tax amount?', answer: 'Tipping on the pretax amount is more common and fairer (the tax is not a service-provided item). However, many point-of-sale systems calculate tip suggestions on the post-tax total for simplicity. Our calculator supports both options.' },
+      { question: 'How do I split a tip unevenly among a group?', answer: 'Our calculator supports custom splits — enter each person\'s share (e.g., Person 1 pays for 2 drinks, Person 2 pays for the meal). The tool calculates each person\'s contribution plus their proportionate share of the tip.' },
+      { question: 'Why is 15% the standard tip in the US?', answer: 'The 15% standard dates to the 1930s when it was codified as the expected rate in hospitality guides. It has since risen to 18-20% in urban areas due to inflation and the stagnant tipped minimum wage. The cultural expectation continues to rise (some POS systems suggest 25-30% options).' },
+    ],
+    relatedTools: ['discount-calculator', 'percentage-calculator', 'loan-calculator'],
+  },
 }
 
 export function getToolDetails(tool: Tool): ToolDetails {

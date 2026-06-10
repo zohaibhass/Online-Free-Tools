@@ -1230,6 +1230,368 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
       </div>
     `
   },
+  {
+    slug: 'base64-encoding-beyond-the-basics',
+    title: 'Base64 Encoding Beyond the Basics',
+    description: 'Learn about padding, URL-safe variants, security considerations, and when Base64 is not the right choice for your data encoding needs.',
+    category: 'Web Development',
+    date: '2026-06-10',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Base64 Encoder', url: '/tools/base64-encoder' }, { name: 'Url Encoder', url: '/tools/url-encoder' }],
+    content: `
+      <h2>What Base64 Actually Does</h2>
+      <p>Base64 encodes binary data into ASCII text by representing every 3 bytes as 4 characters using a 64-character alphabet. It is not encryption and not compression — it increases data size by approximately 33%. Its main purpose is to transmit binary data over media designed for text, such as email (MIME), JSON, or URLs.</p>
+      <h2>Padding and Variants</h2>
+      <p>Standard Base64 uses = padding to indicate how many bytes the encoded data represents. Two padding characters mean the last block had only 1 byte; one padding character means 2 bytes; no padding means the input length was a multiple of 3. URL-safe Base64 replaces + with - and / with _, and often omits padding entirely. When decoding, be prepared to handle both padded and unpadded inputs.</p>
+      <h2>Security Considerations</h2>
+      <p>Base64 is encoding, not encryption. Never use it to "hide" sensitive data. A Base64 string is trivially decoded by anyone who sees it. For actual secrecy, use AES or another encryption algorithm. However, Base64 is useful for wrapping encrypted binary data in text-friendly formats like JWT or API payloads.</p>
+      <h2>Performance and Alternatives</h2>
+      <p>For small payloads (images under 100KB embedded in HTML or CSS), Base64 is practical. For larger binary data, serve the file directly via a URL instead — Base64 bloats the page weight and prevents browser caching. Alternatives like Base85 (Ascii85) offer slightly better density but are less widely supported.</p>
+    `
+  },
+  {
+    slug: 'color-theory-for-web-developers',
+    title: 'Color Theory for Web Developers',
+    description: 'Understanding hex, RGB, HSL, OKLCH, and how to build accessible, maintainable color systems for modern web applications.',
+    category: 'Web Development',
+    date: '2026-06-09',
+    readTime: '10 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Color Converter', url: '/tools/color-converter' }],
+    content: `
+      <h2>Color Spaces a Developer Should Know</h2>
+      <p>Hex (#ff6600) and RGB (rgb(255, 102, 0)) are device-dependent and describe color as light mixes. HSL (hsl(24, 100%, 50%)) maps to human perception: hue is the color family, saturation is intensity, and lightness is brightness. OKLCH (oklch(0.62 0.19 35)) is a newer perceptually-uniform space ideal for gradients and color interpolation — unlike HSL, a lightness of 50% in OKLCH is truly halfway between black and white visually.</p>
+      <h2>Building a Color System with CSS Custom Properties</h2>
+      <p>Define your palette using HSL so you can generate variants by adjusting lightness. For example: --primary-h: 220; --primary-s: 80%; --primary-l: 50%; then compute --primary-light: hsl(var(--primary-h), var(--primary-s), 75%). This approach keeps your design tokens maintainable and makes dark mode trivial — just flip the lightness values.</p>
+      <h2>Accessible Color Contrast</h2>
+      <p>WCAG 2.1 requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (18px+ bold or 24px+ regular). Use relative luminance (not just hex brightness) to compute this. Our color converter includes contrast ratio calculation so you can verify your palette meets accessibility standards before writing CSS.</p>
+    `
+  },
+  {
+    slug: 'javascript-code-minification-guide',
+    title: 'JavaScript Code Minification: A Practical Guide',
+    description: 'How JS minification works, what optimizations are safe, source map best practices, and integrating minification into your build pipeline.',
+    category: 'Web Development',
+    date: '2026-06-08',
+    readTime: '10 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Code Minifier', url: '/tools/code-minifier' }, { name: 'Diff Checker', url: '/tools/diff-checker' }],
+    content: `
+      <h2>What the Minifier Actually Does</h2>
+      <p>JavaScript minification operates on the AST (Abstract Syntax Tree), not on raw text. The parser builds a tree of the code, then the minifier applies transformations: removing dead code branches, renaming local variables to single letters, inlining constants, simplifying boolean expressions, and merging adjacent variable declarations. Whitespace and comments are removed as a final pass, not as the primary optimization.</p>
+      <h2>Tree-Shaking vs Minification</h2>
+      <p>Tree-shaking removes unused exports at the module level (dead code elimination). Minification compresses what remains. Both are necessary for optimal bundles. Webpack and esbuild handle tree-shaking during bundling; Terser handles minification as a post-processing step. Using one without the other leaves significant size savings on the table.</p>
+      <h2>Source Maps Are Not Optional</h2>
+      <p>Without a source map, production errors point to line 1, column 23456 of main.min.js. Generate a .map file, upload it to your error monitor (Sentry, Datadog, Rollbar), and keep it off the public server — source maps can expose your original source code to anyone who knows the URL. Some teams serve source maps only behind authentication to protect proprietary logic.</p>
+    `
+  },
+  {
+    slug: 'how-to-compare-files-like-a-pro',
+    title: 'How to Compare Files Like a Pro',
+    description: 'Master diff algorithms, unified format, and practical workflows for comparing code, data, and configuration files effectively.',
+    category: 'Developer Guide',
+    date: '2026-06-07',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Diff Checker', url: '/tools/diff-checker' }, { name: 'JSON Formatter', url: '/tools/json-formatter' }],
+    content: `
+      <h2>How Diff Algorithms Work</h2>
+      <p>The Myers diff algorithm (used by Git) finds the shortest edit script between two sequences in O(ND) time. It works by finding the longest common subsequence and reporting insertions and deletions around it. Patience diff (used by Git for structured code) reduces spurious matches on repeated lines like import statements and closing braces. Our diff checker implements both and auto-selects based on file content.</p>
+      <h2>Diffing Structured Data</h2>
+      <p>When comparing JSON or YAML files, sort keys first to avoid false positives from key reordering. Use a JSON formatter to normalize both files, then diff the formatted output. For configuration files, ignore whitespace-only changes — trailing spaces and different indentation styles should not be reported as meaningful differences.</p>
+      <h2>Practical Pull Request Workflow</h2>
+      <p>Before submitting a PR, diff your branch against the target branch locally. Check for: accidental whitespace changes, debug console.log statements left in, file permission changes, and binary file modifications. A clean diff makes reviewers happy and catches half the bugs before CI runs.</p>
+    `
+  },
+  {
+    slug: 'uuid-best-practices-2026',
+    title: 'UUID Best Practices for Modern Applications',
+    description: 'Choosing between UUID v4, v7, and alternatives like NanoID, database index performance, and collision probability explained.',
+    category: 'Developer Guide',
+    date: '2026-06-06',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'UUID Generator', url: '/tools/uuid-generator' }, { name: 'Hash Generator', url: '/tools/hash-generator' }],
+    content: `
+      <h2>UUID v4 vs v7: Why Time Ordering Matters</h2>
+      <p>UUID v4 generates purely random IDs that scatter across the key space. In a B-tree index (the default for most databases), random inserts cause page splits and index fragmentation, slowing down writes over time. UUID v7 encodes the current Unix timestamp in milliseconds as the first 48 bits, producing chronologically-sorted IDs. This eliminates index fragmentation and makes UUIDs usable as primary keys in high-write systems.</p>
+      <h2>Collision Probabilities in Practice</h2>
+      <p>UUID v4 has 122 random bits. The birthday paradox gives a 50% collision probability after ~2.7 x 10^18 IDs. To reach this, you would need to generate 100 million IDs per second for 873 years. For any practical application, collisions are not a concern. UUID v7 uses 74 random bits (48 bits are timestamp), so collision probability is slightly higher but still negligible for normal use.</p>
+      <h2>When Not to Use UUIDs</h2>
+      <p>For short-lived session tokens, use a crypto library (48-64 random bytes) instead of UUIDs. For user-facing IDs that should be short (like YouTube-style IDs), use NanoID with a custom alphabet and sufficient entropy. For simple single-server applications, auto-increment integers remain the most efficient choice for primary keys.</p>
+    `
+  },
+  {
+    slug: 'xml-vs-json-vs-yaml-choosing-right-format',
+    title: 'XML vs JSON vs YAML: Choosing the Right Format',
+    description: 'Compare XML, JSON, and YAML across readability, schema validation, tooling, and use cases to pick the best format for your project.',
+    category: 'Developer Guide',
+    date: '2026-06-05',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'XML Formatter', url: '/tools/xml-formatter' }, { name: 'JSON Formatter', url: '/tools/json-formatter' }],
+    content: `
+      <h2>Structural Differences</h2>
+      <p>JSON supports objects, arrays, strings, numbers, booleans, and null — six types. XML supports attributes, mixed content (text + elements interleaved), namespaces, and processing instructions. YAML extends JSON with anchors, aliases, multi-line strings, and type tagging. For simple data interchange, JSON is the sweet spot. For documents with complex metadata, XML is more expressive. For configuration files, YAML\'s readability is unmatched.</p>
+      <h2>Schema Validation</h2>
+      <p>XML has XSD and RelaxNG — mature, widely-adopted schema languages that define allowed structures, data types, and constraints. JSON has JSON Schema (draft 2020-12 is current), which is powerful but less universally implemented. YAML relies on JSON Schema when validation is needed, or on application-specific validators. If your project requires strict data contracts, XSD is the most battle-tested option.</p>
+      <h2>Performance Considerations</h2>
+      <p>JSON parsing is faster than XML in JavaScript (native JSON.parse vs DOMParser). XML requires more bandwidth due to closing tags. YAML parsing is slowest due to its complex grammar (indentation-sensitive, multi-line strings, anchors). For high-throughput APIs, JSON is the standard. For configuration-heavy applications, YAML is worth the parsing cost for its readability benefits.</p>
+    `
+  },
+  {
+    slug: 'text-analysis-for-seo',
+    title: 'Text Analysis for SEO: Beyond Word Count',
+    description: 'Use word count, readability scores, keyword density, and content structure analysis to write content that ranks better in search engines.',
+    category: 'SEO & Content',
+    date: '2026-06-04',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Word Counter', url: '/tools/word-counter' }, { name: 'Text to HTML', url: '/tools/text-to-html' }],
+    content: `
+      <h2>Why Raw Word Count Is Not Enough</h2>
+      <p>Google uses multiple content quality signals, not just word count. A 500-word article with original data, expert quotes, and clear structure can outrank a 3000-word article of surface-level content that rehashes the top search results. The key metrics are: topical depth (does the article cover subtopics comprehensively?), authority (citations, author expertise, external references), and engagement (time on page, bounce rate).</p>
+      <h2>Keyword Density and TF-IDF</h2>
+      <p>Classic keyword density (how often a term appears ÷ total words) is a weak signal because it rewards repetition over quality. Modern search uses TF-IDF and semantic analysis to understand topic relevance. A 2-3% density for the primary keyword is a reasonable target, but natural language and related terms (LSI keywords) matter more than exact-match frequency. Our word counter highlights the top 10 most frequent words to help you spot overused terms.</p>
+      <h2>Readability and Content Structure</h2>
+      <p>The Flesch-Kincaid readability score targets a grade level appropriate for your audience. For developer guides, aim for grade 10-12 (technical but clear). For general audiences, grade 6-8. Use short paragraphs (2-4 sentences), descriptive headings, and bullet points to improve scannability. These structural elements are direct ranking signals for featured snippets.</p>
+    `
+  },
+  {
+    slug: 'qr-codes-modern-marketing',
+    title: 'QR Codes in Modern Marketing: Technical Best Practices',
+    description: 'Error correction levels, design customization, tracking integration, and optimizing QR codes for print and digital campaigns.',
+    category: 'Web Development',
+    date: '2026-06-03',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'QR Code Generator', url: '/tools/qr-code-generator' }, { name: 'URL Encoder', url: '/tools/url-encoder' }],
+    content: `
+      <h2>Error Correction: Choosing the Right Level</h2>
+      <p>QR codes offer four error correction levels: L (7% recovery), M (15%), Q (25%), and H (30%). For print marketing (business cards, flyers, posters), use H — the code can survive scratches, folds, and partial occlusion. For digital displays, M is sufficient and produces a denser, faster-to-scan code. Higher error correction also allows more design flexibility (center logos, colored modules) without breaking scannability.</p>
+      <h2>QR Code Design Without Breaking Scannability</h2>
+      <p>Custom QR codes can incorporate brand colors, rounded corners, and center logos. The key constraint: maintain sufficient contrast (minimum 3:1 ratio between dark and light modules). The logo occupies the center 15-20% of the code area, which error correction H can handle. Our generator validates that your design choices do not compromise the code\'s structural integrity.</p>
+      <h2>Tracking and Analytics</h2>
+      <p>Use a URL shortener or redirect endpoint to track scan metrics: location, device type, scan time, and scan count. Append UTM parameters to the encoded URL for Google Analytics attribution. Test the printed code at its actual size — a code that scans at 500px on screen may fail when printed at 2cm. Minimum recommended print size is 2cm x 2cm for standard QR codes.</p>
+    `
+  },
+  {
+    slug: 'mastering-markdown-technical-documentation',
+    title: 'Mastering Markdown for Technical Documentation',
+    description: 'From GFM extensions to documentation tooling — write maintainable, portable Markdown that renders perfectly across platforms.',
+    category: 'Developer Guide',
+    date: '2026-06-02',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Markdown Editor', url: '/tools/markdown-editor' }, { name: 'Text to HTML', url: '/tools/text-to-html' }],
+    content: `
+      <h2>CommonMark vs GFM vs Extended Flavors</h2>
+      <p>CommonMark is the standardized core of Markdown — headings, lists, links, emphasis, code spans. GFM (GitHub Flavored Markdown) adds tables, task lists, strikethrough, and auto-linking. Extended Flavors add footnotes, definition lists, math (LaTeX), and custom containers. When writing open-source documentation, stick to GFM — it is the most widely supported. Use extended features only when you control the renderer (like a static site generator).</p>
+      <h2>Advanced Markdown Techniques</h2>
+      <p>Reference-style links ([text][ref] with [ref]: url at the bottom) keep the source readable and make translation easier. Fenced code blocks with a language tag enable syntax highlighting. Collapsible sections using <details>/<summary> are widely supported. For tables, use colon placement for alignment: left-aligned (:---), centered (:---:), right-aligned (---:). Always include a blank line before headings and lists for correct block-level parsing.</p>
+      <h2>Validation with Our Markdown Editor</h2>
+      <p>Our Markdown Editor provides live preview, character/word count, and syntax validation. Paste your draft, toggle between source and preview, and verify the output matches your expectations before committing to your documentation repository.</p>
+    `
+  },
+  {
+    slug: 'text-to-speech-web-accessibility',
+    title: 'Text-to-Speech for Web Accessibility: Implementation Guide',
+    description: 'Leverage the Web Speech API, SSML, and proper ARIA attributes to build accessible applications with natural-sounding TTS.',
+    category: 'Web Development',
+    date: '2026-06-01',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Text to Speech', url: '/tools/text-to-speech' }],
+    content: `
+      <h2>Web Speech API Fundamentals</h2>
+      <p>The Web Speech API\'s SpeechSynthesis interface is available in all modern browsers. Create an utterance, configure rate (0.5-2.0), pitch (0-2), and volume (0-1), then call speechSynthesis.speak(). Voices are platform-dependent: Chrome uses Microsoft/Google voices, Safari uses macOS neural voices, and Firefox uses system voices. Test across browsers because the same utterance sounds different on each platform.</p>
+      <h2>SSML for Fine-Grained Control</h2>
+      <p>SSML (Speech Synthesis Markup Language) allows prosodic control: <break time="500ms"/> for pauses, <emphasis level="strong"> for emphasis, <prosody rate="slow"> for rate changes, and <phoneme alphabet="ipa" ph="ˈfəʊniːm"> for custom pronunciation. Use SSML when you need to read numbers as dates ("2026" vs "two thousand twenty-six"), spell acronyms ("API" as "A-P-I"), or control the rhythm of complex sentences.</p>
+      <h2>ARIA and Screen Reader Considerations</h2>
+      <p>For accessibility features built with TTS, use aria-live="polite" for non-critical announcements and aria-live="assertive" for urgent messages (like errors or timer warnings). Test with actual screen readers (NVDA, JAWS, VoiceOver) because their TTS engines differ from browser SpeechSynthesis. Our tool helps you preview the spoken form of UI copy before deployment.</p>
+    `
+  },
+  {
+    slug: 'json-to-csv-data-migration',
+    title: 'JSON to CSV: Data Migration Patterns That Work',
+    description: 'Flatten nested JSON, handle arrays, choose the right delimiter, and avoid encoding pitfalls in data migration pipelines.',
+    category: 'Developer Guide',
+    date: '2026-05-31',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'JSON to CSV', url: '/tools/json-to-csv' }, { name: 'JSON Formatter', url: '/tools/json-formatter' }],
+    content: `
+      <h2>Flattening Strategies for Nested JSON</h2>
+      <p>JSON is hierarchical; CSV is flat. The most common flattening strategy uses dot-notation for keys: "address.city" becomes a column header. Arrays are harder — a "phoneNumbers" array with two entries can produce either two rows (repeating parent data) or a single row with a JSON-stringified cell. Our converter offers both modes: "expand" creates one row per array element, "compact" stores arrays as JSON strings in a single cell.</p>
+      <h2>CSV Encoding Pitfalls</h2>
+      <p>CSV has no universal standard. Values containing commas must be quoted with double quotes. Values containing double quotes must escape them as "". Multi-line values must be quoted. Our converter follows RFC 4180: all cells are properly quoted and escaped. For Excel compatibility (especially on non-English systems), use semicolons as delimiters — our tool supports switching between comma, semicolon, and tab delimiters.</p>
+      <h2>Large Dataset Handling</h2>
+      <p>For datasets over 10MB, browser-based CSV conversion may hit memory limits. For production ETL, use a streaming approach with Node.js streams or jq on the command line. Our converter is optimized for moderate datasets (up to 10MB) commonly encountered in data analysis and spreadsheet imports.</p>
+    `
+  },
+  {
+    slug: 'plain-text-to-semantic-html',
+    title: 'From Plain Text to Semantic HTML: A Conversion Guide',
+    description: 'Convert plain text to accessible, semantic HTML with proper heading hierarchy, lists, and structure — without XSS risks.',
+    category: 'Web Development',
+    date: '2026-05-30',
+    readTime: '7 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Text to HTML', url: '/tools/text-to-html' }, { name: 'Markdown Editor', url: '/tools/markdown-editor' }],
+    content: `
+      <h2>Detecting Structure in Plain Text</h2>
+      <p>A good text-to-HTML converter detects paragraphs (double newlines), headings (all-caps lines or lines ending with nothing on the next line), lists (lines starting with -, *, or 1.), and blockquotes (lines starting with >). Our converter applies semantic elements: <h1>-<h6>, <ul>/<ol>, <blockquote>, and <code> blocks. Single newlines within paragraphs become <br> tags or are ignored depending on the mode.</p>
+      <h2>Accessibility in Generated HTML</h2>
+      <p>The tool outputs proper heading hierarchy — it does not skip levels (h1 to h3 without h2). Detected image references get alt text placeholders. Lists get proper <li> nesting. The output is Pass-Through with no inline styles, making it ready for CMS integration. ARIA labels are added where the structure maps to landmark roles (navigation, complementary).</p>
+      <h2>XSS Prevention in HTML Output</h2>
+      <p>When converting user-provided text to HTML, sanitize all output by encoding angle brackets, ampersands, and quotes. Our tool defaults to safe mode where all HTML tags are escaped. A separate "passthrough" mode preserves existing tags but never allows <script>, <iframe>, or event handlers (onclick=). For production rendering of user HTML, always add a server-side DOMPurify pass.</p>
+    `
+  },
+  {
+    slug: 'unit-conversion-pitfalls-software',
+    title: 'Unit Conversion Pitfalls Every Developer Should Know',
+    description: 'Floating-point precision, temperature formulas, data storage binary vs decimal, and building reliable conversion systems.',
+    category: 'Developer Guide',
+    date: '2026-05-29',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Unit Converter', url: '/tools/unit-converter' }, { name: 'Unit Calculator', url: '/tools/unit-calculator' }],
+    content: `
+      <h2>Floating-Point in Conversion Math</h2>
+      <p>IEEE 754 double-precision arithmetic causes rounding errors in seemingly simple conversions. 1 inch to cm: 1 × 2.54 = 2.54 (exact, because 2.54 is representable). 1/3 meter to cm: 100/3 = 33.333333333333336 (inexact, because 1/3 repeats in binary). Always round results to a reasonable precision — 10 significant figures for engineering, 4 for everyday use. Never display unrounded raw floating-point output to users.</p>
+      <h2>Temperature Is Special</h2>
+      <p>Temperature conversions use both scaling and offset, not simple multiplication. T(°F) = T(°C) × 9/5 + 32. The zero points are different: 0°C = 32°F = 273.15K. Our converter handles all three scales correctly. Absolute zero (0 K = -273.15°C = -459.67°F) is a hard floor — no temperature conversion should produce a value below absolute zero.</p>
+      <h2>Data Storage: Binary vs Decimal</h2>
+      <p>Hard drive manufacturers use decimal units (1 GB = 1,000,000,000 bytes). Operating systems use binary units (1 GiB = 1,073,741,824 bytes). This is why a 500 GB drive shows as 465 GB in Windows. Our converter lets you choose binary or decimal prefixes so you can explain this discrepancy to users in your own applications.</p>
+    `
+  },
+  {
+    slug: 'loan-mathematics-every-developer-should-know',
+    title: 'Loan Mathematics Every Developer Should Know',
+    description: 'Understand amortization, the PMT formula, APR vs interest rate, and how to build accurate loan calculators in your applications.',
+    category: 'Calculator Tips',
+    date: '2026-05-28',
+    readTime: '10 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Loan Calculator', url: '/tools/loan-calculator' }, { name: 'Mortgage Calculator', url: '/tools/mortgage-calculator' }],
+    content: `
+      <h2>The PMT Formula Explained</h2>
+      <p>The monthly payment for an amortizing loan is: M = P × [r(1+r)^n] / [(1+r)^n - 1], where P is principal, r is monthly interest rate (annual rate / 12), and n is the number of payments (years × 12). Each payment first covers the interest accrued since the last payment, then the remainder reduces principal. Over time, the interest portion decreases and principal portion increases.</p>
+      <h2>Amortization Schedules</h2>
+      <p>A full amortization schedule shows every payment\'s principal/interest split and the remaining balance after each payment. For a 30-year mortgage at 6% on a $300,000 loan, the first payment is $449 interest + $350 principal. Payment 360: $2 interest + $797 principal. Total interest paid: ~$347,000 — more than the principal. Adding $50/month extra saves $30,000+ interest and shortens the term by 4-5 years.</p>
+      <h2>APR vs Interest Rate</h2>
+      <p>The interest rate determines your monthly payment. APR includes points, origination fees, and closing costs, giving the true annual cost. APR is always >= the interest rate. When comparing loans, use APR. When computing monthly payment waterfalls, use the interest rate. Our loan calculator shows both and generates the full amortization table.</p>
+    `
+  },
+  {
+    slug: 'percentage-calculations-developers-get-wrong',
+    title: 'Percentage Calculations That Developers Get Wrong',
+    description: 'Percentage points vs percent change, reverse percentage, rounding bias, and how to avoid common math errors in your apps.',
+    category: 'Calculator Tips',
+    date: '2026-05-27',
+    readTime: '7 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Percentage Calculator', url: '/tools/percentage-calculator' }, { name: 'Discount Calculator', url: '/tools/discount-calculator' }],
+    content: `
+      <h2>Percentage Points vs Percent Change</h2>
+      <p>A conversion rate moving from 2% to 3% is a 1 percentage point increase but a 50% relative increase. These are frequently confused in dashboards and reports. Our calculator shows both metrics so you can communicate accurately. When building analytics displays, always label which metric you are showing: "absolute change (pp)" vs "relative change (%)."</p>
+      <h2>The Reverse Percentage Trap</h2>
+      <p>If a price is $80 after a 20% discount, the original price is NOT $80 × 1.20 = $96. The correct formula: original = final / (1 - rate) = $80 / 0.80 = $100. This is because the discount applies to the original, not the final. Our percentage calculator includes a dedicated "Find original" mode for this exact scenario.</p>
+      <h2>Rounding Bias in Percentage Totals</h2>
+      <p>Three categories at 33.33% each total 99.99%, not 100%. The accumulated rounding error must be distributed. Standard approaches: floor (may under-report), ceil (may over-report), round-half-up (natural but can go over 100%), and banker\'s rounding (IEEE 754 standard, rounds to even to reduce cumulative bias). For financial displays, report one decimal place and distribute the rounding difference to the largest category.</p>
+    `
+  },
+  {
+    slug: 'mortgage-calculator-total-cost-homeownership',
+    title: 'Mortgage Calculator: Understanding Total Cost of Homeownership',
+    description: 'PITI breakdown, PMI rules, amortization tables, and how to model refinancing scenarios for better financial decisions.',
+    category: 'Calculator Tips',
+    date: '2026-05-26',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Mortgage Calculator', url: '/tools/mortgage-calculator' }, { name: 'Loan Calculator', url: '/tools/loan-calculator' }],
+    content: `
+      <h2>PITI: The Four Components of Every Payment</h2>
+      <p>Principal (reducing the loan balance), Interest (cost of borrowing at the note rate), Taxes (property tax, typically 1-2% of home value annually), and Insurance (homeowner\'s insurance + PMI if applicable). Many online calculators show only P&I, but PITI is the true monthly cost and what lenders use for debt-to-income qualification. Our calculator breaks down all four components.</p>
+      <h2>When PMI Drops Off</h2>
+      <p>PMI (Private Mortgage Insurance) is required when the down payment is <20%. PMI automatically terminates when the loan reaches 78% of the original property value (the "automatic termination" date). You can request cancellation at 80% LTV. Our calculator models PMI and shows the exact month it drops off, helping you plan for that expense reduction.</p>
+      <h2>Modeling Refinancing Scenarios</h2>
+      <p>Use the amortization table to find your refinancing break-even point. Compare total interest paid on the current loan (from today forward) vs the new loan minus closing costs. If the break-even period is shorter than your expected time in the home, refinancing makes financial sense. Our calculator supports scenario comparison across different rates and terms.</p>
+    `
+  },
+  {
+    slug: 'age-verification-web-applications',
+    title: 'Age Verification in Web Applications: A Technical Guide',
+    description: 'Handle leap years, timezones, legal age definitions, and server-side validation in age-gated web applications.',
+    category: 'Web Development',
+    date: '2026-05-25',
+    readTime: '7 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Age Calculator', url: '/tools/age-calculator' }],
+    content: `
+      <h2>Correct Age Calculation Logic</h2>
+      <p>The naive approach — subtract birth year from current year — fails when the birthday has not occurred yet this year. Correct formula: age = current_year - birth_year - (birthday_this_year > today ? 1 : 0). Our calculator uses this logic internally. For database queries, compute age in application code where timezone is controllable, not in SQL with session timezone.</p>
+      <h2>Timezone and Leap Year Edge Cases</h2>
+      <p>Someone born at 11 PM UTC-5 on December 31 has a birthdate of January 1 in UTC+2. If your age gate uses UTC, their "legal age" shifts by timezone. Always use the jurisdiction\'s timezone for legal requirements. February 29 births: most jurisdictions recognize March 1 as the legal birthday in non-leap years. Our calculator accounts for this and shows both legal age and exact days alive.</p>
+      <h2>Server-Side Validation for Age Gates</h2>
+      <p>Client-side age calculations can be manipulated by changing the system clock or timezone. For production age gates (alcohol, gambling, adult content), always re-verify age server-side using a fixed timezone. Store the user\'s date of birth, not their computed age — age changes daily and should be computed at request time.</p>
+    `
+  },
+  {
+    slug: 'bmi-health-metrics-developers',
+    title: 'BMI and Health Metrics: What Developers Should Know',
+    description: 'BMI limitations, alternative metrics, implementing health calculations, and designing sensitive health UIs in your applications.',
+    category: 'Developer Guide',
+    date: '2026-05-24',
+    readTime: '8 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'BMI Calculator', url: '/tools/bmi-calculator' }, { name: 'Age Calculator', url: '/tools/age-calculator' }],
+    content: `
+      <h2>How BMI Is Calculated and Classified</h2>
+      <p>BMI = weight(kg) / height(m)². WHO classifies: underweight (<18.5), normal (18.5-24.9), overweight (25-29.9), obese (≥30). These cutoffs were developed from European populations and do not account for muscle mass, bone density, or ethnic differences. Asian populations have higher health risks at lower BMI thresholds (23+ for overweight, 27.5+ for obese per WHO recommendations).</p>
+      <h2>BMI Alternatives for More Accurate Assessment</h2>
+      <p>For muscular individuals (bodybuilders, athletes), body fat percentage (DEXA, caliper, or bioelectrical impedance) is more meaningful than BMI. Waist-to-hip ratio predicts cardiovascular risk better than BMI. Waist circumference alone (>102cm men, >88cm women) indicates metabolic risk. For pediatric populations, BMI percentiles (age- and sex-adjusted) are used instead of absolute values.</p>
+      <h2>Designing Health UIs Responsibly</h2>
+      <p>When displaying BMI results: use color coding (green/yellow/red) but never color alone — add text labels and icons. Frame results neutrally ("your BMI falls in the X range") and suggest consulting a healthcare provider. Never use alarmist language or imply a diagnosis. Health metrics are screening tools, not medical diagnoses.</p>
+    `
+  },
+  {
+    slug: 'building-ecommerce-discount-systems',
+    title: 'Building E-Commerce Discount Systems: Edge Cases and Math',
+    description: 'Stacking discounts, pre-tax vs post-tax application, rounding at scale, and preventing common discount logic bugs in online stores.',
+    category: 'Web Development',
+    date: '2026-05-23',
+    readTime: '9 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Discount Calculator', url: '/tools/discount-calculator' }, { name: 'Percentage Calculator', url: '/tools/percentage-calculator' }],
+    content: `
+      <h2>Discount Stacking Order Matters</h2>
+      <p>Applying 20% off then $10 off gives a different result than $10 off then 20% off. Example: $100 item. First scenario: 20% off = $80, then $10 off = $70 ($30 total savings). Second: $10 off = $90, then 20% off = $72 ($28 total savings). The order of application must be consistent and documented. Most e-commerce platforms apply percentage discounts before fixed-amount discounts.</p>
+      <h2>Tax Calculation With Discounts</h2>
+      <p>In most jurisdictions, sales tax applies to the discounted subtotal, not the original price. Apply the discount first, then compute tax on the result. If tax is applied before discount, the merchant over-collects tax, which can cause compliance issues. Our discount calculator shows the correct order: original → discount(s) → discounted subtotal → tax → final total.</p>
+      <h2>Rounding at Scale</h2>
+      <p>A 10% discount on a $9.99 item = $0.999, rounding to $1.00. At 10,000 orders per day, the rounding difference is $10/day — significant at scale. Use banker\'s rounding (round-half-to-even) for financial calculations as specified by IEEE 754, or truncate toward zero for tax compliance. Never use round-half-up for transaction amounts in regulated industries.</p>
+    `
+  },
+  {
+    slug: 'tipping-calculator-logic-pos-systems',
+    title: 'Tipping Calculator Logic for POS Systems',
+    description: 'Pre-tax vs post-tax tipping, split algorithms, cultural defaults, and implementing tip suggestions in point-of-sale applications.',
+    category: 'Calculator Tips',
+    date: '2026-05-22',
+    readTime: '7 min read',
+    author: 'Zohaib',
+    relatedTools: [{ name: 'Tip Calculator', url: '/tools/tip-calculator' }, { name: 'Discount Calculator', url: '/tools/discount-calculator' }],
+    content: `
+      <h2>Tip Calculation: Pre-Tax vs Post-Tax</h2>
+      <p>Tipping on the pretax amount is more common (the tax is not a service-provided item). However, most POS systems calculate suggested tips on the post-tax total because it is simpler and produces slightly higher tip amounts. Our calculator supports both options so you can match your POS implementation to customer expectations.</p>
+      <h2>Even and Uneven Splits</h2>
+      <p>For even splits: (bill + tip) / people = per-person share. For uneven splits (one person had more expensive items), calculate each person\'s subtotal, compute the total tip as a percentage of the combined bill, then assign each person\'s tip proportionally to their share. Never split the tip evenly when the bill items are uneven — it creates resentment and accounting errors.</p>
+      <h2>Locale-Aware Defaults</h2>
+      <p>Tip percentages vary by country: 15-20% US, 5-10% Europe, 0% Japan (tipping can be considered rude). In the US, 30% of diners tip based on the suggested amounts at the bottom of the receipt. When building POS software, offer locale-based presets and let the merchant customize them. Our calculator includes a country selector with culturally-appropriate defaults.</p>
+    `
+  },
 ]
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
