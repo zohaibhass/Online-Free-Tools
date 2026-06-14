@@ -1,18 +1,6 @@
-const CACHE_NAME = 'online-free-tools-cache-v1'
-const URLS_TO_CACHE = [
-  '/',
-  '/about',
-  '/contact',
-  '/tools',
-  '/site.webmanifest',
-  '/icon.svg',
-  '/apple-icon.png'
-]
+const CACHE_NAME = 'online-free-tools-cache-v2'
 
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(URLS_TO_CACHE))
-  )
+self.addEventListener('install', () => {
   self.skipWaiting()
 })
 
@@ -27,27 +15,33 @@ self.addEventListener('activate', event => {
   self.clients.claim()
 })
 
+const isStaticAsset = url => url.includes('/_next/static/') || url.includes('/fonts/')
+
 self.addEventListener('fetch', event => {
-  const request = event.request
+  const { request } = event
   if (request.method !== 'GET' || !request.url.startsWith(self.location.origin)) {
     return
   }
 
-  event.respondWith(
-    caches.match(request).then(cachedResponse => {
-      if (cachedResponse) {
-        return cachedResponse
-      }
-      return fetch(request)
-        .then(networkResponse => {
-          if (!networkResponse || networkResponse.status !== 200) {
-            return networkResponse
-          }
-          const responseClone = networkResponse.clone()
-          caches.open(CACHE_NAME).then(cache => cache.put(request, responseClone))
-          return networkResponse
+  if (isStaticAsset(request.url)) {
+    // Cache-first for content-hashed static assets (immutable)
+    event.respondWith(
+      caches.match(request).then(cached =>
+        cached || fetch(request).then(res => {
+          const clone = res.clone()
+          caches.open(CACHE_NAME).then(cache => cache.put(request, clone))
+          return res
         })
-        .catch(() => caches.match('/'))
-    })
-  )
+      )
+    )
+  } else {
+    // Network-first for HTML/navigation — always try the network first
+    event.respondWith(
+      fetch(request).then(res => {
+        const clone = res.clone()
+        caches.open(CACHE_NAME).then(cache => cache.put(request, clone))
+        return res
+      }).catch(() => caches.match(request).then(cached => cached || caches.match('/')))
+    )
+  }
 })

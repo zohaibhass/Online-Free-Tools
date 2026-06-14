@@ -216,7 +216,19 @@ export default function RootLayout({
         <Script id="register-service-worker" strategy="afterInteractive">
           {`if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-              navigator.serviceWorker.register('/sw.js').catch(function (error) {
+              navigator.serviceWorker.register('/sw.js').then(function (reg) {
+                if (reg.active && !navigator.serviceWorker.controller) {
+                  window.location.reload()
+                }
+                reg.addEventListener('updatefound', function () {
+                  var installing = reg.installing
+                  installing && installing.addEventListener('statechange', function () {
+                    if (installing.state === 'activated') {
+                      window.location.reload()
+                    }
+                  })
+                })
+              }).catch(function (error) {
                 console.error('Service worker registration failed:', error)
               })
             })
