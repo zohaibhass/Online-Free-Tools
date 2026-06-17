@@ -38,8 +38,8 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl hover:text-primary transition-colors">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
-              T
+            <div className="w-16 h-12 flex items-center justify-center">
+              <img src="/logo.png" alt="Logo" className="w-full h-full" />
             </div>
             <span className="hidden sm:inline">Free Tools</span>
           </Link>
