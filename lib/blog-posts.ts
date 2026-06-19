@@ -1174,6 +1174,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
     date: '2026-05-14',
     readTime: '7 min read',
     relatedTools: [{ name: 'JSON Formatter', url: '/tools/json-formatter' }, { name: 'Url Encoder', url: '/tools/url-encoder' }],
+    author: 'Zohaib Hassan',
     content: `
       <h2>Why Browser Tools Save Time</h2>
       <p>Modern browser tools eliminate the need to install local utilities. For many tasks, a quick browser app is faster than opening a desktop tool, especially when you only need to format text, encode data, or test a regex.</p>

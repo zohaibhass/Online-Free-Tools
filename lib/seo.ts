@@ -6,16 +6,23 @@ export function generateToolMetadata(tool: {
   description: string
   slug: string
   keywords: string[]
+  seoTitle?: string
+  seoDescription?: string
 }): Metadata {
   const canonicalUrl = `${SITE_URL}/tools/${tool.slug}`
+  const seoTitle = tool.seoTitle ?? `${tool.name} | ${SITE_NAME}`
+  const seoDescription = tool.seoDescription ?? tool.description
   
   return {
-    title: `${tool.name} | ${SITE_NAME}`,
-    description: tool.description,
+    title: seoTitle,
+    description: seoDescription,
     keywords: [...tool.keywords, 'free tool', 'online', 'utility'],
+    authors: [{ name: 'Zohaib Hassan' }],
+    creator: 'Zohaib Hassan',
+    publisher: 'Zohaib Hassan',
     openGraph: {
-      title: `${tool.name} | ${SITE_NAME}`,
-      description: tool.description,
+      title: seoTitle,
+      description: seoDescription,
       url: canonicalUrl,
       type: 'website',
       siteName: SITE_NAME,
@@ -28,8 +35,8 @@ export function generateToolMetadata(tool: {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${tool.name} | ${SITE_NAME}`,
-      description: tool.description,
+      title: seoTitle,
+      description: seoDescription,
       images: [OG_IMAGE],
     },
     alternates: {

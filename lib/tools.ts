@@ -7,11 +7,15 @@ export interface Tool {
   slug: string
   keywords: string[]
   featured?: boolean
+  seoTitle?: string
+  seoDescription?: string
+  h1?: string
 }
 
 export interface ToolGuideSection {
   heading: string
   paragraphs: string[]
+  tips?: string[]
 }
 
 export interface ToolDetails {
@@ -23,6 +27,7 @@ export interface ToolDetails {
   exampleOutput: string
   guideSections: ToolGuideSection[]
   faq: { question: string; answer: string }[]
+  relatedTools: { name: string; slug: string; description: string }[]
 }
 
 const toolAudiences: Record<string, string> = {
@@ -289,7 +294,7 @@ const toolExamples: Record<string, { input: string; output: string }> = {
 }
 
 // Comprehensive tool-specific guide content (500+ words for priority tools)
-const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[] }> = {
+const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[]; faq?: { question: string; answer: string }[] }> = {
   'json-formatter': {
     sections: [
       {
@@ -340,7 +345,16 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['json-to-csv', 'code-minifier', 'diff-checker'],
+    faq: [
+    { question: 'How do I format JSON online for free?', answer: 'Paste your minified or messy JSON into the input area and the tool instantly formats it with proper indentation. You can copy the beautified output and use it in your code, documentation, or debugging workflow.' },
+    { question: 'What is JSON formatting and why is it important?', answer: 'JSON formatting adds proper indentation and line breaks to make JSON data human-readable. It is important for debugging API responses, reviewing configuration files, and understanding complex nested data structures.' },
+    { question: 'Can I validate JSON with this formatter?', answer: 'Yes, the formatter validates your JSON syntax as it processes. If there are errors like missing commas or unclosed brackets, it will display an error message indicating the exact issue location.' },
+    { question: 'How do I minify JSON for production?', answer: 'Use the minify option to remove all whitespace and line breaks from your JSON. This reduces file size and improves load times when transferring JSON over the network.' },
+    { question: 'Is my JSON data safe when I use this formatter?', answer: 'Yes, all processing happens in your browser. Your data is never sent to any server or stored anywhere. You can safely work with sensitive configuration data.' },
+  ],
   },
+
+
 
   'jwt-decoder': {
     sections: [
@@ -393,6 +407,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['hash-generator', 'base64-encoder', 'json-formatter'],
+    faq: [
+    { question: 'How do I decode a JWT token online?', answer: 'Copy your JWT token and paste it into the decoder input. The tool immediately displays the header, payload, and signature in readable JSON format without sending your token anywhere.' },
+    { question: 'Is it safe to decode JWT tokens online?', answer: 'Yes, this tool processes everything in your browser. The token never leaves your device, making it safe to inspect authentication tokens without security risks.' },
+    { question: 'What information is inside a JWT token?', answer: 'A JWT contains three parts: the header (algorithm and token type), the payload (claims like user ID, roles, expiration), and the signature (used to verify the token has not been tampered with).' },
+    { question: 'What is the difference between JWT header and payload?', answer: 'The header contains metadata about the token like the signing algorithm (e.g., HS256). The payload contains the actual claims and user data like user ID, permissions, and expiration time.' },
+    { question: 'Can I verify JWT signature online?', answer: 'You can view the signature but verifying it requires the signing key which is only known to the server that issued the token. The decoder shows the signature but cannot verify without the secret.' },
+  ],
   },
 
   'base64-encoder': {
@@ -447,6 +468,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['url-encoder', 'hash-generator', 'jwt-decoder'],
+    faq: [
+    { question: 'How do I decode Base64 online for free?', answer: 'Paste your Base64-encoded string into the input field and select decode mode. The tool converts it back to plain text instantly. All processing happens in your browser.' },
+    { question: 'What is Base64 encoding used for?', answer: 'Base64 is used to transmit binary data through text-only systems like email, JSON APIs, and HTML. It converts binary data into a safe text format using 64 printable characters.' },
+    { question: 'How do I encode text to Base64?', answer: 'Type or paste your text into the input field and select encode mode. The tool converts each character into its Base64 representation, producing a longer but safely transmittable string.' },
+    { question: 'Can I decode Base64 images online?', answer: 'Yes, you can decode Base64 image data (data URIs) to view the original image content. The tool handles image data encoded in Base64 format.' },
+    { question: 'Is Base64 encoding the same as encryption?', answer: 'No, Base64 is encoding, not encryption. Anyone can decode Base64 data back to its original form easily. It should never be used to protect sensitive data.' },
+  ],
   },
 
   'hash-generator': {
@@ -501,6 +529,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['password-generator', 'base64-encoder', 'jwt-decoder'],
+    faq: [
+    { question: 'How do I generate an MD5 hash online?', answer: 'Select the MD5 algorithm, enter your text, and click generate. The tool computes a 32-character hexadecimal hash. MD5 is fast but not recommended for security purposes.' },
+    { question: 'What is the difference between MD5 and SHA256?', answer: 'MD5 produces a 128-bit (32 character) hash and is considered cryptographically broken. SHA256 produces a 256-bit (64 character) hash and is the industry standard for security.' },
+    { question: 'Is MD5 still safe to use?', answer: 'MD5 is not safe for security-critical applications like password storage or digital signatures. Use SHA256 or SHA512 instead. MD5 is acceptable for non-security uses like checksums.' },
+    { question: 'How do I verify a file hash online?', answer: 'Generate the hash of your downloaded file and compare it to the hash provided by the source. If they match exactly, the file has not been corrupted or tampered with.' },
+    { question: 'Can I reverse a hash back to the original text?', answer: 'No, hashes are one-way functions. You cannot reverse a hash to get the original input. This is why hashes are used for password storage instead of encryption.' },
+  ],
   },
 
   'regex-tester': {
@@ -556,6 +591,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['diff-checker', 'json-formatter', 'hash-generator'],
+    faq: [
+    { question: 'How do I test a regex pattern online?', answer: 'Enter your regex pattern in the pattern field and the test text in the text field. The tool highlights all matches in real-time, making it easy to debug your expression.' },
+    { question: 'What regex flags are supported?', answer: 'Common flags include g (global matching), i (case-insensitive), m (multiline where ^ and $ match line boundaries), and s (dot matches newlines). You can combine flags as needed.' },
+    { question: 'How do I match email addresses with regex?', answer: 'A basic email regex pattern is: ^[\\w.-]+@[\\w.-]+\\.\\w{2,}$. Test it against valid and invalid emails to ensure it matches correctly.' },
+    { question: 'What does the global flag do in regex?', answer: 'The global flag (g) makes the regex find all matches in the text instead of stopping after the first match. Without it, only the first occurrence is found.' },
+    { question: 'How do I test multiple lines with regex?', answer: 'Use the multiline flag (m) to make ^ and $ match the start and end of each line instead of the start and end of the entire string.' },
+  ],
   },
 
   'image-compressor': {
@@ -612,6 +654,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['text-to-html', 'qr-code-generator', 'color-converter'],
+    faq: [
+    { question: 'How do I compress an image online for free?', answer: 'Upload your image using the upload button or drag and drop. Adjust the quality slider and download the compressed version. No signup or payment required.' },
+    { question: 'Does compressing reduce image quality?', answer: 'Compression reduces file size by removing some image data. With lossy compression (JPEG), quality decreases as file size decreases. Lossless compression (PNG) preserves quality but achieves less size reduction.' },
+    { question: 'What is the best image format for web?', answer: 'WebP offers the best compression with quality comparable to JPEG but 25-35% smaller files. JPEG is best for photographs, PNG for graphics with transparency, and WebP for modern websites.' },
+    { question: 'How do I reduce image size without losing quality?', answer: 'Use lossless compression which removes metadata and optimizes compression without discarding pixel data. Start with 80-90% quality for JPEG and adjust until you find the right balance.' },
+    { question: 'Can I compress multiple images at once?', answer: 'Currently the tool processes one image at a time. For batch processing, consider using desktop software or command-line tools like ImageMagick.' },
+  ],
   },
 
   'url-encoder': {
@@ -668,6 +717,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['base64-encoder', 'qr-code-generator', 'json-formatter'],
+    faq: [
+    { question: 'How do I URL encode a string online?', answer: 'Paste your string into the input and select encode. Special characters like spaces and ampersands are converted to percent-encoded format (e.g., space becomes %20).' },
+    { question: 'What does %20 mean in a URL?', answer: '%20 is the URL-encoded representation of a space character. URLs cannot contain spaces, so they are encoded as %20 (percent sign followed by the hex value 20).' },
+    { question: 'How do I decode a percent-encoded URL?', answer: 'Paste the encoded URL into the tool and select decode mode. It converts %20 back to spaces, %26 back to ampersands, and all other percent-encoded characters to their original form.' },
+    { question: 'What characters need to be URL encoded?', answer: 'Characters like spaces, ampersands (&), question marks (?), hash signs (#), and other special characters must be encoded. Only letters, digits, and -._~ are safe without encoding.' },
+    { question: 'What is the difference between URL encoding and HTML encoding?', answer: 'URL encoding (percent-encoding) encodes characters for URLs using % followed by hex codes. HTML encoding uses entities like &amp; for ampersands. They serve different purposes in web development.' },
+  ],
   },
 
   'sql-formatter': {
@@ -724,6 +780,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['diff-checker', 'json-formatter', 'regex-tester'],
+    faq: [
+    { question: 'How do I format SQL queries online?', answer: 'Paste your raw SQL query into the input field and the tool instantly formats it with proper indentation, line breaks, and keyword capitalization for maximum readability.' },
+    { question: 'What is SQL formatting and why does it matter?', answer: 'SQL formatting organizes your queries with consistent indentation and structure, making them easier to read, debug, and share with team members during code review.' },
+    { question: 'Does this formatter support MySQL and PostgreSQL?', answer: 'Yes, the formatter works with MySQL, PostgreSQL, SQL Server, and other major SQL dialects. It correctly handles syntax differences between database systems.' },
+    { question: 'How do I indent SQL code properly?', answer: 'The tool automatically indents your SQL with proper nesting. Each clause (SELECT, FROM, WHERE, JOIN) is placed on its own line with consistent indentation for subqueries.' },
+    { question: 'Can I minify SQL queries too?', answer: 'Yes, the tool includes a minify option that compresses SQL into a single line by removing unnecessary whitespace, useful for reducing query size in production.' },
+  ],
   },
 
   'password-generator': {
@@ -774,6 +837,13 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
       },
     ],
     relatedTools: ['hash-generator', 'jwt-decoder', 'base64-encoder'],
+    faq: [
+    { question: 'How do I generate a strong password online?', answer: 'Select your desired length and character types (uppercase, lowercase, numbers, symbols), then click generate. The tool creates a cryptographically random password instantly.' },
+    { question: 'What makes a password strong?', answer: 'A strong password is long (12+ characters), uses a mix of character types, avoids dictionary words and patterns, and is unique to each account. Random generation ensures maximum strength.' },
+    { question: 'Is it safe to generate passwords online?', answer: 'Yes, this tool generates passwords entirely in your browser. No passwords are sent to any server or stored. They exist only on your device and disappear when you close the page.' },
+    { question: 'How long should my password be?', answer: 'Use at least 12 characters for general accounts and 16+ characters for sensitive accounts like banking and email. Each additional character exponentially increases cracking difficulty.' },
+    { question: 'Should I use a password manager?', answer: 'Yes, a password manager securely stores all your generated passwords so you can use unique, complex passwords for every account without needing to remember them.' },
+  ],
   },
 
   'random-name-generator': {
@@ -1712,6 +1782,19 @@ export function getToolDetails(tool: Tool): ToolDetails {
     ]
   }
 
+  // Use custom FAQ from guide content if available, else use default
+  const customFaq = customGuideContent?.faq ?? []
+
+  // Build related tools list
+  const relatedToolSlugs = customGuideContent?.relatedTools ?? []
+  const relatedToolsList = relatedToolSlugs
+    .map(slug => {
+      const t = getToolBySlug(slug)
+      if (!t) return null
+      return { name: t.name, slug: t.slug, description: t.description }
+    })
+    .filter((t): t is { name: string; slug: string; description: string } => t !== null)
+
   return {
     purpose: `Use ${tool.name} to ${tool.description.toLowerCase()}.`,
     longDescription: `The ${tool.name} is a browser-based utility that helps ${audience} ${useCase}. It offers a clean, responsive interface with fast results delivered in the browser, so you can work without installing software or creating an account. The tool makes it easy to ${action} and then copy or export the result immediately for use in your project or workflow. Built for both beginners and advanced users, it saves time by removing manual steps and improving accuracy. You can use the tool on desktop and mobile devices, and the interface includes clear examples to help you verify output quickly. Whether you are preparing a document, troubleshooting data, or planning a project, ${tool.name} is designed to reduce friction and keep your work moving. This makes it a practical, dependable choice for anyone looking for a polished online utility.`,
@@ -1725,7 +1808,7 @@ export function getToolDetails(tool: Tool): ToolDetails {
     exampleInput: example.input,
     exampleOutput: example.output,
     guideSections,
-    faq: [
+    faq: customFaq.length > 0 ? customFaq : [
       {
         question: 'Is this tool free?',
         answer: `Yes. ${tool.name} is free to use with no signup required.`,
@@ -1743,6 +1826,7 @@ export function getToolDetails(tool: Tool): ToolDetails {
         answer: 'Yes. The tool runs in modern browsers on desktop and mobile without needing downloads or plugins.',
       },
     ],
+    relatedTools: relatedToolsList,
   }
 }
 
@@ -1755,8 +1839,11 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Braces',
     slug: 'json-formatter',
-    keywords: ['json', 'format', 'validate', 'minify'],
+    keywords: ['json', 'format', 'validate', 'minify', 'json formatter', 'json validator', 'json beautifier'],
     featured: true,
+    seoTitle: 'JSON Formatter Online Free — Format, Validate & Minify JSON',
+    seoDescription: 'Free online JSON formatter and validator. Paste messy JSON and instantly format it with proper indentation, validate syntax, or minify for production. No signup required.',
+    h1: 'JSON Formatter Online — Free JSON Format & Validator',
   },
   {
     id: 'jwt-decoder',
@@ -1765,8 +1852,11 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Lock',
     slug: 'jwt-decoder',
-    keywords: ['jwt', 'token', 'decode', 'auth'],
+    keywords: ['jwt', 'token', 'decode', 'auth', 'jwt decoder', 'decode jwt token', 'jwt token decoder'],
     featured: true,
+    seoTitle: 'JWT Decode Online Free — Decode JWT Tokens Instantly',
+    seoDescription: 'Free online JWT decoder. Paste any JWT token and instantly decode the header and payload. 100% browser-based — your tokens never leave your device. No signup required.',
+    h1: 'JWT Decode Online — Free JWT Token Decoder',
   },
 
   {
@@ -1776,7 +1866,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Search',
     slug: 'regex-tester',
-    keywords: ['regex', 'regexp', 'pattern', 'test'],
+    keywords: ['regex', 'regexp', 'pattern', 'test', 'regex tester', 'regular expression tester', 'regex checker'],
+    seoTitle: 'Regex Tester Online Free — Test Regular Expressions Live',
+    seoDescription: 'Free online regex tester with real-time matching. Test and debug regular expressions with live highlighting. Supports flags like global, case-insensitive. No signup required.',
+    h1: 'Regex Tester Online — Free Regular Expression Tester',
   },
   {
     id: 'sql-formatter',
@@ -1785,7 +1878,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Database',
     slug: 'sql-formatter',
-    keywords: ['sql', 'database', 'query', 'formatter'],
+    keywords: ['sql', 'database', 'query', 'formatter', 'sql formatter', 'sql beautifier', 'format sql'],
+    seoTitle: 'SQL Formatter Online Free — Format & Beautify SQL Queries',
+    seoDescription: 'Free online SQL formatter. Paste messy SQL and instantly get clean, properly indented queries. Supports MySQL, PostgreSQL, and more. No signup required.',
+    h1: 'SQL Formatter Online Free — SQL Query Beautifier',
   },
   {
     id: 'base64-encoder',
@@ -1794,7 +1890,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Binary',
     slug: 'base64-encoder',
-    keywords: ['base64', 'encode', 'decode'],
+    keywords: ['base64', 'encode', 'decode', 'base64 decoder', 'base64 encoder', 'decode base64'],
+    seoTitle: 'Base64 Decode & Encode Online Free — Instant Converter',
+    seoDescription: 'Free online Base64 encoder and decoder. Encode any text or file to Base64 or decode Base64 strings back to plain text instantly. Browser-based, no signup required.',
+    h1: 'Base64 Decode Online — Free Base64 Encoder & Decoder',
   },
   {
     id: 'url-encoder',
@@ -1803,7 +1902,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Link',
     slug: 'url-encoder',
-    keywords: ['url', 'encode', 'decode', 'uri'],
+    keywords: ['url', 'encode', 'decode', 'uri', 'url encoder', 'url decoder', 'percent encode'],
+    seoTitle: 'URL Encode & Decode Online Free — Instant URL Encoder',
+    seoDescription: 'Free online URL encoder and decoder. Encode special characters for URLs or decode percent-encoded strings instantly. No signup, works in browser.',
+    h1: 'URL Encode Online Free — URL Encoder & Decoder',
   },
   {
     id: 'hash-generator',
@@ -1812,7 +1914,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Hash',
     slug: 'hash-generator',
-    keywords: ['hash', 'md5', 'sha256', 'crypto'],
+    keywords: ['hash', 'md5', 'sha256', 'crypto', 'md5 generator', 'sha256 generator', 'sha512 hash'],
+    seoTitle: 'Hash Generator Online Free — MD5, SHA256, SHA512 Generator',
+    seoDescription: 'Free online hash generator. Generate MD5, SHA1, SHA256 and SHA512 hashes instantly. Browser-based — your data never leaves your device. No signup required.',
+    h1: 'Hash Generator Online — Free MD5 SHA256 SHA512 Generator',
   },
   {
     id: 'color-converter',
@@ -1821,7 +1926,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Palette',
     slug: 'color-converter',
-    keywords: ['color', 'hex', 'rgb', 'hsl', 'convert'],
+    keywords: ['color', 'hex', 'rgb', 'hsl', 'convert', 'hex to rgb', 'rgb to hex', 'color converter'],
+    seoTitle: 'HEX to RGB Converter Online Free — Color Code Converter',
+    seoDescription: 'Free online color converter. Convert HEX to RGB, RGB to HSL, and between all color formats instantly. Perfect for web designers and developers. No signup required.',
+    h1: 'HEX to RGB Converter Online — Free Color Code Converter',
   },
   {
     id: 'code-minifier',
@@ -1830,7 +1938,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Zap',
     slug: 'code-minifier',
-    keywords: ['minify', 'css', 'javascript', 'html'],
+    keywords: ['minify', 'css', 'javascript', 'html', 'js minifier', 'css minifier', 'html minifier'],
+    seoTitle: 'CSS JS HTML Minifier Online Free — Code Minifier Tool',
+    seoDescription: 'Free online code minifier. Minify CSS, JavaScript, and HTML instantly to reduce file sizes and speed up your website. Browser-based, no signup required.',
+    h1: 'Code Minifier Online Free — CSS JS HTML Minifier',
   },
   {
     id: 'diff-checker',
@@ -1839,7 +1950,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'GitCompare',
     slug: 'diff-checker',
-    keywords: ['diff', 'compare', 'text', 'changes'],
+    keywords: ['diff', 'compare', 'text', 'changes', 'diff checker', 'text diff', 'compare texts'],
+    seoTitle: 'Diff Checker Online Free — Compare Text and Find Differences',
+    seoDescription: 'Free online diff checker. Compare two texts and instantly see differences highlighted side by side. Perfect for code review and document comparison. No signup required.',
+    h1: 'Diff Checker Online Free — Text Comparison Tool',
   },
   {
     id: 'xml-formatter',
@@ -1848,7 +1962,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Code',
     slug: 'xml-formatter',
-    keywords: ['xml', 'format', 'validate', 'beautify'],
+    keywords: ['xml', 'format', 'validate', 'beautify', 'xml formatter', 'xml beautifier', 'xml validator'],
+    seoTitle: 'XML Formatter Online Free — Format & Validate XML Documents',
+    seoDescription: 'Free online XML formatter. Paste any XML and instantly get a clean, properly indented, validated document. Browser-based, no signup required.',
+    h1: 'XML Formatter Online Free — XML Beautifier & Validator',
   },
   {
     id: 'uuid-generator',
@@ -1857,7 +1974,10 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Id',
     slug: 'uuid-generator',
-    keywords: ['uuid', 'generate', 'identifier'],
+    keywords: ['uuid', 'generate', 'identifier', 'uuid generator', 'uuid v4'],
+    seoTitle: 'UUID Generator Online Free — Generate UUID v1 v4 Instantly',
+    seoDescription: 'Free online UUID generator. Generate random UUID v1 or v4 identifiers instantly. Copy single UUIDs or bulk generate multiple at once. Browser-based, no signup required.',
+    h1: 'UUID Generator Online Free — Generate UUID v1 v4 Instantly',
   },
 
   // Document & Media Tools (7)
@@ -1868,7 +1988,10 @@ export const tools: Tool[] = [
     category: 'document',
     icon: 'FileText',
     slug: 'word-counter',
-    keywords: ['word', 'count', 'character', 'reading time'],
+    keywords: ['word', 'count', 'character', 'reading time', 'word counter', 'character counter'],
+    seoTitle: 'Word Counter Online Free — Count Words, Characters & Sentences',
+    seoDescription: 'Free online word counter. Instantly count words, characters, sentences, and paragraphs. Great for essays, articles, and social media posts. No signup required.',
+    h1: 'Word Counter Online Free — Count Words, Characters & Sentences',
   },
   {
     id: 'qr-code-generator',
@@ -1877,7 +2000,10 @@ export const tools: Tool[] = [
     category: 'document',
     icon: 'QrCode',
     slug: 'qr-code-generator',
-    keywords: ['qr', 'code', 'barcode', 'generate'],
+    keywords: ['qr', 'code', 'barcode', 'generate', 'qr code generator', 'qr creator'],
+    seoTitle: 'QR Code Generator Online Free — Create QR Codes Instantly',
+    seoDescription: 'Free online QR code generator. Create QR codes for URLs, text, email, phone numbers, and more. Download as PNG or SVG. No signup, no watermarks.',
+    h1: 'QR Code Generator Online Free — Create QR Codes Instantly',
   },
   {
     id: 'markdown-editor',
@@ -1886,7 +2012,10 @@ export const tools: Tool[] = [
     category: 'document',
     icon: 'NotebookPen',
     slug: 'markdown-editor',
-    keywords: ['markdown', 'editor', 'preview', 'md'],
+    keywords: ['markdown', 'editor', 'preview', 'md', 'markdown editor', 'markdown preview'],
+    seoTitle: 'Markdown Editor Online Free — Live Preview Markdown Editor',
+    seoDescription: 'Free online markdown editor with live preview. Write markdown and instantly see the rendered HTML output. Download as HTML or copy the rendered content. No signup required.',
+    h1: 'Markdown Editor Online Free — Live Preview Markdown Editor',
   },
   {
     id: 'image-compressor',
@@ -1895,8 +2024,11 @@ export const tools: Tool[] = [
     category: 'document',
     icon: 'Images',
     slug: 'image-compressor',
-    keywords: ['image', 'compress', 'optimize', 'resize'],
+    keywords: ['image', 'compress', 'optimize', 'resize', 'image compressor', 'compress image', 'reduce image size'],
     featured: true,
+    seoTitle: 'Image Compressor Online Free — Compress JPEG PNG Without Quality Loss',
+    seoDescription: 'Free online image compressor. Reduce image file size without losing quality. Compress JPEG, PNG and WebP images instantly in your browser. No signup, no upload limits.',
+    h1: 'Image Compressor Online Free — Compress Images Instantly',
   },
 
   {
@@ -1935,7 +2067,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'Ruler',
     slug: 'unit-converter',
-    keywords: ['unit', 'convert', 'length', 'weight', 'temperature'],
+    keywords: ['unit', 'convert', 'length', 'weight', 'temperature', 'unit converter', 'conversion'],
+    seoTitle: 'Unit Converter Online Free — Convert Length, Weight, Temperature',
+    seoDescription: 'Free online unit converter. Convert between length, weight, volume, temperature, and more units instantly. Perfect for students and professionals.',
+    h1: 'Unit Converter Online Free — Convert Length, Weight, Temperature',
   },
   {
     id: 'loan-calculator',
@@ -1944,7 +2079,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'DollarSign',
     slug: 'loan-calculator',
-    keywords: ['loan', 'calculate', 'payment', 'interest'],
+    keywords: ['loan', 'calculate', 'payment', 'interest', 'loan calculator', 'monthly payment', 'amortization'],
+    seoTitle: 'Loan Calculator Online Free — Monthly Payment Calculator',
+    seoDescription: 'Free online loan calculator. Calculate monthly payments, total interest, and full amortization for any loan amount, interest rate, and term. No signup required.',
+    h1: 'Loan Calculator Online Free — Monthly Payment Calculator',
   },
   {
     id: 'percentage-calculator',
@@ -1953,7 +2091,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'Percent',
     slug: 'percentage-calculator',
-    keywords: ['percentage', 'calculate', 'percent'],
+    keywords: ['percentage', 'calculate', 'percent', 'percentage calculator', 'percent calculator'],
+    seoTitle: 'Percentage Calculator Online Free — Calculate Percentages Instantly',
+    seoDescription: 'Free online percentage calculator. Calculate what percent of a number is, find percentage increase/decrease, or work out percentage differences instantly.',
+    h1: 'Percentage Calculator Online Free — Calculate Percentages Instantly',
   },
   {
     id: 'mortgage-calculator',
@@ -1962,7 +2103,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'Home',
     slug: 'mortgage-calculator',
-    keywords: ['mortgage', 'calculate', 'loan', 'payment'],
+    keywords: ['mortgage', 'calculate', 'loan', 'payment', 'mortgage calculator', 'mortgage payment'],
+    seoTitle: 'Mortgage Calculator Online Free — Monthly Payment Estimator',
+    seoDescription: 'Free online mortgage calculator. Estimate monthly payments, compare loan options, and view full amortization schedules. No signup required.',
+    h1: 'Mortgage Calculator Online Free — Monthly Payment Estimator',
   },
   {
     id: 'age-calculator',
@@ -1971,7 +2115,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'Calendar',
     slug: 'age-calculator',
-    keywords: ['age', 'date', 'calculate', 'birthday'],
+    keywords: ['age', 'date', 'calculate', 'birthday', 'age calculator', 'date calculator'],
+    seoTitle: 'Age Calculator Online Free — Calculate Exact Age in Years, Months & Days',
+    seoDescription: 'Free online age calculator. Calculate your exact age in years, months, and days, or find the time between any two dates. No signup required.',
+    h1: 'Age Calculator Online Free — Calculate Exact Age in Years, Months & Days',
   },
   {
     id: 'bmi-calculator',
@@ -1980,7 +2127,10 @@ export const tools: Tool[] = [
     category: 'calculator',
     icon: 'Activity',
     slug: 'bmi-calculator',
-    keywords: ['bmi', 'health', 'weight', 'height'],
+    keywords: ['bmi', 'health', 'weight', 'height', 'bmi calculator', 'body mass index'],
+    seoTitle: 'BMI Calculator Online Free — Body Mass Index Calculator',
+    seoDescription: 'Free BMI calculator. Calculate your Body Mass Index instantly using metric (kg/cm) or imperial (lb/ft) measurements. Find out if you\'re underweight, healthy, or overweight.',
+    h1: 'BMI Calculator Online Free — Body Mass Index Calculator',
   },
   {
     id: 'discount-calculator',
@@ -2009,7 +2159,10 @@ export const tools: Tool[] = [
     category: 'utility',
     icon: 'Key',
     slug: 'password-generator',
-    keywords: ['password', 'generate', 'secure', 'random'],
+    keywords: ['password', 'generate', 'secure', 'random', 'password generator', 'strong password'],
+    seoTitle: 'Password Generator Online Free — Create Strong Secure Passwords',
+    seoDescription: 'Free online password generator. Create strong, random, secure passwords with custom length and character sets. Browser-based — passwords never sent to any server.',
+    h1: 'Password Generator Online Free — Create Strong Secure Passwords',
   },
   {
     id: 'random-name-generator',

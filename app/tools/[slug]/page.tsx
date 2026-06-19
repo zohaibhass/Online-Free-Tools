@@ -110,6 +110,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   return (
     <ToolLayout
       title={tool.name}
+      h1={tool.h1}
       description={tool.description}
       showAds={true}
       toolDetails={toolDetails}
