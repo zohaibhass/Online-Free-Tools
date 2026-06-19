@@ -16,6 +16,7 @@ interface Breadcrumb {
 interface ToolLayoutProps {
   children: ReactNode
   title: string
+  h1?: string
   description: string
   breadcrumbs?: Breadcrumb[]
   showAds?: boolean
@@ -25,6 +26,7 @@ interface ToolLayoutProps {
 export function ToolLayout({
   children,
   title,
+  h1,
   description,
   breadcrumbs = [],
   showAds = true,
@@ -124,7 +126,7 @@ export function ToolLayout({
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8 flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-4xl font-bold mb-2">{title}</h1>
+            <h1 className="text-4xl font-bold mb-2">{h1 || title}</h1>
             <p className="text-lg text-muted-foreground">{description}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -206,6 +208,27 @@ export function ToolLayout({
 
             <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">Frequently asked questions</h2>
+
+              {toolDetails.faq.length > 0 && (
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                      "@context": "https://schema.org",
+                      "@type": "FAQPage",
+                      "mainEntity": toolDetails.faq.map((item) => ({
+                        "@type": "Question",
+                        "name": item.question,
+                        "acceptedAnswer": {
+                          "@type": "Answer",
+                          "text": item.answer
+                        }
+                      }))
+                    })
+                  }}
+                />
+              )}
+
               <div className="space-y-6 text-muted-foreground">
                 {toolDetails.faq.map((item, index) => (
                   <div key={index}>
@@ -215,6 +238,24 @@ export function ToolLayout({
                 ))}
               </div>
             </div>
+
+            {toolDetails.relatedTools.length > 0 && (
+              <div className="bg-card border border-border rounded-3xl p-8">
+                <h2 className="text-2xl font-semibold mb-4">Related Tools</h2>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {toolDetails.relatedTools.map((rt) => (
+                    <Link
+                      key={rt.slug}
+                      href={`/tools/${rt.slug}`}
+                      className="block p-4 rounded-xl border border-border hover:border-primary/50 hover:bg-accent/30 transition-colors"
+                    >
+                      <h3 className="font-semibold mb-1">{rt.name}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">{rt.description}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
         )}
 
