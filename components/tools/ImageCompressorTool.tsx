@@ -180,7 +180,7 @@ export function ImageCompressorTool() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Image Compressor</h1>
+            <p className="text-3xl font-bold mb-2">Image Compressor</p>
             <p className="text-muted-foreground">Compress, resize and convert images — entirely in your browser.</p>
           </div>
 

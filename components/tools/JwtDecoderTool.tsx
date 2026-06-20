@@ -282,13 +282,13 @@ function SegmentPanel({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
-        <h3 className="flex items-center gap-2 text-sm font-semibold">
+        <p className="flex items-center gap-2 text-sm font-semibold">
           <span
             className="h-2 w-2 rounded-full"
             style={{ backgroundColor: `var(${accentVar})` }}
           />
           {title}
-        </h3>
+        </p>
         <Button size="sm" variant="ghost" onClick={onCopy}>
           {copiedLabel === title ? (
             <CheckCircle className="mr-1.5 h-3.5 w-3.5" />
@@ -582,10 +582,10 @@ export function JwtDecoderTool() {
 
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <h3 className="flex items-center gap-2 text-sm font-semibold">
+              <p className="flex items-center gap-2 text-sm font-semibold">
                 <span className="h-2 w-2 rounded-full bg-[var(--jwt-signature)]" />
                 Signature
-              </h3>
+              </p>
               <Button
                 size="sm"
                 variant="ghost"
@@ -613,7 +613,7 @@ export function JwtDecoderTool() {
 
       {/* Info */}
       <div className="rounded-lg border border-border bg-[var(--surface-2)] p-4">
-        <h3 className="mb-2 text-sm font-semibold">Features</h3>
+        <p className="mb-2 text-sm font-semibold">Features</p>
         <div className="grid grid-cols-2 gap-1.5 text-xs text-muted-foreground sm:grid-cols-3">
           <span>• Color-coded token segments</span>
           <span>• Standard claim explanations</span>

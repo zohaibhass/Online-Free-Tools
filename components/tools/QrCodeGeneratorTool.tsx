@@ -62,7 +62,7 @@ export function QrCodeGeneratorTool() {
       )}
 
       <div className="p-4 bg-card border border-border rounded-lg space-y-2">
-        <h3 className="font-semibold">Tips:</h3>
+        <p className="font-semibold">Tips:</p>
         <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
           <li>Supports URLs, text, phone numbers, and emails</li>
           <li>QR codes can be scanned by any smartphone camera</li>

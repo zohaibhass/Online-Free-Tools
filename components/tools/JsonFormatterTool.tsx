@@ -796,7 +796,7 @@ export function JsonFormatterTool() {
 
       {/* Info */}
       <div className="rounded-lg border border-border bg-[var(--surface-2)] p-4">
-        <h3 className="mb-2 text-sm font-semibold">Features</h3>
+        <p className="mb-2 text-sm font-semibold">Features</p>
         <div className="grid grid-cols-2 gap-1.5 text-xs text-muted-foreground sm:grid-cols-3">
           <span>• Format & minify</span>
           <span>• Tree view with collapse</span>

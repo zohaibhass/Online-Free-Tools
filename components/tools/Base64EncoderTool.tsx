@@ -126,7 +126,7 @@ export function Base64EncoderTool() {
 
       {/* Info */}
       <div className="p-4 bg-card border border-border rounded-lg space-y-2">
-        <h3 className="font-semibold">About Base64:</h3>
+        <p className="font-semibold">About Base64:</p>
         <p className="text-sm text-muted-foreground">
           Base64 is a binary-to-text encoding scheme. It converts binary data into a printable ASCII string format.
         </p>

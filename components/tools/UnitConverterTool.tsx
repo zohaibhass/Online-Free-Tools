@@ -177,7 +177,7 @@ export function UnitConverterTool() {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Unit Converter</h1>
+        <p className="text-4xl font-bold mb-2">Unit Converter</p>
         <p className="text-muted-foreground">Fast, accurate, and beautiful conversions</p>
       </div>
 
