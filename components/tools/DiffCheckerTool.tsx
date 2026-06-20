@@ -48,7 +48,7 @@ export function DiffCheckerTool() {
 
       {showDiff && (
         <div>
-          <h3 className="text-sm font-semibold mb-4">Difference Highlighting</h3>
+          <p className="text-sm font-semibold mb-4">Difference Highlighting</p>
           <div className="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto">
             <div>
               <div className="text-xs font-semibold text-muted-foreground mb-2">Text 1</div>

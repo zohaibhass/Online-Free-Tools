@@ -58,7 +58,7 @@ ${result}
       {html && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">HTML Output</h3>
+            <p className="text-sm font-semibold">HTML Output</p>
             <Button size="sm" variant="ghost" onClick={copyToClipboard}>
               <Copy className="w-4 h-4 mr-2" />
               {copied ? 'Copied!' : 'Copy'}

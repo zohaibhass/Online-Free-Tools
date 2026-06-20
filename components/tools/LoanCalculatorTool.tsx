@@ -71,7 +71,7 @@ export function LoanCalculatorTool() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Loan Calculator</h1>
+        <p className="text-4xl font-bold mb-2">Loan Calculator</p>
         <p className="text-muted-foreground">Calculate your mortgage or loan payments instantly</p>
       </div>
 
@@ -188,7 +188,7 @@ export function LoanCalculatorTool() {
           <Card className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-green-600" />
-              <h3 className="font-semibold">Payoff Summary</h3>
+              <p className="font-semibold">Payoff Summary</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -214,7 +214,7 @@ export function LoanCalculatorTool() {
           <Card className="p-6">
             <div className="flex items-center gap-2 mb-4">
               <PieChart className="w-5 h-5" />
-              <h3 className="font-semibold">Breakdown</h3>
+              <p className="font-semibold">Breakdown</p>
             </div>
             <div className="space-y-4">
               <div className="flex justify-between items-center">

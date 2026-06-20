@@ -112,7 +112,7 @@ export function UuidGeneratorTool() {
 
       {/* Info */}
       <div className="p-4 bg-card border border-border rounded-lg space-y-3">
-        <h3 className="font-semibold">About UUIDs:</h3>
+        <p className="font-semibold">About UUIDs:</p>
         <ul className="text-sm text-muted-foreground space-y-2 list-disc list-inside">
           <li>UUID v4 uses random numbers for generation</li>
           <li>Universally unique across systems</li>

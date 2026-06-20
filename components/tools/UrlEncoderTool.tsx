@@ -50,7 +50,7 @@ export function UrlEncoderTool() {
       {encoded && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">Encoded Result</h3>
+            <p className="text-sm font-semibold">Encoded Result</p>
             <Button size="sm" variant="ghost" onClick={() => copyToClipboard(encoded, 'encoded')}>
               <Copy className="w-4 h-4 mr-2" />
               {copied === 'encoded' ? 'Copied!' : 'Copy'}
@@ -65,7 +65,7 @@ export function UrlEncoderTool() {
       {decoded && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">Decoded Result</h3>
+            <p className="text-sm font-semibold">Decoded Result</p>
             <Button size="sm" variant="ghost" onClick={() => copyToClipboard(decoded, 'decoded')}>
               <Copy className="w-4 h-4 mr-2" />
               {copied === 'decoded' ? 'Copied!' : 'Copy'}

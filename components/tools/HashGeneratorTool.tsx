@@ -61,7 +61,7 @@ export function HashGeneratorTool() {
       {md5Hash && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">MD5 Hash</h3>
+            <p className="text-sm font-semibold">MD5 Hash</p>
             <Button size="sm" variant="ghost" onClick={() => copyToClipboard(md5Hash, 'md5')}>
               <Copy className="w-4 h-4 mr-2" />
               {copied === 'md5' ? 'Copied!' : 'Copy'}
@@ -76,7 +76,7 @@ export function HashGeneratorTool() {
       {sha256Hash && (
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-sm font-semibold">SHA256 Hash</h3>
+            <p className="text-sm font-semibold">SHA256 Hash</p>
             <Button size="sm" variant="ghost" onClick={() => copyToClipboard(sha256Hash, 'sha256')}>
               <Copy className="w-4 h-4 mr-2" />
               {copied === 'sha256' ? 'Copied!' : 'Copy'}

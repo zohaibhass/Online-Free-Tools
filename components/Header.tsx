@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Search, Moon, Sun, Menu } from 'lucide-react'
 import { Input } from '@/components/ui/input'
@@ -39,7 +40,14 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl hover:text-primary transition-colors">
             <div className="w-16 h-12 flex items-center justify-center">
-              <img src="/logo.png" alt="Logo" className="w-full h-full" />
+              <Image
+                src="/logo.webp"
+                width={64}
+                height={48}
+                alt="Free Online Tools Logo"
+                priority={true}
+                className="w-full h-full object-contain"
+              />
             </div>
             <span className="hidden sm:inline">Free Tools</span>
           </Link>
