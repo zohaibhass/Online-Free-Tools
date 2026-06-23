@@ -100,6 +100,7 @@ export function Header() {
               size="icon"
               className="sm:hidden"
               onClick={() => setSearchOpen(!searchOpen)}
+              aria-label="Search tools"
             >
               <Search className="w-5 h-5" />
             </Button>

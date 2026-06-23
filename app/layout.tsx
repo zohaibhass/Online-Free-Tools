@@ -107,7 +107,7 @@ export default function RootLayout({
         {/* Content-Security-Policy meta tag (fallback for environments without header support) */}
         <meta
           httpEquiv="Content-Security-Policy"
-          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google-analytics.com https://*.google.com https://*.googleapis.com; font-src 'self' data:; frame-src 'self' https://googleads.g.doubleclick.net https://*.google.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.vercel-insights.com; manifest-src 'self';"
+          content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google-analytics.com https://*.google.com https://*.googleapis.com; font-src 'self' data:; frame-src 'self' https://googleads.g.doubleclick.net https://*.google.com;           connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.vercel-insights.com https://*.adtrafficquality.google https://fundingchoicesmessages.google.com; manifest-src 'self';"
         />
 
         <script
@@ -208,32 +208,36 @@ export default function RootLayout({
 
         {/* Google AdSense - Proper Next.js way */}
         {adsenseClientId && (
-          <script async
+          <Script
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            crossOrigin="anonymous"></script>
+            strategy="beforeInteractive"
+            crossOrigin="anonymous"
+          />
         )}
 
-        <Script id="register-service-worker" strategy="afterInteractive">
-          {`if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-              navigator.serviceWorker.register('/sw.js').then(function (reg) {
-                if (reg.active && !navigator.serviceWorker.controller) {
-                  window.location.reload()
-                }
-                reg.addEventListener('updatefound', function () {
-                  var installing = reg.installing
-                  installing && installing.addEventListener('statechange', function () {
-                    if (installing.state === 'activated') {
-                      window.location.reload()
-                    }
+        {process.env.NODE_ENV === 'production' && (
+          <Script id="register-service-worker" strategy="afterInteractive">
+            {`if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/sw.js').then(function (reg) {
+                  if (reg.active && !navigator.serviceWorker.controller) {
+                    window.location.reload()
+                  }
+                  reg.addEventListener('updatefound', function () {
+                    var installing = reg.installing
+                    installing && installing.addEventListener('statechange', function () {
+                      if (installing.state === 'activated') {
+                        window.location.reload()
+                      }
+                    })
                   })
+                }).catch(function (error) {
+                  console.error('Service worker registration failed:', error)
                 })
-              }).catch(function (error) {
-                console.error('Service worker registration failed:', error)
               })
-            })
-          }`}
-        </Script>
+            }`}
+          </Script>
+        )}
       </head>
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

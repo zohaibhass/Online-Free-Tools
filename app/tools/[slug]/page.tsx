@@ -1,40 +1,6 @@
 import { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { ToolLayout } from '@/components/ToolLayout'
-import { JsonFormatterTool } from '@/components/tools/JsonFormatterTool'
-import { Base64EncoderTool } from '@/components/tools/Base64EncoderTool'
-import { UuidGeneratorTool } from '@/components/tools/UuidGeneratorTool'
-import { RegexTesterTool } from '@/components/tools/RegexTesterTool'
-import { SqlFormatterTool } from '@/components/tools/SqlFormatterTool'
-import { PasswordGeneratorTool } from '@/components/tools/PasswordGeneratorTool'
-import { WordCounterTool } from '@/components/tools/WordCounterTool'
-import { QrCodeGeneratorTool } from '@/components/tools/QrCodeGeneratorTool'
-import { UnitConverterTool } from '@/components/tools/UnitConverterTool'
-import { JwtDecoderTool } from '@/components/tools/JwtDecoderTool'
-import { UrlEncoderTool } from '@/components/tools/UrlEncoderTool'
-import { HashGeneratorTool } from '@/components/tools/HashGeneratorTool'
-import { ColorConverterTool } from '@/components/tools/ColorConverterTool'
-import { CodeMinifierTool } from '@/components/tools/CodeMinifierTool'
-import { DiffCheckerTool } from '@/components/tools/DiffCheckerTool'
-import { XmlFormatterTool } from '@/components/tools/XmlFormatterTool'
-import { TipCalculatorTool } from '@/components/tools/TipCalculatorTool'
-import { MarkdownEditorTool } from '@/components/tools/MarkdownEditorTool'
-import { ImageCompressorTool } from '@/components/tools/ImageCompressorTool'
-import { TextToSpeechTool } from '@/components/tools/TextToSpeechTool'
-import { JsonToCsvTool } from '@/components/tools/JsonToCsvTool'
-import { TextToHtmlTool } from '@/components/tools/TextToHtmlTool'
-import { LoanCalculatorTool } from '@/components/tools/LoanCalculatorTool'
-import { PercentageCalculatorTool } from '@/components/tools/PercentageCalculatorTool'
-import { MortgageCalculatorTool } from '@/components/tools/MortgageCalculatorTool'
-import { AgeCalculatorTool } from '@/components/tools/AgeCalculatorTool'
-import { BmiCalculatorTool } from '@/components/tools/BmiCalculatorTool'
-import { DiscountCalculatorTool } from '@/components/tools/DiscountCalculatorTool'
-import { RandomNameGeneratorTool } from '@/components/tools/RandomNameGeneratorTool'
-import { TodoListTool } from '@/components/tools/TodoListTool'
-import { TimerStopwatchTool } from '@/components/tools/TimerStopwatchTool'
-import { DiceRollerTool } from '@/components/tools/DiceRollerTool'
-import { CoinFlipperTool } from '@/components/tools/CoinFlipperTool'
-import { MorseCodeTranslatorTool } from '@/components/tools/MorseCodeTranslatorTool'
-import { UnitCalculatorTool } from '@/components/tools/UnitCalculatorTool'
 import { getToolBySlug, getToolDetails } from '@/lib/tools'
 import { notFound } from 'next/navigation'
 import { generateToolMetadata } from '@/lib/seo'
@@ -53,47 +19,43 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return generateToolMetadata(tool)
 }
 
-// Map of tool slugs to their components
-const toolComponents: Record<string, React.ReactNode> = {
-  // Developer Tools (12)
-  'json-formatter': <JsonFormatterTool />,
-  'base64-encoder': <Base64EncoderTool />,
-  'uuid-generator': <UuidGeneratorTool />,
-  'regex-tester': <RegexTesterTool />,
-  'sql-formatter': <SqlFormatterTool />,
-  'jwt-decoder': <JwtDecoderTool />,
-  'url-encoder': <UrlEncoderTool />,
-  'hash-generator': <HashGeneratorTool />,
-  'color-converter': <ColorConverterTool />,
-  'code-minifier': <CodeMinifierTool />,
-  'diff-checker': <DiffCheckerTool />,
-  'xml-formatter': <XmlFormatterTool />,
-  // Document Tools (7)
-  'word-counter': <WordCounterTool />,
-  'qr-code-generator': <QrCodeGeneratorTool />,
-  'markdown-editor': <MarkdownEditorTool />,
-  'image-compressor': <ImageCompressorTool />,
-  'text-to-speech': <TextToSpeechTool />,
-  'json-to-csv': <JsonToCsvTool />,
-  'text-to-html': <TextToHtmlTool />,
-  // Calculator Tools (8)
-  'unit-converter': <UnitConverterTool />,
-  'loan-calculator': <LoanCalculatorTool />,
-  'percentage-calculator': <PercentageCalculatorTool />,
-  'mortgage-calculator': <MortgageCalculatorTool />,
-  'age-calculator': <AgeCalculatorTool />,
-  'bmi-calculator': <BmiCalculatorTool />,
-  'discount-calculator': <DiscountCalculatorTool />,
-  'tip-calculator': <TipCalculatorTool />,
-  // Utility Tools (8)
-  'password-generator': <PasswordGeneratorTool />,
-  'random-name-generator': <RandomNameGeneratorTool />,
-  'todo-list': <TodoListTool />,
-  'timer-stopwatch': <TimerStopwatchTool />,
-  'dice-roller': <DiceRollerTool />,
-  'coin-flipper': <CoinFlipperTool />,
-  'morse-code-translator': <MorseCodeTranslatorTool />,
-  'unit-calculator': <UnitCalculatorTool />,
+// Map of tool slugs to their dynamically-imported components
+const toolComponents: Record<string, React.ComponentType> = {
+  'json-formatter': dynamic(() => import('@/components/tools/JsonFormatterTool').then(m => ({ default: m.JsonFormatterTool }))),
+  'base64-encoder': dynamic(() => import('@/components/tools/Base64EncoderTool').then(m => ({ default: m.Base64EncoderTool }))),
+  'uuid-generator': dynamic(() => import('@/components/tools/UuidGeneratorTool').then(m => ({ default: m.UuidGeneratorTool }))),
+  'regex-tester': dynamic(() => import('@/components/tools/RegexTesterTool').then(m => ({ default: m.RegexTesterTool }))),
+  'sql-formatter': dynamic(() => import('@/components/tools/SqlFormatterTool').then(m => ({ default: m.SqlFormatterTool }))),
+  'jwt-decoder': dynamic(() => import('@/components/tools/JwtDecoderTool').then(m => ({ default: m.JwtDecoderTool }))),
+  'url-encoder': dynamic(() => import('@/components/tools/UrlEncoderTool').then(m => ({ default: m.UrlEncoderTool }))),
+  'hash-generator': dynamic(() => import('@/components/tools/HashGeneratorTool').then(m => ({ default: m.HashGeneratorTool }))),
+  'color-converter': dynamic(() => import('@/components/tools/ColorConverterTool').then(m => ({ default: m.ColorConverterTool }))),
+  'code-minifier': dynamic(() => import('@/components/tools/CodeMinifierTool').then(m => ({ default: m.CodeMinifierTool }))),
+  'diff-checker': dynamic(() => import('@/components/tools/DiffCheckerTool').then(m => ({ default: m.DiffCheckerTool }))),
+  'xml-formatter': dynamic(() => import('@/components/tools/XmlFormatterTool').then(m => ({ default: m.XmlFormatterTool }))),
+  'word-counter': dynamic(() => import('@/components/tools/WordCounterTool').then(m => ({ default: m.WordCounterTool }))),
+  'qr-code-generator': dynamic(() => import('@/components/tools/QrCodeGeneratorTool').then(m => ({ default: m.QrCodeGeneratorTool }))),
+  'markdown-editor': dynamic(() => import('@/components/tools/MarkdownEditorTool').then(m => ({ default: m.MarkdownEditorTool }))),
+  'image-compressor': dynamic(() => import('@/components/tools/ImageCompressorTool').then(m => ({ default: m.ImageCompressorTool }))),
+  'text-to-speech': dynamic(() => import('@/components/tools/TextToSpeechTool').then(m => ({ default: m.TextToSpeechTool }))),
+  'json-to-csv': dynamic(() => import('@/components/tools/JsonToCsvTool').then(m => ({ default: m.JsonToCsvTool }))),
+  'text-to-html': dynamic(() => import('@/components/tools/TextToHtmlTool').then(m => ({ default: m.TextToHtmlTool }))),
+  'unit-converter': dynamic(() => import('@/components/tools/UnitConverterTool').then(m => ({ default: m.UnitConverterTool }))),
+  'loan-calculator': dynamic(() => import('@/components/tools/LoanCalculatorTool').then(m => ({ default: m.LoanCalculatorTool }))),
+  'percentage-calculator': dynamic(() => import('@/components/tools/PercentageCalculatorTool').then(m => ({ default: m.PercentageCalculatorTool }))),
+  'mortgage-calculator': dynamic(() => import('@/components/tools/MortgageCalculatorTool').then(m => ({ default: m.MortgageCalculatorTool }))),
+  'age-calculator': dynamic(() => import('@/components/tools/AgeCalculatorTool').then(m => ({ default: m.AgeCalculatorTool }))),
+  'bmi-calculator': dynamic(() => import('@/components/tools/BmiCalculatorTool').then(m => ({ default: m.BmiCalculatorTool }))),
+  'discount-calculator': dynamic(() => import('@/components/tools/DiscountCalculatorTool').then(m => ({ default: m.DiscountCalculatorTool }))),
+  'tip-calculator': dynamic(() => import('@/components/tools/TipCalculatorTool').then(m => ({ default: m.TipCalculatorTool }))),
+  'password-generator': dynamic(() => import('@/components/tools/PasswordGeneratorTool').then(m => ({ default: m.PasswordGeneratorTool }))),
+  'random-name-generator': dynamic(() => import('@/components/tools/RandomNameGeneratorTool').then(m => ({ default: m.RandomNameGeneratorTool }))),
+  'todo-list': dynamic(() => import('@/components/tools/TodoListTool').then(m => ({ default: m.TodoListTool }))),
+  'timer-stopwatch': dynamic(() => import('@/components/tools/TimerStopwatchTool').then(m => ({ default: m.TimerStopwatchTool }))),
+  'dice-roller': dynamic(() => import('@/components/tools/DiceRollerTool').then(m => ({ default: m.DiceRollerTool }))),
+  'coin-flipper': dynamic(() => import('@/components/tools/CoinFlipperTool').then(m => ({ default: m.CoinFlipperTool }))),
+  'morse-code-translator': dynamic(() => import('@/components/tools/MorseCodeTranslatorTool').then(m => ({ default: m.MorseCodeTranslatorTool }))),
+  'unit-calculator': dynamic(() => import('@/components/tools/UnitCalculatorTool').then(m => ({ default: m.UnitCalculatorTool }))),
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -105,7 +67,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   }
 
   const toolDetails = getToolDetails(tool)
-  const content = toolComponents[tool.slug]
+  const ToolComponent = toolComponents[tool.slug]
+
+  if (!ToolComponent) {
+    notFound()
+  }
 
   return (
     <ToolLayout
@@ -115,7 +81,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       showAds={true}
       toolDetails={toolDetails}
     >
-      {content}
+      <ToolComponent />
     </ToolLayout>
   )
 }
