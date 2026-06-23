@@ -102,7 +102,7 @@ export default function HomePageClient() {
                                 href={category.href}
                                 className="rounded-3xl border border-border bg-card p-5 transition hover:shadow-lg"
                             >
-                                <h3 className="font-semibold mb-2">{category.title}</h3>
+                                <h2 className="font-semibold mb-2 text-base">{category.title}</h2>
                                 <p className="text-sm text-muted-foreground">{category.description}</p>
                             </Link>
                         ))}

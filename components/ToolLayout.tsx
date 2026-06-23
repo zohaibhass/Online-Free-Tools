@@ -2,6 +2,7 @@
 
 import { ReactNode, useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Script from 'next/script'
 import { ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
 import { AdSenseAd } from '@/components/AdSenseAd'
 import { Header } from '@/components/Header'
@@ -210,8 +211,10 @@ export function ToolLayout({
               <h2 className="text-2xl font-semibold mb-4">Frequently asked questions</h2>
 
               {toolDetails.faq.length > 0 && (
-                <script
+                <Script
+                  id="faq-schema"
                   type="application/ld+json"
+                  strategy="beforeInteractive"
                   dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                       "@context": "https://schema.org",

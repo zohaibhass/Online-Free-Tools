@@ -29,9 +29,9 @@ export function ToolCard({
           <div className="p-3 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors w-fit mb-4">
             <IconComponent className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+          <h2 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
             {name}
-          </h3>
+          </h2>
           <p className="text-sm text-muted-foreground flex-1">
             {description}
           </p>
