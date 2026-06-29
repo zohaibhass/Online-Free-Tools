@@ -44,7 +44,6 @@ export function AdSenseAd({
           display: 'block',
           textAlign: 'center',
         }}
-        data-ad-layout={format}
         data-ad-format={format}
         data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5508801810212450'}
         data-ad-slot={slot}
