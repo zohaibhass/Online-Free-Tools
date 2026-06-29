@@ -10,6 +10,9 @@ Disallow: /*?*filter=
 
 Sitemap: https://onlinefreetools.online/sitemap.xml
 
+User-agent: Mediapartners-Google
+Allow: /
+
 User-agent: AdsBot-Google
 Allow: /
 

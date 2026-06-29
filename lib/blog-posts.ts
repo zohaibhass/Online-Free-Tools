@@ -12,6 +12,738 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: 'what-is-a-jwt-token',
+    title: "What is a JWT Token? A Complete Beginner's Guide",
+    description: 'Wondering what is a JWT token? Learn everything about JSON Web Tokens — their structure, how they work, and when to use them for modern web authentication.',
+    category: 'Developer Guide',
+    date: '2026-06-29',
+    readTime: '10 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'JWT Decoder', url: '/tools/jwt-decoder' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>If you have worked with modern web applications or APIs, you have probably wondered what is a JWT token and why it is so widely used. JWT stands for JSON Web Token, a compact and URL-safe token format for securely transmitting information between parties as a JSON object. JWTs are the backbone of authentication in countless web applications, mobile apps, and APIs.</p>
+      <p>A JWT token is not just a random string\u2014it is a structured token containing verifiable information about a user or client. Unlike traditional session-based authentication where servers store session data, a JWT is self-contained. The token carries all the information needed to verify a user\u2019s identity, making it ideal for distributed systems and microservices.</p>
+      <p>In this guide, you will learn what a JWT token is, how its three parts work together, the authentication flow, JWT vs session tokens, common use cases, and important security best practices.</p>
+
+      <h2>What is a JWT Token?</h2>
+      <p>A JWT (JSON Web Token) is an encoded string consisting of three Base64-encoded parts separated by dots: the header, the payload, and the signature. Unlike opaque session IDs that require server-side lookups, a JWT is self-contained\u2014it carries all the user information needed for authentication within the token itself. This stateless property makes JWTs highly scalable and perfect for distributed systems.</p>
+      <p>Think of a JWT as a digital passport. When a user logs in, the server issues a JWT that contains the user\u2019s identity and permissions. The client presents this token with each request, and the server can verify it without consulting a database. This eliminates the need for server-side session storage and enables horizontal scaling across multiple servers.</p>
+
+      <h2>JWT Structure: Header, Payload, and Signature</h2>
+      <p>Every JWT consists of three parts separated by dots. Understanding the JWT structure is essential for working with tokens effectively. Here is an example JWT:</p>
+      <pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></pre>
+
+      <h3>The Header</h3>
+      <p>The header is the first part of a JWT. It contains metadata about the token including the type (typ) which is always JWT, and the signing algorithm (alg) such as HS256 or RS256.</p>
+      <pre><code>{
+  "alg": "HS256",
+  "typ": "JWT"
+}</code></pre>
+      <p>The header tells the server how the token was signed. The algorithm field is critical\u2014if an attacker changes it, signature verification detects the tampering.</p>
+
+      <h3>The Payload</h3>
+      <p>The payload is the second part and contains the claims, which are statements about the user and metadata. There are three claim types: registered claims (predefined like iss, exp, sub, iat), public claims (custom), and private claims (agreed between parties).</p>
+      <pre><code>{
+  "sub": "1234567890",
+  "name": "Alice",
+  "email": "alice@example.com",
+  "iat": 1719619200,
+  "exp": 1719705600
+}</code></pre>
+      <p>Common registered claims include sub (user ID), iat (issued at), exp (expiration), iss (issuer), and aud (audience). The payload is Base64-encoded, not encrypted\u2014anyone with the token can read it. Never put sensitive data like passwords in the payload.</p>
+
+      <h3>The Signature</h3>
+      <p>The signature is the third and most important part. It cryptographically ensures the token has not been tampered with. It is created by taking the encoded header and payload, concatenating them with a dot, and signing with a secret key using the algorithm in the header.</p>
+      <pre><code>HMACSHA256(
+  base64UrlEncode(header) + "." + base64UrlEncode(payload),
+  secret
+)</code></pre>
+      <p>When a server receives a JWT, it recalculates the signature. If it matches, the token is authentic. If someone modified the payload or header, the signature verification fails and the token is rejected.</p>
+
+      <h2>JWT vs Session Tokens</h2>
+      <p>Traditional session-based authentication stores session data on the server. When a user logs in, the server creates a session record, sends a session ID cookie to the client, and looks up the session on every request. This approach works but has scalability limitations.</p>
+      <p><strong>Storage:</strong> Sessions require server-side storage (memory or database). JWTs store everything in the token itself\u2014no server-side storage needed.</p>
+      <p><strong>Scalability:</strong> Sessions need a shared store (like Redis) across multiple servers. JWTs are stateless\u2014any server can verify them independently.</p>
+      <p><strong>Performance:</strong> Sessions require a database lookup on every request. JWTs can be verified locally with just a signature check, making them faster.</p>
+      <p><strong>Revocation:</strong> Sessions can be revoked instantly by deleting the session record. JWTs remain valid until they expire, unless you implement a token blacklist which adds complexity.</p>
+      <p><strong>Cross-domain:</strong> Sessions are tied to a single domain via cookies. JWTs work across different domains and services, making them ideal for SSO and microservices.</p>
+
+      <h2>How JWT Works Step by Step</h2>
+      <p>The JWT authentication flow follows these steps:</p>
+      <p><strong>Step 1: User Logs In</strong> \u2014 The user submits credentials (username and password) to the server\u2019s login endpoint via HTTPS.</p>
+      <p><strong>Step 2: Server Verifies Credentials</strong> \u2014 The server checks the password against the stored hash. If valid, the server creates a JWT.</p>
+      <p><strong>Step 3: Server Creates the JWT</strong> \u2014 The server constructs a JWT with the user\u2019s ID, issued-at time, expiration, and other claims, signs it, and sends it back.</p>
+      <p><strong>Step 4: Client Stores the Token</strong> \u2014 The client stores the JWT (localStorage, sessionStorage, or HTTP-only cookie).</p>
+      <p><strong>Step 5: Client Sends the Token</strong> \u2014 For each request, the client includes the JWT in the Authorization header: <code>Authorization: Bearer [token]</code>.</p>
+      <p><strong>Step 6: Server Verifies</strong> \u2014 The server extracts the JWT, verifies the signature, checks expiration, and processes the request. No database lookup needed.</p>
+
+      <h2>Common Use Cases for JWT</h2>
+      <p><strong>Single Sign-On (SSO):</strong> A single JWT works across multiple applications and domains. The user logs in once and accesses all participating services. This is why enterprise systems and large platforms rely on JWT for SSO.</p>
+      <p><strong>Mobile App Authentication:</strong> Mobile apps do not use cookies natively. JWTs are perfect because the app stores the token locally and sends it in headers. This works consistently across iOS and Android.</p>
+      <p><strong>API Authentication:</strong> RESTful APIs use JWTs to authenticate requests. The API gateway validates the JWT before forwarding requests to microservices, eliminating the need for each service to implement authentication.</p>
+      <p><strong>OAuth2 and OpenID Connect:</strong> JWTs are the standard token format in OAuth2 and OpenID Connect protocols. When you log in with Google or GitHub, the identity tokens returned are JWTs.</p>
+
+      <h2>Security Tips for JWT Tokens</h2>
+      <p><strong>1. Always Use HTTPS:</strong> Transmit JWTs exclusively over HTTPS. If intercepted over HTTP, an attacker can steal the token and impersonate the user.</p>
+      <p><strong>2. Set Short Expiration:</strong> Access tokens should expire in 15-60 minutes. Use refresh tokens for longer sessions. Short-lived tokens limit damage if stolen.</p>
+      <p><strong>3. Keep Secret Keys Secure:</strong> Store signing keys in environment variables or secrets managers. Never commit them to version control. A compromised key lets attackers forge tokens.</p>
+      <p><strong>4. Validate All Claims:</strong> Check the signature, expiration, issuer, and audience. Use reputable JWT libraries that handle validations automatically.</p>
+      <p><strong>5. Use RS256 in Production:</strong> Asymmetric signing (RS256) uses a private key to sign and a public key to verify. Multiple services can verify tokens without sharing the secret key, reducing the attack surface.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is a JWT token used for?</h3>
+      <p>A JWT token is primarily used for authentication and authorization in web applications, APIs, and mobile apps. It securely transmits user identity and permissions between the client and server without requiring server-side session storage.</p>
+      <h3>Is JWT encryption or encoding?</h3>
+      <p>JWT uses Base64 encoding for the header and payload, not encryption. The content is readable by anyone who has the token. The signature verifies integrity but does not hide the data. For sensitive data, use JWE (JWT Encryption).</p>
+      <h3>How long does a JWT token last?</h3>
+      <p>JWT expiration is set by the exp claim. Access tokens typically last 15 minutes to 1 hour. Refresh tokens can last days or weeks. Short expiration limits damage if a token is compromised.</p>
+      <h3>Can a JWT be revoked?</h3>
+      <p>JWTs cannot be revoked before expiration unless you maintain a token blacklist, which adds server-side state and defeats the stateless advantage. This is why short expiration times are recommended.</p>
+      <h3>What happens if a JWT signature is invalid?</h3>
+      <p>If the signature does not match, the token has been tampered with. The server rejects it with a 401 Unauthorized error. Never trust a JWT with an invalid signature\u2014it may be a forged token from an attacker.</p>
+
+      <h2>Start Using JWT Tokens Today</h2>
+      <p>Understanding what a JWT token is and how it works is essential for modern web development. JWTs provide stateless, scalable authentication that works across distributed systems, mobile apps, and SSO environments. The three-part structure (header, payload, signature) enables secure, self-contained authentication without server-side session storage.</p>
+      <p>Use our free <a href="/tools/jwt-decoder">JWT Decoder online</a> to instantly inspect and decode any JWT token. See the header, payload, and signature in clear JSON format\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 29, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'how-jwt-authentication-works',
+    title: 'How JWT Authentication Works (Step-by-Step)',
+    description: 'Learn exactly how JWT authentication works from login to API requests with a complete step-by-step guide covering tokens, refresh flows, and security best practices.',
+    category: 'Developer Guide',
+    date: '2026-06-29',
+    readTime: '8 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'JWT Decoder', url: '/tools/jwt-decoder' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>Understanding how JWT authentication works is essential for any developer building modern web applications or APIs. JWT (JSON Web Token) authentication has become the standard method for securing applications because it is stateless, scalable, and works across different services. Unlike traditional session-based authentication where server stores session data, JWT authentication is completely stateless\u2014the token itself contains all the information needed to verify a user\u2019s identity.</p>
+      <p>In this step-by-step guide, you will learn exactly how JWT authentication works, from the initial login request to protected API calls. You will understand each component of the flow, how tokens are created and verified, and how to implement JWT authentication securely in your applications. We will also cover JWT vs cookie sessions, refresh tokens, and security best practices.</p>
+
+      <h2>What is Authentication?</h2>
+      <p>Authentication is the process of verifying who a user is. When you log into a website, you prove your identity by providing credentials (typically a username and password). Once authenticated, the server needs a way to remember that you are logged in on subsequent requests. This is where authentication tokens come in. JWT authentication handles this by issuing a signed token that the client sends with every request, allowing the server to verify identity without maintaining session state.</p>
+
+      <h2>How JWT Authentication Flow Works</h2>
+      
+      <h3>Step 1: User Logs In</h3>
+      <p>The authentication process begins when a user submits their login credentials (email and password) through a login form. The client sends these credentials to the server\u2019s authentication endpoint over HTTPS. Using HTTPS is critical at this stage to prevent credentials from being intercepted by attackers on the same network.</p>
+      <pre><code>POST /api/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "securePassword123"
+}</code></pre>
+
+      <h3>Step 2: Server Verifies Credentials</h3>
+      <p>The server receives the credentials and looks up the user in its database. It retrieves the stored password hash and compares it to the provided password using a secure hashing algorithm like bcrypt or Argon2. If the passwords match, the user is authenticated. If not, the server returns a 401 Unauthorized error.</p>
+
+      <h3>Step 3: Server Creates and Signs the JWT</h3>
+      <p>Once the user is verified, the server creates a JWT containing relevant claims. The payload includes the user\u2019s ID (sub claim), issued-at timestamp (iat), expiration timestamp (exp), and any additional claims like user role or permissions. The server signs the token using its secret key and sends it back to the client.</p>
+      <pre><code>HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIs...",
+  "refresh_token": "dGhpcyBpcyBhIHJlZnJl...",
+  "token_type": "Bearer",
+  "expires_in": 3600
+}</code></pre>
+
+      <h3>Step 4: Client Stores the Token</h3>
+      <p>The client receives the JWT and stores it for future requests. There are several storage options with different security profiles. localStorage and sessionStorage are simple but vulnerable to XSS attacks. Secure HTTP-only cookies are more secure because JavaScript cannot access them directly, but require CSRF protection. The recommended approach is to store access tokens in memory and refresh tokens in secure HTTP-only cookies.</p>
+
+      <h3>Step 5: Client Sends JWT with Requests</h3>
+      <p>For every request to a protected resource, the client includes the JWT in the Authorization header using the Bearer scheme:</p>
+      <pre><code>GET /api/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+Host: api.example.com</code></pre>
+
+      <h3>Step 6: Server Verifies the Token</h3>
+      <p>The server extracts the JWT, verifies the signature using its secret key, and validates claims including expiration (exp), issuer (iss), and audience (aud). If all checks pass, the server processes the request. If the token is invalid or expired, the server returns 401 Unauthorized. No database lookup is needed because all user information is embedded in the token itself.</p>
+
+      <h3>Step 7: Refresh Expired Tokens</h3>
+      <p>Access tokens have short expiration times (15-60 minutes). When the access token expires, the client uses a refresh token (valid for days or weeks) to obtain a new access token without requiring the user to log in again. This balances security with user experience.</p>
+
+      <h2>JWT vs Cookie Sessions</h2>
+      <p><strong>Cookie-based sessions</strong> store session data on the server and send a session ID cookie to the client. The server looks up the session on every request. This is simple but requires server-side storage and does not scale well across multiple servers without a shared session store like Redis.</p>
+      <p><strong>JWT authentication</strong> stores everything in the token itself. No server-side storage is needed. Any server in a load-balanced cluster can verify a JWT independently, making horizontal scaling straightforward. JWT also works across domains and services, making it ideal for microservices and SSO.</p>
+      <p>The main trade-off is revocation. Sessions can be revoked instantly by deleting the session record. JWTs remain valid until expiration unless you maintain a token blacklist, which adds server-side state and complexity.</p>
+
+      <h2>Refresh Tokens Explained</h2>
+      <p>Refresh tokens are long-lived credentials (7-30 days) that allow clients to obtain new access tokens without requiring the user to log in again. The flow works as follows: when the access token expires, the client sends the refresh token to a dedicated endpoint. The server verifies the refresh token and issues a new access token. This pattern provides both security (short-lived access tokens) and usability (no frequent re-login).</p>
+
+      <h2>Implementing JWT Authentication</h2>
+      <p>When implementing JWT authentication in your application, use a reputable JWT library for your programming language. Popular options include jsonwebtoken for Node.js, PyJWT for Python, and jjwt for Java. Libraries handle token creation, signature verification, and claim validation automatically. Always configure short expiration times for access tokens, use strong secret keys (at least 256 bits), and prefer RS256 over HS256 for production applications.</p>
+
+      <h2>Security Best Practices</h2>
+      <p><strong>Always use HTTPS:</strong> Transmit all JWT tokens over HTTPS to prevent interception. Without HTTPS, tokens can be stolen by anyone on the same network.</p>
+      <p><strong>Short expiration times:</strong> Access tokens should expire within 15-60 minutes. Use refresh tokens for longer sessions. Short-lived tokens limit the damage if a token is compromised.</p>
+      <p><strong>Store tokens securely:</strong> Avoid localStorage for sensitive tokens. Use HTTP-only cookies or in-memory storage for access tokens. Implement proper CSRF protection if using cookies.</p>
+      <p><strong>Validate everything:</strong> Always verify the signature, expiration, issuer, and audience. Do not trust tokens that fail any validation check. A JWT with an invalid signature is a security threat.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>How does JWT authentication work exactly?</h3>
+      <p>JWT authentication works by issuing a signed token when a user logs in. The client stores this token and sends it with every subsequent request in the Authorization header. The server verifies the token\u2019s signature and claims without needing to query a database, making the process stateless and fast.</p>
+      <h3>Is JWT authentication secure?</h3>
+      <p>JWT authentication is secure when implemented correctly. Always use HTTPS, short expiration times, strong signing keys, and validate all claims. The main risk is token theft, which is mitigated by short expiration and secure storage practices.</p>
+      <h3>What is the difference between JWT and OAuth?</h3>
+      <p>JWT is a token format, while OAuth2 is an authorization framework that can use JWTs as tokens. OAuth2 defines how tokens are obtained and used, while JWT defines the token structure itself. They are complementary technologies often used together.</p>
+      <h3>How long should a JWT access token last?</h3>
+      <p>Access tokens should last 15-60 minutes for maximum security. Refresh tokens can last 7-30 days. The trade-off is between security (shorter is better) and user experience (longer reduces logins).</p>
+      <h3>Can I decode a JWT without the secret key?</h3>
+      <p>Yes, the header and payload of a JWT are Base64-encoded, not encrypted. Anyone can decode and read them. The signature verification requires the secret key, but decoding the content does not. This is why you should never put sensitive data in the payload.</p>
+
+      <h2>Try JWT Authentication Yourself</h2>
+      <p>Now that you understand how JWT authentication works, try decoding real JWT tokens to inspect their structure. Use our free <a href="/tools/jwt-decoder">JWT Decoder online</a> to decode any JWT token, view the header, payload, and signature, and verify claims\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 29, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'what-is-base64-encoding',
+    title: 'What is Base64 Encoding? How It Works and When to Use It',
+    description: 'Learn what Base64 encoding is, how the algorithm works, and when to use it for email attachments, APIs, and data URLs in web development.',
+    category: 'Developer Guide',
+    date: '2026-06-28',
+    readTime: '9 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Base64 Encoder/Decoder', url: '/tools/base64-encoder' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>Understanding what Base64 encoding is and how it works is essential for any developer working with data transmission, APIs, or email systems. Base64 is an encoding scheme that converts binary data into a text-based ASCII format using 64 safe characters: A-Z, a-z, 0-9, plus (+), and forward slash (/), with equals signs (=) for padding. The purpose of Base64 is to represent binary data in a way that can be safely transmitted through systems that only handle text.</p>
+      <p>Base64 is NOT encryption. Anyone who sees a Base64-encoded string can easily decode it back to the original data. It is purely a format conversion tool, not a security tool. Never use Base64 for sensitive data that needs to stay secret\u2014use proper encryption instead.</p>
+      <p>In this guide, you will learn what Base64 encoding is, how the algorithm works step by step, the Base64 alphabet table, common use cases like email attachments and data URLs, the difference between encoding and encryption, and how to decode Base64 strings.</p>
+
+      <h2>How Base64 Encoding Works</h2>
+      <p>Base64 works by taking binary data and converting it into a text representation using 64 characters. Each character represents 6 bits of binary data (since 2^6 = 64). This means every 3 bytes (24 bits) of original data become 4 Base64 characters (24 bits \u00F7 6 bits per character = 4 characters).</p>
+      <p>The Base64 alphabet consists of: ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</p>
+      <p>Let us encode the text "Hello" step by step:</p>
+      <p><strong>Step 1:</strong> Convert to ASCII values: H=72, e=101, l=108, l=108, o=111</p>
+      <p><strong>Step 2:</strong> Convert to binary: 01001000 01100101 01101100 01101100 01101111</p>
+      <p><strong>Step 3:</strong> Group into 6-bit chunks: 010010 000110 010101 101100 011011 000110 111100</p>
+      <p><strong>Step 4:</strong> Convert each 6-bit group to its Base64 character: SGVsbG8=</p>
+      <p>The equals signs (=) at the end are padding characters. Padding is added when the original data length is not a multiple of 3 bytes. One equals sign means one byte of padding, two equals signs mean two bytes of padding.</p>
+
+      <h2>Base64 Alphabet Table</h2>
+      <p>The Base64 alphabet maps 6-bit binary values to specific characters. Values 0-25 map to A-Z, 26-51 map to a-z, 52-61 map to 0-9, 62 maps to +, and 63 maps to /. For example, binary 000000 maps to A, 000001 maps to B, and so on. This table is standardized in RFC 4648 and is used consistently across all Base64 implementations.</p>
+
+      <h2>Common Use Cases for Base64</h2>
+      <p><strong>Email Attachments:</strong> Email was designed to transmit text only. Before Base64, sending binary files like images and PDFs via email was impossible. Email systems (MIME) use Base64 to encode attachments before transmission. When you send a photo by email, it is Base64-encoded during transmission and decoded on the receiving end.</p>
+      <p><strong>Data URLs in HTML:</strong> You can embed images directly in HTML using Base64 data URLs. Instead of linking to an external image file, you include the image data as a Base64 string: <code>&lt;img src="data:image/png;base64,iVBORw0KGgo..." /&gt;</code>. This reduces HTTP requests but increases HTML size.</p>
+      <p><strong>API Authentication:</strong> HTTP Basic Authentication requires encoding username:password in Base64. The Authorization header includes Basic followed by the Base64-encoded credentials: <code>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</code>.</p>
+      <p><strong>JSON API Responses:</strong> When APIs transmit binary data (like images or documents) as JSON, they often Base64-encode it since JSON only supports text. This is common in REST APIs that return image data encoded as Base64 strings.</p>
+      <p><strong>JWT Tokens:</strong> JWT tokens use a URL-safe variant of Base64 for their header and payload components, replacing + with - and / with _ to avoid special characters in URLs.</p>
+
+      <h2>Encoding vs Encryption</h2>
+      <p>Base64 is encoding, not encryption. The key difference is that encoding is reversible using a well-known algorithm without any secret key. Anyone who receives a Base64 string can decode it using publicly available tools. Encryption, on the other hand, requires a secret key to decrypt the data. Encrypted data is unreadable without the key, while encoded data is just formatted differently.</p>
+      <p>Use Base64 when you need to convert binary data to a text format for transmission through text-only systems. Use encryption when you need to protect sensitive data from unauthorized access. Never use Base64 to hide sensitive information\u2014it provides no security whatsoever.</p>
+
+      <h2>How to Decode Base64</h2>
+      <p>Decoding Base64 is the reverse of encoding. Each character is converted back to its 6-bit binary value, all the bits are concatenated, padding is removed, and the result is converted back to the original bytes. Most programming languages have built-in Base64 decoding functions. For example, in JavaScript you use <code>atob()</code> to decode and <code>btoa()</code> to encode. In Python, you use the <code>base64</code> module.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is Base64 encoding used for?</h3>
+      <p>Base64 encoding is used to transmit binary data through text-only systems like email, JSON APIs, and HTML. Common uses include encoding email attachments, embedding images in HTML as data URLs, encoding credentials for HTTP Basic Authentication, and encoding binary data in JSON responses.</p>
+      <h3>Is Base64 secure?</h3>
+      <p>No, Base64 is not secure. It is encoding, not encryption. Anyone can decode a Base64 string using freely available tools. Never use Base64 to protect sensitive data. Always use proper encryption algorithms like AES for security.</p>
+      <h3>How do I decode a Base64 string?</h3>
+      <p>Use a Base64 decoder tool or a built-in function in your programming language. Online tools let you paste Base64 strings and instantly decode them. In JavaScript, use atob() to decode. In Python, use base64.b64decode().</p>
+      <h3>Does Base64 reduce file size?</h3>
+      <p>No, Base64 actually increases data size by approximately 33%. Every 3 bytes of original data becomes 4 Base64 characters. This overhead is the trade-off for making binary data safe for text-only transmission.</p>
+      <h3>What is the difference between Base64 and Base64URL?</h3>
+      <p>Base64URL is a variant of Base64 that replaces + with - and / with _ and removes padding (=). This makes the encoded string safe for use in URLs and filenames without requiring percent-encoding. JWT tokens use Base64URL encoding.</p>
+
+      <h2>Try Base64 Encoding Yourself</h2>
+      <p>Now that you understand what Base64 encoding is, try encoding and decoding strings yourself. Use our free <a href="/tools/base64-encoder">Base64 Encoder/Decoder online</a> to instantly encode text to Base64 or decode Base64 strings\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 28, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'how-to-compress-images-for-web',
+    title: 'How to Compress Images for Web Without Losing Quality',
+    description: 'Learn how to compress images for website optimization without losing quality. Covers lossy vs lossless, image formats, and practical compression tips.',
+    category: 'Productivity',
+    date: '2026-06-27',
+    readTime: '9 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Image Compressor', url: '/tools/image-compressor' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>Learning how to compress images for website optimization is one of the most impactful skills for improving page load times and user experience. Images are the largest files on most websites\u2014a single unoptimized photograph can be 5-10 MB, while a compressed version might be only 200-500 KB. That is a 95% reduction that directly translates to faster page loads, better SEO rankings, and lower bandwidth costs.</p>
+      <p>Modern users expect websites to load in under 3 seconds. On slow mobile connections, unoptimized images can cause load times of 30+ seconds, leading to high bounce rates. Google considers page speed a ranking factor, making image compression critical for SEO. In this guide, you will learn how to compress images for web use without sacrificing visual quality.</p>
+
+      <h2>Why Image Compression Matters for SEO</h2>
+      <p>Google\u2019s Core Web Vitals include Largest Contentful Paint (LCP), which measures how quickly the main content of a page loads. Images are often the largest element on a page, so image size directly affects LCP scores. Sites with slow LCP scores rank lower in search results. Additionally, faster pages have lower bounce rates and higher engagement, both positive signals for SEO. Compressing images is one of the fastest and most effective ways to improve your Core Web Vitals scores.</p>
+
+      <h2>Lossy vs Lossless Compression</h2>
+      <p><strong>Lossless compression</strong> reduces file size without discarding any data. When decompressed, the image is pixel-perfect identical to the original. The trade-off is that lossless compression produces larger files than lossy. Use lossless compression for images where every pixel matters: logos, screenshots with text, medical images, and graphics that will be edited further.</p>
+      <p><strong>Lossy compression</strong> discards some visual information that is less noticeable to the human eye. This produces much smaller files but introduces some quality loss. The compression level controls the balance\u2014higher compression means smaller files but more visible artifacts. Use lossy compression for photographs, product images, and background images where minor quality loss is acceptable.</p>
+
+      <h2>Best Image Formats for Web</h2>
+      <p><strong>JPEG (JPG):</strong> Best for photographs and complex images with many colors. Uses lossy compression with adjustable quality. At 75-85% quality, the difference is nearly imperceptible to human eyes while reducing file size by 50-80%. Universal browser support. Use JPEG for product photos, hero images, and any content-heavy visuals.</p>
+      <p><strong>PNG:</strong> Best for images requiring transparency or sharp edges. Uses lossless compression, so quality is perfect but file sizes are 2-3x larger than JPEG. Use PNG for logos, icons, screenshots, and graphics with text. PNG supports full alpha transparency, making it essential for overlays and UI elements.</p>
+      <p><strong>WebP:</strong> The modern web standard developed by Google. Supports both lossy and lossless compression. WebP images are typically 25-35% smaller than equivalent JPEG or PNG files. Browser support covers approximately 95% of modern browsers. Use WebP with JPEG or PNG fallbacks for maximum compatibility.</p>
+      <p><strong>AVIF:</strong> A newer format that offers even better compression than WebP, with files 20-30% smaller at equivalent quality. Browser support is growing but still limited compared to WebP. Use AVIF for cutting-edge optimization with fallbacks to WebP and JPEG.</p>
+
+      <h2>Image Compression Tips</h2>
+      <p><strong>1. Resize before compressing:</strong> Never upload images larger than their display size. If your website displays images at 800 pixels wide, do not start with a 4000-pixel image. Resize to the exact display dimensions first, then compress. This alone can reduce file sizes by 80% or more.</p>
+      <p><strong>2. Choose the right quality setting:</strong> For JPEG, start at 75-80% quality. This is usually imperceptible but produces dramatic savings. Use 85-90% for high-quality hero images and 60-70% for thumbnails and backgrounds where some quality loss is acceptable.</p>
+      <p><strong>3. Remove metadata:</strong> Images contain hidden metadata like camera settings, GPS location, and color profiles. This adds kilobytes to every image. Strip metadata during compression to save additional space.</p>
+      <p><strong>4. Use responsive images:</strong> Serve different image sizes for different devices. Mobile users should get smaller images than desktop users. Use HTML srcset and sizes attributes to let browsers choose the right size.</p>
+      <p><strong>5. Use next-generation formats:</strong> Serve WebP or AVIF images with JPEG fallbacks. Modern browsers will download the smaller WebP files, while older browsers get the JPEG version. This gives you the best of both worlds.</p>
+
+      <h2>How to Check Image Size</h2>
+      <p>Before and after compressing, check your image file size to measure the improvement. Right-click the image file and select Properties (Windows) or Get Info (Mac) to see the file size. For web images, use your browser\u2019s developer tools: open the Network tab, reload the page, and click on any image to see its size and load time. Chrome\u2019s Lighthouse tool also provides image optimization recommendations.</p>
+
+      <h2>Before and After Examples</h2>
+      <p><strong>Example 1:</strong> A 3000x2000 pixel photograph at 90% JPEG quality weighs 4.2 MB. After resizing to 1200x800 pixels and compressing to 78% quality, the same image is 85 KB\u2014a 98% reduction with no visible quality difference on screen.</p>
+      <p><strong>Example 2:</strong> A PNG screenshot at 1920x1080 pixels weighs 1.8 MB. Converting to WebP at 80% quality reduces it to 180 KB, a 90% reduction. The visual difference is negligible, but the page loads dramatically faster.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>How much can I compress an image without losing quality?</h3>
+      <p>JPEG images can typically be compressed to 75-85% quality with no visible loss. PNG images can be compressed using lossless techniques for 10-30% savings. WebP offers 25-35% better compression than JPEG at equivalent quality.</p>
+      <h3>What is the best image format for web?</h3>
+      <p>WebP is the best format for most web images, offering superior compression with both lossy and lossless modes. Use JPEG fallbacks for browser compatibility. Use PNG for images requiring transparency.</p>
+      <h3>Does image compression affect SEO?</h3>
+      <p>Yes, image compression directly affects page speed, which is a Google ranking factor. Faster load times improve Core Web Vitals scores, reduce bounce rates, and boost SEO performance. Compressed images also use less bandwidth, improving the mobile experience.</p>
+      <h3>Can I compress images without uploading to a server?</h3>
+      <p>Yes, browser-based image compression tools process images entirely on your device. Your images never leave your computer, making it safe and private. No signup or upload required.</p>
+      <h3>What is the difference between JPEG and WebP?</h3>
+      <p>WebP offers 25-35% better compression than JPEG at the same quality level. WebP also supports transparency (like PNG) and animation (like GIF). However, JPEG has universal browser support, while WebP covers approximately 95% of browsers.</p>
+
+      <h2>Start Compressing Images Today</h2>
+      <p>Now that you know how to compress images for website optimization, put it into practice. Use our free <a href="/tools/image-compressor">Image Compressor online</a> to instantly reduce image file size while preserving quality\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 27, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'what-is-regex',
+    title: "What is Regex? A Beginner's Guide to Regular Expressions",
+    description: 'Wondering what is regex? This beginner guide explains regular expressions with basic syntax, common patterns, JavaScript examples, and practical use cases.',
+    category: 'Developer Guide',
+    date: '2026-06-26',
+    readTime: '10 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Regex Tester', url: '/tools/regex-tester' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>If you have ever wondered what is regex and why developers use it, you are not alone. A regular expression (regex or regexp) is a sequence of characters that defines a search pattern. Regex allows you to match, find, replace, or validate text based on specific patterns rather than exact string matches. Instead of checking if a string equals exactly "hello", regex can match any string that starts with "hel" and ends with "o" with any characters in between.</p>
+      <p>Regex is used in virtually every programming language, text editor, and command-line tool. Learning regex dramatically speeds up text processing, data validation, and log file analysis. This beginner guide will teach you what regex is, basic syntax, common patterns, use cases, and how to use regex in JavaScript.</p>
+
+      <h2>Basic Regex Syntax and Characters</h2>
+      <p><strong>Literal Characters:</strong> The simplest regex is a literal string. The pattern "cat" matches the exact text "cat". Most characters match themselves literally.</p>
+      <p><strong>Dot (.)</strong> - Matches any single character except newline. Example: "c.t" matches "cat", "cot", "cut", but not "coat".</p>
+      <p><strong>Asterisk (*)</strong> - Matches zero or more of the preceding character. Example: "ca*t" matches "ct", "cat", "caat", "caaat", etc.</p>
+      <p><strong>Plus (+)</strong> - Matches one or more of the preceding character. Example: "ca+t" matches "cat", "caat", "caaat", but not "ct".</p>
+      <p><strong>Question Mark (?)</strong> - Matches zero or one of the preceding character. Example: "colou?r" matches both "color" and "colour".</p>
+      <p><strong>Character Classes ([])</strong> - Match any single character inside the brackets. Example: "[abc]" matches a, b, or c. "[0-9]" matches any digit. "[a-z]" matches any lowercase letter.</p>
+      <p><strong>Caret (^)</strong> - Matches the start of the string. Example: "^Hello" matches strings starting with "Hello".</p>
+      <p><strong>Dollar ($)</strong> - Matches the end of the string. Example: "world$" matches strings ending with "world".</p>
+      <p><strong>Backslash (\\\\)</strong> - Escapes special characters. Example: "\\\." matches a literal period.</p>
+
+      <h2>Common Regex Patterns with Examples</h2>
+      <p><strong>Email Validation:</strong> <code>^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\.[a-zA-Z]{2,}$</code> matches standard email formats like name@example.com but rejects invalid formats like @example.com.</p>
+      <p><strong>URL Matching:</strong> <code>^https?://[a-zA-Z0-9.-]+\\\.[a-zA-Z]{2,}(:[0-9]{1,5})?(/.*)?$</code> matches http and https URLs with optional ports and paths.</p>
+      <p><strong>Phone Numbers:</strong> <code>^\\\\+?[1-9][0-9]{7,14}$</code> matches international phone numbers in E.164 format.</p>
+      <p><strong>Strong Password:</strong> <code>^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$</code> requires at least 8 characters, one lowercase, one uppercase, one digit, and one special character.</p>
+      <p><strong>Date (YYYY-MM-DD):</strong> <code>^\\\d{4}-\\\d{2}-\\\d{2}$</code> matches dates in ISO 8601 format like 2026-06-26.</p>
+
+      <h2>Use Cases: Validation, Search, and Replace</h2>
+      <p><strong>Form Validation:</strong> Regex is the standard tool for validating form inputs. Validate email addresses, phone numbers, postal codes, credit card numbers, and passwords before submitting data to the server. Client-side validation with regex provides instant feedback to users and reduces server load.</p>
+      <p><strong>Search and Extract:</strong> Use regex to find specific patterns in large documents. Extract all phone numbers from a text file, find all URLs in an HTML page, or locate all email addresses in a database export. Regex search is exponentially faster than manual scanning.</p>
+      <p><strong>Find and Replace:</strong> Regex-powered find-and-replace transforms text in powerful ways. Replace all date formats from MM/DD/YYYY to YYYY-MM-DD, remove duplicate words, or reformat phone numbers. Most code editors and IDEs support regex find-and-replace.</p>
+      <p><strong>Log File Analysis:</strong> Server logs can contain millions of entries. Regex lets you filter and extract specific events, error messages, IP addresses, and timestamps. Security teams use regex to detect suspicious patterns in access logs.</p>
+
+      <h2>Regex in JavaScript</h2>
+      <p>JavaScript has built-in regex support. Create a regex pattern using forward slashes: <code>/pattern/flags</code>. The test() method returns true or false: <code>/^hello/.test("hello world")</code> returns true. The match() method returns matched groups: <code>"hello world".match(/\\\w+/g)</code> returns ["hello", "world"]. The replace() method substitutes matches: <code>"hello world".replace(/world/, "there")</code> returns "hello there". Flags include g (global), i (case-insensitive), and m (multiline).</p>
+
+      <h2>Common Regex Mistakes</h2>
+      <p><strong>Forgetting to escape special characters:</strong> To match a literal dot, write "\\\." not ".". The dot means "any character" in regex, so unescaped dots match too broadly.</p>
+      <p><strong>Over-matching with greedy quantifiers:</strong> By default, * and + match as much as possible (greedy). Use *? and +? for non-greedy (lazy) matching that matches as little as possible.</p>
+      <p><strong>Not testing edge cases:</strong> Always test regex against empty strings, very long strings, strings with special characters, and strings that almost match. Use a regex tester tool to verify your patterns before deployment.</p>
+      <p><strong>Using overly complex patterns:</strong> Simple regex is better than clever regex. Complex patterns are hard to debug and maintain. Break complex validations into multiple simpler patterns.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is regex used for?</h3>
+      <p>Regex is used for pattern matching in text. Common uses include form validation (email, phone, passwords), searching and extracting data from documents, find-and-replace operations, log file analysis, and input sanitization in web applications.</p>
+      <h3>Is regex the same in all programming languages?</h3>
+      <p>Most programming languages support regex with similar syntax, but there are differences in supported features and flags. JavaScript, Python, Java, and C# all have regex support with slightly different implementations. The core syntax is consistent across languages.</p>
+      <h3>How do I test a regex pattern?</h3>
+      <p>Use an online regex tester tool to test patterns against sample text in real-time. These tools show exactly what matches, highlight matches in the text, and explain each part of the pattern. This is essential for debugging and learning regex.</p>
+      <h3>What is the difference between regex and glob?</h3>
+      <p>Regex and glob both match patterns but work differently. Regex matches text within strings and supports complex patterns. Glob matches file and directory names using simpler wildcards (*, ?). Regex is more powerful but glob is simpler for file matching.</p>
+      <h3>Is regex case-sensitive?</h3>
+      <p>By default, regex is case-sensitive. Use the i flag for case-insensitive matching. For example, /hello/i matches "Hello", "HELLO", and "hello". Always consider case sensitivity when writing patterns for user input.</p>
+
+      <h2>Start Using Regex Today</h2>
+      <p>Now that you understand what regex is and how it works, practice with real patterns. Use our free <a href="/tools/regex-tester">Regex Tester online</a> to test and debug your regular expressions with live matching and highlighting\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 26, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'sha256-vs-md5',
+    title: 'SHA256 vs MD5: Which Hashing Algorithm Should You Use?',
+    description: 'Compare SHA256 vs MD5 to understand the differences, security weaknesses, and when to use each hashing algorithm for passwords, checksums, and data integrity.',
+    category: 'Security',
+    date: '2026-06-28',
+    readTime: '10 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Hash Generator', url: '/tools/hash-generator' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>When choosing between SHA256 vs MD5 for your application, understanding the security implications is critical. Both are hash functions that take input data and produce a fixed-length string, but they differ dramatically in security, speed, and appropriate use cases. MD5 produces a 128-bit hash, while SHA256 produces a 256-bit hash. The larger output size of SHA256 makes it exponentially more resistant to collision attacks.</p>
+      <p>A hash function is a one-way cryptographic function. The same input always produces the same hash, but even a tiny change in the input produces a completely different hash. This property makes hashing useful for verifying data integrity, detecting tampering, and storing passwords. Unlike encryption, hashing is irreversible\u2014you cannot recover the original input from the hash. In this guide, we will compare SHA256 vs MD5 side by side.</p>
+
+      <h2>What is a Hash Function?</h2>
+      <p>A hash function takes any input (text, files, numbers) and produces a fixed-length string of characters called a digest or hash. Hash functions are deterministic\u2014the same input always produces the same hash. They are also one-way\u2014there is no mathematical way to reverse a hash back to the original input. This combination of properties makes hashing ideal for verifying that data has not been altered, comparing files without sharing their contents, and storing passwords securely.</p>
+
+      <h2>MD5 Overview and Weaknesses</h2>
+      <p>MD5 (Message-Digest Algorithm 5) was designed in 1991 by Ronald Rivest. It produces a 128-bit hash, represented as a 32-character hexadecimal string. For example, MD5("hello") = "5d41402abc4b2a76b9719d911017c592". For decades, MD5 was the standard hashing algorithm for file verification and password storage.</p>
+      <p>However, MD5 is now considered broken. In 2004, researchers demonstrated collision attacks\u2014they could produce two different inputs that generate the same MD5 hash. This means an attacker could create a malicious file that has the same MD5 checksum as a legitimate file, bypassing integrity checks. Additionally, MD5 is fast, making it vulnerable to brute-force and rainbow table attacks. DO NOT use MD5 for security-critical applications. It may still be acceptable for non-security checksums (like file deduplication), but SHA256 is always preferred.</p>
+
+      <h2>SHA256 Overview and Strengths</h2>
+      <p>SHA256 (Secure Hash Algorithm 256-bit) is part of the SHA-2 family designed by the NSA. It produces a 256-bit hash, represented as a 64-character hexadecimal string. For example, SHA256("hello") = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824".</p>
+      <p>SHA256 remains unbroken despite intense cryptographic scrutiny over the past two decades. The 256-bit output space makes finding a collision computationally infeasible\u2014even with all the computing power on earth, finding two inputs with the same SHA256 hash would take billions of years. SHA256 is used in Bitcoin mining, TLS/SSL certificates, blockchain technology, and by security-conscious organizations worldwide. It is the modern standard for cryptographic hashing.</p>
+
+      <h2>Side-by-Side Comparison Table</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid #ddd;">
+          <th style="padding: 8px; text-align: left;">Feature</th>
+          <th style="padding: 8px; text-align: left;">MD5</th>
+          <th style="padding: 8px; text-align: left;">SHA256</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Output Size</td>
+          <td style="padding: 8px;">128 bits (32 hex chars)</td>
+          <td style="padding: 8px;">256 bits (64 hex chars)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Security Status</td>
+          <td style="padding: 8px;">Broken (collisions found)</td>
+          <td style="padding: 8px;">Secure (no practical attacks)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Speed</td>
+          <td style="padding: 8px;">Very fast (faster = weaker)</td>
+          <td style="padding: 8px;">Moderate (slower = stronger)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Collision Resistance</td>
+          <td style="padding: 8px;">Broken (collisions demonstrated)</td>
+          <td style="padding: 8px;">Strong (no known collisions)</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Best Use</td>
+          <td style="padding: 8px;">Non-security checksums only</td>
+          <td style="padding: 8px;">Security, certificates, blockchain</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Password Storage</td>
+          <td style="padding: 8px;">Never (use bcrypt/Argon2)</td>
+          <td style="padding: 8px;">Not directly (use bcrypt/Argon2)</td>
+        </tr>
+      </table>
+
+      <h2>When to Use Each Algorithm</h2>
+      <p><strong>Use SHA256 when:</strong> You need cryptographic security, data integrity verification, digital signatures, certificate validation, blockchain applications, or any scenario where an attacker might try to tamper with data. SHA256 should be your default choice for all security-related hashing.</p>
+      <p><strong>Use MD5 only for:</strong> Non-security applications like file deduplication, checksums for non-critical data, or compatibility with legacy systems where upgrading is not feasible. Never use MD5 for password storage, digital signatures, or certificate validation.</p>
+      <p><strong>For password storage:</strong> Neither MD5 nor SHA256 is appropriate. Passwords should be hashed using dedicated password hashing algorithms like bcrypt, scrypt, or Argon2. These algorithms are intentionally slow and include built-in salting to prevent rainbow table attacks.</p>
+
+      <h2>Password Hashing Recommendations</h2>
+      <p>For password storage, always use a password-specific hashing algorithm. bcrypt is the most widely supported option, available in most programming languages. Argon2 is the modern standard and winner of the Password Hashing Competition. These algorithms include automatic salting and are configurable to be slow, making brute-force attacks impractical. Never hash passwords with plain SHA256 or MD5 without salting, and even then, password-specific algorithms are strongly preferred.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>Is SHA256 better than MD5?</h3>
+      <p>Yes, SHA256 is significantly more secure than MD5. MD5 has known collision vulnerabilities, meaning attackers can create different inputs that produce the same hash. SHA256 remains unbroken and provides 256-bit security strength. Always choose SHA256 over MD5 for security applications.</p>
+      <h3>Can MD5 be reversed?</h3>
+      <p>No, MD5 cannot be mathematically reversed (hashes are one-way). However, because MD5 is fast and has known vulnerabilities, attackers can use brute-force and rainbow table attacks to find the original input. SHA256 is far more resistant to these attacks.</p>
+      <h3>Why is MD5 still used?</h3>
+      <p>MD5 is still used for non-security purposes like file deduplication, checksums for non-critical data, and compatibility with legacy systems. However, it should never be used for security-critical applications. Many organizations continue using MD5 simply because they have not updated their systems.</p>
+      <h3>Which hash algorithm is best for passwords?</h3>
+      <p>For password storage, use bcrypt, scrypt, or Argon2, not MD5 or SHA256. Password hashing algorithms are intentionally slow and include automatic salting, making them resistant to brute-force and rainbow table attacks. Argon2 is the current recommended standard.</p>
+      <h3>How do I generate a SHA256 hash?</h3>
+      <p>Use an online hash generator tool or built-in functions in your programming language. Most languages have crypto libraries with SHA256 support. Online tools let you paste text and instantly generate SHA256, MD5, SHA1, and SHA512 hashes.</p>
+
+      <h2>Try Hashing Algorithms Yourself</h2>
+      <p>Now that you understand the differences between SHA256 vs MD5, try generating hashes yourself. Use our free <a href="/tools/hash-generator">Hash Generator online</a> to instantly create MD5, SHA1, SHA256, and SHA512 hashes\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 28, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'url-encoding-explained',
+    title: 'URL Encoding Explained: What It Is and How It Works',
+    description: 'Learn what URL encoding is, why special characters must be encoded, the percent encoding format, and practical examples of encoding in web development.',
+    category: 'Developer Guide',
+    date: '2026-06-27',
+    readTime: '8 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'URL Encoder/Decoder', url: '/tools/url-encoder' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>URL encoding explained simply: it is the process of converting special characters into a format that can be safely transmitted over the internet. Also called percent encoding, URL encoding replaces unsafe characters with a percent sign (%) followed by their hexadecimal ASCII value. For example, a space becomes %20, a question mark becomes %3F, and an ampersand becomes %26.</p>
+      <p>URLs can only contain certain characters: letters (A-Z, a-z), digits (0-9), hyphens (-), periods (.), underscores (_), and tildes (~). Any other character, including spaces, special symbols, and accented letters, must be encoded before inclusion in a URL. Without encoding, URLs can break, return incorrect results, or create security vulnerabilities.</p>
+
+      <h2>Why Special Characters Must Be Encoded</h2>
+      <p>Some characters have special meaning in URLs. The question mark (?) starts the query string, the ampersand (&) separates multiple parameters, and the hash (#) indicates a fragment identifier. If you want to include these characters as literal values in a URL parameter, they must be encoded, or the browser will interpret them as URL structure rather than data.</p>
+      <p>For example, if you want to search for "hello & goodbye", the ampersand in the query parameter value would be misinterpreted as a parameter separator. The solution is to encode the ampersand as %26: <code>https://example.com/search?q=hello%20%26%20goodbye</code>. Spaces must also be encoded because URLs cannot contain literal spaces. A space is encoded as %20.</p>
+
+      <h2>Percent Encoding Format</h2>
+      <p>Percent encoding uses the format %XX, where XX is the two-digit hexadecimal representation of the character\u2019s ASCII or UTF-8 byte value. The percent sign (%) acts as an escape character, signaling that the following two characters represent the encoded value. The encoding is case-insensitive for the hexadecimal digits, though lowercase is preferred for consistency.</p>
+      <p>The encoding process is straightforward: take the character code of the unsafe character, convert it to hexadecimal, and prepend a percent sign. For instance, the character "@" has ASCII code 64, which is 40 in hexadecimal, so "@" is encoded as %40.</p>
+
+      <h2>Common Encoded Characters Table</h2>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid #ddd;">
+          <th style="padding: 8px; text-align: left;">Character</th>
+          <th style="padding: 8px; text-align: left;">Encoded Value</th>
+          <th style="padding: 8px; text-align: left;">Reason</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Space</td>
+          <td style="padding: 8px;">%20</td>
+          <td style="padding: 8px;">Not allowed in URLs</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">!</td>
+          <td style="padding: 8px;">%21</td>
+          <td style="padding: 8px;">Unsafe character</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">#</td>
+          <td style="padding: 8px;">%23</td>
+          <td style="padding: 8px;">Fragment identifier</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">$</td>
+          <td style="padding: 8px;">%24</td>
+          <td style="padding: 8px;">Unsafe character</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">%</td>
+          <td style="padding: 8px;">%25</td>
+          <td style="padding: 8px;">Escape character itself</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">&amp;</td>
+          <td style="padding: 8px;">%26</td>
+          <td style="padding: 8px;">Parameter separator</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">+</td>
+          <td style="padding: 8px;">%2B</td>
+          <td style="padding: 8px;">Represents space in query strings</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">?</td>
+          <td style="padding: 8px;">%3F</td>
+          <td style="padding: 8px;">Query string start</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">@</td>
+          <td style="padding: 8px;">%40</td>
+          <td style="padding: 8px;">Unsafe in some contexts</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">~</td>
+          <td style="padding: 8px;">%7E</td>
+          <td style="padding: 8px;">Safe but may be encoded</td>
+        </tr>
+      </table>
+
+      <h2>URL Encoding in JavaScript</h2>
+      <p>JavaScript provides two built-in functions for URL encoding. <code>encodeURI()</code> encodes a complete URI while preserving characters that have special meaning in URIs (like ?, #, and /). <code>encodeURIComponent()</code> encodes a URI component and encodes all special characters, making it the right choice for encoding query parameter values. Use <code>decodeURI()</code> and <code>decodeURIComponent()</code> for decoding.</p>
+      <p>Example: <code>encodeURIComponent("hello & goodbye")</code> returns "hello%20%26%20goodbye". This encoded string is safe to include as a query parameter value without breaking the URL structure.</p>
+
+      <h2>Practical Examples</h2>
+      <p><strong>Example 1:</strong> A search query for "free online tools for developers" becomes "free%20online%20tools%20for%20developers". Without encoding, the spaces would break the URL.</p>
+      <p><strong>Example 2:</strong> An API endpoint with parameters: <code>https://api.example.com/users?name=John%20Doe&filter=status%3Dactive%26role%3Dadmin</code>. The & in the filter value is encoded as %26 to prevent it from being interpreted as a parameter separator.</p>
+      <p><strong>Example 3:</strong> A redirect URL parameter: <code>https://example.com/login?redirect=%2Fdashboard%3Ftab%3Dsettings</code>. The forward slash and question mark in the redirect URL are encoded to preserve the nested URL structure.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is URL encoding?</h3>
+      <p>URL encoding (percent encoding) converts unsafe characters in URLs into a percent sign followed by two hexadecimal digits. It ensures that URLs are valid, secure, and correctly interpreted by browsers and servers.</p>
+      <h3>Why do URLs need encoding?</h3>
+      <p>URLs can only contain a limited set of characters. Special characters like spaces, ampersands, question marks, and hashes have reserved meanings in URLs. Encoding these characters prevents them from being misinterpreted and breaking the URL structure.</p>
+      <h3>What is the difference between encodeURI and encodeURIComponent?</h3>
+      <p>encodeURI encodes a complete URI and preserves characters that have special URI meaning (like ?, /, #). encodeURIComponent encodes a URI component and encodes all special characters. Use encodeURIComponent for encoding query parameter values.</p>
+      <h3>Is %20 the same as + in URLs?</h3>
+      <p>In query strings (the part after ?), + represents a space in application/x-www-form-urlencoded format. However, %20 is the standard URL encoding for spaces and works everywhere. Most modern systems prefer %20 over + for consistency.</p>
+      <h3>How do I decode a URL in JavaScript?</h3>
+      <p>Use decodeURI() to decode a complete URI and decodeURIComponent() to decode an encoded component. These functions reverse the encoding performed by encodeURI and encodeURIComponent respectively.</p>
+
+      <h2>Try URL Encoding Yourself</h2>
+      <p>Now that you understand how URL encoding works, try encoding and decoding URLs yourself. Use our free <a href="/tools/url-encoder">URL Encoder/Decoder online</a> to instantly encode special characters for safe URLs or decode percent-encoded strings\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 27, 2026</p>
+      </div>
+    `
+  },
+
+  {
+    slug: 'bmi-chart-men-women',
+    title: 'BMI Chart for Men and Women: What Your BMI Really Means',
+    description: 'Understand the BMI chart for men and women, how to calculate your BMI, what the ranges mean, and the limitations of BMI as a health metric.',
+    category: 'Health',
+    date: '2026-06-26',
+    readTime: '9 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'BMI Calculator', url: '/tools/bmi-calculator' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>The BMI chart for men and women is a widely used tool for assessing body weight relative to height. BMI (Body Mass Index) is a simple calculation that estimates body fat based on your weight and height. While the BMI chart provides a useful starting point for understanding weight categories, it has important limitations that everyone should understand before drawing health conclusions from their BMI number.</p>
+      <p>In this guide, you will learn what BMI is, how to calculate it, the BMI ranges and categories, how to read the BMI chart for men and women, the limitations of BMI, and healthy weight management tips. Whether you are using a BMI calculator for personal health tracking or professional purposes, understanding what the numbers really mean is essential.</p>
+
+      <h2>What is BMI?</h2>
+      <p>Body Mass Index (BMI) is a numerical value calculated from a person\u2019s weight and height. It was developed in the 1830s by Adolphe Quetelet and has been used by healthcare professionals ever since as a screening tool for weight categories. BMI does not measure body fat directly, but it correlates reasonably well with direct measures of body fat for most people.</p>
+      <p>The World Health Organization (WHO) uses BMI to define weight categories that are associated with health risks. Higher BMI values are associated with increased risk of cardiovascular disease, type 2 diabetes, high blood pressure, and certain cancers. However, BMI is a screening tool, not a diagnostic tool\u2014it indicates potential risk but does not diagnose health conditions.</p>
+
+      <h2>BMI Formula</h2>
+      <p>BMI is calculated using the following formula: <strong>BMI = weight (kg) / height (m)\u00B2</strong>. For metric measurements, divide your weight in kilograms by your height in meters squared. For imperial measurements, the formula is: <strong>BMI = (weight in pounds / height in inches\u00B2) x 703</strong>.</p>
+      <p>Example: A person who weighs 68 kg and is 1.7 meters tall has a BMI of 68 / (1.7 x 1.7) = 23.5. This falls in the "Normal weight" category.</p>
+
+      <h2>BMI Ranges and Categories Table</h2>
+      <p>The WHO classifies BMI into the following categories for adults over age 20:</p>
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid #ddd;">
+          <th style="padding: 8px; text-align: left;">Category</th>
+          <th style="padding: 8px; text-align: left;">BMI Range (kg/m\u00B2)</th>
+          <th style="padding: 8px; text-align: left;">Health Risk</th>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Severely Underweight</td>
+          <td style="padding: 8px;">Below 16.0</td>
+          <td style="padding: 8px;">Very high</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Underweight</td>
+          <td style="padding: 8px;">16.0 \u2013 18.4</td>
+          <td style="padding: 8px;">High</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Normal weight</td>
+          <td style="padding: 8px;">18.5 \u2013 24.9</td>
+          <td style="padding: 8px;">Low</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Overweight</td>
+          <td style="padding: 8px;">25.0 \u2013 29.9</td>
+          <td style="padding: 8px;">Moderate</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Obese Class I</td>
+          <td style="padding: 8px;">30.0 \u2013 34.9</td>
+          <td style="padding: 8px;">High</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ddd;">
+          <td style="padding: 8px;">Obese Class II</td>
+          <td style="padding: 8px;">35.0 \u2013 39.9</td>
+          <td style="padding: 8px;">Very high</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Obese Class III</td>
+          <td style="padding: 8px;">40.0 or higher</td>
+          <td style="padding: 8px;">Extremely high</td>
+        </tr>
+      </table>
+
+      <h2>BMI Chart by Age and Gender</h2>
+      <p>The same BMI categories apply to both men and women over age 20 according to WHO guidelines. However, women naturally have more body fat than men at the same BMI, and older adults tend to have more body fat than younger adults at the same BMI. The BMI chart for men and women uses the same numerical ranges, but the health implications may differ:</p>
+      <p><strong>Women:</strong> At the same BMI, women typically have 5-10% more body fat than men. This means a woman with a BMI of 25 may have a healthy body fat percentage, while a man with the same BMI may be overweight. Some researchers suggest adjusting BMI thresholds for women upward by 1-2 points.</p>
+      <p><strong>Men:</strong> Men typically have more muscle mass than women, which can inflate BMI. A muscular athlete may have a BMI in the "Overweight" range despite having very low body fat. This is one of the key limitations of BMI as a health metric.</p>
+      <p><strong>Age:</strong> As people age, they lose muscle mass and gain fat. A healthy BMI for older adults may be slightly higher (24-27) than for younger adults, as a little extra weight can provide energy reserves during illness.</p>
+
+      <h2>Limitations of BMI</h2>
+      <p>While BMI is a useful screening tool, it has several important limitations. BMI does not distinguish between muscle and fat. A bodybuilder with very low body fat may have a high BMI due to muscle mass, incorrectly classifying them as overweight or obese. BMI does not account for fat distribution\u2014visceral fat around organs is more dangerous than subcutaneous fat, but BMI cannot differentiate between the two.</p>
+      <p>BMI does not consider age, gender, ethnicity, or bone density. Research shows that people of Asian descent may have higher health risks at lower BMI thresholds, while some other ethnic groups may have lower risks at higher BMI levels. BMI also does not account for fitness level or metabolic health. An active person with a BMI of 28 may be healthier than a sedentary person with a BMI of 23.</p>
+
+      <h2>Healthy Weight Tips</h2>
+      <p><strong>Focus on body composition, not just BMI:</strong> Use additional measurements like waist circumference, body fat percentage, and fitness level alongside BMI for a more complete health picture.</p>
+      <p><strong>Prioritize balanced nutrition:</strong> A diet rich in vegetables, lean proteins, whole grains, and healthy fats supports healthy weight management. Avoid crash diets and focus on sustainable eating habits.</p>
+      <p><strong>Incorporate regular exercise:</strong> Aim for at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity per week, plus strength training twice per week. Exercise improves body composition even without significant weight changes.</p>
+      <p><strong>Get adequate sleep:</strong> Poor sleep is linked to weight gain and increased appetite. Adults should aim for 7-9 hours of quality sleep per night. Sleep affects hormones that regulate hunger and metabolism.</p>
+
+      <h2>Frequently Asked Questions</h2>
+      <h3>What is the normal BMI range?</h3>
+      <p>The normal BMI range for adults is 18.5 to 24.9. Below 18.5 is underweight, 25 to 29.9 is overweight, and 30 or above is obese. These ranges apply to both men and women over age 20.</p>
+      <h3>Is BMI different for men and women?</h3>
+      <p>The numerical BMI ranges are the same for men and women, but women typically have 5-10% more body fat at the same BMI. Some experts suggest adjusted thresholds for women, but WHO guidelines use the same ranges for both genders.</p>
+      <h3>Can BMI be inaccurate?</h3>
+      <p>Yes, BMI can be inaccurate for athletes with high muscle mass, older adults who have lost muscle, and people of certain ethnicities. BMI is a screening tool, not a diagnostic tool. Use additional measurements for a complete health assessment.</p>
+      <h3>How do I calculate my BMI?</h3>
+      <p>Use the formula BMI = weight (kg) / height (m)\u00B2 for metric, or (weight in pounds / height in inches\u00B2) x 703 for imperial. The easiest way is to use an online BMI calculator that handles the math instantly.</p>
+      <h3>What is a healthy BMI for my age?</h3>
+      <p>For adults over 20, the same BMI categories apply regardless of age. However, older adults (65+) may benefit from a slightly higher BMI (24-27), as some extra weight provides energy reserves during illness. Consult your healthcare provider for personalized advice.</p>
+
+      <h2>Calculate Your BMI Today</h2>
+      <p>Now that you understand the BMI chart for men and women, calculate your own BMI to see where you fall on the scale. Use our free <a href="/tools/bmi-calculator">BMI Calculator online</a> to instantly calculate your Body Mass Index, see your health category, and find your ideal weight range\u2014no signup required.</p>
+
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
+      
+      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
+        <h3>About the Author</h3>
+        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 26, 2026</p>
+      </div>
+    `
+  },
+
+  {
     slug: 'what-is-json',
     title: "What is JSON? A Beginner's Complete Guide",
     description: 'Learn what JSON is, how it works, common syntax rules, and why it is the standard for modern APIs and data exchange.',
