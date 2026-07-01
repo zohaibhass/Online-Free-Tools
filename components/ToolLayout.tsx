@@ -22,6 +22,7 @@ interface ToolLayoutProps {
   breadcrumbs?: Breadcrumb[]
   showAds?: boolean
   toolDetails?: ToolDetails
+  relatedPosts?: { title: string; url: string }[]
 }
 
 export function ToolLayout({
@@ -32,6 +33,7 @@ export function ToolLayout({
   breadcrumbs = [],
   showAds = true,
   toolDetails,
+  relatedPosts = [],
 }: ToolLayoutProps) {
   const defaultBreadcrumbs: Breadcrumb[] = [
     { name: 'Home', href: '/' },
@@ -257,6 +259,24 @@ export function ToolLayout({
                     </Link>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {relatedPosts.length > 0 && (
+              <div className="bg-card border border-border rounded-3xl p-8">
+                <h2 className="text-2xl font-semibold mb-4">Related Reading</h2>
+                <ul className="space-y-3">
+                  {relatedPosts.map((post, index) => (
+                    <li key={index}>
+                      <Link
+                        href={post.url}
+                        className="text-primary hover:underline transition-colors"
+                      >
+                        {post.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </section>

@@ -1,9 +1,11 @@
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
+import Script from 'next/script'
 import { ToolLayout } from '@/components/ToolLayout'
 import { getToolBySlug, getToolDetails } from '@/lib/tools'
 import { notFound } from 'next/navigation'
 import { generateToolMetadata } from '@/lib/seo'
+import { SITE_URL } from '@/lib/config'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -79,15 +81,46 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
+  const relatedPostsMap: Record<string, { title: string; url: string }[]> = {
+    'pixels-to-inches': [
+      { title: 'How Many Pixels in an Inch? The Complete Pixels to Inches Guide', url: '/blog/pixels-to-inches-conversion-guide' },
+      { title: 'DPI vs PPI: What\'s the Difference and Why It Matters for Pixel Conversions', url: '/blog/dpi-vs-ppi-explained' },
+      { title: 'How to Convert Image Pixels to Inches for Printing (2026 Guide)', url: '/blog/convert-image-pixels-to-inches-for-print' },
+      { title: 'Common Screen Resolutions in Inches: 1920×1080, 1080px, and More Explained', url: '/blog/common-screen-resolutions-in-inches' },
+    ],
+  }
+
   return (
-    <ToolLayout
-      title={tool.name}
-      h1={tool.h1}
-      description={tool.description}
-      showAds={true}
-      toolDetails={toolDetails}
-    >
-      <ToolComponent />
-    </ToolLayout>
+    <>
+      <ToolLayout
+        title={tool.name}
+        h1={tool.h1}
+        description={tool.description}
+        showAds={true}
+        toolDetails={toolDetails}
+        relatedPosts={relatedPostsMap[tool.slug]}
+      >
+        <ToolComponent />
+      </ToolLayout>
+
+      {tool.slug === 'pixels-to-inches' && (
+        <Script
+          id="breadcrumb-schema"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+                { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${SITE_URL}/tools` },
+                { "@type": "ListItem", "position": 3, "name": tool.name, "item": `${SITE_URL}/tools/${tool.slug}` }
+              ]
+            })
+          }}
+        />
+      )}
+    </>
   )
 }
