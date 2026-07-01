@@ -1983,6 +1983,17 @@ export function getToolDetails(tool: Tool): ToolDetails {
   // Use custom FAQ from guide content if available, else use default
   const customFaq = customGuideContent?.faq ?? []
 
+  // Use tool-specific howToUse steps if available
+  const customHowToUse: Record<string, string[]> = {
+    'pixels-to-inches': [
+      'Choose a DPI/PPI preset (72, 96, 150, or 300) from the dropdown, or select Custom to enter any DPI value.',
+      'Type a value into either the Pixels field or the Inches field — the other field updates instantly as you type.',
+      'Use the swap button (⇄) to flip which value you\'re editing, or the copy icon next to each field to copy that value to your clipboard.',
+      'Toggle "Width × Height mode" to convert full image dimensions (width and height) at once instead of a single value.',
+      'Click any row in the Common Conversions Reference table to instantly load that pixel value into the calculator above.',
+    ],
+  }
+
   // Build related tools list
   const relatedToolSlugs = customGuideContent?.relatedTools ?? []
   const relatedToolsList = relatedToolSlugs
@@ -1997,7 +2008,7 @@ export function getToolDetails(tool: Tool): ToolDetails {
     purpose: `Use ${tool.name} to ${tool.description.toLowerCase()}.`,
     longDescription: `The ${tool.name} is a browser-based utility that helps ${audience} ${useCase}. It offers a clean, responsive interface with fast results delivered in the browser, so you can work without installing software or creating an account. The tool makes it easy to ${action} and then copy or export the result immediately for use in your project or workflow. Built for both beginners and advanced users, it saves time by removing manual steps and improving accuracy. You can use the tool on desktop and mobile devices, and the interface includes clear examples to help you verify output quickly. Whether you are preparing a document, troubleshooting data, or planning a project, ${tool.name} is designed to reduce friction and keep your work moving. This makes it a practical, dependable choice for anyone looking for a polished online utility.`,
     aboutBlurb: toolAboutBlurbs[tool.slug] ?? `${tool.name} is a browser-based utility for ${audience}. Use it to ${action} quickly and easily in your browser without installing software or creating an account.`,
-    howToUse: [
+    howToUse: customHowToUse[tool.slug] ?? [
       `Enter or paste your ${tool.name.toLowerCase()} input into the tool interface.`,
       `Adjust any available options for the result format, output style, or calculation settings.`,
       `Click the action button to ${action} and wait for the updated output.`,
