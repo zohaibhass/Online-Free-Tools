@@ -60,10 +60,7 @@ const toolComponents: Record<string, React.ComponentType> = {
   'unit-calculator': dynamic(() => import('@/components/tools/UnitCalculatorTool').then(m => ({ default: m.UnitCalculatorTool }))),
   'pixels-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'px-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
-  'pixels-to-the-inch': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
-  'convert-pixels-in-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'inches-to-px': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
-  'pixels-and-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {

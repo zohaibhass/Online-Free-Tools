@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Search, Moon, Sun, Menu } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -12,6 +12,7 @@ import { useTheme } from 'next-themes'
 
 export function Header() {
   const router = useRouter()
+  const pathname = usePathname()
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [mounted, setMounted] = useState(false)
@@ -54,31 +55,31 @@ export function Header() {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <Link href="/tools" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/tools" className={`text-sm ${pathname === '/tools' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               All Tools
             </Link>
-            <Link href="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/blog" className={`text-sm ${pathname === '/blog' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Blog
             </Link>
-            <Link href="/category/developer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/category/developer" className={`text-sm ${pathname === '/category/developer' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Developer
             </Link>
-            <Link href="/category/calculator" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/category/calculator" className={`text-sm ${pathname === '/category/calculator' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Calculators
             </Link>
-            <Link href="/category/document" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/category/document" className={`text-sm ${pathname === '/category/document' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Documents
             </Link>
-            <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/about" className={`text-sm ${pathname === '/about' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               About
             </Link>
-            <Link href="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/faq" className={`text-sm ${pathname === '/faq' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               FAQ
             </Link>
-            <Link href="/disclaimer" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/disclaimer" className={`text-sm ${pathname === '/disclaimer' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Disclaimer
             </Link>
-            <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/contact" className={`text-sm ${pathname === '/contact' ? 'text-foreground font-semibold' : 'text-muted-foreground'} hover:text-foreground transition-colors`}>
               Contact
             </Link>
           </nav>
@@ -118,31 +119,31 @@ export function Header() {
                     <div className="border-b border-border" />
                   </div>
                   <nav className="flex flex-col gap-4">
-                    <Link href="/tools" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/tools" className={`text-base font-medium ${pathname === '/tools' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       All Tools
                     </Link>
-                    <Link href="/blog" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/blog" className={`text-base font-medium ${pathname === '/blog' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Blog
                     </Link>
-                    <Link href="/category/developer" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/category/developer" className={`text-base font-medium ${pathname === '/category/developer' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Developer
                     </Link>
-                    <Link href="/category/calculator" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/category/calculator" className={`text-base font-medium ${pathname === '/category/calculator' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Calculators
                     </Link>
-                    <Link href="/category/document" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/category/document" className={`text-base font-medium ${pathname === '/category/document' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Documents
                     </Link>
-                    <Link href="/about" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/about" className={`text-base font-medium ${pathname === '/about' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       About
                     </Link>
-                    <Link href="/faq" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/faq" className={`text-base font-medium ${pathname === '/faq' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       FAQ
                     </Link>
-                    <Link href="/disclaimer" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/disclaimer" className={`text-base font-medium ${pathname === '/disclaimer' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Disclaimer
                     </Link>
-                    <Link href="/contact" className="text-base font-medium text-foreground hover:text-primary">
+                    <Link href="/contact" className={`text-base font-medium ${pathname === '/contact' ? 'text-primary' : 'text-foreground'} hover:text-primary`}>
                       Contact
                     </Link>
                   </nav>
