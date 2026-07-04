@@ -46,16 +46,22 @@ export function PixelsInchesConverterTool() {
 
   const activeDpi = showCustomDpi ? (parseFloat(customDpi) || 96) : dpi
 
-  // Deep-linking: ?px=1080&dpi=96 or ?in=11.25&dpi=300 lets blog posts and
-  // other pages link directly to a pre-filled conversion.
+  // Deep-linking: ?px=1080&dpi=96, ?in=11.25&dpi=300, or ?wxh=true&w=1800&h=600&dpi=96
+  // lets blog posts and other pages link directly to a pre-filled conversion.
   useEffect(() => {
     const pxParam = searchParams?.get('px')
     const inParam = searchParams?.get('in')
     const dpiParam = searchParams?.get('dpi')
+    const wxhParam = searchParams?.get('wxh')
+    const wParam = searchParams?.get('w')
+    const hParam = searchParams?.get('h')
+
+    let effectiveDpi = 96
 
     if (dpiParam) {
       const parsedDpi = parseInt(dpiParam, 10)
       if (!isNaN(parsedDpi) && parsedDpi > 0) {
+        effectiveDpi = parsedDpi
         if (DPI_PRESETS.some((p) => p.value === parsedDpi)) {
           setShowCustomDpi(false)
           setDpi(parsedDpi)
@@ -64,6 +70,20 @@ export function PixelsInchesConverterTool() {
           setCustomDpi(parsedDpi.toString())
         }
       }
+    }
+
+    if (wxhParam === 'true') {
+      setWxhMode(true)
+    }
+
+    if (wParam && isValidNonNegative(wParam)) {
+      setWxhPixelsW(wParam)
+      setWxhInchesW((parseFloat(wParam) / effectiveDpi).toFixed(3))
+    }
+
+    if (hParam && isValidNonNegative(hParam)) {
+      setWxhPixelsH(hParam)
+      setWxhInchesH((parseFloat(hParam) / effectiveDpi).toFixed(3))
     }
 
     if (pxParam && isValidNonNegative(pxParam)) {

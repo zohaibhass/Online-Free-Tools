@@ -9,6 +9,25 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/tools/pixels-to-the-inch',
+        destination: '/tools/pixels-to-inches',
+        permanent: true,
+      },
+      {
+        source: '/tools/convert-pixels-in-inches',
+        destination: '/tools/pixels-to-inches',
+        permanent: true,
+      },
+      {
+        source: '/tools/pixels-and-inches',
+        destination: '/tools/pixels-to-inches',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
