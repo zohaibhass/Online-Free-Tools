@@ -61,6 +61,7 @@ const toolComponents: Record<string, React.ComponentType> = {
   'pixels-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'px-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'inches-to-px': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
+  'slug-generator': dynamic(() => import('@/components/tools/SlugGeneratorTool').then(m => ({ default: m.SlugGeneratorTool }))),
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -84,6 +85,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       { title: 'DPI vs PPI: What\'s the Difference and Why It Matters for Pixel Conversions', url: '/blog/dpi-vs-ppi-explained' },
       { title: 'How to Convert Image Pixels to Inches for Printing (2026 Guide)', url: '/blog/convert-image-pixels-to-inches-for-print' },
       { title: 'Common Screen Resolutions in Inches: 1920×1080, 1080px, and More Explained', url: '/blog/common-screen-resolutions-in-inches' },
+    ],
+    'slug-generator': [
+      { title: 'What Is a URL Slug? A Complete Guide to SEO-Friendly URLs', url: '/blog/what-is-a-url-slug' },
+      { title: 'How to Write SEO-Friendly URL Slugs (With Real Examples)', url: '/blog/seo-friendly-url-slug-best-practices' },
+      { title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast', url: '/blog/bulk-slug-generation-for-content-migration' },
     ],
   }
 

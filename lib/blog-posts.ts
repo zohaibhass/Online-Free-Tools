@@ -2633,6 +2633,122 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
       <p>Common resolutions like 1920×1080 or 1800×600 convert to very different inch measurements depending on whether you're targeting screen density (96 DPI) or print density (300 DPI). Always specify — or ask for — the DPI before trusting a pixels-to-inches conversion for anything you're going to print.</p>
     `
   },
+  {
+    slug: 'what-is-a-url-slug',
+    title: 'What Is a URL Slug? A Complete Guide to SEO-Friendly URLs',
+    description: 'Learn what a URL slug is, why it matters for SEO and click-through rate, and how to write slugs that help your pages rank and get clicked.',
+    category: 'SEO & Content',
+    date: '2026-07-05',
+    readTime: '7 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Slug Generator', url: '/tools/slug-generator' }],
+    content: `
+      <h2>What Is a URL Slug?</h2>
+      <p>A URL slug is the part of a web address that comes after the domain and identifies a specific page in human-readable form. In the URL <code>yoursite.com/blog/what-is-a-url-slug</code>, the slug is <code>what-is-a-url-slug</code> — everything after the last meaningful folder. It's the part of the URL that both search engines and real people actually read and understand, as opposed to the rest of the address, which is mostly fixed structure.</p>
+      <p>Slugs matter more than most people realize. They're a small but real ranking signal, they show up in search results (often bolded when they match the search query), and they're one of the first things a person glances at when deciding whether to click a result or share a link.</p>
+
+      <h2>Why URL Slugs Matter for SEO</h2>
+      <p>Search engines use the words in a URL slug as one of many signals for understanding what a page is about. A slug like <code>/blog/post-1234</code> tells Google (and a human) nothing. A slug like <code>/blog/seo-friendly-url-guide</code> tells both exactly what to expect.</p>
+      <p>Slugs also affect click-through rate directly. When your URL shows up in search results, a clear, relevant, readable slug builds trust and signals relevance before someone even reads your title or description. A messy slug full of numbers, session IDs, or unrelated words can quietly cost you clicks even when your page ranks well.</p>
+
+      <h2>What Makes a Good Slug</h2>
+      <ul>
+        <li><strong>Lowercase</strong> — URLs are technically case-sensitive, and mixing case creates confusion and potential duplicate-content issues if the same page is reachable at multiple casings.</li>
+        <li><strong>Hyphens, not underscores</strong> — Google has stated that hyphens are treated as word separators while underscores are not, meaning <code>seo-friendly-url</code> is read as three words but <code>seo_friendly_url</code> may be read as one long string.</li>
+        <li><strong>Short and descriptive</strong> — aim for 3-5 meaningful words, ideally under 60 characters.</li>
+        <li><strong>No stop words when possible</strong> — words like "a," "the," and "and" rarely add value to a slug and just add length.</li>
+        <li><strong>No special characters or accents</strong> — stick to plain lowercase letters, numbers, and hyphens; anything else risks encoding issues in different browsers and systems.</li>
+      </ul>
+
+      <h2>Common Slug Mistakes</h2>
+      <p>The most frequent mistakes are: leaving default auto-generated slugs full of numbers or dates that don't describe the content, changing a slug after a page has already been indexed and gained backlinks (which breaks those links unless properly redirected), and creating near-duplicate slugs across many pages that target the same keyword with only tiny wording differences — this can dilute your own rankings by making your pages compete against each other instead of against outside competitors.</p>
+
+      <h2>Generating Slugs the Easy Way</h2>
+      <p>Manually cleaning up a title into a proper slug — lowercasing it, stripping punctuation, replacing spaces with hyphens, deciding whether to drop stop words — is tedious to do by hand every time, especially if you're publishing regularly or migrating a large batch of content. Our <a href="/tools/slug-generator">free Slug Generator</a> does all of this instantly: paste any title or text, and it handles the lowercasing, character replacement, stop-word removal (optional), and length trimming automatically — including a bulk mode if you need to convert a whole list of titles at once.</p>
+
+      <h2>Conclusion</h2>
+      <p>A good URL slug is short, lowercase, hyphenated, descriptive, and free of unnecessary words or characters. It's a small detail that compounds across every page on your site — get it right once with a consistent process (or a tool that automates it) and you'll avoid both SEO headaches and awkward-looking links down the line.</p>
+    `,
+  },
+  {
+    slug: 'seo-friendly-url-slug-best-practices',
+    title: 'How to Write SEO-Friendly URL Slugs (With Real Examples)',
+    description: 'Practical, example-driven best practices for writing URL slugs that are short, readable, and optimized for search engines and click-through rate.',
+    category: 'SEO & Content',
+    date: '2026-07-05',
+    readTime: '8 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Slug Generator', url: '/tools/slug-generator' }],
+    content: `
+      <h2>The Slug Best-Practices Checklist</h2>
+      <p>Rather than abstract rules, here's what a good slug actually looks like in practice, with before-and-after examples of the same title turned into a weak slug versus a strong one.</p>
+
+      <h2>Example 1: A Blog Post Title</h2>
+      <p><strong>Title:</strong> "10 Amazing Tips You Need to Know About Growing Tomatoes in 2026!"</p>
+      <p><strong>Weak slug:</strong> <code>10-amazing-tips-you-need-to-know-about-growing-tomatoes-in-2026</code> — technically valid, but far too long, includes filler words that don't add SEO value, and repeats "2026" which will look dated in future years.</p>
+      <p><strong>Strong slug:</strong> <code>growing-tomatoes-tips</code> — short, keeps the actual keyword ("growing tomatoes"), drops the number, filler words, and year, and stays well under the ~60 character guideline.</p>
+
+      <h2>Example 2: A Product Page</h2>
+      <p><strong>Title:</strong> "Men's Waterproof Hiking Boots - Size 10 - Brown Leather"</p>
+      <p><strong>Weak slug:</strong> <code>mens-waterproof-hiking-boots-size-10-brown-leather</code> — includes size and color, which are variant-level details better handled by URL parameters or a variant selector, not baked into the base slug.</p>
+      <p><strong>Strong slug:</strong> <code>mens-waterproof-hiking-boots</code> — describes the product itself; size/color can be handled as query parameters or on-page selectors without needing a unique slug per variant.</p>
+
+      <h2>Example 3: Non-English or Accented Input</h2>
+      <p><strong>Title:</strong> "Café Münchën — Our Story"</p>
+      <p><strong>Weak/broken slug:</strong> some slug generators mishandle this and produce something like <code>caf-mnchn-our-story</code>, silently dropping the accented letters entirely rather than converting them.</p>
+      <p><strong>Strong slug:</strong> <code>cafe-munchen-our-story</code> — accented characters are transliterated to their closest plain-letter equivalent instead of being stripped, so the result stays readable and meaningful. Not every free slug tool handles this correctly — it's worth checking before you rely on one for content with international names or terms.</p>
+
+      <h2>Stop Words: When to Remove Them, When to Keep Them</h2>
+      <p>For most blog content, removing stop words (a, an, the, and, of, to, in, for, on, with) produces a cleaner, shorter slug without losing meaning — "the-best-way-to-learn-python" becomes "best-way-learn-python" with no real loss of clarity. However, some brand or legal contexts intentionally keep the slug closer to the exact title for consistency (e.g. matching an official document title). There's no single right answer — which is why a good slug tool makes stop-word removal a toggle, not a forced default.</p>
+
+      <h2>Length: The 60-Character Guideline</h2>
+      <p>There's no hard technical limit on slug length, but practical guidance converges around staying under roughly 60 characters. Beyond that, slugs get truncated in search results, become harder to read at a glance, and are more likely to include unnecessary filler words. A live character counter while you're generating a slug helps you catch this before publishing rather than after.</p>
+
+      <h2>Doing This at Scale</h2>
+      <p>If you're migrating an old site, importing a large batch of content into a new CMS, or just publishing frequently, manually applying these rules to every single title becomes a bottleneck. Our <a href="/tools/slug-generator">Slug Generator</a> includes a bulk mode specifically for this — paste a full list of titles, one per line, and get back a clean, de-duplicated list of slugs in the same order, ready to paste into a spreadsheet or CMS import.</p>
+
+      <h2>Conclusion</h2>
+      <p>Good slugs come down to a short checklist applied consistently: lowercase, hyphenated, under ~60 characters, free of filler words and special characters, and correctly handling any accented or non-English text. Apply it by hand for occasional posts, or use a tool with bulk support when you're working through a larger batch.</p>
+    `,
+  },
+  {
+    slug: 'bulk-slug-generation-for-content-migration',
+    title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast',
+    description: 'A practical guide to generating SEO-friendly URL slugs in bulk — for content migrations, CMS imports, and large publishing batches.',
+    category: 'SEO & Content',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Slug Generator', url: '/tools/slug-generator' }],
+    content: `
+      <h2>When You Need More Than One Slug at a Time</h2>
+      <p>Generating a single URL slug from a single title is a solved problem — most free tools handle it fine. But a different, much less well-served problem shows up whenever you're dealing with volume: migrating an old blog to a new platform, importing a product catalog into a new CMS, or publishing a large content batch all at once. Doing this one title at a time, copy-pasting each result individually, doesn't scale past a handful of items.</p>
+
+      <h2>Common Bulk Slug Scenarios</h2>
+      <p><strong>Site migrations:</strong> Moving from one CMS or platform to another often means your old URL structure doesn't carry over automatically, and you need to generate a full new set of slugs for every existing page — sometimes hundreds or thousands of them — while trying to preserve as much SEO value as possible.</p>
+      <p><strong>CMS or spreadsheet imports:</strong> Many content teams draft titles in a spreadsheet before importing into a CMS, and want a slug column generated automatically from the title column rather than typing each one by hand.</p>
+      <p><strong>E-commerce catalogs:</strong> Product listings frequently come from a supplier feed or spreadsheet with only product names — turning hundreds of product titles into clean, unique slugs in one pass saves significant manual work.</p>
+
+      <h2>The Duplicate Problem</h2>
+      <p>Bulk slug generation introduces a problem that single-item generation doesn't: duplicates. If two different titles reduce to the same slug (e.g. "Best Pizza Recipe" and "Best Pizza Recipe!" both becoming <code>best-pizza-recipe</code>), you can't publish both without a collision. A good bulk tool should detect this automatically and append a number (<code>best-pizza-recipe</code>, <code>best-pizza-recipe-2</code>) rather than silently producing broken duplicate URLs that you only discover after publishing.</p>
+
+      <h2>How to Bulk Generate Slugs</h2>
+      <ol>
+        <li>Gather your list of titles — from a spreadsheet, CMS export, or product feed.</li>
+        <li>Open the <a href="/tools/slug-generator">Slug Generator</a> and switch to Bulk Mode.</li>
+        <li>Paste your full list, one title per line.</li>
+        <li>Adjust settings as needed — separator, stop-word removal, max length — these apply to every line in the batch.</li>
+        <li>Review the output, checking for any auto-de-duplicated slugs (usually flagged) to confirm they still make sense.</li>
+        <li>Copy the full result list and paste it into your spreadsheet or CMS import field.</li>
+      </ol>
+
+      <h2>Preserving SEO Value During a Migration</h2>
+      <p>If you're changing slugs on pages that are already indexed and ranked, generating the new slug is only half the job — you also need to set up 301 redirects from every old URL to its new equivalent, or you'll lose the accumulated ranking and backlink value those pages had. Keep a mapping of old-slug-to-new-slug as you generate the batch, since you'll need that exact list to configure redirects afterward.</p>
+
+      <h2>Conclusion</h2>
+      <p>Bulk slug generation turns a tedious, error-prone manual process into a five-minute batch operation — but the real value is in the details most tools skip: automatic de-duplication, consistent rule application across the whole list, and keeping the process fast enough that it doesn't become a bottleneck in a migration or import project.</p>
+    `,
+  },
 ]
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
