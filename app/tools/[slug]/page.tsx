@@ -91,6 +91,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       { title: 'How to Write SEO-Friendly URL Slugs (With Real Examples)', url: '/blog/seo-friendly-url-slug-best-practices' },
       { title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast', url: '/blog/bulk-slug-generation-for-content-migration' },
     ],
+    'uuid-generator': [
+      { title: 'GUID vs UUID: What\u2019s the Difference? (Spoiler: There Isn\u2019t One)', url: '/blog/guid-vs-uuid-difference' },
+      { title: 'When (and When Not) to Use UUIDs/GUIDs in Your Database and Code', url: '/blog/when-to-use-uuid-guid-in-development' },
+    ],
   }
 
   return (
