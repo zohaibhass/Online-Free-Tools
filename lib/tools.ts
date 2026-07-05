@@ -76,6 +76,7 @@ const toolUseCases: Record<string, string> = {
   'pixels-to-inches': 'convert between pixels and inches for print and screen sizing',
   'px-to-inches': 'convert px to inches for print and digital design work',
   'inches-to-px': 'convert inches to pixels for digital design and screen layouts',
+  'slug-generator': 'turn titles and text into clean SEO-friendly URL slugs with bulk support and smart options',
 }
 
 const toolActions: Record<string, string> = {
@@ -117,6 +118,7 @@ const toolActions: Record<string, string> = {
   'pixels-to-inches': 'convert pixels to inches or inches to pixels',
   'px-to-inches': 'convert px to inches',
   'inches-to-px': 'convert inches to px',
+  'slug-generator': 'generate a clean SEO-friendly URL slug',
 }
 
 const toolAboutBlurbs: Record<string, string> = {
@@ -157,6 +159,7 @@ const toolAboutBlurbs: Record<string, string> = {
   'pixels-to-inches': 'Pixels to Inches Converter is the go-to tool for designers, print professionals, and anyone who needs to convert between pixel dimensions and physical inch measurements. Unlike many converters that assume a fixed DPI, this tool lets you choose from common presets (72 DPI for web, 96 DPI for Windows screens, 150 DPI for draft print, 300 DPI for print quality) or enter any custom DPI. The bidirectional converter updates instantly as you type, with a handy Width × Height mode for dimension pairs. Whether you are sizing images for print layout, calculating screen dimensions, or working on a design project that crosses between digital and physical media, this converter gives you accurate results in real time.',
   'px-to-inches': 'PX to Inches Converter is a focused tool for designers and developers who need quick, accurate conversions from pixels to physical inches. Perfect for translating screen mockups into print-ready dimensions, this converter supports all major DPI settings including web standard (96 DPI) and print quality (300 DPI). The instant bidirectional calculation means you can work in either direction without clicking swap buttons — just type and convert.',
   'inches-to-px': 'Inches to PX Converter is designed for users who think in physical measurements first and need to translate them into pixel dimensions. Print designers, signage creators, and layout artists use this tool to convert real-world inch measurements into precise pixel values for digital production. With support for any DPI setting, you get accurate pixel outputs for screen, web, and print workflows.',
+  'slug-generator': 'Slug Generator is a modern URL slug creation tool for content creators, SEO specialists, and web developers who need clean, SEO-friendly slugs from titles and text. Unlike basic converters that only lowercase and hyphenate, this tool handles accented characters (like é, ñ, ü), strips stop words, controls slug length, and converts bulk lists of titles in one pass. Whether you are writing a blog post, migrating a site, or setting up product pages, you get precise, readable slugs that follow current SEO best practices — hyphens, lowercase, and free of special characters.',
 }
 
 const toolExamples: Record<string, { input: string; output: string }> = {
@@ -311,6 +314,10 @@ const toolExamples: Record<string, { input: string; output: string }> = {
   'inches-to-px': {
     input: 'Inches: 8.5, DPI: 300',
     output: '2550 pixels',
+  },
+  'slug-generator': {
+    input: 'How to Bake Bread at Home',
+    output: 'how-to-bake-bread-at-home',
   },
 }
 
@@ -1844,6 +1851,52 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
     ],
     relatedTools: ['pixels-to-inches', 'px-to-inches'],
   },
+  'slug-generator': {
+    sections: [
+      {
+        heading: 'What is a URL slug?',
+        paragraphs: [
+          'A URL slug is the part of a web address that comes after the domain and identifies a specific page in human-readable form. In the URL yoursite.com/blog/how-to-bake-bread, the slug is "how-to-bake-bread" — everything after the last meaningful folder. Slugs are the part of a URL that both search engines and real people actually read, as opposed to the rest of the address, which is mostly fixed site structure.',
+          'Slugs matter more than most people realize. They are a small but real ranking signal for SEO, they appear in search results (often bolded when they match the search query), and they are one of the first things a person glances at when deciding whether to click a result or share a link. A good slug generator tool helps you create these consistently without manually lowercasing, replacing spaces, and stripping special characters every time.',
+          'This is also sometimes called a url slug generator, an SEO slug generator, or a text to slug converter — but no matter what you call it, the task is the same: taking a human-readable title or phrase and turning it into a clean, URL-safe string. Unlike many basic tools, this slug generator handles accented characters like "Café" → "cafe", removes emoji and symbols cleanly, and supports bulk conversion for when you have a whole list of titles to process.',
+        ],
+      },
+      {
+        heading: 'What makes a good SEO-friendly slug?',
+        paragraphs: [
+          'A well-crafted URL slug follows a few simple rules that make it both search-engine-friendly and human-readable. Google has stated explicitly that hyphens should be used as word separators in URLs — hyphens are treated as word separators, while underscores are not. This means "seo-friendly-url" is read as three separate words by search engines, but "seo_friendly_url" may be read as a single long string. The slug generator defaults to hyphens for this reason, with an underscore option available for systems or conventions that require it.',
+          'Keep slugs short and descriptive — aim for 3-5 meaningful words, ideally under 60 characters. Shorter slugs are easier to read, remember, and share, and Google tends to display shorter URLs more fully in search results. Remove stop words (a, an, the, and, or, of, to, in, for) when they don\'t add meaning — "the-best-way-to-learn-python" becomes "best-way-learn-python" with no real loss of clarity. The toggle in this generator makes that optional since some contexts (like exact title matching) benefit from keeping the slug closer to the original.',
+          'Avoid special characters, numbers without context, and dates or years that will become outdated. Stick to lowercase letters, numbers, and hyphens. Accented and non-ASCII characters (é, ñ, ü) should be transliterated to their closest plain-English equivalent rather than stripped or left as broken characters — this slug generator handles that automatically so "Café Münchën" becomes "cafe-munchen", not "caf-mnchn".',
+        ],
+      },
+      {
+        heading: 'How to generate a slug from a title',
+        paragraphs: [
+          'Generating an SEO-friendly slug from a title or phrase is straightforward with this tool. Start by pasting or typing your text into the input field — the slug updates instantly as you type, with no button click required. The live preview shows you exactly what the final slug will look like, including a URL preview that shows how it would appear in context on your domain.',
+          'Adjust the options to match your needs. The separator defaults to hyphen (the SEO-recommended choice), but you can switch to underscore if your CMS or naming convention requires it. Toggle stop-word removal on or off — off by default for exact title matching, on for shorter keyword-focused slugs. Set a maximum length to enforce a character limit (default 60, matching common SEO guidance), and watch the live character counter change color as you approach or exceed the limit.',
+          'Once the slug looks right, click the copy button to copy it to your clipboard. The tool also updates an aria-live region for screen readers so the result is accessible. For single titles, this whole process takes seconds — paste, review, copy, and move on.',
+          'The term "generate slug from title" describes exactly what this tool does: you input a title or text string, and it outputs a URL-safe slug. Whether you call it a permalink generator, a slugify text online tool, or a convert title to url slug utility, the result is the same — a clean, hyphen-separated, lowercase slug ready for your URL.',
+        ],
+      },
+      {
+        heading: 'Bulk slug generation',
+        paragraphs: [
+          'Bulk slug generation is where this tool really stands out from basic slug generators. Most free slug converters only handle one string at a time — fine for occasional use, but painful when you are migrating a blog, importing a product catalog, or publishing a large content batch. This tool lets you switch to Bulk Mode and paste dozens or hundreds of titles at once, one per line, and get back a matching slug for each in the same order.',
+          'A problem that only appears in bulk mode is duplicate slugs. If two different titles happen to produce the same slug — for example, "Best Pizza Recipe" and "Best Pizza Recipe!" both become "best-pizza-recipe" — you need unique slugs for each page. The tool detects this automatically and appends -2, -3, etc. to keep every slug unique. Duplicates are visually flagged so you can review them and confirm they still make sense before publishing.',
+          'Use the Copy All button to copy the full list of generated slugs, one per line, ready to paste into a spreadsheet, CMS import field, or migration script. Combined with consistent option settings across the whole batch — same separator, same stop-word choice, same length limit — this turns a tedious manual process into a repeatable five-second operation.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is a URL slug?', answer: 'A URL slug is the readable part of a web address that identifies a specific page — for example, in yoursite.com/blog/how-to-bake-bread, "how-to-bake-bread" is the slug. Good slugs are short, lowercase, hyphen-separated, and describe the page\'s content clearly.' },
+      { question: 'How do I generate an SEO-friendly slug from a title?', answer: 'Paste your title or text into the generator above — it automatically lowercases the text, replaces spaces and special characters with hyphens, and removes anything that isn\'t URL-safe. You can also enable stop-word removal to strip words like "a," "the," and "and" for a shorter, more keyword-focused slug.' },
+      { question: 'What\'s the ideal length for a URL slug?', answer: 'Most SEO guidance recommends keeping slugs under 60 characters and to 3-5 meaningful words. Shorter slugs are easier to read, share, and remember, and Google tends to display shorter URLs more fully in search results. Use the character limit and live counter in the tool above to stay within your target length.' },
+      { question: 'Should I remove stop words from my slug?', answer: 'It depends on context, but for most blog posts and articles, removing stop words (a, an, the, and, of, to...) produces a shorter, more keyword-dense slug without losing meaning. Some sites prefer to keep the slug closer to the exact title for consistency — that\'s why this is an optional toggle rather than automatic.' },
+      { question: 'Can I generate slugs for a whole list of titles at once?', answer: 'Yes — switch to Bulk Mode, paste one title per line, and the tool generates a matching slug for each line in the same order, automatically handling duplicates by appending a number if two titles would otherwise produce the same slug.' },
+      { question: 'Does this tool handle accented characters and non-English text?', answer: 'Yes — accented and non-ASCII Latin characters (like é, ñ, ü) are automatically converted to their closest plain-English equivalent (e.g. "café" becomes "cafe") so the resulting slug stays fully URL-safe.' },
+    ],
+    relatedTools: ['url-encoder', 'word-counter'],
+  },
 }
 
 export function getToolDetails(tool: Tool): ToolDetails {
@@ -1912,6 +1965,13 @@ export function getToolDetails(tool: Tool): ToolDetails {
       'Use the swap button (⇄) to flip which value you\'re editing, or the copy icon next to each field to copy that value to your clipboard.',
       'Toggle "Width × Height mode" to convert full image dimensions (width and height) at once instead of a single value.',
       'Click any row in the Common Conversions Reference table to instantly load that pixel value into the calculator above.',
+    ],
+    'slug-generator': [
+      'Type or paste a title, phrase, or text into the input field — the slug updates instantly as you type.',
+      'Choose a separator: hyphen (-) for SEO-standard slugs, or underscore (_) if your system requires it.',
+      'Toggle "Remove stop words" to strip common filler words (a, an, the, and, or, of, to) for shorter, keyword-focused slugs.',
+      'Set a maximum length to enforce SEO-friendly slug length — the live counter shows current vs limit with color coding.',
+      'Switch to Bulk Mode to generate slugs for multiple titles at once — paste one title per line and get all results with automatic de-duplication.',
     ],
   }
 
@@ -2405,6 +2465,19 @@ export const tools: Tool[] = [
     icon: 'Calculator',
     slug: 'unit-calculator',
     keywords: ['calculate', 'formula', 'math', 'compute'],
+  },
+  {
+    id: 'slug-generator',
+    name: 'Slug Generator',
+    description: 'Generate SEO-friendly URL slugs from titles and text with bulk mode, stop-word removal, accent handling, and customizable options.',
+    category: 'utility',
+    icon: 'Link2',
+    slug: 'slug-generator',
+    keywords: ['slug generator', 'url slug generator', 'seo slug generator', 'text to slug converter', 'generate slug from title', 'string to slug', 'slugify text online', 'permalink generator', 'convert title to url slug'],
+    featured: true,
+    seoTitle: 'slug generator — Free Online Tool | OnlineFreeTools',
+    seoDescription: 'Use our free slug generator to instantly create SEO-friendly URL slugs from titles and text. Bulk mode, stop-word removal, accent handling, and live preview. No signup required.',
+    h1: 'Slug Generator — Free SEO-Friendly URL Slug Tool',
   },
 ]
 
