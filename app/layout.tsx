@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { CookieConsent } from '@/components/CookieConsent'
+import { ChatWidget } from '@/components/ChatWidget'
 import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME, AUTHOR_EMAIL } from '@/lib/config'
 import './globals.css'
 import Script from 'next/script'
@@ -244,6 +245,7 @@ export default function RootLayout({
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
           <CookieConsent />
+          <ChatWidget />
         </ThemeProvider>
       </body>
     </html>

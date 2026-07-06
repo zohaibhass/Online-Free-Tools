@@ -322,7 +322,7 @@ const toolExamples: Record<string, { input: string; output: string }> = {
 }
 
 // Comprehensive tool-specific guide content (500+ words for priority tools)
-const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[]; faq?: { question: string; answer: string }[] }> = {
+export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[]; faq?: { question: string; answer: string }[] }> = {
   'json-formatter': {
     sections: [
       {
