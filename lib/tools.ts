@@ -77,6 +77,7 @@ const toolUseCases: Record<string, string> = {
   'px-to-inches': 'convert px to inches for print and digital design work',
   'inches-to-px': 'convert inches to pixels for digital design and screen layouts',
   'slug-generator': 'turn titles and text into clean SEO-friendly URL slugs with bulk support and smart options',
+  'cron-expression-generator': 'build cron expressions from plain English, visual selectors, or pasted expressions with live run-time preview',
 }
 
 const toolActions: Record<string, string> = {
@@ -119,6 +120,7 @@ const toolActions: Record<string, string> = {
   'px-to-inches': 'convert px to inches',
   'inches-to-px': 'convert inches to px',
   'slug-generator': 'generate a clean SEO-friendly URL slug',
+  'cron-expression-generator': 'generate a cron expression',
 }
 
 const toolAboutBlurbs: Record<string, string> = {
@@ -160,6 +162,7 @@ const toolAboutBlurbs: Record<string, string> = {
   'px-to-inches': 'PX to Inches Converter is a focused tool for designers and developers who need quick, accurate conversions from pixels to physical inches. Perfect for translating screen mockups into print-ready dimensions, this converter supports all major DPI settings including web standard (96 DPI) and print quality (300 DPI). The instant bidirectional calculation means you can work in either direction without clicking swap buttons — just type and convert.',
   'inches-to-px': 'Inches to PX Converter is designed for users who think in physical measurements first and need to translate them into pixel dimensions. Print designers, signage creators, and layout artists use this tool to convert real-world inch measurements into precise pixel values for digital production. With support for any DPI setting, you get accurate pixel outputs for screen, web, and print workflows.',
   'slug-generator': 'Slug Generator is a modern URL slug creation tool for content creators, SEO specialists, and web developers who need clean, SEO-friendly slugs from titles and text. Unlike basic converters that only lowercase and hyphenate, this tool handles accented characters (like é, ñ, ü), strips stop words, controls slug length, and converts bulk lists of titles in one pass. Whether you are writing a blog post, migrating a site, or setting up product pages, you get precise, readable slugs that follow current SEO best practices — hyphens, lowercase, and free of special characters.',
+  'cron-expression-generator': 'Cron Expression Generator helps developers, system administrators, and DevOps engineers build cron expressions without memorizing syntax. Type a schedule in plain English like "every day at 3am," build it visually with selectors, or paste an existing expression to translate and validate it. The tool supports both standard Unix cron (5-field) and Quartz cron (6-7 field) formats, shows the next 5 run times, and includes ready-to-use presets for common schedules. All processing happens in your browser — no data is sent to any server.',
 }
 
 const toolExamples: Record<string, { input: string; output: string }> = {
@@ -319,10 +322,14 @@ const toolExamples: Record<string, { input: string; output: string }> = {
     input: 'How to Bake Bread at Home',
     output: 'how-to-bake-bread-at-home',
   },
+  'cron-expression-generator': {
+    input: '0 3 * * *',
+    output: 'Runs at 3:00 AM every day',
+  },
 }
 
 // Comprehensive tool-specific guide content (500+ words for priority tools)
-const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[]; faq?: { question: string; answer: string }[] }> = {
+export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTools: string[]; faq?: { question: string; answer: string }[] }> = {
   'json-formatter': {
     sections: [
       {
@@ -391,7 +398,7 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
         paragraphs: [
           'A JWT (JSON Web Token) is a compact, self-contained way to transmit information securely between parties. It is commonly used for authentication and authorization in web applications. A JWT consists of three parts separated by dots: the header (which specifies the algorithm), the payload (which contains the actual claims or user data), and the signature (which verifies that the token has not been tampered with).',
           'JWTs are stateless, meaning the server does not need to store session data to validate them. When a user logs in, the server creates a JWT and sends it to the client. The client includes this token in subsequent requests, and the server can verify the token\'s authenticity by checking the signature without querying a database. This makes JWTs efficient for scaling applications, as each server can independently verify tokens.',
-          'JWTs are widely used in modern web applications, especially in APIs and microservices architectures. They are part of the OAuth 2.0 and OpenID Connect standards, making them the de facto standard for authentication tokens across the internet. Popular platforms like Google, GitHub, and Auth0 use JWTs to manage user sessions and permissions.',
+          'JWTs are widely used in modern web applications, especially in APIs and microservices architectures. They are part of the OAuth 2.0 and OpenID Connect standards, making them the de facto standard for authentication tokens across the internet. Popular platforms like Google, GitHub, and Auth0 use JWTs to manage user sessions and permissions. You can use a free online JWT decoder to decode JWT tokens and inspect their structure without any software installation.',
         ],
       },
       {
@@ -401,18 +408,30 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
           'Backend developers use the JWT Decoder to troubleshoot authentication issues. If a user is getting denied access or experiencing permission problems, you can decode their JWT to see what roles or claims are assigned to their account, which helps identify configuration errors or permission conflicts.',
           'Security engineers use the JWT Decoder to audit tokens and ensure they contain expected data. By regularly decoding JWTs in your system, you can verify that no sensitive data is being exposed, tokens expire at appropriate times, and user permissions are correctly assigned.',
           'Frontend developers use this tool to debug authentication flows. When integrating login systems or third-party authentication providers (like Google or GitHub), decoding the JWT helps confirm that user data is being received and stored correctly.',
-          'Token validation and testing: Use the decoder to verify that tokens issued by your authentication server include all required claims. If you are writing tests for your auth system, decoding sample tokens helps confirm they are generated correctly.',
+          'Token validation and testing: Use the decoder to verify that tokens issued by your authentication server include all required claims. If you are writing tests for your auth system, decoding sample tokens helps confirm they are generated correctly. Whether you need an online JWT decoder for quick checks or a dedicated JWT token decoder for regular auditing, this free tool covers all your needs.',
         ],
       },
       {
         heading: 'How to use the JWT Decoder',
         paragraphs: [
           'Step 1: Copy your JWT from the Authorization header, response payload, or local storage where it is stored. A complete JWT looks like: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U (three parts separated by dots).',
-          'Step 2: Paste the JWT into the decoder input field. The tool will immediately parse the three components (header, payload, and signature) and display them in readable JSON format.',
+          'Step 2: Paste the JWT into the decoder input field. This free online JWT decoder will immediately parse the three components (header, payload, and signature) and display them in readable JSON format.',
           'Step 3: Review the Header section to see the algorithm used for signing (typically HS256, RS256, or similar). This tells you how the token was cryptographically signed.',
           'Step 4: Examine the Payload section, which contains the claims (user data). This might include user ID, username, email, role, permissions, and the expiration time (exp claim). Verify that all expected fields are present and have correct values.',
           'Step 5: Note the Signature section. The decoder displays the signature but cannot verify it without access to the signing key (this is intentional for security). If you have the signing key, you can use other tools or libraries to verify the signature authenticity.',
-          'Step 6: Check the expiration time. Look for the "exp" claim in the payload, which is a Unix timestamp indicating when the token expires. If the current time is after this timestamp, the token has expired and is no longer valid.',
+          'Step 6: Check the expiration time. Look for the "exp" claim in the payload, which is a Unix timestamp indicating when the token expires. If the current time is after this timestamp, the token has expired and is no longer valid. Use this online JWT decoder to quickly inspect expiration and other claims.',
+        ],
+      },
+      {
+        heading: 'How to Validate a JWT Token',
+        paragraphs: [
+          'Validation goes beyond simply decoding a JWT token. While decoding lets you view the contents, validation confirms that the token is authentic, hasn\'t expired, and was issued by a trusted source. A proper JWT validation involves checking several critical fields in the payload.',
+          'Check the expiration time (exp claim): This is the most common validation step. Every JWT should include an "exp" claim that specifies when the token expires. If the current Unix timestamp exceeds this value, the token is expired and should be rejected. Use the JWT decoder to view the exp claim in the payload section.',
+          'Verify the issuer (iss claim): The "iss" claim identifies who issued the token. Your application should only accept tokens from known, trusted issuers. For example, if your app uses Google for authentication, verify that the iss matches Google\'s issuer URL.',
+          'Validate the audience (aud claim): The "aud" claim specifies the intended recipient of the token. If your API is the audience, verify that the aud field matches your application\'s identifier. This prevents tokens intended for one service from being used on another.',
+          'Check the not-before time (nbf claim): Some tokens include an "nbf" claim that specifies when the token becomes valid. If the current time is before this timestamp, the token should not be accepted yet.',
+          'Signature verification: For complete validation, you need the signing key (secret or public key). The decoder displays the signature but cannot verify it without the key. In your application code, use a JWT library to verify the signature using the appropriate algorithm and key. Tokens with invalid signatures should always be rejected.',
+          'By validating all these claims, you ensure that only authentic, authorized, and timely tokens access your application.',
         ],
       },
       {
@@ -441,6 +460,9 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
     { question: 'What information is inside a JWT token?', answer: 'A JWT contains three parts: the header (algorithm and token type), the payload (claims like user ID, roles, expiration), and the signature (used to verify the token has not been tampered with).' },
     { question: 'What is the difference between JWT header and payload?', answer: 'The header contains metadata about the token like the signing algorithm (e.g., HS256). The payload contains the actual claims and user data like user ID, permissions, and expiration time.' },
     { question: 'Can I verify JWT signature online?', answer: 'You can view the signature but verifying it requires the signing key which is only known to the server that issued the token. The decoder shows the signature but cannot verify without the secret.' },
+    { question: 'How do I decode a JWT without sending it to a server?', answer: 'This JWT decoder runs entirely in your browser. The token is processed locally on your device and never transmitted to any server, keeping your authentication data private and secure.' },
+    { question: 'Can I decode an expired JWT token?', answer: 'Yes, you can still decode an expired JWT token to inspect its contents. The decoder will show you the header, payload, and signature regardless of expiration status. Look for the "exp" claim to see the expiration timestamp.' },
+    { question: 'What does the "alg" field mean in a JWT header?', answer: 'The "alg" (algorithm) field in the JWT header specifies the cryptographic algorithm used to sign the token, such as HS256, RS256, or ES256. This tells anyone verifying the token which algorithm to use. Never accept tokens with "alg: none" in production.' },
   ],
   },
 
@@ -1908,6 +1930,55 @@ const toolGuideContent: Record<string, { sections: ToolGuideSection[]; relatedTo
     ],
     relatedTools: ['url-encoder', 'word-counter'],
   },
+  'cron-expression-generator': {
+    sections: [
+      {
+        heading: 'What is a cron expression?',
+        paragraphs: [
+          'A cron expression is a compact string of five or more space-separated fields that defines a recurring schedule. The standard format used by most Unix-like systems has five fields: minute, hour, day of month, month, and day of week. For example, the expression "0 3 * * *" means "at 3:00 AM every day," while "*/15 * * * *" means "every 15 minutes."',
+          'Cron expressions are the universal language of scheduled tasks on servers. Whether you are running a nightly backup, a periodic data sync, a health check, or a report generator, the schedule is almost always expressed as a cron expression. They appear in Linux crontab files, CI/CD pipeline configurations (GitHub Actions, GitLab CI), cloud schedulers (AWS EventBridge, Google Cloud Scheduler), Kubernetes CronJobs, and application-level job queues.',
+          'Despite their compact format, cron expressions can be intimidating at first because the fields are positional and use special characters like asterisks, commas, hyphens, and slashes. A cron expression generator helps you build these schedules without memorizing the syntax — type your schedule in plain English, select values visually, or paste an existing expression and let the tool translate it back into plain text.',
+        ],
+      },
+      {
+        heading: 'How to generate a cron expression',
+        paragraphs: [
+          'This cron expression generator offers three ways to build your schedule, and all three are live-linked — change any input and the expression updates automatically.',
+          'Natural language input: Type your schedule in plain English, like "every day at 3am," "every 15 minutes," or "every monday at 9:30am," and the tool parses it into a valid cron expression. This is the fastest way to generate a cron expression when you know what you want but do not want to count fields or remember which position corresponds to which unit. The tool supports a wide range of common patterns including daily, hourly, weekly, monthly, and yearly schedules with optional start times.',
+          'Visual builder: Use the dropdown selectors for minute, hour, day of month, month, and day of week to build an expression by choosing values for each field. Every change immediately updates the resulting expression. If Quartz mode is active, the builder adds a seconds field at the start and an optional year field at the end, letting you build six- or seven-field Quartz expressions the same way.',
+          'Paste and translate: If you already have a cron expression and want to understand what it means, paste it into the translate area. The tool validates the expression, shows a plain-English description of what schedule it represents, and displays the next five actual run times so you can see the schedule in action.',
+          'Once built, the expression appears in the generated output with a copy button, a human-readable description, and a live preview of the next execution times, so you can confirm the schedule matches your intent before deploying it.',
+        ],
+      },
+      {
+        heading: 'Standard cron vs Quartz cron',
+        paragraphs: [
+          'Standard Unix cron uses exactly five fields: minute, hour, day of month, month, and day of week. This is the format used by the traditional Linux crontab command, as well as CI/CD platforms (GitHub Actions, GitLab CI) and most cloud scheduling services. Standard cron cannot schedule anything more granular than one minute — there is no seconds field.',
+          'Quartz cron, used by the Quartz Scheduler library in Java applications (including Spring Boot\'s @Scheduled annotation), extends the format with two additional fields: seconds at the beginning, and an optional year at the end. A Quartz expression looks like "0 0 3 ? * MON-FRI" — six fields total, or seven if a year is specified. The question mark (?) in Quartz replaces the asterisk (*) and means "no specific value," particularly important because Quartz does not allow both day-of-month and day-of-week to have specific values simultaneously; one must always be "?."',
+          'This tool includes a format toggle that switches between Standard and Quartz modes. When you toggle, the visual builder adjusts to show or hide the extra fields, the validation rules change to match the selected format, and the expression is generated according to the correct syntax. This coverage directly supports the "quartz cron expression generator" use case without requiring a separate tool or page.',
+          'Besides the field count, the day-of-week numbering also differs: standard cron typically uses 0-6 with Sunday as 0 (or sometimes 7), while Quartz uses 1-7 with Sunday as 1. The tool\'s visual builder adjusts the dropdown labels depending on which mode is active, so you always see the correct values for the format you are targeting.',
+        ],
+      },
+      {
+        heading: 'Common cron schedule patterns',
+        paragraphs: [
+          'Certain cron schedules come up so often that they are worth memorizing — or using the presets built into this tool. The most common pattern is likely daily at midnight, expressed as "0 0 * * *" in standard cron. This runs once per day at the stroke of midnight according to the server\'s local timezone, making it the standard choice for nightly batch jobs, backups, and daily report generation.',
+          'For recurring tasks within a day, interval-based expressions are the most useful. "*/15 * * * *" runs every 15 minutes, making it a common polling interval for lightweight health checks and data sync jobs. "*/5 * * * *" runs every 5 minutes for more frequent updates, while "0 * * * *" runs once per hour at the top of the hour. The tool\'s preset buttons let you generate any of these common schedules with a single click.',
+          'Weekday-only schedules are another frequent need. "0 9 * * 1-5" runs at 9:00 AM Monday through Friday — a typical pattern for business-hours automation like morning reports, email digests, or integration syncs that should not fire on weekends. The tool\'s "Weekdays only" preset generates this expression instantly.',
+          'Monthly and weekly patterns follow the same logic but target different fields. "0 0 1 * *" runs at midnight on the 1st of every month — ideal for monthly billing cycles, account resets, or archival jobs. "0 0 * * 0" runs at midnight every Sunday, making it a natural weekly schedule. Use the presets or the visual builder to create custom variations of any of these patterns.',
+        ],
+      },
+    ],
+    faq: [
+      { question: 'What is a cron expression?', answer: 'A cron expression is a compact string used to define a recurring schedule, most commonly for automated tasks on Unix-like systems. The standard format has five fields — minute, hour, day of month, month, and day of week — separated by spaces, e.g. "0 3 * * *" means "at 3:00 AM every day."' },
+      { question: 'How do I generate a cron expression?', answer: 'Use the tool above in whichever way is easiest for you: type a plain-English schedule like "every day at 3am," build it visually using the minute/hour/day selectors, or paste an existing cron expression to see its human-readable meaning and validate it.' },
+      { question: 'What\'s the difference between standard cron and Quartz cron?', answer: 'Standard (Unix/Vixie) cron uses five fields: minute, hour, day-of-month, month, day-of-week. Quartz cron (used in Java scheduling, including Spring) adds a seconds field at the start and an optional year field at the end, for six or seven fields total, and handles day-of-week numbering slightly differently. Use the format toggle above to switch between the two.' },
+      { question: 'How do I schedule a job to run every 15 minutes?', answer: 'The standard cron expression is "*/15 * * * *" — this runs at minute 0, 15, 30, and 45 of every hour. Use the "every 15 minutes" preset above to generate this instantly, or type "every 15 minutes" into the natural language input.' },
+      { question: 'What timezone does a cron expression use?', answer: 'Cron jobs run according to the local timezone of the system executing them, not any timezone specified in the expression itself (standard cron doesn\'t include timezone information). If your server and your own timezone differ, double-check the server\'s system time before relying on a schedule matching your expectations.' },
+      { question: 'How do I generate a cron expression in JavaScript?', answer: 'Most Node.js scheduling libraries (like node-cron or node-schedule) accept a standard cron expression string directly — generate the expression using the tool above, then pass it as a string to your scheduling library\'s configuration.' },
+    ],
+    relatedTools: ['json-formatter', 'hash-generator', 'uuid-generator'],
+  },
 }
 
 export function getToolDetails(tool: Tool): ToolDetails {
@@ -2053,7 +2124,7 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Lock',
     slug: 'jwt-decoder',
-    keywords: ['jwt decoder online', 'decode jwt token', 'jwt token decoder', 'jwt decode online free', 'online jwt decoder', 'jwt', 'token', 'decode', 'auth'],
+    keywords: ['jwt decoder online', 'decode jwt token', 'jwt token decoder', 'jwt decode online free', 'online jwt decoder', 'jwt', 'token', 'decode', 'auth', 'jwt validator', 'jwt inspector', 'json web token decoder', 'jwt token parser', 'jwt claims viewer', 'jwt debugger'],
     featured: true,
     seoTitle: 'jwt decoder online — Free Online Tool | OnlineFreeTools',
     seoDescription: 'Use our free JWT decoder online to instantly decode any JWT token. Inspect headers, payloads, claims and expiration dates. 100% browser-based — your tokens never leave your device. No signup required.',
@@ -2489,6 +2560,19 @@ export const tools: Tool[] = [
     seoTitle: 'slug generator — Free Online Tool | OnlineFreeTools',
     seoDescription: 'Use our free slug generator to instantly create SEO-friendly URL slugs from titles and text. Bulk mode, stop-word removal, accent handling, and live preview. No signup required.',
     h1: 'Slug Generator — Free SEO-Friendly URL Slug Tool',
+  },
+  {
+    id: 'cron-expression-generator',
+    name: 'Cron Expression Generator',
+    description: 'Use our free cron expression generator to instantly build any cron schedule. Generate cron expressions from plain English, visual selectors, or paste to translate. Standard and Quartz format support.',
+    category: 'developer',
+    icon: 'Clock',
+    slug: 'cron-expression-generator',
+    keywords: ['cron expression generator', 'cron job expression generator', 'generate cron expression', 'quartz cron expression generator', 'cron job calculator', 'cron schedule format', 'cron translator', 'cron', 'schedule', 'scheduler', 'crontab', 'cron job'],
+    featured: true,
+    seoTitle: 'cron expression generator — Free Online Tool | OnlineFreeTools',
+    seoDescription: 'Use our free cron expression generator to instantly build any cron schedule. Type plain English like "every day at 3am," build visually with selectors, or paste to translate. Supports standard and Quartz cron. No signup required.',
+    h1: 'Cron Expression Generator — Free Cron Job Schedule Builder',
   },
 ]
 

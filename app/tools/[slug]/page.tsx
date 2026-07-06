@@ -62,6 +62,7 @@ const toolComponents: Record<string, React.ComponentType> = {
   'px-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'inches-to-px': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'slug-generator': dynamic(() => import('@/components/tools/SlugGeneratorTool').then(m => ({ default: m.SlugGeneratorTool }))),
+  'cron-expression-generator': dynamic(() => import('@/components/tools/CronExpressionGeneratorTool').then(m => ({ default: m.CronExpressionGeneratorTool }))),
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ slug: string }> }) {

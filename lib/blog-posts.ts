@@ -2834,8 +2834,236 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
       <p>UUIDs/GUIDs solve real problems — collision-free distributed generation, non-sequential public IDs, client-side pre-generation — but they're not automatically the better choice for every project. Match the ID strategy to your actual constraints rather than defaulting to either option out of habit.</p>
     `,
   },
-]
+  {
+    slug: 'can-you-decode-jwt-without-secret',
+    title: 'Can You Decode a JWT Without a Secret? Everything You Need to Know',
+    description: 'Wondering if you can decode a JWT without the secret key? Yes, you can decode the header and payload without any key. Learn how JWT decoding works, why the signature matters, and when you need the secret.',
+    category: 'Developer Guide',
+    date: '2026-07-06',
+    readTime: '9 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'JWT Decoder', url: '/tools/jwt-decoder' }],
+    content: `
+      <h2>Introduction</h2>
+      <p>A common question among developers new to JSON Web Tokens is: can you decode a JWT without the secret? The short answer is yes — you can always decode the header and payload of any JWT without the secret key. This is by design. JWTs use Base64 URL encoding (not encryption) for the header and payload, making them human-readable by anyone who possesses the token.</p>
+      <p>The confusion arises because JWTs are often described as "secure," and it seems intuitive that a secure token should be opaque. But JWT security comes from the signature — not from hiding the contents. Understanding this distinction is crucial for working with JWTs safely and avoiding common misconceptions that can lead to security vulnerabilities.</p>
+      <p>In this comprehensive guide, we will break down exactly what parts of a JWT can be decoded without a secret, what requires the secret, and the important security implications you need to know as a developer.</p>
 
+      <h2>What Does Decoding a JWT Without a Secret Reveal?</h2>
+      <p>When you decode a JWT without the secret, you can read the header and payload sections in plain JSON. For example, using our free <a href="/tools/jwt-decoder">JWT decoder online</a>, you can paste any JWT token and instantly see the algorithm, token type, and all claims including user ID, roles, and expiration time.</p>
+      <p>The header typically contains:</p>
+      <pre><code>{
+  "alg": "HS256",
+  "typ": "JWT"
+}</code></pre>
+      <p>The payload typically contains claims like:</p>
+      <pre><code>{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022,
+  "exp": 1516242622,
+  "role": "admin"
+}</code></pre>
+      <p>The signature section is also visible, but without the secret key you cannot verify whether it is authentic or has been tampered with.</p>
+
+      <h2>Why Can You Decode a JWT Without the Secret?</h2>
+      <p>JWTs use Base64 URL encoding for the header and payload, which is an encoding method (not encryption). Encoding is a two-way reversible process — anyone can decode it. This is similar to how you can decode Base64 encoded text without a key. The designers of JWT explicitly chose this approach because JWTs are self-contained tokens meant to be inspected by the receiving party.</p>
+      <p>The three parts of a JWT serve different purposes:</p>
+      <ul>
+        <li><strong>Header</strong> (Base64 URL encoded, no secret needed to read): Tells the verifier which algorithm and token type was used.</li>
+        <li><strong>Payload</strong> (Base64 URL encoded, no secret needed to read): Contains the claims — all the data the issuer wanted to communicate.</li>
+        <li><strong>Signature</strong> (requires the secret to verify): Proves the header and payload haven\'t been tampered with since issuance.</li>
+      </ul>
+      <p>Think of it like a driver\'s license: anyone can read your name, photo, and birth date (that\'s the encoded payload), but only an official can verify the hologram and security features (that\'s the signature). The value is in the verification, not the secrecy.</p>
+
+      <h2>What Requires the Secret Key?</h2>
+      <p>The only part of a JWT that requires the secret key is signature verification and token creation. Specifically:</p>
+      <p><strong>Signature verification</strong>: To verify that a JWT has not been tampered with, you need the signing key. For symmetric algorithms like HS256, this is the same secret that created the token. For asymmetric algorithms like RS256, you need the public key. Without the correct key, you cannot confirm whether the token is authentic or forged.</p>
+      <p><strong>Token creation</strong>: To issue valid JWTs, the server uses the secret key to create the signature. Only parties with access to the secret can issue tokens that will pass signature verification.</p>
+      <p><strong>Encrypted JWTs (JWE)</strong>: If you are using JWE (JSON Web Encryption) instead of the standard JWS (JSON Web Signature), the payload is encrypted and cannot be decoded without the decryption key. However, JWE is far less common than JWS.</p>
+
+      <h2>Security Implications: What This Means for Your Application</h2>
+      <p>The fact that anyone can decode a JWT without the secret has important security implications for developers:</p>
+      <p><strong>Never store sensitive data in the payload.</strong> Since the header and payload are readable by anyone who has the token, never put passwords, credit card numbers, or personal identifiable information (PII) in the JWT payload. If you need to transmit sensitive data, use JWE (encrypted JWTs) or transmit the data separately through a secure channel.</p>
+      <p><strong>Always verify the signature server-side.</strong> Never trust a JWT based solely on its decoded contents. A malicious user could decode a JWT, modify the payload (changing "role": "user" to "role": "admin"), and re-encode it. If your server does not verify the signature before processing the token, this tampered token would be accepted. Always use a JWT library on your server to verify the signature before trusting any claims.</p>
+      <p><strong>Use short expiration times.</strong> Because the token contents are readable, minimize the window of exposure by using short expiration times (15-60 minutes for access tokens). If a token is intercepted, it can only be used and inspected for a limited time.</p>
+      <p><strong>Implement additional validation.</strong> Besides signature verification, always validate the claims. Check the expiration (exp), not-before (nbf), issuer (iss), and audience (aud) claims. Use our <a href="/tools/jwt-decoder">JWT token decoder</a> to inspect real tokens and understand what claims your authentication system is including.</p>
+
+      <h2>Can Someone Forge a JWT If They Can Decode It?</h2>
+      <p>No. Being able to decode a JWT does not mean someone can forge a valid one. Forging requires creating a valid signature, which requires the secret key. However, there are some known attacks where improper JWT implementation can lead to forgeries:</p>
+      <p><strong>"alg: none" attack:</strong> Some JWT libraries accept tokens where the algorithm is set to "none." An attacker can decode the token, change the header to "alg: none", modify the payload, and remove the signature entirely. If the server accepts "none" as a valid algorithm, the tampered token will be accepted. Always configure your JWT library to reject "none" algorithm tokens.</p>
+      <p><strong>Algorithm confusion attack:</strong> If your server expects RS256 (asymmetric) but the attacker sends a token with HS256 (symmetric), and your server uses the public key as the HMAC secret, the attacker can forge tokens. The fix: always enforce the expected algorithm.</p>
+      <p><strong>Weak secret brute force:</strong> If you use a weak secret for HS256, attackers can brute force it offline. Since they can already decode the token, they can try different secrets against the known signature. Use strong, random secrets (at least 256 bits).</p>
+
+      <h2>How to Safely Inspect JWT Tokens</h2>
+      <p>Inspecting JWT tokens during development and debugging is perfectly safe and recommended. Our <a href="/tools/jwt-decoder">JWT decoder online</a> runs entirely in your browser — the token never leaves your device. This means you can safely inspect production tokens without worrying about data leakage.</p>
+      <p>When inspecting a JWT, look for:
+      <ul>
+        <li>The signing algorithm in the header</li>
+        <li>The expiration time and whether it has passed</li>
+        <li>The claims included in the payload</li>
+        <li>Whether the token structure is well-formed (three parts, valid Base64 encoding)</li>
+      </ul></p>
+
+      <h2>Conclusion</h2>
+      <p>Can you decode a JWT without the secret? Absolutely — the header and payload are always readable by design. But trust requires the signature, which needs the secret key. Understanding this distinction is fundamental to working with JWTs securely.</p>
+      <p>Use a <a href="/tools/jwt-decoder">free online JWT decoder</a> to inspect tokens during development, but always verify signatures server-side before acting on any claims. Never store secrets in the payload, enforce algorithm restrictions, and use short expiration times.</p>
+      <p>For more on JWTs, check out our guides on <a href="/blog/what-is-a-jwt-token">what is a JWT token</a> and <a href="/blog/how-jwt-authentication-works">how JWT authentication works</a>.</p>
+    `,
+  },
+  {
+    slug: 'what-is-a-cron-expression',
+    title: 'What Is a Cron Expression? A Complete Guide to Cron Syntax',
+    description: 'Learn what a cron expression is, how its five fields work, and how to read or write one for scheduling automated tasks.',
+    category: 'Developer Guide',
+    date: '2026-07-06',
+    readTime: '8 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Cron Expression Generator', url: '/tools/cron-expression-generator' }],
+    content: `
+      <h2>What Is a Cron Expression?</h2>
+      <p>A cron expression is a short, structured string that defines a recurring schedule for automated tasks — most commonly used with the Unix/Linux <code>cron</code> daemon, but also adopted by countless scheduling tools, CI/CD pipelines, and job queues across nearly every platform. Instead of writing "run this every weekday at 9am" in plain English, a scheduler needs something precise and machine-readable — that's what a cron expression provides.</p>
+
+      <h2>The Five Fields of a Standard Cron Expression</h2>
+      <p>A standard cron expression has five space-separated fields, always in this order:</p>
+      <pre><code>┌───────────── minute (0-59)
+│ ┌───────────── hour (0-23)
+│ │ ┌───────────── day of month (1-31)
+│ │ │ ┌───────────── month (1-12)
+│ │ │ │ ┌───────────── day of week (0-6, Sunday=0)
+│ │ │ │ │
+* * * * *</code></pre>
+      <p>An asterisk (<code>*</code>) in any field means "every value" for that field. So <code>* * * * *</code> means "every minute, of every hour, of every day" — i.e., run once a minute, constantly.</p>
+
+      <h2>Reading Real Examples</h2>
+      <p><strong><code>0 3 * * *</code></strong> — at minute 0 of hour 3, every day → runs at 3:00 AM daily.</p>
+      <p><strong><code>*/15 * * * *</code></strong> — every 15th minute, every hour, every day → runs at :00, :15, :30, :45 of every hour.</p>
+      <p><strong><code>0 9 * * 1-5</code></strong> — at 9:00 AM, but only Monday through Friday (day-of-week field 1-5) → a weekday-only 9am schedule.</p>
+      <p><strong><code>0 0 1 * *</code></strong> — at midnight, on day 1 of every month → runs once a month, on the 1st.</p>
+
+      <h2>Special Characters You'll Encounter</h2>
+      <p><strong>Asterisk (*)</strong> — matches every possible value for that field.</p>
+      <p><strong>Comma (,)</strong> — specifies a list, e.g. <code>1,15</code> in the day field means "the 1st and 15th of the month."</p>
+      <p><strong>Hyphen (-)</strong> — specifies a range, e.g. <code>1-5</code> in the day-of-week field means Monday through Friday.</p>
+      <p><strong>Slash (/)</strong> — specifies a step value, e.g. <code>*/15</code> in the minute field means "every 15 minutes."</p>
+
+      <h2>Common Shorthand Expressions</h2>
+      <p>Many cron implementations also support shorthand strings in place of the five fields: <code>@yearly</code> (or <code>@annually</code>) runs once a year, <code>@monthly</code> once a month, <code>@weekly</code> once a week, <code>@daily</code> (or <code>@midnight</code>) once a day, and <code>@hourly</code> once an hour. These are convenient but not universally supported across every scheduler, so check your specific tool's documentation.</p>
+
+      <h2>Where Cron Expressions Show Up</h2>
+      <p>Beyond the traditional Unix <code>cron</code> daemon, this same expression format (or a close variant) is used by: CI/CD pipeline schedules (GitHub Actions, GitLab CI), cloud scheduler services (AWS EventBridge, Google Cloud Scheduler), application-level job schedulers in nearly every programming language, and container orchestration tools like Kubernetes CronJobs.</p>
+
+      <h2>Writing Your Own</h2>
+      <p>Manually working out the right combination of fields for a specific schedule — especially anything beyond the simplest daily/hourly patterns — is easy to get subtly wrong. Use our <a href="/tools/cron-expression-generator">free Cron Expression Generator</a> to build a schedule using plain English, a visual builder, or by pasting an existing expression to see exactly what it means and when it'll next run.</p>
+
+      <h2>Conclusion</h2>
+      <p>A cron expression's five fields — minute, hour, day-of-month, month, day-of-week — combine with a small set of special characters (*, ,, -, /) to express nearly any recurring schedule precisely. Once you can read the fields in order, decoding (or writing) any cron expression becomes straightforward.</p>
+    `,
+  },
+  {
+    slug: 'cron-vs-quartz-cron-difference',
+    title: 'Cron vs Quartz Cron: What\u2019s the Difference?',
+    description: 'Standard Unix cron and Quartz cron (used in Java scheduling) look similar but differ in format. Here\u2019s exactly what changes and why it matters.',
+    category: 'Developer Guide',
+    date: '2026-07-06',
+    readTime: '6 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Cron Expression Generator', url: '/tools/cron-expression-generator' }],
+    content: `
+      <h2>Two Cron Formats, One Confusing Overlap</h2>
+      <p>If you've worked with Java-based scheduling — particularly the Quartz Scheduler library, widely used in Spring applications — you've likely noticed that its cron expressions look almost, but not quite, like standard Unix cron. Copy a working Unix cron expression into a Quartz configuration (or vice versa) and it can fail validation or, worse, silently behave differently than expected. Here's exactly what's different.</p>
+
+      <h2>Field Count: 5 vs 6-7</h2>
+      <p>Standard Unix cron uses five fields: minute, hour, day-of-month, month, day-of-week.</p>
+      <p>Quartz cron uses six required fields, with an optional seventh: <strong>seconds</strong>, minute, hour, day-of-month, month, day-of-week, and optionally <strong>year</strong>.</p>
+      <pre><code>Unix:   *    *    *    *    *
+        min  hour dom  mon  dow
+
+Quartz: *    *    *    *    *    ?    *
+        sec  min  hour dom  mon  dow  year</code></pre>
+      <p>The added seconds field means Quartz can schedule things with second-level precision, which standard cron cannot do at all — the minute is the smallest unit standard cron understands.</p>
+
+      <h2>The Day-of-Month / Day-of-Week Conflict Rule</h2>
+      <p>Quartz has a rule that standard cron doesn't: you cannot specify both day-of-month and day-of-week as specific values in the same expression — one of the two must be a question mark (<code>?</code>), meaning "no specific value." For example, in Quartz, <code>0 0 12 15 * ?</code> (noon on the 15th of every month, no specific day-of-week) is valid, but trying to also specify a day-of-week alongside a specific day-of-month is not permitted and will cause a validation error.</p>
+
+      <h2>Day-of-Week Numbering Differences</h2>
+      <p>Standard Unix cron typically numbers Sunday as 0 (with some implementations also accepting 7 as Sunday). Quartz numbers days 1-7 with Sunday as 1, not 0 — this is a common silent bug source when porting a schedule from one system to the other without adjusting the numbering.</p>
+
+      <h2>Side-by-Side Example</h2>
+      <p><strong>Goal:</strong> run every weekday at 9:00:00 AM.</p>
+      <p><strong>Standard Unix cron:</strong> <code>0 9 * * 1-5</code></p>
+      <p><strong>Quartz cron:</strong> <code>0 0 9 ? * MON-FRI</code></p>
+      <p>Notice Quartz's extra seconds field (the leading <code>0</code>), the question mark in the day-of-month position (since day-of-week is being used instead), and that Quartz commonly accepts named weekday abbreviations (MON-FRI) directly, which vanilla Unix cron implementations don't always support.</p>
+
+      <h2>Which One Do You Need?</h2>
+      <p>If you're scheduling anything through a standard Linux <code>crontab</code>, CI/CD pipeline (GitHub Actions, GitLab CI), or most cloud schedulers (AWS EventBridge, Google Cloud Scheduler) — use standard Unix cron format.</p>
+      <p>If you're configuring a job in Quartz Scheduler directly, or in a Java/Spring application using Quartz under the hood (common in Spring Boot's <code>@Scheduled(cron = ...)</code> annotation, which uses Quartz-style expressions), use Quartz format.</p>
+
+      <h2>Generating Either Format</h2>
+      <p>Rather than manually tracking these differences every time, use our <a href="/tools/cron-expression-generator">Cron Expression Generator</a> — switch between Standard and Quartz mode with one toggle, and the tool generates correctly formatted, valid expressions for whichever format you need.</p>
+
+      <h2>Conclusion</h2>
+      <p>Standard cron and Quartz cron solve the same problem — defining a recurring schedule — but differ in field count, precision (seconds), the day-of-month/day-of-week exclusivity rule, and day-of-week numbering. Knowing which system you're targeting before writing (or copying) an expression avoids a frustrating class of silent scheduling bugs.</p>
+    `,
+  },
+  {
+    slug: 'common-cron-expression-examples',
+    title: '10 Common Cron Expression Examples You\u2019ll Actually Use',
+    description: 'A practical, copy-paste reference of the cron expressions developers reach for most often — every 15 minutes, daily, weekdays, monthly, and more.',
+    category: 'Developer Guide',
+    date: '2026-07-06',
+    readTime: '5 min read',
+    author: 'Zohaib Hassan',
+    relatedTools: [{ name: 'Cron Expression Generator', url: '/tools/cron-expression-generator' }],
+    content: `
+      <h2>A Quick-Reference Cheat Sheet</h2>
+      <p>Rather than re-deriving the same handful of schedules from scratch every time, here are the cron expressions that come up constantly in real projects — copy the one you need directly.</p>
+
+      <h2>1. Every Minute</h2>
+      <pre><code>* * * * *</code></pre>
+      <p>Runs constantly, once per minute. Mostly useful for testing that a scheduler is actually firing, rarely used in production as-is.</p>
+
+      <h2>2. Every 5 Minutes</h2>
+      <pre><code>*/5 * * * *</code></pre>
+
+      <h2>3. Every 15 Minutes</h2>
+      <pre><code>*/15 * * * *</code></pre>
+      <p>A very common polling interval for lightweight sync jobs or health checks.</p>
+
+      <h2>4. Every Hour, on the Hour</h2>
+      <pre><code>0 * * * *</code></pre>
+
+      <h2>5. Daily at Midnight</h2>
+      <pre><code>0 0 * * *</code></pre>
+      <p>One of the most common schedules overall — nightly batch jobs, backups, report generation.</p>
+
+      <h2>6. Daily at a Specific Time (e.g. 3:30 AM)</h2>
+      <pre><code>30 3 * * *</code></pre>
+      <p>Scheduling slightly off the top of the hour (like 3:30 instead of exactly 3:00 or midnight) is a common practice to avoid every scheduled job on a shared system firing at the exact same instant.</p>
+
+      <h2>7. Weekdays Only, at 9:00 AM</h2>
+      <pre><code>0 9 * * 1-5</code></pre>
+      <p>A frequent pattern for business-hours-only automation — reports, reminders, or sync jobs that shouldn't run on weekends.</p>
+
+      <h2>8. Weekly, Every Sunday at Midnight</h2>
+      <pre><code>0 0 * * 0</code></pre>
+
+      <h2>9. Monthly, on the 1st at Midnight</h2>
+      <pre><code>0 0 1 * *</code></pre>
+      <p>Common for monthly billing cycles, report resets, or archival jobs.</p>
+
+      <h2>10. Twice a Day (e.g. Midnight and Noon)</h2>
+      <pre><code>0 0,12 * * *</code></pre>
+      <p>The comma allows listing multiple specific hour values in a single expression.</p>
+
+      <h2>Building Your Own Variation</h2>
+      <p>Once you're comfortable with these patterns, most custom schedules are small variations on one of them — swapping the hour, adjusting the day-of-week range, or adding a step interval. Use our <a href="/tools/cron-expression-generator">Cron Expression Generator</a> to build any variation using plain English, a visual builder, or by starting from one of these presets directly and adjusting it — the tool also shows you the next several actual run times so you can confirm the schedule does what you expect before deploying it.</p>
+
+      <h2>Conclusion</h2>
+      <p>Most real-world scheduling needs are covered by some combination of these ten patterns. Keep this list handy, and reach for the generator when you need something more specific or want to double-check an expression's exact behavior before relying on it in production.</p>
+    `,
+  },
+]
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug)
 }
