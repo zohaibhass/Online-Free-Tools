@@ -71,7 +71,7 @@ function getHardcodedIntent(input: string): Message | null {
 
 function formatBotResponse(
   input: string,
-  results: Fuse.FuseResult<KnowledgeBaseEntry>[]
+  results: FuseResult<KnowledgeBaseEntry>[]
 ): Message {
   const best = results[0]
   const second = results[1]
