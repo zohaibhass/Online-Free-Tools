@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
-import { CookieConsent } from '@/components/CookieConsent'
-import { ChatWidget } from '@/components/ChatWidget'
-import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME, AUTHOR_EMAIL } from '@/lib/config'
+import { LazyLayoutComponents } from './LazyComponents'
+import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME } from '@/lib/config'
 import './globals.css'
 import Script from 'next/script'
 
@@ -207,17 +206,17 @@ export default function RootLayout({
           />
         )}
 
-        {/* Google AdSense - Proper Next.js way */}
+        {/* Google AdSense — loads after page is interactive */}
         {adsenseClientId && (
           <Script
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            strategy="beforeInteractive"
+            strategy="afterInteractive"
             crossOrigin="anonymous"
           />
         )}
 
         {process.env.NODE_ENV === 'production' && (
-          <Script id="register-service-worker" strategy="afterInteractive">
+          <Script id="register-service-worker" strategy="lazyOnload">
             {`if ('serviceWorker' in navigator) {
               window.addEventListener('load', function () {
                 navigator.serviceWorker.register('/sw.js').then(function (reg) {
@@ -244,8 +243,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
           {process.env.NODE_ENV === 'production' && <Analytics />}
-          <CookieConsent />
-          <ChatWidget />
+          <LazyLayoutComponents />
         </ThemeProvider>
       </body>
     </html>
