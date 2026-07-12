@@ -155,8 +155,8 @@ const toolAboutBlurbs: Record<string, string> = {
   'random-name-generator': 'Random Name Generator produces character names for writers, game developers, and tabletop RPG players. Great for fantasy worlds, fiction writing, and creating diverse character backgrounds. Instant inspiration for your next project.',
   'todo-list': 'Todo List is a simple task manager for students, professionals, and anyone organizing their day. Add, check off, and organize tasks without installing apps or creating accounts. Keep your priorities visible and stay on track.',
   'timer-stopwatch': 'Timer & Stopwatch lets you count down to a deadline or measure elapsed time with simple, reliable controls. Perfect for productivity, workouts, cooking, presentations, and any activity that needs precise timing. Optional sound alerts included.',
-  'dice-roller': 'Dice Roller simulates realistic dice rolls for tabletop gamers, probability students, and game designers. Roll any number of dice with any sides; see individual results and totals instantly. Perfect for D&D, board games, and game balance testing.',
-  'coin-flipper': 'Coin Flipper makes virtual coin tosses for making decisions, settling disputes, or testing probability. Realistic animation and instant results. Perfect for games, choosing between options, and fair decision-making.',
+  'dice-roller': 'Dice Roller is a 3D animated dice tool for tabletop gamers, probability students, and game designers. Roll 1 to 5 dice at once with any standard polyhedral sides (d4 through d100), watch realistic 3D dice tumble and land, then see each die result and the total instantly. Roll history is saved in your browser so you can track previous rolls across sessions. The DND dice roller mode covers d20 checks and saving throws just as easily as classic d6 board game rolls.',
+  'coin-flipper': 'Coin Flipper is a 3D animated coin toss tool for making decisions, settling disputes, or testing probability. Flip 1, 3, or 5 coins at once with a realistic 3D spin animation. Track your streak, view heads/tails percentages, and toggle to Yes/No mode for quick binary decisions. History and stats are saved in your browser across sessions. Perfect for games, choosing between options, and fair decision-making.',
   'morse-code-translator': 'Morse Code Translator encodes and decodes Morse code for history enthusiasts, amateur radio operators, and curious learners. Convert text to dots and dashes or vice versa. Great for learning telegraphy and experimenting with alternative communication.',
   'pixels-to-inches': 'Pixels to Inches Converter is the go-to tool for designers, print professionals, and anyone who needs to convert between pixel dimensions and physical inch measurements. Unlike many converters that assume a fixed DPI, this tool lets you choose from common presets (72 DPI for web, 96 DPI for Windows screens, 150 DPI for draft print, 300 DPI for print quality) or enter any custom DPI. The bidirectional converter updates instantly as you type, with a handy Width × Height mode for dimension pairs. Whether you are sizing images for print layout, calculating screen dimensions, or working on a design project that crosses between digital and physical media, this converter gives you accurate results in real time.',
   'px-to-inches': 'PX to Inches Converter is a focused tool for designers and developers who need quick, accurate conversions from pixels to physical inches. Perfect for translating screen mockups into print-ready dimensions, this converter supports all major DPI settings including web standard (96 DPI) and print quality (300 DPI). The instant bidirectional calculation means you can work in either direction without clicking swap buttons — just type and convert.',
@@ -291,12 +291,12 @@ const toolExamples: Record<string, { input: string; output: string }> = {
     output: 'Timer running: 15:00 remaining',
   },
   'dice-roller': {
-    input: 'Roll 2d6',
-    output: 'Die 1: 4\nDie 2: 5\nTotal: 9',
+    input: 'Roll 3d6',
+    output: 'Die 1: 4\nDie 2: 5\nDie 3: 3\nTotal: 12',
   },
   'coin-flipper': {
-    input: 'Flip a coin',
-    output: 'Result: Heads',
+    input: 'Flip 1 coin',
+    output: 'Result: Heads\nHeads: 52% \u2022 Tails: 48%',
   },
   'morse-code-translator': {
     input: 'SOS',
@@ -560,6 +560,14 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
         ],
       },
       {
+        heading: 'How to hash a file online',
+        paragraphs: [
+          'Switch to the File tab above, then click the upload area or drag a file into it. The tool reads the file entirely in your browser using the FileReader API, computes its SHA-256 hash with the Web Crypto API, and never sends the file to any server. This keeps the same "your data never leaves your device" guarantee as the text hashing mode.',
+          'The most common use case for file hashing is verifying a downloaded file against a checksum published by the file source. After downloading software, an ISO image, or any important file, hash it with this tool and compare the result to the publisher-provided hash. If they match character-for-character, the file was not corrupted or tampered with during download.',
+          'File names and sizes are displayed alongside the hash so you can confirm you hashed the right file. For very large files (over 100 MB), browser-based hashing may be slow or use significant memory — a warning will appear before processing begins.',
+        ],
+      },
+      {
         heading: 'Common errors and how to fix them',
         paragraphs: [
           'Error: Different hash for the same input. If you hash the same text twice and get different results, ensure you are using the same algorithm both times. Different algorithms produce different hashes. Also check for extra spaces or line breaks in your input, as they are part of the data being hashed.',
@@ -585,6 +593,9 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
     { question: 'Is MD5 still safe to use?', answer: 'MD5 is not safe for security-critical applications like password storage or digital signatures. Use SHA256 or SHA512 instead. MD5 is acceptable for non-security uses like checksums.' },
     { question: 'How do I verify a file hash online?', answer: 'Generate the hash of your downloaded file and compare it to the hash provided by the source. If they match exactly, the file has not been corrupted or tampered with.' },
     { question: 'Can I reverse a hash back to the original text?', answer: 'No, hashes are one-way functions. You cannot reverse a hash to get the original input. This is why hashes are used for password storage instead of encryption.' },
+    { question: 'Can I hash a file, not just text?', answer: 'Yes — switch to File mode above, select or drag in a file, and the tool computes its hash directly in your browser without uploading it anywhere. This works well for verifying a downloaded file\'s checksum against one published by the file\'s source.' },
+    { question: 'Can MD5 hashes be decrypted?', answer: 'No — MD5 and other hash functions are one-way by design; there\'s no mathematical way to reverse a hash back into its original input. Tools that claim to "decrypt" MD5 hashes are actually doing something different: they check the hash against a huge precomputed lookup table (sometimes called a rainbow table) of common passwords, dictionary words, or previously seen inputs. If your original input matches something in that table, the tool can show you the match — but this only works for common or weak inputs, not for genuinely random or unique data, and it isn\'t decryption in any real sense.' },
+    { question: 'What is a "hash cracker" and does this tool include one?', answer: 'A hash cracker attempts to find an input that produces a given hash, typically by hashing huge lists of common passwords or dictionary words and checking for a match (or by brute-force guessing). This tool intentionally does not include cracking/lookup functionality — doing so would require a server-side database of precomputed hashes, which conflicts with this tool\'s fully browser-based, nothing-leaves-your-device design. This tool is built for generating and verifying hashes, not attempting to reverse them.' },
   ],
   },
 
@@ -718,16 +729,16 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       {
         heading: 'What is URL encoding?',
         paragraphs: [
-          'URL encoding (also called percent encoding) is a method of encoding special characters in URLs so they can be safely transmitted over the internet. URLs can only contain certain characters from the ASCII character set, including letters, digits, and a few special characters like - . _ ~. Any other character, including spaces, accents, and symbols, must be encoded as a percent sign (%) followed by its hexadecimal ASCII value. For example, a space is encoded as %20, an ampersand (&) is %26, and a forward slash (/) is %2F.',
+          'URL encoding (also called percent encoding or urlencode) is a method of encoding special characters in URLs so they can be safely transmitted over the internet. URLs can only contain certain characters from the ASCII character set, including letters, digits, and a few special characters like - . _ ~. Any other character, including spaces, accents, and symbols, must be encoded as a percent sign (%) followed by its hexadecimal ASCII value. For example, a space is encoded as %20, an ampersand (&) is %26, and a forward slash (/) is %2F.',
           'URL encoding is essential for query parameters, form submissions, and API calls. When you submit a form or click a link with parameters, the browser automatically encodes the values. However, if you are manually constructing URLs or working with APIs, understanding URL encoding helps you correctly format data.',
-          'URL decoding is the reverse process: converting percent-encoded characters back to their original form. For example, %3Fquery%3Dvalue decodes to ?query=value. This tool handles both encoding and decoding, making it easy to work with URLs programmatically.',
+          'URL decoding is the reverse process: converting percent-encoded characters back to their original form. For example, %3Fquery%3Dvalue decodes to ?query=value. This tool handles both encoding and url decode, making it easy to work with URLs programmatically.',
         ],
       },
       {
         heading: 'When should you use the URL Encoder/Decoder?',
         paragraphs: [
           'Creating API query parameters: When building API requests with query strings, you must encode special characters in parameter values. For example, if a search query contains spaces or punctuation, encoding ensures the URL is valid.',
-          'Sharing URLs with special characters: If you have a URL with spaces, accents, or other special characters, encoding makes it safe to share via email or messaging apps where URL parsing might fail.',
+          'Sharing URLs with special characters: If you have a URL with spaces, accents, or other special characters, you can convert url to a safe, shareable format by encoding it — the result is a url encoded string safe to use in email or messaging apps where URL parsing might fail.',
           'Debugging API requests: When troubleshooting why an API call is failing, decode the URL to see the actual parameter values. This helps identify if encoding or decoding errors are the problem.',
           'Form submission handling: When submitting HTML forms, browsers automatically encode the data, but understanding this process helps you debug form-related issues.',
           'Building redirect URLs: In authentication flows and OAuth implementations, redirect URLs with query parameters must be properly encoded to ensure they work correctly.',
@@ -1051,35 +1062,35 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       {
         heading: 'What is a dice roller tool?',
         paragraphs: [
-          'A dice roller simulates rolling one or more dice with any number of sides. It is useful for tabletop gaming, probability experiments, decision-making, and role-playing sessions. The tool produces random results instantly, so you can focus on gameplay rather than physical dice.',
-          'Dice rollers are especially handy when you need non-standard dice like d20, d12, d10, or custom dice with more sides. They remove the need to carry multiple dice sets and make digital game sessions easier to manage.',
-          'Random number generation in this tool is designed to behave like real dice rolls, giving each side an equal chance. It is a convenient way to resolve game actions, simulate outcomes, and run quick probability tests.',
+          'A dice roller is a 3D animated tool that simulates rolling one or more polyhedral dice with any standard number of sides \u2014 d4, d6, d8, d10, d12, d20, or d100. It is designed for tabletop gamers, probability students, and anyone who needs quick, fair random rolls without physical dice.',
+          'The tool renders each die as a realistic 3D object that tumbles and lands on the correct face, so the roll feels visually satisfying and easy to read at a glance. You can roll up to 5 dice at once, and each die result is shown individually alongside the total.',
+          'Roll history is saved locally in your browser, so you can review your last 10 rolls across sessions without needing to write anything down. Use the copy button to grab formatted results (e.g. "\uD83C\uDFB2 3d6 = 4 + 5 + 3 = 12") for pasting into chat, notes, or a VTT.',
         ],
       },
       {
         heading: 'When should you use the Dice Roller?',
         paragraphs: [
-          'Use the dice roller during tabletop RPG sessions to resolve attacks, skill checks, saving throws, and other chance-based actions.',
-          'Use it for board games that require dice rolls, especially when you don’t have the right physical dice available.',
-          'Use it for probability experiments, statistics homework, or math practice when you need repeated random rolls for analysis.',
+          'Use the dice roller during tabletop RPG sessions to resolve attacks, skill checks, saving throws, and other chance-based actions. The d20 button is one click away for D&D ability checks and saving throws.',
+          'Use it for board games that require dice rolls, especially when you don\u2019t have the right physical dice available. The slider lets you set 1\u20135 dice and the button grid covers every standard polyhedral type.',
+          'Use it for probability experiments, statistics homework, or math practice when you need repeated random rolls. The roll history makes it easy to collect and review multiple outcomes.',
           'Use it to make quick decisions when you want a fair random result with multiple weighted outcomes.',
         ],
       },
       {
         heading: 'How to use the Dice Roller',
         paragraphs: [
-          'Step 1: Choose the number of dice and the number of sides per die. Common choices include 6-sided dice for classic games or 20-sided dice for role-playing games.',
-          'Step 2: Click roll to generate the random outcomes. The tool will display each die result and the total if multiple dice are rolled.',
-          'Step 3: Review the result and apply it to your game, decision, or experiment. If needed, roll again to simulate another round or try a different configuration.',
-          'Step 4: Use the output to compare probabilities or verify game mechanics. For example, rolling multiple dice helps illustrate how averages and extremes behave over repeated rolls.',
+          'Step 1: Set the number of dice using the slider (1 to 5 dice).',
+          'Step 2: Choose the number of sides by clicking one of the side buttons (d4, d6, d8, d10, d12, d20, or d100).',
+          'Step 3: Click "Roll" and watch the 3D dice animate. Once they land, each die face shows its result and the total is displayed below.',
+          'Step 4: Use the copy button to grab a formatted string of your results, or click clear to reset the display. Previous rolls appear in the history section below the controls.',
         ],
       },
       {
         heading: 'Gaming and probability tips',
         paragraphs: [
-          'For role-playing games, choose the correct die type for the action. A d20 is common for checks and attacks, while damage rolls often use d6, d8, or d10.',
-          'If the game uses advantage or disadvantage, roll twice and take the higher or lower result accordingly. This tool can simulate those mechanics quickly.',
-          'Use multiple-roll summaries to understand the overall outcome, especially when rolling several dice at once. Knowing the total and individual results helps with strategy and bookkeeping.',
+          'For D&D and other RPGs, select d20 for ability checks and attack rolls, d6 or d8 for damage, and d100 for percentile checks. All standard polyhedral dice types are available in one click.',
+          'To simulate advantage or disadvantage, roll twice and take the higher or lower result accordingly. This tool can simulate those mechanics quickly.',
+          'Use the roll history to track outcomes over multiple rounds. Seeing your last several rolls in one place helps with strategy and bookkeeping.',
           'Remember that each roll is independent. A streak of high or low rolls is normal, so avoid assuming patterns in random outcomes.',
         ],
       },
@@ -1093,6 +1104,28 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       },
     ],
     relatedTools: ['coin-flipper', 'timer-stopwatch', 'random-name-generator'],
+    faq: [
+      {
+        question: 'Can I use this as a DND dice roller?',
+        answer: 'Yes \u2014 select d20 from the sides button for ability checks, saving throws, and attack rolls, or roll multiple dice at once (e.g. 2d6 for damage) using the dice count slider. All standard D&D dice types (d4, d6, d8, d10, d12, d20, d100) are supported.',
+      },
+      {
+        question: 'Does the dice animation affect the result?',
+        answer: 'No. The 3D animation is purely visual. The random result is determined instantly by the browser\'s random number generator, and the dice faces are simply positioned to show that result after the animation completes.',
+      },
+      {
+        question: 'Is my roll history saved?',
+        answer: 'Yes. Your last 10 rolls are saved in your browser\'s local storage so you can review them across sessions. History is stored only on your device and is never sent to any server.',
+      },
+      {
+        question: 'How do I copy my roll results?',
+        answer: 'Click the copy button after rolling. It copies a formatted string like "\uD83C\uDFB2 3d6 = 4 + 5 + 3 = 12" to your clipboard, which you can paste into chat, notes, or a virtual tabletop.',
+      },
+      {
+        question: 'Is this tool free?',
+        answer: 'Yes. Dice Roller is free to use with no signup required.',
+      },
+    ],
   },
 
   'coin-flipper': {
@@ -1100,34 +1133,34 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       {
         heading: 'What is the Coin Flipper tool?',
         paragraphs: [
-          'The Coin Flipper tool simulates a fair coin toss for making quick decisions, settling disputes, or testing probability. It generates either Heads or Tails with equal likelihood, just like a real coin flip.',
-          'This tool is useful when you need a neutral, random choice and want to avoid bias. It is perfect for deciding who goes first, choosing between two options, or adding a random element to games and experiments.',
-          'Unlike physical coins, the digital Coin Flipper is always available and consistent. It works anywhere you have a browser, and it removes the possibility of coins being lost or unavailable when you need a quick decision.',
+          'The Coin Flipper is a 3D animated tool that simulates a fair coin toss for making quick decisions, settling disputes, or testing probability. It generates either Heads or Tails with equal likelihood, just like a real coin flip, with a realistic 3D spin animation.',
+          'Flip 1, 3, or 5 coins at once \u2014 useful for team selection, probability experiments, or group decisions where you need multiple independent flips in one action. The tool tracks your streak (consecutive same-result flips) and shows heads/tails percentages so you can see the distribution over time.',
+          'Toggle to Yes/No mode to relabel the outcomes as "Yes" and "No" instead of "Heads" and "Tails", which is handy for quick binary decisions. Press the spacebar to flip without clicking. All stats, history, and your Yes/No preference are saved in your browser across sessions.',
         ],
       },
       {
         heading: 'When should you use the Coin Flipper?',
         paragraphs: [
-          'Use it when you want a quick yes/no decision or need to choose between two equally valid options.',
-          'Use it for game mechanics that require a coin toss, such as determining the starting player or resolving binary outcomes.',
-          'Use it for simple probability demonstrations or classroom activities that explore randomness and fairness.',
-          'Use it during meetings or group decisions when a neutral, impartial method is needed to break ties.',
+          'Use it when you want a quick yes/no decision or need to choose between two equally valid options. Toggle to Yes/No mode for a visual match to the decision type.',
+          'Use it for game mechanics that require a coin toss, such as determining the starting player or resolving binary outcomes. Flip multiple coins at once for faster setup.',
+          'Use it for probability demonstrations or classroom activities that explore randomness and fairness. The percentage stats and streak tracker make distribution patterns easy to observe.',
+          'Use it during meetings or group decisions when a neutral, impartial method is needed to break ties. Press spacebar to flip quickly without moving your hands from the keyboard.',
         ],
       },
       {
         heading: 'How to use the Coin Flipper',
         paragraphs: [
-          'Step 1: Open the Coin Flipper tool in your browser. You do not need any preparation—just click the flip button.',
-          'Step 2: Click the flip button to simulate the toss. The tool will display either Heads or Tails with animation and instant results.',
-          'Step 3: Use the result to make your decision, assign teams, or progress your game. If you need a new toss, click flip again.',
-          'Step 4: Repeat as often as needed. The tool behaves like repeated fair coin tosses, so each flip is independent and has a 50/50 chance.',
+          'Step 1: Open the Coin Flipper in your browser. No preparation needed \u2014 just click the flip button or press spacebar.',
+          'Step 2: Choose how many coins to flip (1, 3, or 5) using the coin count buttons, then click "Flip" or press spacebar. A 3D coin spins and lands on Heads or Tails.',
+          'Step 3: View the result, your current streak, and the heads/tails percentage breakdown. Use the copy button to grab the result to your clipboard.',
+          'Step 4: Repeat as often as needed. Each flip is independent with a 50/50 chance. Toggle "Switch to Yes/No Mode" to relabel outcomes as Yes/No instead of Heads/Tails.',
         ],
       },
       {
         heading: 'Fairness and probability',
         paragraphs: [
-          'Each flip is independent, which means previous results do not affect future flips. A streak of heads or tails is normal in random sequences.',
-          'The tool is designed to keep outcomes balanced over many flips. If you want to verify fairness, flip the coin repeatedly and observe the distribution over time.',
+          'Each flip is independent, which means previous results do not affect future flips. The streak tracker shows your current consecutive run, but a streak of heads or tails is normal in random sequences.',
+          'The percentage stats update in real time as you flip. Over many flips the distribution should approach 50/50, which is a good way to verify fairness in a classroom or experiment setting.',
           'Use the coin flipper for binary decisions only. If you need more than two options, consider using the Dice Roller instead.',
           'Avoid using the same result for serious decisions without agreement. This tool is best for low-stakes choices and quick group decisions.',
         ],
@@ -1142,6 +1175,28 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       },
     ],
     relatedTools: ['dice-roller', 'timer-stopwatch', 'todo-list'],
+    faq: [
+      {
+        question: 'Can I use this as a yes or no decision maker?',
+        answer: 'Yes \u2014 click "Switch to Yes / No Mode" to relabel the outcomes as "Yes" and "No" instead of "Heads" and "Tails". The underlying random logic is identical, so it works perfectly for quick binary decisions.',
+      },
+      {
+        question: 'Can I flip multiple coins at once?',
+        answer: 'Yes \u2014 choose 1, 3, or 5 coins using the coin count buttons before flipping. All coins flip simultaneously, and each one lands independently on Heads or Tails.',
+      },
+      {
+        question: 'What is the streak tracker?',
+        answer: 'The streak tracker shows how many consecutive flips have landed on the same result (e.g. 5 heads in a row) and your all-time best streak. It updates automatically with each flip.',
+      },
+      {
+        question: 'Are my flip stats saved?',
+        answer: 'Yes. Your stats (heads/tails count), streak, history, and Yes/No preference are saved in your browser\'s local storage. They persist across sessions but are never sent to any server.',
+      },
+      {
+        question: 'Is this tool free?',
+        answer: 'Yes. Coin Flipper is free to use with no signup required.',
+      },
+    ],
   },
 
   'morse-code-translator': {
@@ -2174,7 +2229,7 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Link',
     slug: 'url-encoder',
-    keywords: ['url encode online', 'url decoder online', 'encode url online', 'url encoding tool', 'url decoder encoder', 'url', 'encode', 'decode', 'uri'],
+    keywords: ['url encode online', 'url decoder online', 'encode url online', 'url encoding tool', 'url decoder encoder', 'url', 'encode', 'decode', 'uri', 'urlencode', 'convert url', 'url encoded', 'url decode', 'url encoder', 'decode url'],
     seoTitle: 'url encode online — Free Online Tool | OnlineFreeTools',
     seoDescription: 'Use our free URL encode online tool to instantly encode special characters for URLs and query parameters or decode percent-encoded strings back to readable text. No signup required.',
     h1: 'URL Encode Online — Free URL Encoder Decoder & Encoding Tool',
@@ -2186,7 +2241,7 @@ export const tools: Tool[] = [
     category: 'developer',
     icon: 'Hash',
     slug: 'hash-generator',
-    keywords: ['md5 hash generator online', 'sha256 generator online', 'sha1 hash online', 'generate md5 hash', 'hash generator free', 'hash', 'md5', 'sha256', 'crypto'],
+    keywords: ['md5 hash generator online', 'sha256 generator online', 'sha1 hash online', 'generate md5 hash', 'hash generator free', 'hash', 'md5', 'sha256', 'crypto', 'md5 file', 'hash a file online', 'file checksum', 'md5 decryption', 'hash cracker'],
     seoTitle: 'md5 hash generator online — Free Online Tool | OnlineFreeTools',
     seoDescription: 'Use our free MD5 hash generator online to create SHA256, SHA1, SHA512, and MD5 hashes instantly. Browser-based — your data never leaves your device. No signup required.',
     h1: 'MD5 Hash Generator Online — Free SHA256 SHA1 SHA512 Generator',
@@ -2516,7 +2571,7 @@ export const tools: Tool[] = [
     category: 'utility',
     icon: 'Dices',
     slug: 'dice-roller',
-    keywords: ['dice', 'roll', 'random', 'game'],
+    keywords: ['dice', 'roll', 'random', 'game', 'dnd dice roller', 'd20 roller'],
   },
   {
     id: 'coin-flipper',
@@ -2525,7 +2580,7 @@ export const tools: Tool[] = [
     category: 'utility',
     icon: 'Circle',
     slug: 'coin-flipper',
-    keywords: ['coin', 'flip', 'random', 'toss'],
+    keywords: ['coin', 'flip', 'random', 'toss', 'yes no coin flipper', 'yes or no decision maker'],
   },
   {
     id: 'morse-code-translator',
