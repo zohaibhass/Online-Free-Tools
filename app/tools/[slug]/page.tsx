@@ -92,9 +92,39 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       { title: 'How to Write SEO-Friendly URL Slugs (With Real Examples)', url: '/blog/seo-friendly-url-slug-best-practices' },
       { title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast', url: '/blog/bulk-slug-generation-for-content-migration' },
     ],
+    'bmi-calculator': [
+      { title: 'BMI Chart for Men and Women: What Your BMI Really Means', url: '/blog/bmi-chart-men-women' },
+      { title: 'BMI and Health Metrics: What Developers Should Know', url: '/blog/bmi-health-metrics-developers' },
+    ],
     'uuid-generator': [
       { title: 'GUID vs UUID: What\u2019s the Difference? (Spoiler: There Isn\u2019t One)', url: '/blog/guid-vs-uuid-difference' },
       { title: 'When (and When Not) to Use UUIDs/GUIDs in Your Database and Code', url: '/blog/when-to-use-uuid-guid-in-development' },
+    ],
+    'dice-roller': [
+      { title: 'Dice Probability Explained: Why 7 Is the Most Common Roll (and Other Dice Math)', url: '/blog/dice-probability-explained' },
+      { title: 'Dice Roll vs Coin Flip: Which Random Decision Tool Should You Use?', url: '/blog/dice-roll-vs-coin-flip-random-decision-tools' },
+    ],
+    'coin-flipper': [
+      { title: 'Dice Roll vs Coin Flip: Which Random Decision Tool Should You Use?', url: '/blog/dice-roll-vs-coin-flip-random-decision-tools' },
+    ],
+    'timer-stopwatch': [
+      { title: 'Timeboxing, Pomodoro, and To-Do Lists: Productivity Tools That Actually Work', url: '/blog/timeboxing-pomodoro-simple-productivity-tools' },
+    ],
+    'todo-list': [
+      { title: 'Task Prioritization Methods That Actually Work: GTD, the Eisenhower Matrix, and Simple Lists', url: '/blog/task-prioritization-methods-gtd-eisenhower' },
+      { title: 'Timeboxing, Pomodoro, and To-Do Lists: Productivity Tools That Actually Work', url: '/blog/timeboxing-pomodoro-simple-productivity-tools' },
+    ],
+    'morse-code-translator': [
+      { title: 'How Morse Code Works: A Complete Guide to Reading and Writing It', url: '/blog/how-morse-code-works-guide' },
+    ],
+    'random-name-generator': [
+      { title: 'How to Generate Names for Projects, Characters, and Brands (Without Overthinking It)', url: '/blog/how-to-generate-names-for-projects-characters-brands' },
+    ],
+    'diff-checker': [
+      { title: 'How to Compare Files Like a Pro', url: '/blog/how-to-compare-files-like-a-pro' },
+    ],
+    'code-minifier': [
+      { title: 'JavaScript Code Minification: A Practical Guide', url: '/blog/javascript-code-minification-guide' },
     ],
   }
 
