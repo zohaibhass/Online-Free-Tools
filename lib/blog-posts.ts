@@ -8,6 +8,7 @@ export interface BlogPost {
   author: string
   content: string
   relatedTools: { name: string; url: string }[]
+  keywords?: string[]
 }
 
 export const blogPosts: BlogPost[] = [
@@ -2642,9 +2643,10 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
     readTime: '7 min read',
     author: 'Zohaib Hassan',
     relatedTools: [{ name: 'Slug Generator', url: '/tools/slug-generator' }],
+    keywords: ['what is a url slug', 'what is a slug url', 'url slug example', 'slug in a url', 'url slug', 'seo url slug', 'url slug meaning'],
     content: `
       <h2>What Is a URL Slug?</h2>
-      <p>A URL slug is the part of a web address that comes after the domain and identifies a specific page in human-readable form. In the URL <code>yoursite.com/blog/what-is-a-url-slug</code>, the slug is <code>what-is-a-url-slug</code> — everything after the last meaningful folder. It's the part of the URL that both search engines and real people actually read and understand, as opposed to the rest of the address, which is mostly fixed structure.</p>
+      <p>A URL slug is the part of a web address that comes after the domain and identifies a specific page in human-readable form. Whether you're searching for "what is a url slug" or "what is a slug url", the answer is the same. <strong>Example of a URL slug:</strong> in the address <code>yoursite.com/blog/what-is-a-url-slug</code>, the slug in the URL is <code>what-is-a-url-slug</code> — everything after the last meaningful folder. It's the part of the address that both search engines and real people actually read and understand, as opposed to the rest of the URL, which is mostly fixed structure.</p>
       <p>Slugs matter more than most people realize. They're a small but real ranking signal, they show up in search results (often bolded when they match the search query), and they're one of the first things a person glances at when deciding whether to click a result or share a link.</p>
 
       <h2>Why URL Slugs Matter for SEO</h2>
