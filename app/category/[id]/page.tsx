@@ -5,8 +5,9 @@ import { AdSenseAd } from '@/components/AdSenseAd'
 import { notFound } from 'next/navigation'
 import { generateCategoryMetadata } from '@/lib/seo'
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const category = getCategory(params.id)
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const category = getCategory(id)
 
   if (!category) {
     return {
