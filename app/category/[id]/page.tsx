@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
   if (!category) {
     return {
-      title: 'Category Not Found | Free Online Tools',
+      title: 'Category Not Found',
       description: 'Category not found',
     }
   }

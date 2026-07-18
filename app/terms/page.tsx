@@ -3,7 +3,7 @@ import { Footer } from '@/components/Footer'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - Free Online Tools',
+  title: 'Terms of Service',
   description: 'Terms of Service for Free Online Tools',
 }
 

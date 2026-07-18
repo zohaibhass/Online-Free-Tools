@@ -3,7 +3,7 @@ import { Footer } from '@/components/Footer'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Free Online Tools',
+  title: 'Privacy Policy',
   description: 'Privacy policy for Free Online Tools. Learn how we collect, use, and protect your data, including cookies and GDPR compliance.',
 }
 

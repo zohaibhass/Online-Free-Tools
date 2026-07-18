@@ -10,7 +10,8 @@ export function generateToolMetadata(tool: {
   seoDescription?: string
 }): Metadata {
   const canonicalUrl = `${SITE_URL}/tools/${tool.slug}`
-  const seoTitle = tool.seoTitle ?? `${tool.name} | ${SITE_NAME}`
+  const rawTitle = tool.seoTitle ?? tool.name
+  const seoTitle = rawTitle.replace(/\s*\|\s*OnlineFreeTools\s*$/i, '')
   const seoDescription = tool.seoDescription ?? tool.description
   
   return {
@@ -53,10 +54,10 @@ export function generateCategoryMetadata(category: {
   const canonicalUrl = `${SITE_URL}/category/${category.id}`
   
   return {
-    title: `${category.name} - Free Online Tools`,
+    title: category.name,
     description: `Browse ${category.name.toLowerCase()} - ${category.description}`,
     openGraph: {
-      title: `${category.name} - Free Online Tools`,
+      title: category.name,
       description: category.description,
       url: canonicalUrl,
       type: 'website',

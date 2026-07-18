@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!tool) {
     return {
-      title: 'Tool Not Found | Free Online Tools',
+      title: 'Tool Not Found',
       description: 'Tool not found',
     }
   }

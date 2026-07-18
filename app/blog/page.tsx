@@ -6,10 +6,10 @@ import { Footer } from '@/components/Footer'
 import BlogPageClient from './BlogPageClient'
 
 export const metadata: Metadata = {
-    title: 'Blog - Free Online Tools',
+    title: 'Blog',
     description: 'Read in-depth developer guides, productivity tips, and tool tutorials from Free Online Tools.',
     openGraph: {
-        title: 'Blog - Free Online Tools',
+        title: 'Blog',
         description: 'Read in-depth developer guides, productivity tips, and tool tutorials from Free Online Tools.',
         url: `${SITE_URL}/blog`,
         type: 'website',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Blog - Free Online Tools',
+        title: 'Blog',
         description: 'Read in-depth developer guides, productivity tips, and tool tutorials from Free Online Tools.',
         images: [OG_IMAGE],
     },

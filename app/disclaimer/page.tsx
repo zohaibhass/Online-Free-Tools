@@ -4,7 +4,7 @@ import { SITE_NAME, AUTHOR_NAME } from '@/lib/config'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: `Disclaimer - ${SITE_NAME}`,
+  title: 'Disclaimer',
   description: `Disclaimer, limitations of liability, and terms of use for tools and content on ${SITE_NAME}.`,
 }
 
