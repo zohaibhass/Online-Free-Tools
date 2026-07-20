@@ -20,9 +20,9 @@ const buttonVariants = cva(
         default: 'h-11 px-5',
         sm: 'h-9 rounded-full px-4 gap-1.5',
         lg: 'h-12 rounded-full px-6 gap-2.5',
-        icon: 'size-9',
-        'icon-sm': 'size-8',
-        'icon-lg': 'size-10',
+        icon: 'min-h-[44px] min-w-[44px] size-11',
+        'icon-sm': 'min-h-[36px] min-w-[36px] size-9',
+        'icon-lg': 'min-h-[48px] min-w-[48px] size-12',
       },
     },
     defaultVariants: {
@@ -47,7 +47,6 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      suppressHydrationWarning 
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />

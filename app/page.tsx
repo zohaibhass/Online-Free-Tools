@@ -66,7 +66,7 @@ export default function Home() {
             <LazyAdSenseAd slot="1111111111" format="auto" />
           </div>
 
-          <section className="mb-16 space-y-8">
+          <div className="mb-16 space-y-8">
             <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">Your Complete Online Toolkit for Everyday Tasks</h2>
               <p className="text-muted-foreground leading-7 mb-4">
@@ -150,9 +150,9 @@ export default function Home() {
                 name="Zohaib Hassan"
                 bio={`This website was built and is maintained by Zohaib Hassan, a full-stack web developer from Pakistan with extensive experience in React, Next.js, Node.js, and modern web performance optimization. Zohaib has been developing web applications since 2020 and specializes in creating fast, accessible, and user-friendly digital tools. He is committed to delivering high-quality online utilities that respect user privacy and follow Google's E-E-A-T guidelines.`}
               />
-              <p className="mt-4 text-sm text-muted-foreground">For inquiries or suggestions, reach out at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.</p>
+              <p className="mt-4 text-sm text-muted-foreground">For inquiries or suggestions, reach out at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary underline hover:text-primary/80">onlinefreetools@zohomail.com</a>.</p>
             </div>
-          </section>
+          </div>
         </section>
       </main>
       <Footer />

@@ -26,33 +26,39 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Explore</h3>
-            <ul className="space-y-3 text-sm text-foreground/80">
-              <li><Link href="/tools" className="transition hover:text-foreground">All Tools</Link></li>
-              <li><Link href="/blog" className="transition hover:text-foreground">Blog</Link></li>
-              <li><Link href="/category/developer" className="transition hover:text-foreground">Developer Tools</Link></li>
-              <li><Link href="/category/document" className="transition hover:text-foreground">Document Tools</Link></li>
-              <li><Link href="/category/calculator" className="transition hover:text-foreground">Calculators</Link></li>
-            </ul>
+            <nav aria-label="Explore">
+              <ul className="space-y-3 text-sm text-foreground/80">
+                <li><Link href="/tools" className="transition hover:text-foreground hover:underline">All Tools</Link></li>
+                <li><Link href="/blog" className="transition hover:text-foreground hover:underline">Blog</Link></li>
+                <li><Link href="/category/developer" className="transition hover:text-foreground hover:underline">Developer Tools</Link></li>
+                <li><Link href="/category/document" className="transition hover:text-foreground hover:underline">Document Tools</Link></li>
+                <li><Link href="/category/calculator" className="transition hover:text-foreground hover:underline">Calculators</Link></li>
+              </ul>
+            </nav>
           </div>
 
           <div>
             <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Resources</h3>
-            <ul className="space-y-3 text-sm text-foreground/80">
-              <li><Link href="/privacy" className="transition hover:text-foreground">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="transition hover:text-foreground">Terms of Service</Link></li>
-              <li><Link href="/disclaimer" className="transition hover:text-foreground">Disclaimer</Link></li>
-              <li><Link href="/faq" className="transition hover:text-foreground">FAQ</Link></li>
-              <li><Link href="/contact" className="transition hover:text-foreground">Contact</Link></li>
-            </ul>
+            <nav aria-label="Resources">
+              <ul className="space-y-3 text-sm text-foreground/80">
+                <li><Link href="/privacy" className="transition hover:text-foreground hover:underline">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="transition hover:text-foreground hover:underline">Terms of Service</Link></li>
+                <li><Link href="/disclaimer" className="transition hover:text-foreground hover:underline">Disclaimer</Link></li>
+                <li><Link href="/faq" className="transition hover:text-foreground hover:underline">FAQ</Link></li>
+                <li><Link href="/contact" className="transition hover:text-foreground hover:underline">Contact</Link></li>
+              </ul>
+            </nav>
           </div>
 
           <div>
             <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Company</h3>
-            <ul className="space-y-3 text-sm text-foreground/80">
-              <li><Link href="/about" className="transition hover:text-foreground">About</Link></li>
-              <li><Link href="/sitemap.xml" className="transition hover:text-foreground">Sitemap</Link></li>
-              <li><Link href="/contact" className="transition hover:text-foreground">Request a tool</Link></li>
-            </ul>
+            <nav aria-label="Company">
+              <ul className="space-y-3 text-sm text-foreground/80">
+                <li><Link href="/about" className="transition hover:text-foreground hover:underline">About</Link></li>
+                <li><Link href="/sitemap.xml" className="transition hover:text-foreground hover:underline">Sitemap</Link></li>
+                <li><Link href="/contact" className="transition hover:text-foreground hover:underline">Request a tool</Link></li>
+              </ul>
+            </nav>
           </div>
         </div>
 

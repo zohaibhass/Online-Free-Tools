@@ -101,6 +101,7 @@ export default function HomePageClient() {
                                 <Input
                                     type="text"
                                     placeholder="Search tools, formats, or workflows..."
+                                    aria-label="Search tools"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="pl-12 h-14 bg-transparent border-0 text-base text-foreground focus-visible:ring-0"
@@ -164,7 +165,7 @@ export default function HomePageClient() {
                     <Link
                         key={category.title}
                         href={category.href}
-                        className="group rounded-3xl border border-border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+                        className="group rounded-3xl border border-border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-ring"
                     >
                         <div className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary">{category.title}</div>
                         <p className="text-sm leading-6 text-muted-foreground">{category.description}</p>
