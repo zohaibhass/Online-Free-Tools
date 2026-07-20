@@ -1,114 +1,65 @@
 import Link from 'next/link'
+import { Logo } from '@/components/Logo'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* About / E-E-A-T */}
-          <div>
-            <h3 className="font-semibold mb-4">About</h3>
-            <p className="text-sm text-muted-foreground">
-              Free Online Tools offers a curated collection of 30+ browser-based utilities plus a blog with practical guides, quick tips, and tool tutorials.
-            </p>
-            <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-xs text-muted-foreground">
-                <strong>Author:</strong> Zohaib Hassan<br />
-                <strong>Role:</strong> Full-Stack Web Developer<br />
-                <strong>Expertise:</strong> Web development, SEO, and digital tools since 2020
-              </p>
+    <footer className="border-t border-border/70 bg-card/95">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr_1fr]">
+          <div className="space-y-5">
+            <div className="flex items-center gap-4">
+              <Logo size={38} hideText />
+              <div>
+                <p className="font-semibold text-lg text-foreground">Free Tools</p>
+                <p className="text-sm uppercase tracking-[0.32em] text-muted-foreground">Online toolkit</p>
+              </div>
             </div>
+            <p className="text-sm text-muted-foreground max-w-sm">
+              A premium collection of browser-first utilities for developers, creators, and teams who want fast, private workflows without signup.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Built by Zohaib Hassan — trusted web tools designed for speed, precision, and privacy.
+            </p>
           </div>
 
-          {/* Tools */}
           <div>
-            <h3 className="font-semibold mb-4">Tools</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/tools" className="hover:text-foreground transition-colors">
-                  All Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-foreground transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/category/developer" className="hover:text-foreground transition-colors">
-                  Developer Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/category/document" className="hover:text-foreground transition-colors">
-                  Document Tools
-                </Link>
-              </li>
-              <li>
-                <Link href="/category/calculator" className="hover:text-foreground transition-colors">
-                  Calculators
-                </Link>
-              </li>
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Explore</h3>
+            <ul className="space-y-3 text-sm text-foreground/80">
+              <li><Link href="/tools" className="transition hover:text-foreground">All Tools</Link></li>
+              <li><Link href="/blog" className="transition hover:text-foreground">Blog</Link></li>
+              <li><Link href="/category/developer" className="transition hover:text-foreground">Developer Tools</Link></li>
+              <li><Link href="/category/document" className="transition hover:text-foreground">Document Tools</Link></li>
+              <li><Link href="/category/calculator" className="transition hover:text-foreground">Calculators</Link></li>
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/privacy" className="hover:text-foreground transition-colors">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-foreground transition-colors">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/disclaimer" className="hover:text-foreground transition-colors">
-                  Disclaimer
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-foreground transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-foreground transition-colors">
-                  Contact
-                </Link>
-              </li>
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Resources</h3>
+            <ul className="space-y-3 text-sm text-foreground/80">
+              <li><Link href="/privacy" className="transition hover:text-foreground">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="transition hover:text-foreground">Terms of Service</Link></li>
+              <li><Link href="/disclaimer" className="transition hover:text-foreground">Disclaimer</Link></li>
+              <li><Link href="/faq" className="transition hover:text-foreground">FAQ</Link></li>
+              <li><Link href="/contact" className="transition hover:text-foreground">Contact</Link></li>
             </ul>
           </div>
 
-          {/* Creator / E-E-A-T */}
           <div>
-            <h3 className="font-semibold mb-4">Creator</h3>
-            <p className="text-sm text-muted-foreground mb-2">
-              Built by <strong>Zohaib Hassan</strong>, a full-stack web developer from Pakistan with expertise in building fast, accessible, and privacy-friendly web applications.
-            </p>
-            <div className="flex gap-2 flex-wrap">
-              <Link href="/about" className="text-sm text-primary hover:underline">
-                About Me
-              </Link>
-              <span className="text-muted-foreground">•</span>
-              <Link href="/sitemap.xml" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Sitemap
-              </Link>
-            </div>
+            <h3 className="font-semibold mb-4 text-sm uppercase tracking-[0.3em] text-muted-foreground">Company</h3>
+            <ul className="space-y-3 text-sm text-foreground/80">
+              <li><Link href="/about" className="transition hover:text-foreground">About</Link></li>
+              <li><Link href="/sitemap.xml" className="transition hover:text-foreground">Sitemap</Link></li>
+              <li><Link href="/contact" className="transition hover:text-foreground">Request a tool</Link></li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center text-sm text-muted-foreground">
-          <p>&copy; {year} Free Online Tools by Zohaib Hassan. All rights reserved.</p>
-          <p className="mt-4 sm:mt-0">
-            <Link href="https://onlinefreetools.online" className="text-primary hover:underline">Online Free Tools</Link> — Built with care for developers worldwide
+        <div className="mt-12 border-t border-border/60 pt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-muted-foreground">
+          <p>&copy; {year} Free Online Tools. All rights reserved.</p>
+          <p>
+            Crafted for developers, students, and teams who value private browser-first utilities.
           </p>
         </div>
       </div>

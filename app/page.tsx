@@ -4,7 +4,8 @@ import { Footer } from '@/components/Footer'
 import { SITE_URL, OG_IMAGE } from '@/lib/config'
 import HomePageClient from './HomePageClient'
 import { LazyAdSenseAd } from './LazyComponents'
-import { Rocket, ShieldCheck, Eye, Globe } from 'lucide-react'
+import { Rocket, ShieldCheck, Eye, Globe, Zap, Laptop, Lock, BadgeCheck } from 'lucide-react'
+import AuthorCard from '@/components/AuthorCard'
 
 export const metadata: Metadata = {
   title: 'Free Online Tools for Developers, Students & Creators',
@@ -36,7 +37,7 @@ export default function Home() {
     <div className="min-h-screen bg-linear-to-b from-background to-card/50 flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
+        <section className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-20 md:pb-24">
           <HomePageClient />
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-16">
@@ -83,24 +84,73 @@ export default function Home() {
             </div>
 
             <div className="bg-card border border-border rounded-3xl p-8">
-              <h2 className="text-2xl font-semibold mb-4">Privacy-First, No-Install Approach</h2>
-              <p className="text-muted-foreground leading-7 mb-4">
-                Unlike many online tool websites, we prioritize your privacy. Most of our tools process data entirely in your browser using <strong>client-side JavaScript</strong>, which means your sensitive data - whether it is a JWT token, a JSON payload, or personal text - never leaves your device. We do not store, log, or share any data you enter into the tools.
-              </p>
-              <p className="text-muted-foreground leading-7 mb-4">
-                For tools that require server-side processing (such as QR code generation or text-to-speech), we implement minimal data handling with strict no-logging policies. Our privacy policy explains exactly what data we collect (primarily anonymous analytics via Google Analytics and cookie-based ad personalization via Google AdSense) and how you can control it through your cookie preferences.
-              </p>
-              <p className="text-muted-foreground leading-7">
-                We believe that <strong>powerful tools should be accessible to everyone</strong> without compromising on privacy or requiring complex setups. Whether you are a developer debugging an API, a student calculating a loan payment, or a creator compressing images for a blog post, our tools are here to help - instantly, freely, and privately.
-              </p>
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Built for Speed & Privacy</p>
+                  <h2 className="mt-3 text-2xl font-semibold text-foreground">We make powerful tools fast, secure, and effortless.</h2>
+                  <p className="mt-4 text-muted-foreground leading-7">
+                    We believe online tools should be fast, secure, and effortless. That's why OnlineFreeTools.online focuses on delivering high-performance utilities that respect your privacy and help you get work done faster.
+                  </p>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <Zap className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">Fast Performance</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Optimized for quick loading and instant results.</p>
+                  </div>
+
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <ShieldCheck className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">Privacy Focused</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Most tools process data locally in your browser whenever possible.</p>
+                  </div>
+
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <Laptop className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">Cross Platform</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Works seamlessly on Windows, macOS, Linux, Android, and iPhone.</p>
+                  </div>
+
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <Globe className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">No Installation</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Use every tool instantly without downloading software or browser extensions.</p>
+                  </div>
+
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <Lock className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">Secure Experience</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Built using modern web technologies with a privacy-first approach.</p>
+                  </div>
+
+                  <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center justify-center rounded-2xl bg-primary/10 p-3 text-primary w-12 h-12 mb-4">
+                      <BadgeCheck className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground">Completely Free</h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Access dozens of professional online tools without subscriptions or hidden costs.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="bg-card border border-border rounded-3xl p-8">
-              <h2 className="text-2xl font-semibold mb-4">About the Author</h2>
-              <p className="text-muted-foreground leading-7">
-                This website was built and is maintained by <strong>Zohaib Hassan</strong>, a full-stack web developer from Pakistan with extensive experience in React, Next.js, Node.js, and modern web performance optimization. Zohaib has been developing web applications since 2020 and specializes in creating fast, accessible, and user-friendly digital tools. He is committed to delivering high-quality online utilities that respect user privacy and follow Google&apos;s E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness) guidelines. For inquiries or suggestions, reach out at{' '}
-                <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.
-              </p>
+              <AuthorCard
+                name="Zohaib Hassan"
+                bio={`This website was built and is maintained by Zohaib Hassan, a full-stack web developer from Pakistan with extensive experience in React, Next.js, Node.js, and modern web performance optimization. Zohaib has been developing web applications since 2020 and specializes in creating fast, accessible, and user-friendly digital tools. He is committed to delivering high-quality online utilities that respect user privacy and follow Google's E-E-A-T guidelines.`}
+              />
+              <p className="mt-4 text-sm text-muted-foreground">For inquiries or suggestions, reach out at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary hover:underline">onlinefreetools@zohomail.com</a>.</p>
             </div>
           </section>
         </section>

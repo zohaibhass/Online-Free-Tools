@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Inter, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LazyLayoutComponents } from './LazyComponents'
@@ -7,16 +7,17 @@ import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME } from '@/lib/config'
 import './globals.css'
 import Script from 'next/script'
 
-const _geist = Geist({
-  subsets: ["latin"],
-  display: "swap",
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
   preload: true,
-});
-const _geistMono = Geist_Mono({
-  subsets: ["latin"],
-  display: "swap",
+})
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
   preload: true,
-});
+})
 
 const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-3491641485391296'
 
@@ -66,20 +67,7 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   applicationName: 'Free Online Tools',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
+    icon: '/icon.svg',
     apple: '/apple-icon.png',
     other: [
       {
@@ -102,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-background" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} bg-background`} suppressHydrationWarning>
       <head>
         {/* Content-Security-Policy meta tag (fallback for environments without header support) */}
         <meta
