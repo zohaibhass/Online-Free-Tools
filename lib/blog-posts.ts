@@ -9,6 +9,7 @@ export interface BlogPost {
   content: string
   relatedTools: { name: string; url: string }[]
   keywords?: string[]
+  faq?: { question: string; answer: string }[]
 }
 
 export const blogPosts: BlogPost[] = [
@@ -113,6 +114,7 @@ export const blogPosts: BlogPost[] = [
       <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
         <h3>About the Author</h3>
         <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a web developer from Pakistan. Zohaib created Online Free Tools to help developers, students, and creators save time by providing quick access to essential utilities without installing software or creating accounts. When not coding, Zohaib writes technical guides to help others master web development concepts.</p>
+        <p style="margin: 0.5rem 0;"><a href="https://github.com/zohaibhass" target="_blank" rel="noopener noreferrer" style="margin-right:0.75rem; color:inherit; text-decoration:underline;">GitHub</a><a href="https://www.linkedin.com/in/zohaib-hassan-811310252/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline;">LinkedIn</a></p>
         <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: June 29, 2026</p>
       </div>
     `

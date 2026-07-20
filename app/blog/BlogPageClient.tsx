@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Github, Linkedin } from 'lucide-react'
 import type { BlogPost } from '@/lib/blog-posts'
 
 interface BlogPageClientProps {
@@ -37,12 +37,14 @@ export default function BlogPageClient({ blogPosts, categories }: BlogPageClient
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="mb-10">
-                <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold mb-3">Blog</p>
-                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">Insights for developers, creators, and teams.</h1>
-                <p className="max-w-3xl text-lg text-muted-foreground">
+            <div className="mb-12 space-y-6">
+                <div className="max-w-3xl">
+                    <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold mb-3">Blog</p>
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">Insights for developers, creators, and teams.</h1>
+                </div>
+                <div className="max-w-2xl text-lg text-muted-foreground leading-8">
                     Browse our blog for practical guides, clear explanations, and quick tool tutorials designed to help you move faster and ship smarter.
-                </p>
+                </div>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-8">
@@ -64,23 +66,32 @@ export default function BlogPageClient({ blogPosts, categories }: BlogPageClient
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {paginatedPosts.map((post) => (
-                    <Card key={post.slug} className="group h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                        <div className="p-6 flex flex-col h-full">
-                            <div className="mb-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-primary font-semibold">
-                                <span>{post.category}</span>
-                                <span>{post.readTime}</span>
-                            </div>
-                            <div className="flex-1">
-                                <h2 className="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">{post.title}</h2>
-                                <p className="text-sm text-muted-foreground leading-relaxed">{post.description}</p>
-                                <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
-                                    <span>By {post.author}</span>
-                                    <span>{post.date}</span>
+                    <Card key={post.slug} className="group h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div className="p-8 flex flex-col h-full gap-6">
+                            <div className="space-y-4">
+                                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-primary font-semibold">
+                                    <span>{post.category}</span>
+                                    <span>{post.readTime}</span>
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-semibold group-hover:text-primary transition-colors leading-tight">{post.title}</h2>
+                                    <p className="mt-3 text-base text-muted-foreground leading-8">{post.description}</p>
                                 </div>
                             </div>
-
-                            <div className="mt-6 flex items-center justify-between gap-4">
-                                <Link href={`/blog/${post.slug}`} className="text-sm font-semibold text-primary hover:text-foreground transition-colors inline-flex items-center gap-2">
+                            <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+                                <div className="space-x-3 flex items-center">
+                                    <span>By <strong>Zohaib Hassan</strong></span>
+                                    <span>{post.date}</span>
+                                    <span className="ml-3 inline-flex items-center gap-2">
+                                        <a href="https://github.com/zohaibhass" target="_blank" rel="noopener noreferrer" aria-label="Zohaib on GitHub" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-1">
+                                            <Github className="w-4 h-4" />
+                                        </a>
+                                        <a href="https://www.linkedin.com/in/zohaib-hassan-811310252/" target="_blank" rel="noopener noreferrer" aria-label="Zohaib on LinkedIn" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-1">
+                                            <Linkedin className="w-4 h-4" />
+                                        </a>
+                                    </span>
+                                </div>
+                                <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
                                     Read article
                                     <ArrowRight className="w-4 h-4" />
                                 </Link>

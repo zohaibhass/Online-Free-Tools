@@ -50,15 +50,16 @@ function ThemeSync() {
 }
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  const scriptProps =
-    typeof window === 'undefined'
-      ? undefined
-      : { type: 'application/json' } as React.HTMLAttributes<HTMLScriptElement>
-
-  return React.createElement(
-    NextThemesProvider,
-    { attribute: 'class', enableSystem: true, storageKey: 'theme', disableTransitionOnChange: true, scriptProps, ...props },
-    React.createElement(ThemeSync),
-    children,
+  return (
+    <NextThemesProvider
+      attribute="class"
+      enableSystem
+      storageKey="theme"
+      disableTransitionOnChange
+      {...props}
+    >
+      <ThemeSync />
+      {children}
+    </NextThemesProvider>
   )
 }

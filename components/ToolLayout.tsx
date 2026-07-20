@@ -5,8 +5,6 @@ import Link from 'next/link'
 import Script from 'next/script'
 import { ChevronRight, Maximize2, Minimize2 } from 'lucide-react'
 import { AdSenseAd } from '@/components/AdSenseAd'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
 import type { ToolDetails } from '@/lib/tools'
 
 interface Breadcrumb {
@@ -155,8 +153,8 @@ export function ToolLayout({
 
           {/* Right Sidebar for Ads */}
           {showAds && (
-            <div className="space-y-4">
-              <div className="bg-card border border-border rounded-lg p-4 sticky top-20">
+            <div className="space-y-4 lg:col-span-1">
+              <div className="bg-card border border-border rounded-lg p-4 lg:sticky lg:top-24">
                 <AdSenseAd slot="0987654321" format="vertical" />
               </div>
             </div>

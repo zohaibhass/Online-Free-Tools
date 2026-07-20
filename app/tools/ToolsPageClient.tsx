@@ -51,64 +51,76 @@ export default function ToolsPageClient() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="mb-12">
-        <h1 className="text-4xl font-bold mb-4">All Tools</h1>
-        <p className="text-lg text-muted-foreground">Browse our complete collection of {tools.length} free online tools</p>
-      </div>
-
-      {/* Search Bar */}
-      <div className="flex gap-2 max-w-md mb-8">
-        <div className="flex-1 relative">
-          <Search className="w-5 h-5 absolute left-3 top-3 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search tools..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12"
-          />
+      <div className="rounded-[2rem] border border-border/70 bg-card p-8 shadow-2xl shadow-primary/5 mb-12">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Tools library</p>
+            <h1 className="mt-4 text-4xl font-semibold text-foreground">Explore every tool in one place.</h1>
+            <p className="mt-3 max-w-2xl text-lg leading-8 text-muted-foreground">
+              Browse, filter, and launch browser-based utilities for development, documents, conversions, and productivity.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-3xl border border-border bg-background/90 p-4 text-sm text-muted-foreground">
+              <p className="font-semibold text-foreground">{tools.length} tools</p>
+              <p className="mt-2">All instantly available in-browser.</p>
+            </div>
+            <div className="rounded-3xl border border-border bg-background/90 p-4 text-sm text-muted-foreground">
+              <p className="font-semibold text-foreground">Categories</p>
+              <p className="mt-2">Developer, Document, Calculator, Utility.</p>
+            </div>
+          </div>
         </div>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => setSearchQuery('')}
-        >
-          Clear
-        </Button>
       </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2 mb-12">
-        <Button
-          variant={selectedCategory === null ? 'default' : 'outline'}
-          onClick={() => setSelectedCategory(null)}
-        >
-          All Tools
-        </Button>
-        {categories.map(cat => (
-          <Button
-            key={cat.id}
-            variant={selectedCategory === cat.id ? 'default' : 'outline'}
-            onClick={() => setSelectedCategory(cat.id)}
-          >
-            {cat.name}
-          </Button>
-        ))}
+      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] mb-12">
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="relative flex-1 min-w-0">
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search tools, workflows, or keywords..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-12 h-14 bg-transparent border-0 text-base text-foreground focus-visible:ring-0"
+              />
+            </div>
+            <Button type="button" variant="outline" className="min-w-[120px]" onClick={() => setSearchQuery('')}>
+              Clear search
+            </Button>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            <Button variant={selectedCategory === null ? 'default' : 'outline'} onClick={() => setSelectedCategory(null)}>
+              All tools
+            </Button>
+            {categories.map(cat => (
+              <Button
+                key={cat.id}
+                variant={selectedCategory === cat.id ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory(cat.id)}
+              >
+                {cat.name}
+              </Button>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+          <p className="text-sm uppercase tracking-[0.32em] text-primary font-semibold">Search tips</p>
+          <div className="mt-4 grid gap-3 text-sm text-muted-foreground">
+            <p>Try keywords like <span className="font-semibold text-foreground">json, password, image, loan</span>.</p>
+            <p>Filter by category to narrow results fast.</p>
+            <p>Click any tool card to open the tool instantly.</p>
+          </div>
+        </div>
       </div>
 
-      {/* Ad Section */}
-      <div className="mb-12">
-        <AdSenseAd slot="3333333333" format="auto" />
+      <div className="mb-6 text-sm text-muted-foreground">
+        Showing <span className="font-semibold text-foreground">{filteredTools.length}</span> tool{filteredTools.length !== 1 ? 's' : ''}
       </div>
 
-      {/* Results Info */}
-      <div className="mb-8">
-        <p className="text-muted-foreground">
-          Found <span className="font-semibold text-foreground">{filteredTools.length}</span> tool{filteredTools.length !== 1 ? 's' : ''}
-        </p>
-      </div>
-
-      {/* Tools Grid */}
       {paginatedTools.length > 0 ? (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -120,6 +132,7 @@ export default function ToolsPageClient() {
                 icon={tool.icon}
                 slug={tool.slug}
                 featured={tool.featured}
+                category={categories.find(cat => cat.id === tool.category)?.name}
               />
             ))}
           </div>
@@ -167,13 +180,13 @@ export default function ToolsPageClient() {
           )}
         </>
       ) : (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground text-lg">No tools found matching your search.</p>
+          <div className="rounded-3xl border border-border bg-card p-12 text-center text-muted-foreground shadow-sm">
+            <p className="text-xl font-semibold text-foreground mb-2">No tools found</p>
+            <p>Try a different search term or clear the filters to see more tools.</p>
         </div>
       )}
 
-      {/* Bottom Ad */}
-      <div className="mt-12">
+      <div className="mt-12 rounded-3xl border border-border bg-card p-6 shadow-sm">
         <AdSenseAd slot="4444444444" format="auto" />
       </div>
     </div>
