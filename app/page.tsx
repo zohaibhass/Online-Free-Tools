@@ -8,11 +8,11 @@ import { Rocket, ShieldCheck, Eye, Globe, Zap, Laptop, Lock, BadgeCheck } from '
 import AuthorCard from '@/components/AuthorCard'
 
 export const metadata: Metadata = {
-  title: 'Free Online Tools for Developers, Students & Creators',
-  description: 'Free online tools for developers — decode JWT tokens, format JSON, compress images and more. No signup required.',
+  title: 'Free Online Tools — 40+ Browser Utilities for Developers, Students & Creators',
+  description: 'Free online tools for developers, students, and creators. Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser. No signup required.',
   openGraph: {
-    title: 'Free Online Tools for Developers, Students & Creators',
-    description: 'Free online tools for developers — decode JWT tokens, format JSON, compress images and more. No signup required.',
+    title: 'Free Online Tools — 40+ Browser Utilities',
+    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser. No signup required.',
     url: SITE_URL,
     type: 'website',
     images: [{
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Online Tools',
-    description: 'Free online tools for developers — decode JWT tokens, format JSON, compress images and more. No signup required.',
+    title: 'Free Online Tools — 40+ Browser Utilities',
+    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser.',
     images: [OG_IMAGE],
   },
   alternates: {
@@ -44,22 +44,22 @@ export default function Home() {
             <div className="rounded-3xl border border-border bg-card p-6 text-center">
               <Rocket className="mx-auto mb-3 h-6 w-6 text-primary" />
               <h3 className="font-semibold mb-2">No signup required</h3>
-              <p className="text-sm text-muted-foreground">Use any tool instantly with no account or subscription.</p>
+              <p className="text-sm text-muted-foreground">All 40 tools work instantly — open a tool and start using it.</p>
             </div>
             <div className="rounded-3xl border border-border bg-card p-6 text-center">
               <ShieldCheck className="mx-auto mb-3 h-6 w-6 text-primary" />
               <h3 className="font-semibold mb-2">Privacy focused</h3>
-              <p className="text-sm text-muted-foreground">Most tools process data locally and do not store personal inputs.</p>
+              <p className="text-sm text-muted-foreground">Most tools process data in your browser — your inputs never leave your device.</p>
             </div>
             <div className="rounded-3xl border border-border bg-card p-6 text-center">
               <Eye className="mx-auto mb-3 h-6 w-6 text-primary" />
               <h3 className="font-semibold mb-2">100% free</h3>
-              <p className="text-sm text-muted-foreground">All tools are free to use and accessible in any modern browser.</p>
+              <p className="text-sm text-muted-foreground">No subscriptions, no hidden costs. All tools are free to use.</p>
             </div>
             <div className="rounded-3xl border border-border bg-card p-6 text-center">
               <Globe className="mx-auto mb-3 h-6 w-6 text-primary" />
               <h3 className="font-semibold mb-2">Works in browser</h3>
-              <p className="text-sm text-muted-foreground">No downloads required — tools run directly in your device&apos;s browser.</p>
+              <p className="text-sm text-muted-foreground">No downloads or installs — run on Windows, macOS, Linux, Android, or iPhone.</p>
             </div>
           </div>
           <div className="mt-12">
@@ -70,28 +70,25 @@ export default function Home() {
             <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">Your Complete Online Toolkit for Everyday Tasks</h2>
               <p className="text-muted-foreground leading-7 mb-4">
-                OnlineFreeTools.online is a thoughtfully curated platform offering <strong>30+ free online tools</strong> designed to help developers, students, content creators, and professionals get their work done faster. Whether you need to format JSON for an API integration, compress an image for your website, decode a JWT token during development, or calculate a mortgage payment - every tool here works directly in your browser with no installation, no signup, and no data stored on our servers.
+                OnlineFreeTools.online is a curated platform offering <strong>40 free online tools</strong> organized into four categories: <a href="/category/developer" className="text-primary hover:underline">Developer Tools</a> (13 tools including JSON Formatter, JWT Decoder, Regex Tester, SQL Formatter, Hash Generator, and Cron Expression Generator), <a href="/category/calculator" className="text-primary hover:underline">Calculators</a> (11 tools including Loan Calculator, Mortgage Calculator, BMI Calculator, Percentage Calculator, and Unit Converter), <a href="/category/document" className="text-primary hover:underline">Document &amp; Media</a> (7 tools including Word Counter, Image Compressor, Markdown Editor, QR Code Generator, and Text to Speech), and <a href="/category/utility" className="text-primary hover:underline">Utilities</a> (9 tools including Password Generator, Dice Roller, Todo List, and Timer &amp; Stopwatch).
               </p>
               <p className="text-muted-foreground leading-7 mb-4">
-                What sets our collection apart is the attention to <strong>usability, accuracy, and speed</strong>. Each tool is built with modern web technologies (React, Next.js, and Tailwind CSS) to ensure a smooth, responsive experience across all devices - from desktop workstations to mobile phones. The interface is clean, distraction-free, and designed to help you complete your task in seconds.
+                The majority of these tools — including the JSON Formatter, Hash Generator, Image Compressor, Password Generator, all calculators, and all text processing tools — process your data entirely within your browser using JavaScript. Your inputs never leave your device. The only exception is the <a href="/tools/qr-code-generator" className="text-primary hover:underline">QR Code Generator</a>, which uses a third-party service to render QR code images.
               </p>
               <p className="text-muted-foreground leading-7 mb-4">
-                Our tool categories include <strong>Developer Tools</strong> (JSON formatter, JWT decoder, regex tester, SQL formatter, Base64 encoder, hash generator, code minifier, UUID generator, and more), <strong>Calculator Tools</strong> (BMI calculator, loan calculator, mortgage calculator, discount calculator, tip calculator, percentage calculator, age calculator), <strong>Document Tools</strong> (word counter, markdown editor, text-to-HTML converter, diff checker), and <strong>Utility Tools</strong> (QR code generator, unit converter, password generator, dice roller, coin flipper, Morse code translator, and more).
-              </p>
-              <p className="text-muted-foreground leading-7">
-                Every tool comes with a step-by-step guide and practical examples, making it easy for beginners to get started while still being powerful enough for experienced users. We regularly update our collection based on user feedback and emerging needs. If there is a tool you would like to see, feel free to reach out through our contact page.
+                Every tool comes with a step-by-step guide and practical examples, making it easy for beginners to get started while still being powerful enough for experienced users. We regularly update our collection based on user feedback and emerging needs.
               </p>
             </div>
 
             <div className="bg-card border border-border rounded-3xl p-8">
               <div className="space-y-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Built for Speed & Privacy</p>
-                  <h2 className="mt-3 text-2xl font-semibold text-foreground">We make powerful tools fast, secure, and effortless.</h2>
-                  <p className="mt-4 text-muted-foreground leading-7">
-                    We believe online tools should be fast, secure, and effortless. That's why OnlineFreeTools.online focuses on delivering high-performance utilities that respect your privacy and help you get work done faster.
-                  </p>
-                </div>
+                    <div>
+                      <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Built for Speed & Privacy</p>
+                      <h2 className="mt-3 text-2xl font-semibold text-foreground">Powerful tools that run entirely in your browser.</h2>
+                      <p className="mt-4 text-muted-foreground leading-7">
+                        OnlineFreeTools.online uses modern web technologies — React, Next.js, and the Web Platform APIs (Canvas, Web Speech, Crypto, localStorage) — to deliver fast, private tools that process your data locally. No server uploads, no data retention, no accounts required.
+                      </p>
+                    </div>
 
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -99,7 +96,7 @@ export default function Home() {
                       <Zap className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">Fast Performance</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Optimized for quick loading and instant results.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Tools like the JSON Formatter and Code Minifier produce results instantly as you type, with no server round-trip.</p>
                   </div>
 
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -107,7 +104,7 @@ export default function Home() {
                       <ShieldCheck className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">Privacy Focused</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Most tools process data locally in your browser whenever possible.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">The Image Compressor, Hash Generator, Password Generator, and all calculators process data in your browser — never on a server.</p>
                   </div>
 
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -115,7 +112,7 @@ export default function Home() {
                       <Laptop className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">Cross Platform</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Works seamlessly on Windows, macOS, Linux, Android, and iPhone.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">All 40 tools work on Windows, macOS, Linux, Android, and iPhone in Chrome, Firefox, Safari, and Edge.</p>
                   </div>
 
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -123,7 +120,7 @@ export default function Home() {
                       <Globe className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">No Installation</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Use every tool instantly without downloading software or browser extensions.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Open any tool page and start working immediately — no downloads, no extensions, no setup.</p>
                   </div>
 
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -131,7 +128,7 @@ export default function Home() {
                       <Lock className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">Secure Experience</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Built using modern web technologies with a privacy-first approach.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">HTTPS encryption, browser-side processing, and no data storage make these tools safe for everyday use.</p>
                   </div>
 
                   <div className="rounded-3xl border border-border bg-background/90 p-5 transition duration-200 hover:shadow-lg hover:-translate-y-0.5">
@@ -139,7 +136,7 @@ export default function Home() {
                       <BadgeCheck className="w-5 h-5" aria-hidden="true" />
                     </div>
                     <h3 className="text-lg font-semibold text-foreground">Completely Free</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">Access dozens of professional online tools without subscriptions or hidden costs.</p>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">All 40 tools across 4 categories are free to use with no subscriptions, limits, or hidden costs.</p>
                   </div>
                 </div>
               </div>
