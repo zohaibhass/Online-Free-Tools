@@ -148,7 +148,7 @@ export default function Home() {
             <div className="bg-card border border-border rounded-3xl p-8">
               <AuthorCard
                 name="Zohaib Hassan"
-                bio={`This website was built and is maintained by Zohaib Hassan, a full-stack web developer from Pakistan with extensive experience in React, Next.js, Node.js, and modern web performance optimization. Zohaib has been developing web applications since 2020 and specializes in creating fast, accessible, and user-friendly digital tools. He is committed to delivering high-quality online utilities that respect user privacy and follow Google's E-E-A-T guidelines.`}
+                bio={`This website was built and is maintained by Zohaib Hassan, a software engineer from Pakistan with extensive experience in Angular, React, Next.js, Java spring boot, Node.js, and modern web performance optimization. Zohaib has been developing web applications since 2020 and specializes in creating fast, accessible, and user-friendly digital tools. He is committed to delivering high-quality online utilities that respect user privacy and follow Google's E-E-A-T guidelines.`}
               />
               <p className="mt-4 text-sm text-muted-foreground">For inquiries or suggestions, reach out at <a href="mailto:onlinefreetools@zohomail.com" className="text-primary underline hover:text-primary/80">onlinefreetools@zohomail.com</a>.</p>
             </div>
