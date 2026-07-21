@@ -18,28 +18,38 @@ import {
     PaginationNext,
 } from '@/components/ui/pagination'
 
+const totalTools = tools.length
+const totalCategories = categories.length
+const developerTools = tools.filter(t => t.category === 'developer').length
+const calculatorTools = tools.filter(t => t.category === 'calculator').length
+
 const landingCategories = [
-    { title: 'JSON Tools', description: 'Validate, format, and transform JSON for APIs and data workflows.', href: '/tools?search=json' },
-    { title: 'Image Tools', description: 'Compress, convert, and optimize images for web and mobile.', href: '/tools?search=image' },
-    { title: 'Text Tools', description: 'Edit, count, and convert text formats with instant previews.', href: '/tools?search=text' },
-    { title: 'Converter Tools', description: 'Convert units, currencies, encodings, and formats in seconds.', href: '/tools?search=convert' },
+    { title: 'Developer Tools', description: `JSON formatting, JWT decoding, regex testing, SQL formatting, hash generation, and ${developerTools - 6} more utilities for programming workflows.`, href: '/category/developer' },
+    { title: 'Document & Media', description: 'Word counting, image compression, Markdown editing, QR codes, text-to-speech, and data format conversion.', href: '/category/document' },
+    { title: 'Calculators', description: `Unit conversion, loan and mortgage estimates, BMI, percentages, discounts, tips, and ${calculatorTools - 7} more calculation tools.`, href: '/category/calculator' },
+    { title: 'Utilities', description: 'Password generation, dice rolling, coin flipping, todo lists, timers, Morse code, and name generation.', href: '/category/utility' },
 ]
 
 const homeFaqItems = [
     {
-        title: 'Are these tools really free to use?',
+        title: 'Do my tool inputs get sent to a server?',
         content:
-            'Yes. Every tool is available to use without signup or payment. We support the site through ads while keeping tool workflows fast and accessible.',
+            'No — with one exception. Tools like the JSON Formatter, Hash Generator, Image Compressor, Password Generator, and all calculators process your data entirely in your browser using JavaScript. Your inputs never leave your device. The only tool that uses an external service is the QR Code Generator, which sends your text or URL to a third-party API to render the QR image.',
+    },
+    {
+        title: 'How many tools are on this site?',
+        content:
+            `There are currently ${totalTools} free online tools across ${totalCategories} categories: Developer Tools, Document & Media, Calculators, and Utilities. All are accessible without signup and work directly in your browser.`,
     },
     {
         title: 'Can I use the output in my work?',
         content:
-            'Absolutely. The output from these tools is available for your projects, documents, and creative work. Please review the Terms of Service for legal disclaimers.',
+            'Absolutely. The output from these tools — formatted JSON, compressed images, generated UUIDs, QR codes, formatted SQL, hash digests, and any other output — is available for your projects, documents, and creative work. Please review the Terms of Service for legal disclaimers.',
     },
     {
         title: 'How do I find the right tool quickly?',
         content:
-            'Use the search bar to type tool names, keywords, or formats. You can also browse categories for calculators, text tools, image tools, and more.',
+            `Use the search bar to type tool names, keywords, or formats. You can also browse by category — each category page lists all tools with descriptions. There are ${developerTools} developer tools, 7 document tools, ${calculatorTools} calculators, and 9 utilities.`,
     },
 ]
 
@@ -83,7 +93,7 @@ export default function HomePageClient() {
                     <div className="space-y-8">
                         <div className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
                             <Sparkles className="h-4 w-4" />
-                            <span>30+ browser tools, zero signup</span>
+                            <span>{totalTools} browser tools, zero signup</span>
                         </div>
 
                         <div>
@@ -115,19 +125,19 @@ export default function HomePageClient() {
                         <div className="grid gap-4 sm:grid-cols-4">
                             <div className="rounded-3xl border border-border bg-background/90 p-5">
                                 <p className="text-sm font-semibold text-foreground">Privacy first</p>
-                                <p className="mt-2 text-sm text-muted-foreground">Most tools run locally in your browser.</p>
+                                <p className="mt-2 text-sm text-muted-foreground">Most tools run locally in your browser — your data never leaves your device.</p>
                             </div>
                             <div className="rounded-3xl border border-border bg-background/90 p-5">
                                 <p className="text-sm font-semibold text-foreground">Instant access</p>
-                                <p className="mt-2 text-sm text-muted-foreground">Open any tool in under two clicks.</p>
+                                <p className="mt-2 text-sm text-muted-foreground">Open any tool with no signup, no download, and no wait time.</p>
                             </div>
                             <div className="rounded-3xl border border-border bg-background/90 p-5">
-                                <p className="text-sm font-semibold text-foreground">Modern design</p>
-                                <p className="mt-2 text-sm text-muted-foreground">Premium spacing, gradients, and typography.</p>
+                                <p className="text-sm font-semibold text-foreground">{totalTools} tools across {totalCategories} categories</p>
+                                <p className="mt-2 text-sm text-muted-foreground">Developer, document, calculator, and utility tools in one place.</p>
                             </div>
                             <div className="rounded-3xl border border-border bg-background/90 p-5">
-                                <p className="text-sm font-semibold text-foreground">Trusted workflow</p>
-                                <p className="mt-2 text-sm text-muted-foreground">Tools built for developers and teams.</p>
+                                <p className="text-sm font-semibold text-foreground">Cross platform</p>
+                                <p className="mt-2 text-sm text-muted-foreground">Works on Windows, macOS, Linux, Android, and iPhone in any modern browser.</p>
                             </div>
                         </div>
                     </div>
@@ -137,21 +147,21 @@ export default function HomePageClient() {
                             <div className="mb-6 rounded-3xl bg-card/80 p-5 shadow-sm dark:bg-card/70">
                                 <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">Live example</p>
                                 <h2 className="mt-3 text-2xl font-semibold text-foreground">JSON Formatter</h2>
-                                <p className="mt-2 text-sm text-muted-foreground">Clean and validate JSON instantly without leaving the browser.</p>
+                                <p className="mt-2 text-sm text-muted-foreground">Clean and validate JSON instantly — processed entirely in your browser.</p>
                             </div>
                             <div className="grid gap-4">
                                 <div className="rounded-3xl border border-border bg-card/80 p-4 text-sm text-muted-foreground dark:bg-card/70">
                                     {`{`}<br />
                                     &nbsp;&nbsp;<span className="text-foreground">"name"</span>: <span className="text-sky-700">"OnlineFreeTools"</span>,<br />
-                                    &nbsp;&nbsp;<span className="text-foreground">"type"</span>: <span className="text-emerald-700">"utility"</span><br />
+                                    &nbsp;&nbsp;<span className="text-foreground">"tools"</span>: <span className="text-emerald-700">{totalTools}</span><br />
                                     {`}`}
                                 </div>
                                 <div className="rounded-3xl border border-border bg-card/80 p-4 text-sm text-muted-foreground dark:bg-card/70">
-                                    <p className="font-semibold text-foreground">Perfect for</p>
+                                    <p className="font-semibold text-foreground">Featured tools</p>
                                     <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                                        <li>Building APIs</li>
-                                        <li>Checking tokens</li>
-                                        <li>Preparing copy and code snippets</li>
+                                        <li>JSON Formatter — validate &amp; format</li>
+                                        <li>Image Compressor — reduce file size</li>
+                                        <li>UUID Generator — create unique IDs</li>
                                     </ul>
                                 </div>
                             </div>
@@ -177,10 +187,10 @@ export default function HomePageClient() {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Popular tools</p>
-                        <h2 className="mt-3 text-3xl font-semibold text-foreground">Powerful tools used every day.</h2>
+                        <h2 className="mt-3 text-3xl font-semibold text-foreground">Featured tools selected for reliability and speed.</h2>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                        {featuredTools.length} highlighted tools selected for reliability and speed.
+                        {featuredTools.length} highlighted tools across developer, document, calculator, and utility categories.
                     </div>
                 </div>
 
@@ -204,16 +214,16 @@ export default function HomePageClient() {
                     <h2 className="text-2xl font-semibold text-foreground mb-4">How it works</h2>
                     <ul className="space-y-4 text-muted-foreground">
                         <li className="rounded-2xl border border-border p-4 bg-background/95">
-                            <p className="font-semibold text-foreground">Search instantly</p>
-                            <p className="mt-2 text-sm">Find the right tool in seconds using intelligent search, category filters, and quick suggestions. Whether you need a developer utility, calculator, document converter, or productivity tool, everything is organized to help you reach the right solution without wasting time browsing through dozens of pages.</p>
+                            <p className="font-semibold text-foreground">1. Pick a tool</p>
+                            <p className="mt-2 text-sm">Browse the {totalTools} tools across {totalCategories} categories, or use the search bar to find exactly what you need by name, keyword, or format. Every tool page includes a description, step-by-step usage guide, and examples so you know what to expect before you start.</p>
                         </li>
                         <li className="rounded-2xl border border-border p-4 bg-background/95">
-                            <p className="font-semibold text-foreground">Use without signup</p>
-                            <p className="mt-2 text-sm">Start using every tool immediately without creating an account or providing personal information. Simply open a tool, complete your task, and continue your workflow in just a few clicks. We believe productivity should be fast, accessible, and completely hassle-free.</p>
+                            <p className="font-semibold text-foreground">2. Enter your data</p>
+                            <p className="mt-2 text-sm">Paste text, type values, upload an image, or enter numbers — whatever the tool needs. Most tools process your input instantly as you type, with no button clicks required. Your data stays in your browser for tools like the JSON Formatter, Hash Generator, Image Compressor, and all calculators.</p>
                         </li>
                         <li className="rounded-2xl border border-border p-4 bg-background/95">
-                            <p className="font-semibold text-foreground">Keep work private</p>
-                            <p className="mt-2 text-sm">Your privacy is one of our highest priorities. Most tools process data directly within your browser whenever possible, so your files and inputs remain on your device instead of being uploaded to external servers. This approach delivers a faster, more secure, and privacy-first experience.</p>
+                            <p className="font-semibold text-foreground">3. Copy or download the result</p>
+                            <p className="mt-2 text-sm">Copy the output with one click, download it as a file, or use it directly in your next step. For example, copy formatted JSON into your code editor, download a compressed image for your website, or save a generated UUID for your database.</p>
                         </li>
                     </ul>
                 </div>
@@ -225,15 +235,15 @@ export default function HomePageClient() {
                         <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Ready to work smarter?</p>
                         <h2 className="text-3xl font-semibold text-foreground">Start a tool and get immediate results.</h2>
                         <p className="max-w-2xl text-muted-foreground leading-7">
-                            Jump into the tools you need with one click. Fast access, clear workflows, and smarter results without extra steps.
+                            Jump into the tools you need with one click. Fast access, clear workflows, and results without extra steps.
                         </p>
                     </div>
                     <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
                         <Link href="/tools" className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
-                            Browse tools
+                            Browse all {totalTools} tools
                         </Link>
                         <Button asChild variant="outline" size="lg">
-                            <Link href="/tools?search=json">Try JSON formatter</Link>
+                            <Link href="/tools?search=json">Try JSON Formatter</Link>
                         </Button>
                     </div>
                 </div>
@@ -245,7 +255,7 @@ export default function HomePageClient() {
                         <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">Frequently asked questions</p>
                         <h2 className="text-3xl font-semibold text-foreground">Need quick answers?</h2>
                         <p className="max-w-2xl text-muted-foreground leading-7">
-                            Learn how the tools work, what data is stored, and how to use the site faster.
+                            Learn how the tools work, what happens to your data, and how to use specific tools like the JSON Formatter, Image Compressor, and Hash Generator.
                         </p>
                     </div>
                     <div className="flex items-center justify-start sm:justify-end">

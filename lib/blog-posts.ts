@@ -5099,7 +5099,7 @@ Not Important Delegate        Delete/ignore</code></pre>
       <p>Men should consider BMI alongside waist circumference (under 40 inches), waist-to-hip ratio, body fat percentage, and metabolic blood markers for a complete health picture. Age also matters: older men may benefit from a slightly higher BMI as extra weight provides energy reserves during illness. Rather than fixating on a single number, focus on maintaining a balanced diet, regular physical activity including strength training, and consistent metabolic health monitoring. These habits matter far more than the number on the scale.</p>
 
       <h2>Check Your BMI Now</h2>
-      <p>Understanding what a healthy BMI is for men empowers you to take control of your health. Use our free <a href="/tools/bmi-calculator">BMI Calculator online</a> to instantly calculate your BMI and see exactly where you fall on the chart. For a broader comparison of healthy weight ranges, explore our <a href="/blog/bmi-chart-men-women">complete BMI chart for men and women</a>, or check your ideal weight with our <a href="/tools/ideal-weight-calculator">Ideal Weight Calculator</a>.</p>
+      <p>Understanding what a healthy BMI is for men empowers you to take control of your health. Use our free <a href="/tools/bmi-calculator">BMI Calculator online</a> to instantly calculate your BMI and see exactly where you fall on the chart. For a broader comparison of healthy weight ranges, explore our <a href="/blog/bmi-chart-men-women">complete BMI chart for men and women</a>.</p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -5262,7 +5262,7 @@ Not Important Delegate        Delete/ignore</code></pre>
     date: '2026-07-18',
     readTime: '9 min read',
     author: 'Zohaib Hassan',
-    relatedTools: [{ name: 'BMI Calculator', url: '/tools/bmi-calculator' }, { name: 'Ideal Weight Calculator', url: '/tools/ideal-weight-calculator' }],
+    relatedTools: [{ name: 'BMI Calculator', url: '/tools/bmi-calculator' }],
     keywords: ['bmi chart by height', 'healthy weight by height', 'bmi chart according to height', 'bmi calculator by height and weight', 'healthy weight range by height'],
     content: `
       <h2>Introduction</h2>
@@ -5472,7 +5472,7 @@ Not Important Delegate        Delete/ignore</code></pre>
     date: '2026-07-18',
     readTime: '10 min read',
     author: 'Zohaib Hassan',
-    relatedTools: [{ name: 'Ideal Weight Calculator', url: '/tools/ideal-weight-calculator' }, { name: 'BMI Calculator', url: '/tools/bmi-calculator' }],
+    relatedTools: [{ name: 'BMI Calculator', url: '/tools/bmi-calculator' }],
     keywords: ['healthy weight by height', 'ideal weight by height', 'healthy weight range', 'weight chart by height', 'how much should i weigh'],
     content: `
       <h2>Introduction</h2>

@@ -81,27 +81,119 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
   }
 
   const relatedPostsMap: Record<string, { title: string; url: string }[]> = {
+    'json-formatter': [
+      { title: 'What is JSON? A Beginner\'s Complete Guide', url: '/blog/what-is-json' },
+      { title: 'XML vs JSON vs YAML: Choosing the Right Data Format', url: '/blog/xml-vs-json-vs-yaml-choosing-right-format' },
+      { title: 'JSON to CSV Data Migration: A Practical Guide', url: '/blog/json-to-csv-data-migration' },
+      { title: 'How to Compare Files Like a Pro', url: '/blog/how-to-compare-files-like-a-pro' },
+    ],
+    'jwt-decoder': [
+      { title: 'What is a JWT Token? A Complete Beginner\'s Guide', url: '/blog/what-is-a-jwt-token' },
+      { title: 'How JWT Authentication Works (Step-by-Step)', url: '/blog/how-jwt-authentication-works' },
+      { title: 'What is a JWT Token? Plain English Explanation', url: '/blog/what-is-jwt-token' },
+    ],
+    'regex-tester': [
+      { title: 'What is Regex? A Beginner\'s Guide to Regular Expressions', url: '/blog/what-is-regex' },
+      { title: 'Regex Guide for Beginners', url: '/blog/regex-guide-beginners' },
+      { title: 'Real-World Regex Testing Tips', url: '/blog/real-world-regex-testing-tips' },
+    ],
+    'sql-formatter': [
+      { title: 'SQL Formatting Best Practices', url: '/blog/sql-formatting-best-practices' },
+    ],
+    'base64-encoder': [
+      { title: 'What is Base64 Encoding? How It Works and When to Use It', url: '/blog/what-is-base64-encoding' },
+      { title: 'Base64 Encoding Explained', url: '/blog/base64-encoding-explained' },
+      { title: 'Base64 Encoding: Beyond the Basics', url: '/blog/base64-encoding-beyond-the-basics' },
+    ],
+    'url-encoder': [
+      { title: 'URL Encoding Explained: What It Is and How It Works', url: '/blog/url-encoding-explained' },
+      { title: 'Save Time with Browser Tool Workflows', url: '/blog/save-time-with-browser-tool-workflows' },
+    ],
+    'hash-generator': [
+      { title: 'SHA256 vs MD5: Which Hashing Algorithm Should You Use?', url: '/blog/sha256-vs-md5' },
+      { title: 'MD5 vs SHA256: A Side-by-Side Comparison', url: '/blog/md5-vs-sha256' },
+      { title: 'Secure Password Storage Practices', url: '/blog/secure-password-storage-practices' },
+    ],
+    'color-converter': [
+      { title: 'Color Formats: HEX, RGB, and HSL Explained', url: '/blog/color-formats-hex-rgb-hsl' },
+      { title: 'Color Theory for Web Developers', url: '/blog/color-theory-for-web-developers' },
+    ],
+    'code-minifier': [
+      { title: 'JavaScript Code Minification: A Practical Guide', url: '/blog/javascript-code-minification-guide' },
+    ],
+    'diff-checker': [
+      { title: 'How to Compare Files Like a Pro', url: '/blog/how-to-compare-files-like-a-pro' },
+    ],
+    'xml-formatter': [
+      { title: 'XML vs JSON vs YAML: Choosing the Right Data Format', url: '/blog/xml-vs-json-vs-yaml-choosing-right-format' },
+    ],
+    'uuid-generator': [
+      { title: 'GUID vs UUID: What\'s the Difference?', url: '/blog/guid-vs-uuid-difference' },
+      { title: 'When to Use UUIDs/GUIDs in Your Database and Code', url: '/blog/when-to-use-uuid-guid-in-development' },
+      { title: 'UUID Best Practices for 2026', url: '/blog/uuid-best-practices-2026' },
+    ],
+    'image-compressor': [
+      { title: 'How to Compress Images for Web Without Losing Quality', url: '/blog/how-to-compress-images-for-web' },
+      { title: 'Image Compression Guide', url: '/blog/image-compression-guide' },
+    ],
+    'word-counter': [
+      { title: 'Text Analysis for SEO: A Practical Guide', url: '/blog/text-analysis-for-seo' },
+    ],
+    'qr-code-generator': [
+      { title: 'QR Codes in Modern Marketing', url: '/blog/qr-codes-modern-marketing' },
+    ],
+    'markdown-editor': [
+      { title: 'Mastering Markdown for Technical Documentation', url: '/blog/mastering-markdown-technical-documentation' },
+    ],
+    'text-to-speech': [
+      { title: 'Text to Speech and Web Accessibility', url: '/blog/text-to-speech-web-accessibility' },
+    ],
+    'json-to-csv': [
+      { title: 'JSON to CSV Data Migration: A Practical Guide', url: '/blog/json-to-csv-data-migration' },
+    ],
+    'text-to-html': [
+      { title: 'Plain Text to Semantic HTML', url: '/blog/plain-text-to-semantic-html' },
+      { title: 'Text Analysis for SEO', url: '/blog/text-analysis-for-seo' },
+    ],
+    'unit-converter': [
+      { title: 'Unit Conversion Pitfalls in Software', url: '/blog/unit-conversion-pitfalls-software' },
+    ],
+    'loan-calculator': [
+      { title: 'Loan Mathematics Every Developer Should Know', url: '/blog/loan-mathematics-every-developer-should-know' },
+    ],
+    'mortgage-calculator': [
+      { title: 'Mortgage Calculator: Total Cost of Homeownership', url: '/blog/mortgage-calculator-total-cost-homeownership' },
+      { title: 'Loan Mathematics Every Developer Should Know', url: '/blog/loan-mathematics-every-developer-should-know' },
+    ],
+    'percentage-calculator': [
+      { title: 'Percentage Calculations Developers Get Wrong', url: '/blog/percentage-calculations-developers-get-wrong' },
+    ],
+    'discount-calculator': [
+      { title: 'Building E-Commerce Discount Systems', url: '/blog/building-ecommerce-discount-systems' },
+    ],
+    'tip-calculator': [
+      { title: 'Tipping Calculator Logic for POS Systems', url: '/blog/tipping-calculator-logic-pos-systems' },
+    ],
+    'age-calculator': [
+      { title: 'Age Verification in Web Applications', url: '/blog/age-verification-web-applications' },
+    ],
+    'bmi-calculator': [
+      { title: 'BMI Chart for Men and Women: What Your BMI Really Means', url: '/blog/bmi-chart-men-women' },
+      { title: 'BMI and Health Metrics: What Developers Should Know', url: '/blog/bmi-health-metrics-developers' },
+    ],
     'pixels-to-inches': [
       { title: 'How Many Pixels in an Inch? The Complete Pixels to Inches Guide', url: '/blog/pixels-to-inches-conversion-guide' },
       { title: 'DPI vs PPI: What\'s the Difference and Why It Matters for Pixel Conversions', url: '/blog/dpi-vs-ppi-explained' },
       { title: 'How to Convert Image Pixels to Inches for Printing (2026 Guide)', url: '/blog/convert-image-pixels-to-inches-for-print' },
-      { title: 'Common Screen Resolutions in Inches: 1920×1080, 1080px, and More Explained', url: '/blog/common-screen-resolutions-in-inches' },
+      { title: 'Common Screen Resolutions in Inches: 1920\u00d71080, 1080px, and More Explained', url: '/blog/common-screen-resolutions-in-inches' },
     ],
     'slug-generator': [
       { title: 'What Is a URL Slug? A Complete Guide to SEO-Friendly URLs', url: '/blog/what-is-a-url-slug' },
       { title: 'How to Write SEO-Friendly URL Slugs (With Real Examples)', url: '/blog/seo-friendly-url-slug-best-practices' },
       { title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast', url: '/blog/bulk-slug-generation-for-content-migration' },
     ],
-    'bmi-calculator': [
-      { title: 'BMI Chart for Men and Women: What Your BMI Really Means', url: '/blog/bmi-chart-men-women' },
-      { title: 'BMI and Health Metrics: What Developers Should Know', url: '/blog/bmi-health-metrics-developers' },
-    ],
-    'uuid-generator': [
-      { title: 'GUID vs UUID: What\u2019s the Difference? (Spoiler: There Isn\u2019t One)', url: '/blog/guid-vs-uuid-difference' },
-      { title: 'When (and When Not) to Use UUIDs/GUIDs in Your Database and Code', url: '/blog/when-to-use-uuid-guid-in-development' },
-    ],
     'dice-roller': [
-      { title: 'Dice Probability Explained: Why 7 Is the Most Common Roll (and Other Dice Math)', url: '/blog/dice-probability-explained' },
+      { title: 'Dice Probability Explained: Why 7 Is the Most Common Roll', url: '/blog/dice-probability-explained' },
       { title: 'Dice Roll vs Coin Flip: Which Random Decision Tool Should You Use?', url: '/blog/dice-roll-vs-coin-flip-random-decision-tools' },
     ],
     'coin-flipper': [
@@ -118,13 +210,10 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       { title: 'How Morse Code Works: A Complete Guide to Reading and Writing It', url: '/blog/how-morse-code-works-guide' },
     ],
     'random-name-generator': [
-      { title: 'How to Generate Names for Projects, Characters, and Brands (Without Overthinking It)', url: '/blog/how-to-generate-names-for-projects-characters-brands' },
+      { title: 'How to Generate Names for Projects, Characters, and Brands', url: '/blog/how-to-generate-names-for-projects-characters-brands' },
     ],
-    'diff-checker': [
-      { title: 'How to Compare Files Like a Pro', url: '/blog/how-to-compare-files-like-a-pro' },
-    ],
-    'code-minifier': [
-      { title: 'JavaScript Code Minification: A Practical Guide', url: '/blog/javascript-code-minification-guide' },
+    'password-generator': [
+      { title: 'Secure Password Storage Practices', url: '/blog/secure-password-storage-practices' },
     ],
   }
 
