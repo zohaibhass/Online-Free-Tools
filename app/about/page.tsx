@@ -19,7 +19,7 @@ export default function AboutPage() {
           <section className="bg-card border border-border rounded-3xl p-10 shadow-sm">
             <h1 className="text-4xl font-bold tracking-tight">About Online Free Tools</h1>
             <p className="mt-4 text-lg text-muted-foreground leading-8">
-              Hi, I'm Zohaib, a web developer from Pakistan. I built OnlineFreeTools to help developers, students, and creators get everyday tasks done faster — without installing software or creating accounts. Every tool is hand-picked and tested.
+              Hi, I'm Zohaib, a software engineer from Pakistan. I built OnlineFreeTools to help developers, students, and creators get everyday tasks done faster — without installing software or creating accounts. Every tool is hand-picked and tested.
             </p>
 
             <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-border">

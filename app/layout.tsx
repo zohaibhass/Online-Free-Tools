@@ -90,6 +90,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
+    <>
     <html lang="en" className={`${inter.variable} bg-background`} suppressHydrationWarning>
       <head>
         {/* Content-Security-Policy meta tag (fallback for environments without header support) */}
@@ -235,5 +236,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+  </>
   )
 }
