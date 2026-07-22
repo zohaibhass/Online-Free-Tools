@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Fuse from 'fuse.js'
-import type { FuseResult, IFuseOptions } from 'fuse.js'
+import type { FuseResult } from 'fuse.js'
 import { MessageCircle, X, Send, Bot, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
-import { getKnowledgeBase, getFeaturedTools, type KnowledgeBaseEntry } from '@/lib/knowledge-base'
 import { cn } from '@/lib/utils'
 
 const STORAGE_KEY = 'chat-widget-history'
@@ -18,18 +17,27 @@ interface Message {
   buttons?: { label: string; url: string }[]
 }
 
-const fuse = new Fuse(getKnowledgeBase(), {
-  keys: [
-    { name: 'name', weight: 3 },
-    { name: 'title', weight: 3 },
-    { name: 'description', weight: 1 },
-    { name: 'keywords', weight: 2 },
-    { name: 'faq.question', weight: 3 },
-  ],
-  threshold: 0.4,
-  includeScore: true,
-  minMatchCharLength: 2,
-})
+let fuse: Fuse<any> | null = null
+
+function getFuse() {
+  if (!fuse) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { getKnowledgeBase } = require('@/lib/knowledge-base')
+    fuse = new Fuse(getKnowledgeBase(), {
+      keys: [
+        { name: 'name', weight: 3 },
+        { name: 'title', weight: 3 },
+        { name: 'description', weight: 1 },
+        { name: 'keywords', weight: 2 },
+        { name: 'faq.question', weight: 3 },
+      ],
+      threshold: 0.4,
+      includeScore: true,
+      minMatchCharLength: 2,
+    })
+  }
+  return fuse
+}
 
 function getHardcodedIntent(input: string): Message | null {
   const lower = input.toLowerCase().trim()
@@ -80,6 +88,8 @@ function formatBotResponse(
   const similarThreshold = 0.12
 
   if (!best || best.score! > 0.6) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { getFeaturedTools } = require('@/lib/knowledge-base')
     const featured = getFeaturedTools().slice(0, FEATURED_LIMIT)
     return {
       role: 'bot',
@@ -155,7 +165,7 @@ function searchAndRespond(input: string): Message {
   const hardcoded = getHardcodedIntent(input)
   if (hardcoded) return hardcoded
 
-  const results = fuse.search(input)
+  const results = getFuse().search(input)
   return formatBotResponse(input, results)
 }
 
@@ -276,6 +286,7 @@ export function ChatWidget() {
         role="dialog"
         aria-label="Chat assistant"
         aria-hidden={!open}
+        inert={!open ? true : undefined}
         className={cn(
           'fixed z-[9998] flex flex-col bg-background border border-border shadow-xl transition-all duration-300 min-h-0',
           'sm:bottom-20 sm:right-4 sm:left-auto sm:top-auto sm:w-[380px] sm:h-[540px] sm:rounded-xl sm:max-h-[calc(100vh-6rem)]',
