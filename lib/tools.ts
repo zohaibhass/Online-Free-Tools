@@ -3397,7 +3397,7 @@ export const tools: Tool[] = [
     name: 'UUID Generator',
     description: 'Use our UUID generator online to instantly generate random UUID v4 and v1 identifiers. This free GUID generator creates unique IDs for databases and development.',
     category: 'developer',
-    icon: 'Id',
+    icon: 'Fingerprint',
     slug: 'uuid-generator',
     keywords: ['uuid generator online', 'generate uuid online', 'guid generator', 'generate guid', 'uuid generator', 'guid uuid generator', 'generating guid', 'guid generator online', 'random uuid generator', 'uuid v4 generator', 'uuid', 'generate', 'identifier'],
     seoTitle: 'uuid generator online — Free GUID & UUID Generator v4 | OnlineFreeTools',

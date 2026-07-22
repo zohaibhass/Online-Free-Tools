@@ -259,7 +259,7 @@ export default function HomePageClient() {
                         </p>
                     </div>
                     <div className="flex items-center justify-start sm:justify-end">
-                        <Link href="/faq" className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:border-primary/70 hover:text-primary">
+                        <Link href="/faq" className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition hover:border-primary/70 hover:text-primary hover:underline hover:underline-offset-4">
                             Explore all FAQs
                         </Link>
                     </div>

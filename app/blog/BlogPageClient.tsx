@@ -91,7 +91,7 @@ export default function BlogPageClient({ blogPosts, categories }: BlogPageClient
                                         </a>
                                     </span>
                                 </div>
-                                <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
+                                <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors underline underline-offset-4">
                                     Read article
                                     <ArrowRight className="w-4 h-4" />
                                 </Link>
@@ -141,7 +141,7 @@ export default function BlogPageClient({ blogPosts, categories }: BlogPageClient
                         <h2 className="text-2xl font-semibold">Stay up to date</h2>
                         <p className="text-muted-foreground">Check back often for new posts on tools, developer workflows, and productivity tips.</p>
                     </div>
-                    <Link href="/contact" className="text-sm font-semibold text-primary hover:text-foreground transition-colors">
+                    <Link href="/contact" className="text-sm font-semibold text-primary hover:text-foreground transition-colors underline underline-offset-4">
                         Contact us about a feature or topic
                     </Link>
                 </div>

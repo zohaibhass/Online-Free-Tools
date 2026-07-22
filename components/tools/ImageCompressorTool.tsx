@@ -249,6 +249,7 @@ export function ImageCompressorTool() {
                       onClick={() => setActiveIdx(i)}
                     />
                     <button
+                      aria-label={`Remove ${img.name}`}
                       className="absolute -top-1.5 -right-1.5 bg-background border border-border rounded-full w-5 h-5 flex items-center justify-center hover:border-destructive hover:text-destructive"
                       onClick={(e) => { e.stopPropagation(); removeImage(img.id) }}
                     >
@@ -446,11 +447,11 @@ export function ImageCompressorTool() {
                             </div>
                           </div>
                           {img.compressed && (
-                            <Button size="sm" variant="ghost" onClick={(e) => { e.stopPropagation(); downloadOne(img) }}>
+                            <Button size="sm" variant="ghost" aria-label={`Download ${img.name}`} onClick={(e) => { e.stopPropagation(); downloadOne(img) }}>
                               <Download className="w-4 h-4" />
                             </Button>
                           )}
-                          <button onClick={(e) => { e.stopPropagation(); removeImage(img.id) }} className="text-muted-foreground hover:text-destructive p-1">
+                          <button aria-label={`Remove ${img.name}`} onClick={(e) => { e.stopPropagation(); removeImage(img.id) }} className="text-muted-foreground hover:text-destructive p-1">
                             <X className="w-4 h-4" />
                           </button>
                         </div>

@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <div className="mb-8">
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
+                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors underline underline-offset-4">
                         <ArrowLeft className="w-4 h-4" />
                         Back to Blog
                     </Link>
@@ -156,10 +156,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                     <span>By <strong>Zohaib Hassan</strong></span>
                                     <span className="text-muted-foreground">{post.date}</span>
                                     <span className="ml-auto inline-flex items-center gap-2">
-                                        <a href="https://github.com/zohaibhass" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-2 hover:bg-primary/10">
+                                        <a href="https://github.com/zohaibhass" target="_blank" rel="noopener noreferrer" aria-label="Zohaib on GitHub" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-2 hover:bg-primary/10">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.95 3.21 9.14 7.67 10.62.56.1.77-.24.77-.54 0-.27-.01-1-.02-1.95-3.12.68-3.78-1.5-3.78-1.5-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 .17 1.54-.75 1.54-.75.95-1.63 2.5-1.16 3.12-.89.1-.7.39-1.16.71-1.43-2.49-.28-5.11-1.25-5.11-5.56 0-1.23.44-2.24 1.16-3.03-.12-.29-.5-1.46.11-3.04 0 0 .95-.3 3.12 1.16a10.8 10.8 0 0 1 2.84-.38c.96 0 1.93.13 2.84.38 2.16-1.46 3.11-1.16 3.11-1.16.62 1.58.24 2.75.12 3.04.72.79 1.16 1.8 1.16 3.03 0 4.32-2.62 5.27-5.12 5.55.4.34.76 1.02.76 2.06 0 1.49-.01 2.69-.01 3.06 0 .3.2.65.78.54 4.46-1.48 7.66-5.67 7.66-10.62C23.25 5.48 18.27.5 12 .5z" fill="currentColor" /></svg>
                                         </a>
-                                        <a href="https://www.linkedin.com/in/zohaib-hassan-811310252/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-2 hover:bg-primary/10">
+                                        <a href="https://www.linkedin.com/in/zohaib-hassan-811310252/" target="_blank" rel="noopener noreferrer" aria-label="Zohaib on LinkedIn" className="inline-flex items-center justify-center rounded-full border border-border bg-card p-2 hover:bg-primary/10">
                                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.84v2.07h.05c.54-1.02 1.86-2.07 3.83-2.07C20.8 8.5 22 10.22 22 13.7V24h-4v-9.48c0-2.26-.04-5.17-3.15-5.17-3.15 0-3.63 2.46-3.63 5V24H8.5V8.5z" fill="currentColor" /></svg>
                                         </a>
                                     </span>
@@ -205,7 +205,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                             <div className="space-y-3">
                                                 <h3 className="text-lg font-semibold text-foreground">{tool.name}</h3>
                                                 <p className="text-sm text-muted-foreground">Open the tool and apply this article&apos;s ideas immediately.</p>
-                                                <Link href={tool.url} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
+                                                <Link href={tool.url} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors underline underline-offset-4">
                                                     Open tool
                                                     <ArrowRight className="w-4 h-4" />
                                                 </Link>
@@ -226,7 +226,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                                                 <div className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">{related.category}</div>
                                                 <h3 className="text-lg font-semibold text-foreground">{related.title}</h3>
                                                 <p className="text-sm text-muted-foreground line-clamp-2">{related.description}</p>
-                                                <Link href={`/blog/${related.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors">
+                                                <Link href={`/blog/${related.slug}`} className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-foreground transition-colors underline underline-offset-4">
                                                     Read article
                                                     <ArrowRight className="w-4 h-4" />
                                                 </Link>

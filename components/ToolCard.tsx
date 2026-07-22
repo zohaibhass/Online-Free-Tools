@@ -4,9 +4,15 @@ import Link from 'next/link'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight } from 'lucide-react'
-import * as Icons from 'lucide-react'
-import { getToolBySlug, getToolDetails } from '@/lib/tools'
+import { ArrowRight, Zap } from 'lucide-react'
+import {
+  Braces, Lock, Search, Database, Binary, Link as LinkIcon,
+  Hash, Palette, GitCompare, Code, FileText, QrCode,
+  NotebookPen, Images, Volume2, FileJson, Code2, Ruler,
+  DollarSign, Percent, Home, Calendar, Activity, Tag, Wallet,
+  Maximize, Minimize, Key, Users, CheckSquare, Clock, Dices,
+  Circle, Radio, Calculator, Link2, Fingerprint
+} from 'lucide-react'
 
 interface ToolCardProps {
   name: string
@@ -17,6 +23,15 @@ interface ToolCardProps {
   category?: string
 }
 
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Braces, Lock, Search, Database, Binary, Link: LinkIcon,
+  Hash, Palette, Zap, GitCompare, Code, FileText, QrCode,
+  NotebookPen, Images, Volume2, FileJson, Code2, Ruler,
+  DollarSign, Percent, Home, Calendar, Activity, Tag, Wallet,
+  Maximize, Minimize, Key, Users, CheckSquare, Clock, Dices,
+  Circle, Radio, Calculator, Link2, Fingerprint
+}
+
 export function ToolCard({
   name,
   description,
@@ -25,23 +40,7 @@ export function ToolCard({
   featured = false,
   category,
 }: ToolCardProps) {
-  const IconComponent = (Icons as Record<string, any>)[icon] || Icons.Zap
-
-  // If the provided description is terse, supplement it with a slightly longer blurb
-  // pulled from the central tool details (non-destructive, read-only).
-  let supplemental: string | null = null
-  try {
-    const tool = getToolBySlug(slug)
-    if (tool) {
-      const details = getToolDetails(tool)
-      const wordCount = description?.trim().split(/\s+/).length ?? 0
-      if (wordCount < 8) {
-        supplemental = details.aboutBlurb || details.purpose
-      }
-    }
-  } catch (e) {
-    supplemental = null
-  }
+  const IconComponent = iconMap[icon] || Zap
 
   return (
     <Link href={`/tools/${slug}`} className="group h-full">
@@ -62,9 +61,6 @@ export function ToolCard({
             <div className="space-y-3 flex-1">
               <h2 className="text-xl font-semibold text-foreground transition-colors group-hover:text-primary">{name}</h2>
               <p className="text-sm leading-6 text-muted-foreground line-clamp-3">{description}</p>
-              {supplemental && (
-                <p className="mt-2 text-sm leading-6 text-muted-foreground line-clamp-3">{supplemental}</p>
-              )}
             </div>
           </div>
         </div>
