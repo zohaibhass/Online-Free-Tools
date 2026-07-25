@@ -74,8 +74,6 @@ const toolUseCases: Record<string, string> = {
   'morse-code-translator': 'encode and decode Morse code for communication and learning',
   'unit-calculator': 'compute formulas and unit-based values quickly',
   'pixels-to-inches': 'convert between pixels and inches for print and screen sizing',
-  'px-to-inches': 'convert px to inches for print and digital design work',
-  'inches-to-px': 'convert inches to pixels for digital design and screen layouts',
   'slug-generator': 'turn titles and text into clean SEO-friendly URL slugs with bulk support and smart options',
   'cron-expression-generator': 'build cron expressions from plain English, visual selectors, or pasted expressions with live run-time preview',
 }
@@ -117,8 +115,6 @@ const toolActions: Record<string, string> = {
   'morse-code-translator': 'translate Morse code',
   'unit-calculator': 'calculate units with formulas',
   'pixels-to-inches': 'convert pixels to inches or inches to pixels',
-  'px-to-inches': 'convert px to inches',
-  'inches-to-px': 'convert inches to px',
   'slug-generator': 'generate a clean SEO-friendly URL slug',
   'cron-expression-generator': 'generate a cron expression',
 }
@@ -159,8 +155,6 @@ const toolAboutBlurbs: Record<string, string> = {
   'coin-flipper': 'Coin Flipper is a 3D animated coin toss tool for making decisions, settling disputes, or testing probability. Flip 1, 3, or 5 coins at once with a realistic 3D spin animation. Track your streak, view heads/tails percentages, and toggle to Yes/No mode for quick binary decisions. History and stats are saved in your browser across sessions. Perfect for games, choosing between options, and fair decision-making.',
   'morse-code-translator': 'Morse Code Translator encodes and decodes Morse code for history enthusiasts, amateur radio operators, and curious learners. Convert text to dots and dashes or vice versa. Great for learning telegraphy and experimenting with alternative communication.',
   'pixels-to-inches': 'Pixels to Inches Converter is the go-to tool for designers, print professionals, and anyone who needs to convert between pixel dimensions and physical inch measurements. Unlike many converters that assume a fixed DPI, this tool lets you choose from common presets (72 DPI for web, 96 DPI for Windows screens, 150 DPI for draft print, 300 DPI for print quality) or enter any custom DPI. The bidirectional converter updates instantly as you type, with a handy Width × Height mode for dimension pairs. Whether you are sizing images for print layout, calculating screen dimensions, or working on a design project that crosses between digital and physical media, this converter gives you accurate results in real time.',
-  'px-to-inches': 'PX to Inches Converter is a focused tool for designers and developers who need quick, accurate conversions from pixels to physical inches. Perfect for translating screen mockups into print-ready dimensions, this converter supports all major DPI settings including web standard (96 DPI) and print quality (300 DPI). The instant bidirectional calculation means you can work in either direction without clicking swap buttons — just type and convert.',
-  'inches-to-px': 'Inches to PX Converter is designed for users who think in physical measurements first and need to translate them into pixel dimensions. Print designers, signage creators, and layout artists use this tool to convert real-world inch measurements into precise pixel values for digital production. With support for any DPI setting, you get accurate pixel outputs for screen, web, and print workflows.',
   'slug-generator': 'Slug Generator is a modern URL slug creation tool for content creators, SEO specialists, and web developers who need clean, SEO-friendly slugs from titles and text. Unlike basic converters that only lowercase and hyphenate, this tool handles accented characters (like é, ñ, ü), strips stop words, controls slug length, and converts bulk lists of titles in one pass. Whether you are writing a blog post, migrating a site, or setting up product pages, you get precise, readable slugs that follow current SEO best practices — hyphens, lowercase, and free of special characters.',
   'cron-expression-generator': 'Cron Expression Generator helps developers, system administrators, and DevOps engineers build cron expressions without memorizing syntax. Type a schedule in plain English like "every day at 3am," build it visually with selectors, or paste an existing expression to translate and validate it. The tool supports both standard Unix cron (5-field) and Quartz cron (6-7 field) formats, shows the next 5 run times, and includes ready-to-use presets for common schedules. All processing happens in your browser — no data is sent to any server.',
   'unit-calculator': 'Unit Calculator is a straightforward online calculator for quick arithmetic. Enter any math expression using numbers and operators (+, -, *, /, parentheses), then hit the equals button to get an instant result. The on-screen number pad lets you build expressions by tapping digits and operators, or you can type directly into the input field. Use the Clear button to reset and start a new calculation. Whether you are computing a quick total, checking a formula, or solving a multi-step expression, this browser-based calculator gives you an answer in seconds without installing software or creating an account.',
@@ -310,14 +304,6 @@ const toolExamples: Record<string, { input: string; output: string }> = {
   'pixels-to-inches': {
     input: 'Pixels: 1080, DPI: 96',
     output: '11.250 inches',
-  },
-  'px-to-inches': {
-    input: 'Pixels: 600, DPI: 300',
-    output: '2.000 inches',
-  },
-  'inches-to-px': {
-    input: 'Inches: 8.5, DPI: 300',
-    output: '2550 pixels',
   },
   'slug-generator': {
     input: 'How to Bake Bread at Home',
@@ -2649,128 +2635,9 @@ export const toolGuideContent: Record<string, { sections: ToolGuideSection[]; re
       { question: 'How many pixels to inches?', answer: 'This depends on both the pixel count and the DPI you are converting at. Use the formula inches = pixels ÷ DPI — for example, 960 pixels at 96 DPI equals 10 inches, while the same 960 pixels at 300 DPI equals 3.2 inches. Enter your pixel value and DPI above to convert instantly.' },
       { question: 'Is there a free pixel to inch converter online?', answer: 'Yes — the calculator on this page is a free, no-signup pixel to inch converter that works in both directions. Enter pixels to get inches, or inches to get pixels, at any DPI from 72 to 300 or a custom value.' },
     ],
-    relatedTools: ['px-to-inches', 'inches-to-px', 'unit-converter'],
+    relatedTools: ['unit-converter', 'slug-generator'],
   },
-  'px-to-inches': {
-    sections: [
-      {
-        heading: 'What is PX to Inches conversion?',
-        paragraphs: [
-          'PX (pixels) to inches conversion is essential when moving designs from screen to print. Pixels are digital units that vary in physical size depending on the device — a pixel on a phone screen is much smaller than a pixel on a desktop monitor. The conversion factor is DPI (dots per inch), which tells you how many pixels fit into one physical inch. At the standard screen resolution of 96 DPI, 96 pixels equal 1 inch. For print at 300 DPI, 300 pixels equal 1 inch. This tool handles the math so you can focus on your design.',
-          'The bidirectional nature of this converter means you are never locked into one direction. Type pixels to get inches, or inches to get pixels — whichever measurement you have, the tool shows the converted value instantly. The precision control lets you adjust how many decimal places are shown for inch values.',
-        ],
-      },
-      {
-        heading: 'When to use PX to Inches conversion',
-        paragraphs: [
-          'UX and UI designers frequently need px-to-inch conversions when preparing screen designs for print presentation or when specifying physical dimensions for signage and kiosk displays. A mobile mockup created at 375 x 812 pixels (iPhone standard) converts to roughly 3.9 x 8.46 inches at 96 DPI — useful for understanding how that design would look as a printed prototype.',
-          'Print designers working with digital assets need to convert pixel-based images into inch dimensions for layout software like InDesign or QuarkXPress. Knowing the physical size of a raster image at a given DPI helps determine if it has sufficient resolution for the intended print size.',
-        ],
-      },
-      {
-        heading: 'How to use the PX to Inches Converter',
-        paragraphs: [
-          'Step 1: Select the DPI preset that matches your use case — 72 DPI for legacy web, 96 DPI for standard screens, 150 DPI for draft print, or 300 DPI for high-quality print.',
-          'Step 2: Enter the pixel value in the PX input field. The inches result updates instantly as you type.',
-          'Step 3: Toggle Width x Height mode if you need to convert both dimensions of an image or document at once. All four fields (width and height in both px and inches) stay synchronized.',
-          'Step 4: Use the swap button to quickly convert in the opposite direction (inches to pixels) without re-entering values.',
-          'Step 5: Copy the inch value using the copy button next to the result field for pasting into your design software or specifications.',
-          'Step 6: For custom DPI settings not in the presets, select Custom and enter your specific DPI value. The converter handles any resolution.',
-        ],
-      },
-      {
-        heading: 'Common mistakes and how to fix them',
-        paragraphs: [
-          'Error: Using 72 DPI for print. 72 DPI is a legacy screen standard and produces poor-quality print output. Always use 300 DPI for professional print results.',
-          'Error: Not accounting for the actual screen DPI. Modern screens (Retina, 4K) have much higher DPI than the standard 96. A 1920px image on a 4K screen (approximately 192 DPI) is physically smaller than on a 1080p screen (96 DPI).',
-          'Error: Assuming pixels are a fixed physical size. Pixels have no inherent physical size — their physical dimension depends entirely on the DPI of the output device. The same 100px image is 1.04 inches at 96 DPI but only 0.33 inches at 300 DPI.',
-          'Error: Mixing up px-to-inches with inches-to-px. The two directions use inverse formulas. px to inches divides by DPI; inches to px multiplies by DPI. Use the correct direction for your need.',
-        ],
-      },
-      {
-        heading: 'Tips and best practices',
-        paragraphs: [
-          'For web design, use 96 DPI as the baseline. Most CSS px units correspond to 1/96 of an inch at the standard browser zoom level.',
-          'When preparing images for print, always verify the inch dimensions at 300 DPI before finalizing your layout. An image that looks perfect on screen may be too small for the intended print size.',
-          'Use the reference table of common conversions to quickly look up standard sizes without calculating. This is especially useful for standard paper sizes and screen resolutions.',
-          'For responsive web design, remember that CSS pixels and physical inches differ across devices. A 10-inch physical measurement corresponds to different pixel counts on different screens.',
-        ],
-      },
-    ],
-    faq: [
-      { question: 'How do I convert px to inches?', answer: 'Divide the number of pixels by the DPI. For example, 600 px divided by 300 DPI = 2 inches. Our tool does this instantly — just enter your pixel value and select the DPI.' },
-      { question: 'What is 1920 px in inches at 96 DPI?', answer: '1920 px divided by 96 DPI = 20 inches. This is the standard full HD screen width measured in inches at typical monitor resolution.' },
-      { question: 'What DPI should I use for screen design?', answer: 'Use 96 DPI for standard Windows screens and web design. Use 72 DPI for legacy Mac standard. Use 300 DPI for print quality. The DPI depends on the output medium.' },
-      { question: 'How many pixels is a standard business card?', answer: 'A standard US business card (3.5 x 2 inches) at 300 DPI is 1050 x 600 pixels. At 96 DPI it is 336 x 192 pixels, which is too low for print quality.' },
-      { question: 'What is the difference between DPI and PPI?', answer: 'PPI (pixels per inch) refers to pixel density in a digital image. DPI (dots per inch) refers to dot density in printed output. For conversion purposes they are equivalent.' },
-      { question: 'Can I use this tool for print design?', answer: 'Yes, set the DPI to 300 for print-quality conversions. This gives you the pixel dimensions needed for print layouts in InDesign, Illustrator, or Photoshop.' },
-      { question: 'How do I convert a photo dimension from px to inches?', answer: 'Enter the pixel width or height and set DPI to 300 for print or 96 for screen. The tool shows the physical inch dimension. Use Width x Height mode for both dimensions at once.' },
-      { question: 'Why do my images look small when printed?', answer: 'If your image has low pixel count at 300 DPI, the physical print size is small. For example, 600 pixels at 300 DPI is only 2 inches. You need more pixels for larger print sizes.' },
-      { question: 'Is 72 DPI good enough for web?', answer: 'Yes, 72 DPI (or 96 DPI for Windows) is standard for web images. Screens display at their native resolution, so the DPI setting mainly affects how image dimensions are interpreted for layout.' },
-      { question: 'How do I resize an image for print?', answer: 'Convert the pixel dimensions to inches at 300 DPI using this tool. If the inch result is smaller than your target print size, the image needs upscaling or a lower-resolution print.' },
-    ],
-    relatedTools: ['pixels-to-inches', 'inches-to-px'],
-  },
-  'inches-to-px': {
-    sections: [
-      {
-        heading: 'Converting inches to pixels',
-        paragraphs: [
-          'Inches to pixels conversion is the reverse of the more common pixels-to-inches calculation, and it is just as important for design and production workflows. The formula is: pixels = inches × DPI. For example, a standard US letter page is 8.5 × 11 inches. At 300 DPI, that converts to 2550 × 3300 pixels — the exact canvas size a print designer needs for a full-bleed letter-sized document.',
-          'This converter makes inches-to-px conversion as simple as entering the inch value and selecting the DPI. The result updates instantly, and the Width × Height mode lets you convert full dimension pairs at once. This is particularly useful when setting up document sizes, creating digital canvases for print output, or determining screen dimensions from physical measurements.',
-        ],
-      },
-      {
-        heading: 'When inches to pixels is the right direction',
-        paragraphs: [
-          'Print designers who think in physical dimensions first — page sizes, margin widths, image dimensions — use inches-to-pixels conversion when setting up their digital workspace. Knowing that a 2-inch wide image at 300 DPI needs to be 600 pixels wide helps create correctly-sized assets from the start. Signage and large-format designers regularly convert physical dimensions to pixel requirements for their digital design tools.',
-          'Web developers designing for specific screen sizes also benefit. If a client wants a web layout that mirrors a 10-inch tablet screen at roughly 200 PPI, the target width is about 2000 pixels. This physical-to-digital translation is essential for responsive design planning and device-targeted layouts.',
-        ],
-      },
-      {
-        heading: 'How to use the Inches to PX Converter',
-        paragraphs: [
-          'Step 1: Select the DPI preset that matches your output target — 96 DPI for standard screens, 150 DPI for draft print, or 300 DPI for high-quality print.',
-          'Step 2: Enter the inch value in the Inches input field. The pixel result updates instantly as you type.',
-          'Step 3: Toggle Width x Height mode to convert both width and height dimensions at once. This is ideal for setting up canvas sizes in Photoshop, Illustrator, or Figma.',
-          'Step 4: Use the swap button to convert in the opposite direction (pixels to inches) without re-entering values.',
-          'Step 5: Copy the pixel value using the copy button for pasting into your design software, CSS, or canvas configuration.',
-          'Step 6: For custom DPI values, select Custom and enter your specific resolution. The tool calculates accurate pixel values for any DPI.',
-        ],
-      },
-      {
-        heading: 'Common mistakes and how to fix them',
-        paragraphs: [
-          'Error: Using the wrong DPI for the target medium. Screen design uses 96 DPI, print uses 300 DPI. Using 96 DPI for print produces pixelated output because the pixel count is too low for the physical size.',
-          'Error: Not rounding pixel values appropriately. Pixel values are integers — you cannot have 1050.5 pixels. The tool rounds to the nearest whole pixel, but verify the result makes sense for your layout grid.',
-          'Error: Forgetting that pixel dimensions affect file size. Doubling the DPI quadruples the total pixel count (and file size) because both width and height double. A 300 DPI version of a 300 DPI image is 4x larger.',
-          'Error: Assuming all screens have the same DPI. A 10-inch measurement corresponds to 960 pixels on a 96 DPI screen but 1920 pixels on a 192 DPI Retina display. Always specify the target DPI.',
-        ],
-      },
-      {
-        heading: 'Tips and best practices',
-        paragraphs: [
-          'For standard US letter documents at 300 DPI, use 2550 x 3300 pixels as the canvas size. This is the exact pixel dimension needed for a full-bleed letter-sized print document.',
-          'When setting up web images, convert the desired physical display size to pixels at 96 DPI. A 5-inch wide web image should be 480 pixels wide.',
-          'For large-format printing (posters, banners), 150 DPI is usually sufficient because viewing distance is greater. Calculate the pixel dimensions at 150 DPI rather than 300 DPI to keep file sizes manageable.',
-          'Use the Width x Height mode when creating canvas dimensions for design tools. Enter the physical document size in inches and get the exact pixel dimensions for your digital workspace.',
-        ],
-      },
-    ],
-    relatedTools: ['pixels-to-inches', 'px-to-inches', 'unit-converter'],
-    faq: [
-      { question: 'How many pixels in an inch at 96 DPI?', answer: 'At 96 DPI, 1 inch = 96 pixels. This is the standard for most computer screens and web design.' },
-      { question: 'What is the pixel size of an A4 page at 300 DPI?', answer: 'An A4 page (8.27 x 11.69 inches) at 300 DPI is 2481 x 3508 pixels. This is the standard canvas size for A4 print documents.' },
-      { question: 'How do I set up a canvas for print in Photoshop?', answer: 'Use this tool to convert your document size in inches to pixels at 300 DPI. Enter the pixel values in the New Document dialog in Photoshop with resolution set to 300 PPI.' },
-      { question: 'What DPI should I use for web images?', answer: 'Use 96 DPI for standard web images. Modern high-DPI (Retina) screens display at 2x or 3x resolution, but CSS pixels remain at 96 DPI for layout purposes.' },
-      { question: 'How many pixels is a 4x6 photo at 300 DPI?', answer: 'A 4x6 inch photo at 300 DPI is 1200 x 1800 pixels. This is the standard resolution for high-quality photo prints.' },
-      { question: 'Can I convert fractional inches?', answer: 'Yes, enter decimal inches like 8.5 or 11.69. The tool calculates the exact pixel value and rounds to the nearest whole pixel.' },
-      { question: 'How do I convert inches to pixels for CSS?', answer: 'CSS uses 96 DPI by default. To convert inches to CSS pixels, multiply by 96. For example, 2 inches = 192 CSS pixels. However, physical inches on screen depend on the device DPI.' },
-      { question: 'What is the pixel size of a business card?', answer: 'A standard US business card (3.5 x 2 inches) at 300 DPI is 1050 x 600 pixels. At 96 DPI it is 336 x 192 pixels, which is too low for print quality.' },
-      { question: 'How do I calculate banner dimensions in pixels?', answer: 'Measure the banner in inches, then multiply width and height by the target DPI. For a 36x24 inch banner at 150 DPI, the pixel dimensions are 5400 x 3600 pixels.' },
-      { question: 'How do I convert inches to pixels for Figma?', answer: 'In Figma, set up your frame in inches by entering the pixel equivalent. At 96 DPI, a 10-inch frame should be 960 pixels wide. Figma works in pixels, so use this tool to get the correct pixel values for your physical document dimensions.' },
-    ],
-  },
+
   'slug-generator': {
     sections: [
       {
@@ -3194,20 +3061,6 @@ export function getToolDetails(tool: Tool): ToolDetails {
       'Or use the "Paste & Translate" tab to paste an existing cron expression and see its human-readable description and next 5 run times.',
       'Click a Quick Preset button (Every minute, Daily at midnight, Weekdays only, etc.) to generate common schedules instantly. Click "Copy" to save the expression.',
     ],
-    'px-to-inches': [
-      'Choose a DPI/PPI preset (72, 96, 150, or 300) from the dropdown, or select Custom to enter any DPI value.',
-      'Type a pixel value into the Pixels field — the Inches field updates instantly as you type.',
-      'Use the swap button (⇄) to flip which value you are editing, or the copy icon to copy a value to your clipboard.',
-      'Toggle "Width x Height mode" to convert full image dimensions at once instead of a single value.',
-      'Click any row in the Common Conversions Reference table to load that pixel value into the calculator.',
-    ],
-    'inches-to-px': [
-      'Choose a DPI/PPI preset (72, 96, 150, or 300) from the dropdown, or select Custom to enter any DPI value.',
-      'Type an inch value into the Inches field — the Pixels field updates instantly as you type.',
-      'Use the swap button (⇄) to flip which value you are editing, or the copy icon to copy a value to your clipboard.',
-      'Toggle "Width x Height mode" to convert full image dimensions at once instead of a single value.',
-      'Click any row in the Common Conversions Reference table to load that inch value into the calculator.',
-    ],
   }
 
   // Build related tools list
@@ -3604,30 +3457,6 @@ export const tools: Tool[] = [
     seoTitle: 'pixels to inches — Free Online Converter | OnlineFreeTools',
     seoDescription: 'Use our free pixels to inches converter to instantly convert between px and inches. Supports 72, 96, 150, 300 DPI with custom resolution. No signup required.',
     h1: 'Pixels to Inches Converter — Free PX to Inches Calculator',
-  },
-  {
-    id: 'px-to-inches',
-    name: 'PX to Inches Converter',
-    description: 'Convert px to inches instantly with our free online converter. Supports multiple DPI presets and custom resolution for accurate print and screen measurements.',
-    category: 'calculator',
-    icon: 'Maximize',
-    slug: 'px-to-inches',
-    keywords: ['px to inches', 'convert px to inches', 'px to inches converter', 'pixels to inches', 'px to in', 'pixels', 'inches', 'converter'],
-    seoTitle: 'px to inches — Free Online Converter | OnlineFreeTools',
-    seoDescription: 'Convert px to inches instantly with our free online converter. Supports 72, 96, 150, 300 DPI and custom resolution for accurate print and screen measurements. No signup required.',
-    h1: 'PX to Inches Converter — Free Online Pixels to Inches Tool',
-  },
-  {
-    id: 'inches-to-px',
-    name: 'Inches to PX Converter',
-    description: 'Convert inches to pixels (px) instantly with our free online converter. Supports any DPI setting for print design, digital art, and screen resolution.',
-    category: 'calculator',
-    icon: 'Minimize',
-    slug: 'inches-to-px',
-    keywords: ['inches to px', 'convert inches to pixels', 'inches to pixels converter', 'inch to px', 'inches to pixels calculator', 'inches', 'pixels', 'converter', 'dpi'],
-    seoTitle: 'inches to px — Free Online Converter | OnlineFreeTools',
-    seoDescription: 'Convert inches to pixels (px) instantly with our free online converter. Supports any DPI setting for print design, digital art, and screen resolution.',
-    h1: 'Inches to PX Converter — Free Online Inches to Pixels Tool',
   },
 
 

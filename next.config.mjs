@@ -29,6 +29,16 @@ const nextConfig = {
         destination: '/tools/pixels-to-inches',
         permanent: true,
       },
+      {
+        source: '/tools/px-to-inches',
+        destination: '/tools/pixels-to-inches',
+        permanent: true,
+      },
+      {
+        source: '/tools/inches-to-px',
+        destination: '/tools/pixels-to-inches',
+        permanent: true,
+      },
     ]
   },
   async headers() {

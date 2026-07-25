@@ -59,8 +59,6 @@ const toolComponents: Record<string, React.ComponentType> = {
   'morse-code-translator': dynamic(() => import('@/components/tools/MorseCodeTranslatorTool').then(m => ({ default: m.MorseCodeTranslatorTool }))),
   'unit-calculator': dynamic(() => import('@/components/tools/UnitCalculatorTool').then(m => ({ default: m.UnitCalculatorTool }))),
   'pixels-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
-  'px-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
-  'inches-to-px': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'slug-generator': dynamic(() => import('@/components/tools/SlugGeneratorTool').then(m => ({ default: m.SlugGeneratorTool }))),
   'cron-expression-generator': dynamic(() => import('@/components/tools/CronExpressionGeneratorTool').then(m => ({ default: m.CronExpressionGeneratorTool }))),
 }
