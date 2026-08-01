@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Fuse from 'fuse.js'
 import type { FuseResult } from 'fuse.js'
+import type { KnowledgeBaseEntry } from '@/lib/knowledge-base'
 import { MessageCircle, X, Send, Bot, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -17,26 +18,26 @@ interface Message {
   buttons?: { label: string; url: string }[]
 }
 
-let fuse: Fuse<any> | null = null
+let fusePromise: Promise<Fuse<any>> | null = null
 
-function getFuse() {
-  if (!fuse) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { getKnowledgeBase } = require('@/lib/knowledge-base')
-    fuse = new Fuse(getKnowledgeBase(), {
-      keys: [
-        { name: 'name', weight: 3 },
-        { name: 'title', weight: 3 },
-        { name: 'description', weight: 1 },
-        { name: 'keywords', weight: 2 },
-        { name: 'faq.question', weight: 3 },
-      ],
-      threshold: 0.4,
-      includeScore: true,
-      minMatchCharLength: 2,
+function getFuse(): Promise<Fuse<any>> {
+  if (!fusePromise) {
+    fusePromise = import('@/lib/knowledge-base').then(({ getKnowledgeBase }) => {
+      return new Fuse(getKnowledgeBase(), {
+        keys: [
+          { name: 'name', weight: 3 },
+          { name: 'title', weight: 3 },
+          { name: 'description', weight: 1 },
+          { name: 'keywords', weight: 2 },
+          { name: 'faq.question', weight: 3 },
+        ],
+        threshold: 0.4,
+        includeScore: true,
+        minMatchCharLength: 2,
+      })
     })
   }
-  return fuse
+  return fusePromise
 }
 
 function getHardcodedIntent(input: string): Message | null {
@@ -45,7 +46,7 @@ function getHardcodedIntent(input: string): Message | null {
   if (/^what tools|^show tools|^list tools|^all tools|^tools$/.test(lower)) {
     return {
       role: 'bot',
-      content: 'We have **40+ free online tools** across these categories:\n\n• **Developer Tools** — JSON formatter, JWT decoder, regex tester, code minifier, diff checker, slug generator, and more\n• **Calculators** — BMI, loan, mortgage, discount, tip, percentage, age, unit converter\n• **Document & Media** — QR code generator, markdown editor, image compressor, word counter\n• **Utilities** — Password generator, timer, dice roller, coin flipper, text to speech\n\nBrowse all tools or explore by category!',
+      content: 'We have **38+ free online tools** across these categories:\n\n• **Developer Tools** — JSON formatter, JWT decoder, regex tester, code minifier, diff checker, slug generator, and more\n• **Calculators** — BMI, loan, mortgage, discount, tip, percentage, age, unit converter\n• **Document & Media** — QR code generator, markdown editor, image compressor, word counter\n• **Utilities** — Password generator, timer, dice roller, coin flipper, text to speech\n\nBrowse all tools or explore by category!',
       buttons: [
         { label: 'Browse All Tools →', url: '/tools' },
         { label: 'Developer', url: '/category/developer' },
@@ -77,10 +78,10 @@ function getHardcodedIntent(input: string): Message | null {
   return null
 }
 
-function formatBotResponse(
+async function formatBotResponse(
   input: string,
   results: FuseResult<KnowledgeBaseEntry>[]
-): Message {
+): Promise<Message> {
   const best = results[0]
   const second = results[1]
 
@@ -88,9 +89,8 @@ function formatBotResponse(
   const similarThreshold = 0.12
 
   if (!best || best.score! > 0.6) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { getFeaturedTools } = require('@/lib/knowledge-base')
-    const featured = getFeaturedTools().slice(0, FEATURED_LIMIT)
+    const { getFeaturedTools } = await import('@/lib/knowledge-base')
+    const featured: KnowledgeBaseEntry[] = getFeaturedTools().slice(0, FEATURED_LIMIT)
     return {
       role: 'bot',
       content: "I couldn't find an exact match for that. Here's what might help:",
@@ -161,11 +161,12 @@ function formatBotResponse(
   }
 }
 
-function searchAndRespond(input: string): Message {
+async function searchAndRespond(input: string): Promise<Message> {
   const hardcoded = getHardcodedIntent(input)
   if (hardcoded) return hardcoded
 
-  const results = getFuse().search(input)
+  const fuse = await getFuse()
+  const results = fuse.search(input)
   return formatBotResponse(input, results)
 }
 
@@ -228,9 +229,9 @@ export function ChatWidget() {
       if (!trimmed) return
 
       const userMsg: Message = { role: 'user', content: trimmed }
-      const botMsg = searchAndRespond(trimmed)
-
-      setMessages((prev) => [...prev, userMsg, botMsg])
+      void searchAndRespond(trimmed).then((botMsg) => {
+        setMessages((prev) => [...prev, userMsg, botMsg])
+      })
       setInput('')
     },
     []

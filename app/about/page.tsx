@@ -1,13 +1,17 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
-  title: 'About',
+  title: { absolute: 'About Free Online Tools' },
   description: 'Learn more about Free Online Tools and our mission to provide fast, browser-based utilities for developers and creators.',
   authors: [{ name: 'Zohaib' }],
   creator: 'Zohaib',
   publisher: 'Zohaib',
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
 }
 
 export default function AboutPage() {

@@ -11,11 +11,11 @@ export function generateToolMetadata(tool: {
 }): Metadata {
   const canonicalUrl = `${SITE_URL}/tools/${tool.slug}`
   const rawTitle = tool.seoTitle ?? tool.name
-  const seoTitle = rawTitle.replace(/\s*\|\s*OnlineFreeTools\s*$/i, '')
+  const seoTitle = rawTitle.replace(/\s*\|\s*OnlineFreeTools\s*$/i, '').trim()
   const seoDescription = tool.seoDescription ?? tool.description
-  
+
   return {
-    title: seoTitle,
+    title: { absolute: seoTitle },
     description: seoDescription,
     keywords: [...tool.keywords, 'free tool', 'online', 'utility'],
     authors: [{ name: 'Zohaib Hassan' }],

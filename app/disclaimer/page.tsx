@@ -1,11 +1,14 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { SITE_NAME, AUTHOR_NAME } from '@/lib/config'
+import { SITE_NAME, AUTHOR_NAME, SITE_URL } from '@/lib/config'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Disclaimer',
+  title: { absolute: 'Disclaimer | Free Online Tools' },
   description: `Disclaimer, limitations of liability, and terms of use for tools and content on ${SITE_NAME}.`,
+  alternates: {
+    canonical: `${SITE_URL}/disclaimer`,
+  },
 }
 
 export default function DisclaimerPage() {

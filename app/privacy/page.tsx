@@ -1,10 +1,14 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
+  title: { absolute: 'Privacy Policy | Free Online Tools' },
   description: 'Privacy policy for Free Online Tools. Learn how we collect, use, and protect your data, including cookies and GDPR compliance.',
+  alternates: {
+    canonical: `${SITE_URL}/privacy`,
+  },
 }
 
 export default function PrivacyPage() {

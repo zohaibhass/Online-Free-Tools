@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const url = `${SITE_URL}/blog/${slug}`
 
     return {
-        title: post.title,
+        title: { absolute: post.title },
         description: post.description,
         keywords: post.keywords,
         openGraph: {
@@ -140,8 +140,36 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     />
                 )}
 
+                <Script
+                    id="article-schema"
+                    type="application/ld+json"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Article",
+                            "headline": post.title,
+                            "description": post.description,
+                            "image": [OG_IMAGE],
+                            "mainEntityOfPage": `${SITE_URL}/blog/${slug}`,
+                            "datePublished": post.date,
+                            "dateModified": post.date,
+                            "author": {
+                                "@type": "Person",
+                                "name": "Zohaib Hassan",
+                                "url": "https://github.com/zohaibhass",
+                            },
+                            "publisher": {
+                                "@type": "Organization",
+                                "name": "Free Online Tools",
+                                "url": SITE_URL,
+                            },
+                        }),
+                    }}
+                />
+
                 <article className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr]">
-                    <div className="space-y-10">
+                    <div className="space-y-10 min-w-0">
                         <section className="rounded-3xl border border-border bg-card p-8 shadow-sm">
                             <div className="space-y-6">
                                 <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-primary font-semibold">
@@ -195,7 +223,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                         </section>
                     </div>
 
-                    <aside className="space-y-6">
+                    <aside className="space-y-6 min-w-0">
                         {post.relatedTools.length > 0 && (
                             <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
                                 <h2 className="text-2xl font-semibold mb-4">Try related tools</h2>

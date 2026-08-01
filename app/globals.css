@@ -154,6 +154,18 @@
     font-weight: 650;
   }
 
+  p,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote {
+    overflow-wrap: break-word;
+  }
+
   ::selection {
     background: rgba(56, 189, 248, 0.18);
     color: var(--foreground);
@@ -164,6 +176,30 @@
   iframe {
     max-width: 100%;
     height: auto;
+  }
+
+  .prose {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .prose pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prose code {
+    overflow-wrap: break-word;
+  }
+
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

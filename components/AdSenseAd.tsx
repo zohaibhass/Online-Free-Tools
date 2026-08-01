@@ -7,6 +7,20 @@ interface AdSenseAdProps {
   format?: 'auto' | 'horizontal' | 'vertical' | 'rectangle'
   responsive?: boolean
   className?: string
+  minHeight?: number
+}
+
+function defaultMinHeight(format: NonNullable<AdSenseAdProps['format']>): number {
+  switch (format) {
+    case 'rectangle':
+      return 250
+    case 'vertical':
+      return 320
+    case 'horizontal':
+      return 90
+    default:
+      return 100
+  }
 }
 
 export function AdSenseAd({
@@ -14,6 +28,7 @@ export function AdSenseAd({
   format = 'auto',
   responsive = true,
   className = '',
+  minHeight,
 }: AdSenseAdProps) {
   const [mounted, setMounted] = useState(false)
 
@@ -31,24 +46,29 @@ export function AdSenseAd({
     }
   }, [mounted])
 
-  // Don't render until after hydration to prevent mismatch
-  if (!mounted) {
-    return null
-  }
-
+  // Reserve the minimum ad space in SSR HTML too, so the post-hydration
+  // <ins> insertion does not shift the layout (CLS). The <ins> itself only
+  // mounts on the client to avoid hydration mismatches.
   return (
-    <div className={`${className} flex justify-center`} suppressHydrationWarning>
-      <ins
-        className="adsbygoogle"
-        style={{
-          display: 'block',
-          textAlign: 'center',
-        }}
-        data-ad-format={format}
-        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5508801810212450'}
-        data-ad-slot={slot}
-        data-ad-responsive={responsive ? 'true' : 'false'}
-      />
+    <div
+      className={`${className} flex justify-center overflow-hidden`}
+      style={{ minHeight: minHeight ?? defaultMinHeight(format) }}
+      suppressHydrationWarning
+    >
+      {mounted && (
+        <ins
+          className="adsbygoogle"
+          style={{
+            display: 'block',
+            textAlign: 'center',
+            width: '100%',
+          }}
+          data-ad-format={format}
+          data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-3491641485391296'}
+          data-ad-slot={slot}
+          data-ad-responsive={responsive ? 'true' : 'false'}
+        />
+      )}
     </div>
   )
 }

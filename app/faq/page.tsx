@@ -2,10 +2,14 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
-    title: 'FAQ — Free Online Tools',
+    title: { absolute: 'Frequently Asked Questions | Free Online Tools' },
     description: 'Frequently asked questions about Free Online Tools, privacy practices, data handling, and how individual tools work.',
+    alternates: {
+        canonical: `${SITE_URL}/faq`,
+    },
 }
 
 const faqCategories = [

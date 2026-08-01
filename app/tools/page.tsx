@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { SITE_URL, OG_IMAGE } from '@/lib/config'
 import ToolsPageClient from './ToolsPageClient'
@@ -28,10 +27,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ToolsPage() {
+export default async function ToolsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string }>
+}) {
+  const params = await searchParams
+
   return (
-    <Suspense fallback={<div className="py-20 text-center text-muted-foreground">Loading tools...</div>}>
-      <ToolsPageClient />
-    </Suspense>
+    <ToolsPageClient initialSearch={params.search ?? ''} />
   )
 }
