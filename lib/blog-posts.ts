@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'what-is-a-jwt-token',
     title: "What is a JWT Token? A Complete Beginner's Guide",
-    description: 'Wondering what is a JWT token? Learn everything about JSON Web Tokens — their structure, how they work, and when to use them for modern web authentication.',
+    description: 'Wondering what is a JWT token? Learn about JSON Web Tokens - their structure, how they work, and when to use them for web authentication.',
     category: 'Developer Guide',
     date: '2026-06-29',
     readTime: '10 min read',
@@ -122,6 +122,7 @@ export const blogPosts: BlogPost[] = [
       <h2>Start Using JWT Tokens Today</h2>
       <p>Understanding what a JWT token is and how it works is essential for modern web development. JWTs provide stateless, scalable authentication that works across distributed systems, mobile apps, and SSO environments. The three-part structure (header, payload, signature) enables secure, self-contained authentication without server-side session storage.</p>
       <p>Use our free <a href="/tools/jwt-decoder">JWT Decoder online</a> to instantly inspect and decode any JWT token. See the header, payload, and signature in clear JSON format\u2014no signup required.</p>
+      <p>For more depth, read our step-by-step guide on <a href="/blog/how-jwt-authentication-works">how JWT authentication works from login to API request</a>, or learn <a href="/blog/can-you-decode-jwt-without-secret">whether you can decode a JWT without the secret key</a>.</p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -137,7 +138,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'how-jwt-authentication-works',
     title: 'How JWT Authentication Works (Step-by-Step)',
-    description: 'Learn exactly how JWT authentication works from login to API requests with a complete step-by-step guide covering tokens, refresh flows, and security best practices.',
+    description: 'Learn how JWT authentication works from login to API requests with a step-by-step guide covering tokens, refresh flows, and security best practices.',
     category: 'Developer Guide',
     date: '2026-06-29',
     readTime: '8 min read',
@@ -300,6 +301,7 @@ Host: api.example.com</code></pre>
 
       <h2>Try Base64 Encoding Yourself</h2>
       <p>Now that you understand what Base64 encoding is, try encoding and decoding strings yourself. Use our free <a href="/tools/base64-encoder">Base64 Encoder/Decoder online</a> to instantly encode text to Base64 or decode Base64 strings\u2014no signup required.</p>
+      <p>To go deeper, read <a href="/blog/base64-encoding-explained">Base64 encoding explained: how it works and when to use it</a>, or explore advanced topics like padding, URL-safe variants, and performance in <a href="/blog/base64-encoding-beyond-the-basics">Base64 encoding beyond the basics</a>.</p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -463,7 +465,7 @@ Host: api.example.com</code></pre>
   {
     slug: 'sha256-vs-md5',
     title: 'SHA256 vs MD5: Which Hashing Algorithm Should You Use?',
-    description: 'Compare SHA256 vs MD5 to understand the differences, security weaknesses, and when to use each hashing algorithm for passwords, checksums, and data integrity.',
+    description: 'Compare SHA256 vs MD5 to understand the differences, security weaknesses, and when to use each hashing algorithm for passwords and data integrity.',
     category: 'Security',
     date: '2026-06-28',
     readTime: '10 min read',
@@ -550,6 +552,7 @@ Host: api.example.com</code></pre>
 
       <h2>Try Hashing Algorithms Yourself</h2>
       <p>Now that you understand the differences between SHA256 vs MD5, try generating hashes yourself. Use our free <a href="/tools/hash-generator">Hash Generator online</a> to instantly create MD5, SHA1, SHA256, and SHA512 hashes\u2014no signup required.</p>
+      <p>For a head-to-head comparison of the two algorithms, see our companion guide on <a href="/blog/md5-vs-sha256">MD5 vs SHA256: which hash algorithm should you use?</a></p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -564,7 +567,7 @@ Host: api.example.com</code></pre>
 
   {
     slug: 'url-encoding-explained',
-    title: 'URL Encoding Explained: What It Is and How It Works',
+    title: 'URL Encoding Explained: Why Special Characters Break Links',
     description: 'Learn what URL encoding is, why special characters must be encoded, the percent encoding format, and practical examples of encoding in web development.',
     category: 'Developer Guide',
     date: '2026-06-27',
@@ -647,6 +650,9 @@ Host: api.example.com</code></pre>
       <p>JavaScript provides two built-in functions for URL encoding. <code>encodeURI()</code> encodes a complete URI while preserving characters that have special meaning in URIs (like ?, #, and /). <code>encodeURIComponent()</code> encodes a URI component and encodes all special characters, making it the right choice for encoding query parameter values. Use <code>decodeURI()</code> and <code>decodeURIComponent()</code> for decoding.</p>
       <p>Example: <code>encodeURIComponent("hello & goodbye")</code> returns "hello%20%26%20goodbye". This encoded string is safe to include as a query parameter value without breaking the URL structure.</p>
 
+      <h2>Encoding vs Double Encoding</h2>
+      <p><strong>Single encoding</strong> converts a special character into its percent-encoded form once: <code>hello world → hello%20world</code>. <strong>Double encoding</strong> encodes an already-encoded string a second time: <code>hello world → hello%20world → hello%2520world</code>. Double encoding is almost always a mistake and causes URLs to break, so always encode data at the source exactly once.</p>
+
       <h2>Practical Examples</h2>
       <p><strong>Example 1:</strong> A search query for "free online tools for developers" becomes "free%20online%20tools%20for%20developers". Without encoding, the spaces would break the URL.</p>
       <p><strong>Example 2:</strong> An API endpoint with parameters: <code>https://api.example.com/users?name=John%20Doe&filter=status%3Dactive%26role%3Dadmin</code>. The & in the filter value is encoded as %26 to prevent it from being interpreted as a parameter separator.</p>
@@ -661,6 +667,8 @@ Host: api.example.com</code></pre>
       <p>encodeURI encodes a complete URI and preserves characters that have special URI meaning (like ?, /, #). encodeURIComponent encodes a URI component and encodes all special characters. Use encodeURIComponent for encoding query parameter values.</p>
       <h3>Is %20 the same as + in URLs?</h3>
       <p>In query strings (the part after ?), + represents a space in application/x-www-form-urlencoded format. However, %20 is the standard URL encoding for spaces and works everywhere. Most modern systems prefer %20 over + for consistency.</p>
+      <h3>What is the difference between single and double URL encoding?</h3>
+      <p>Single encoding converts a special character into its percent-encoded form once (for example, a space becomes %20). Double encoding encodes an already-encoded string a second time, turning %20 into %2520. Double encoding is almost always a mistake and causes URLs to break, so encode data at the source exactly once.</p>
       <h3>How do I decode a URL in JavaScript?</h3>
       <p>Use decodeURI() to decode a complete URI and decodeURIComponent() to decode an encoded component. These functions reverse the encoding performed by encodeURI and encodeURIComponent respectively.</p>
 
@@ -698,7 +706,7 @@ Host: api.example.com</code></pre>
 
       <h2>What is BMI?</h2>
       <p>Body Mass Index (BMI) is a numerical value calculated from a person\u2019s weight and height. It was developed in the 1830s by Adolphe Quetelet and has been used by healthcare professionals ever since as a screening tool for weight categories. BMI does not measure body fat directly, but it correlates reasonably well with direct measures of body fat for most people.</p>
-      <p>The World Health Organization (WHO) uses BMI to define weight categories that are associated with health risks. Higher BMI values are associated with increased risk of cardiovascular disease, type 2 diabetes, high blood pressure, and certain cancers. However, BMI is a screening tool, not a diagnostic tool\u2014it indicates potential risk but does not diagnose health conditions.</p>
+      <p>The <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener noreferrer">World Health Organization (WHO)</a> uses BMI to define weight categories that are associated with health risks. Higher BMI values are associated with increased risk of cardiovascular disease, type 2 diabetes, high blood pressure, and certain cancers. However, BMI is a screening tool, not a diagnostic tool\u2014it indicates potential risk but does not diagnose health conditions.</p>
 
       <h2>BMI Formula</h2>
       <p>BMI is calculated using the following formula: <strong>BMI = weight (kg) / height (m)\u00B2</strong>. For metric measurements, divide your weight in kilograms by your height in meters squared. For imperial measurements, the formula is: <strong>BMI = (weight in pounds / height in inches\u00B2) x 703</strong>.</p>
@@ -782,6 +790,15 @@ Host: api.example.com</code></pre>
       <p>For a more complete health assessment, combine BMI with waist circumference measurements (under 40 inches for men, under 35 for women), body fat percentage, and metabolic health markers like blood pressure, cholesterol, and blood sugar levels. Focus on sustainable lifestyle habits — balanced nutrition, regular physical activity, adequate sleep, and stress management — rather than obsessing over a single number on the scale. Use BMI as one tool among many in your overall health strategy.</p>
 
       <h2>Calculate Your BMI Today</h2>
+      <p>Want to understand how your BMI is interpreted in more detail? Read our gender-specific guides on <a href="/blog/what-is-a-healthy-bmi-for-men">what is a healthy BMI for men</a> and <a href="/blog/what-is-a-healthy-bmi-for-women">what is a healthy BMI for women</a>, or check <a href="/blog/healthy-weight-by-height">healthy weight by height</a> and the <a href="/blog/bmi-chart-by-height">BMI chart by height</a> for quick reference tables.</p>
+
+      <h2>References</h2>
+      <ul>
+        <li>World Health Organization. <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener noreferrer">Obesity and overweight fact sheet</a>.</li>
+        <li>Centers for Disease Control and Prevention. <a href="https://www.cdc.gov/bmi/adult-calculator/index.html" target="_blank" rel="noopener noreferrer">Adult BMI Calculator</a>.</li>
+        <li>Centers for Disease Control and Prevention. <a href="https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html" target="_blank" rel="noopener noreferrer">Adult BMI Categories</a>.</li>
+        <li>NHS. <a href="https://www.nhs.uk/live-well/healthy-weight/bmi-calculator/" target="_blank" rel="noopener noreferrer">BMI calculator and healthy weight guidance</a>.</li>
+      </ul>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -1054,7 +1071,7 @@ Host: api.example.com</code></pre>
 
   {
     slug: 'base64-encoding-explained',
-    title: 'Base64 Encoding Explained — How It Works and When to Use It',
+    title: 'Base64 Encoding Explained: How It Works & When to Use It',
     description: 'Learn what Base64 encoding is, how the algorithm works, and practical use cases in APIs, emails, and web development.',
     category: 'Developer Guide',
     date: '2026-05-18',
@@ -1804,170 +1821,6 @@ ORDER BY total_value DESC;</code></pre>
   },
 
   {
-    slug: 'url-encoding-explained',
-    title: 'URL Encoding Explained — Why Special Characters Break Your Links',
-    description: 'Learn why URLs need encoding, the percent-encoding standard, and how to handle special characters safely.',
-    category: 'Developer Guide',
-    date: '2026-05-12',
-    readTime: '9 min read',
-    author: 'Zohaib Hassan',
-    relatedTools: [{ name: 'URL Encoder', url: '/tools/url-encoder' }],
-    content: `
-      <h2>What is URL Encoding?</h2>
-      <p>URL encoding (also called percent encoding) is a method of encoding special characters in URLs so they can be safely transmitted over the internet. URLs can only contain certain characters: letters (A-Z, a-z), digits (0-9), hyphens (-), periods (.), underscores (_), and tildes (~). Any other character, including spaces, special symbols, and accented letters, must be encoded before inclusion in a URL.</p>
-      <p>When you encode a character, you replace it with a percent sign (%) followed by its hexadecimal ASCII value. For example, a space is encoded as %20, a question mark is %3F, and an ampersand is %26.</p>
-
-      <h2>Why Special Characters Break URLs</h2>
-      <h3>Reserved Characters with Special Meaning</h3>
-      <p>Some characters have special meaning in URLs. For example, the question mark (?) indicates the start of query parameters, the ampersand (&) separates multiple parameters, and the hash (#) indicates a fragment identifier.</p>
-      <pre><code>https://example.com/search?q=hello world&sort=date#results</code></pre>
-      <p>In this URL, the ? means "parameters start here", & means "another parameter", and # means "fragment starts here". If you want to include these characters literally in a parameter value, they must be encoded.</p>
-
-      <p><strong>Problem:</strong> If you want to search for "hello & goodbye", you cannot write:</p>
-      <pre><code>https://example.com/search?q=hello & goodbye</code></pre>
-      <p>The & character would be interpreted as a parameter separator, breaking the URL.</p>
-
-      <p><strong>Solution:</strong> Encode the ampersand:</p>
-      <pre><code>https://example.com/search?q=hello%20%26%20goodbye</code></pre>
-
-      <h3>Spaces and Whitespace</h3>
-      <p>URLs cannot contain spaces. Any space must be encoded as %20 (or sometimes as a plus sign + in query strings, though %20 is preferred).</p>
-
-      <h3>Accented Characters</h3>
-      <p>Characters with accents (é, ñ, ü) and non-ASCII characters must be encoded to UTF-8 bytes and then percent-encoded. For example, "café" becomes "caf%C3%A9".</p>
-
-      <h2>The Percent-Encoding Standard</h2>
-      <h3>How Encoding Works</h3>
-      <p>To encode a character, follow these steps:</p>
-      <p>1. Convert the character to its UTF-8 byte representation</p>
-      <p>2. Convert each byte to hexadecimal</p>
-      <p>3. Prefix each hex value with %</p>
-
-      <p><strong>Example: Encoding "?"</strong></p>
-      <p>The question mark (?) has ASCII value 63</p>
-      <p>In hexadecimal: 63 = 3F</p>
-      <p>Encoded: %3F</p>
-
-      <h3>Common Encoded Characters</h3>
-      <table style="width: 100%; border-collapse: collapse;">
-        <tr style="border-bottom: 1px solid #ddd;">
-          <th style="padding: 8px; text-align: left;">Character</th>
-          <th style="padding: 8px; text-align: left;">ASCII Value</th>
-          <th style="padding: 8px; text-align: left;">Encoded</th>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">Space</td>
-          <td style="padding: 8px;">32</td>
-          <td style="padding: 8px;">%20</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">"</td>
-          <td style="padding: 8px;">34</td>
-          <td style="padding: 8px;">%22</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">%</td>
-          <td style="padding: 8px;">37</td>
-          <td style="padding: 8px;">%25</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">&</td>
-          <td style="padding: 8px;">38</td>
-          <td style="padding: 8px;">%26</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">+</td>
-          <td style="padding: 8px;">43</td>
-          <td style="padding: 8px;">%2B</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">/</td>
-          <td style="padding: 8px;">47</td>
-          <td style="padding: 8px;">%2F</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #ddd;">
-          <td style="padding: 8px;">?</td>
-          <td style="padding: 8px;">63</td>
-          <td style="padding: 8px;">%3F</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;">#</td>
-          <td style="padding: 8px;">35</td>
-          <td style="padding: 8px;">%23</td>
-        </tr>
-      </table>
-
-      <h2>Real-World Use Cases</h2>
-      <h3>API Query Parameters</h3>
-      <p>When building API requests with query parameters, special characters must be encoded:</p>
-      <pre><code>// User search with name containing spaces and special characters
-https://api.example.com/search?name=John%20O%27Brien&email=john%40example.com</code></pre>
-
-      <h3>OAuth Redirect URLs</h3>
-      <p>When implementing OAuth, the redirect_uri parameter must be URL-encoded:</p>
-      <pre><code>https://oauth.example.com/authorize?client_id=123&redirect_uri=https%3A%2F%2Fmyapp.com%2Fcallback</code></pre>
-
-      <h3>Form Submission Data</h3>
-      <p>When submitting HTML forms, browsers automatically encode the data. If you manually construct form data, you must encode special characters:</p>
-      <pre><code>POST /contact
-message=Hello%20World%21%20This%20is%20a%20test%3F</code></pre>
-
-      <h3>URL Slugs with Special Characters</h3>
-      <p>If you have a page titled "C++ Programming Guide", the URL needs encoding:</p>
-      <pre><code>https://example.com/blog/c%2B%2B-programming-guide</code></pre>
-
-      <h2>Encoding vs Double Encoding</h2>
-      <p><strong>Single Encoding:</strong> Encode special characters once.</p>
-      <pre><code>hello world → hello%20world</code></pre>
-
-      <p><strong>Double Encoding:</strong> Encode already-encoded data.</p>
-      <pre><code>hello world → hello%20world → hello%2520world</code></pre>
-
-      <p>Double encoding is usually a mistake and causes URLs to break. Always encode data at the source, not multiple times.</p>
-
-      <h2>Using the URL Encoder Tool</h2>
-      <p>Manually calculating percent encoding is tedious and error-prone. Use the <a href="/tools/url-encoder">URL Encoder tool</a> to instantly encode or decode URLs. Paste your text and select encode, or paste an encoded URL and select decode. The tool handles edge cases, UTF-8 characters, and respects URL structure automatically.</p>
-
-      <h2>Best Practices</h2>
-      <p><strong>1. Let your framework handle encoding:</strong> Modern frameworks (React, Vue, Express, Django) have built-in URL encoding. Use framework methods instead of manual encoding.</p>
-      <p><strong>2. Use UTF-8 encoding:</strong> Always use UTF-8 for URL encoding, not ASCII or other encodings.</p>
-      <p><strong>3. Test with special characters:</strong> When building URLs programmatically, test with special characters, accents, and international characters.</p>
-
-      <h2>Frequently Asked Questions</h2>
-      <h3>What is URL encoding and why is it needed?</h3>
-      <p>URL encoding (also called percent encoding) is the process of converting special characters into a safe format for transmission over the internet. URLs can only contain a limited set of characters — letters, digits, hyphens, periods, underscores, and tildes. Any character outside this set, such as spaces, ampersands, or question marks, must be replaced with a percent sign followed by its hexadecimal ASCII value (e.g., space becomes %20) so the URL is valid and correctly interpreted by browsers and servers.</p>
-      <h3>Why do special characters break URLs?</h3>
-      <p>Characters like ?, &, and # have reserved structural meanings in URLs. The question mark signals the start of query parameters, the ampersand separates multiple parameters, and the hash marks a fragment identifier. If these characters appear literally in a parameter value, the browser or server misinterprets them as URL structure rather than data, causing incorrect behavior or broken links.</p>
-      <h3>What is the difference between single and double URL encoding?</h3>
-      <p>Single encoding converts a special character into its percent-encoded form once (e.g., space becomes %20). Double encoding encodes an already-encoded string a second time, turning %20 into %2520. Double encoding is almost always a mistake and causes URLs to break. Always encode data at the source exactly once.</p>
-      <h3>How do I URL encode a string in JavaScript?</h3>
-      <p>Use <code>encodeURIComponent()</code> to encode a value for use as a query parameter — it encodes all special characters. Use <code>encodeURI()</code> to encode a complete URL while preserving structural characters like ?, /, and #. For decoding, use <code>decodeURIComponent()</code> and <code>decodeURI()</code> respectively.</p>
-      <h3>What does %20 mean in a URL?</h3>
-      <p>%20 is the URL-encoded representation of a space character. Since spaces are not allowed in URLs, they must be encoded. In query strings, a plus sign (+) can also represent a space in the application/x-www-form-urlencoded format, but %20 is the standard and more universally reliable encoding.</p>
-      <h3>Do I need to URL encode forward slashes in query parameters?</h3>
-      <p>Yes. If a forward slash appears as part of a query parameter value, it should be encoded as %2F. While browsers sometimes handle unencoded slashes in certain contexts, leaving them unencoded can cause routing issues, especially in OAuth redirect URLs and API endpoints where the slash has structural meaning.</p>
-      <h3>How are non-ASCII characters like accented letters encoded?</h3>
-      <p>Non-ASCII characters are first converted to their UTF-8 byte representation, then each byte is percent-encoded. For example, "café" becomes "caf%C3%A9" because the é character is encoded as two UTF-8 bytes: C3 and A9. This ensures international characters are transmitted safely across all systems.</p>
-      <h3>Should I let my framework handle URL encoding or do it manually?</h3>
-      <p>Prefer letting your framework handle encoding whenever possible. Modern frameworks like React, Vue, Express, and Django provide built-in functions that encode correctly and handle edge cases. Only manually encode when you are constructing URLs outside of a framework or need precise control over the encoding process.</p>
-      <h3>Can URL encoding be used as a security measure?</h3>
-      <p>No. URL encoding is not a security mechanism — it is purely a format conversion that is easily reversible. Anyone can decode a percent-encoded URL instantly. For sensitive data, use proper encryption or authentication. URL encoding exists to ensure valid transmission, not to protect data from unauthorized access.</p>
-
-      <h2>Conclusion</h2>
-      <p>URL encoding is fundamental to web development. Special characters cannot be used directly in URLs because they have reserved meanings or are unsafe for transmission. By understanding the percent-encoding standard and using URL encoding tools, you avoid bugs in API calls, OAuth integrations, form submissions, and dynamic URL generation. Remember: when in doubt, encode it.</p>
-
-      <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
-      
-      <div style="background: #f5f5f5; padding: 2rem; border-radius: 8px; margin-top: 2rem;">
-        <h3>About the Author</h3>
-        <p style="margin: 0.5rem 0;">Written by <strong>Zohaib Hassan</strong>, a Software Engineer specializing in modern web development, developer tools, and user-focused software solutions. He builds fast, privacy-first browser utilities that simplify everyday tasks for developers, students, businesses, and professionals worldwide.</p>
-        <p style="margin: 0.5rem 0;"><a href="https://github.com/zohaibhass" target="_blank" rel="noopener noreferrer" style="margin-right:0.75rem; color:inherit; text-decoration:underline;">GitHub</a><a href="https://www.linkedin.com/in/zohaib-hassan-811310252/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline;">LinkedIn</a></p>
-        <p style="margin: 0.5rem 0; font-size: 0.9rem;">Published: May 12, 2026</p>
-      </div>
-    `
-  },
-
-  {
     slug: 'color-formats-hex-rgb-hsl',
     title: 'HEX vs RGB vs HSL — Understanding CSS Color Formats',
     description: 'Learn HEX, RGB, and HSL color formats, when to use each, and how to convert between them.',
@@ -2209,7 +2062,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
   },
   {
     slug: 'save-time-with-browser-tool-workflows',
-    title: 'Save Time with Browser Tool Workflows for Everyday Development',
+    title: 'Browser Tool Workflows for Everyday Development',
     description: 'Learn how to use browser-based utilities to speed up debugging, formatting, and content preparation without switching apps.',
     category: 'Productivity',
     date: '2026-05-14',
@@ -2256,6 +2109,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
       <h2>Conclusion</h2>
       <p>Browser tools are productivity multipliers when used as part of a repeatable workflow. Keep the essential utilities open, practice moving between them quickly, and you can finish common tasks faster without leaving the browser.</p>
+      <p>Not sure which tools are worth bookmarking? See our roundup of <a href="/blog/free-developer-tools">10 free online tools every developer should bookmark</a>.</p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -3150,7 +3004,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
   },
   {
     slug: 'mortgage-calculator-total-cost-homeownership',
-    title: 'Mortgage Calculator: Understanding Total Cost of Homeownership',
+    title: 'Mortgage Calculator: Total Cost of Homeownership',
     description: 'PITI breakdown, PMI rules, amortization tables, and how to model refinancing scenarios for better financial decisions.',
     category: 'Calculator Tips',
     date: '2026-05-26',
@@ -3459,7 +3313,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
   {
     slug: 'pixels-to-inches-conversion-guide',
-    title: 'How Many Pixels in an Inch? The Complete Pixels to Inches Guide',
+    title: 'How Many Pixels in an Inch? Pixels to Inches Guide',
     description: 'Learn exactly how many pixels are in an inch, why the answer depends on DPI, and how to convert pixels to inches correctly for screens and print.',
     category: 'Design Tools',
     date: '2026-06-30',
@@ -3578,7 +3432,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
   {
     slug: 'dpi-vs-ppi-explained',
-    title: 'DPI vs PPI: What\u2019s the Difference and Why It Matters for Pixel Conversions',
+    title: "DPI vs PPI: What's the Difference?",
     description: 'DPI and PPI are often used interchangeably, but they mean different things. Learn the real difference and how to calculate pixels per inch correctly.',
     category: 'Design Tools',
     date: '2026-06-30',
@@ -3615,6 +3469,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
       <h2>Checking an Image's PPI Before You Print</h2>
       <p>Most image editing software will show you the current PPI/DPI setting embedded in a file, but it's easy to double check manually: take the pixel width, divide by the physical width you intend to print at, and compare to the 300 PPI benchmark. If the result is well below 300, the print will look soft; if it's well above, you likely have more resolution than you need (which is fine — just a larger file than necessary).</p>
       <p>Our <a href="/tools/pixels-to-inches">Pixels to Inches Converter</a> handles this calculation in both directions — plug in pixels and inches to see the implied PPI, or plug in pixels and a target PPI to see the resulting inches.</p>
+      <p>Related reading: <a href="/blog/pixels-to-inches-conversion-guide">how many pixels in an inch</a>, <a href="/blog/convert-image-pixels-to-inches-for-print">converting image pixels to inches for print</a>, and <a href="/blog/common-screen-resolutions-in-inches">common screen resolutions in inches</a>.</p>
 
       <h2>Related Reading</h2>
       <p>For the full breakdown of the core pixels-to-inches formula and a quick-reference conversion table, see <a href="/blog/pixels-to-inches-conversion-guide">how many pixels in an inch</a>. If you're prepping an image specifically for a print job, see our <a href="/blog/convert-image-pixels-to-inches-for-print">print sizing guide</a>.</p>
@@ -3655,8 +3510,8 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
   {
     slug: 'convert-image-pixels-to-inches-for-print',
-    title: 'How to Convert Image Pixels to Inches for Printing (2026 Guide)',
-    description: 'A practical guide to sizing digital images correctly for print — how to convert pixel dimensions to inches at print-quality resolution and avoid blurry prints.',
+    title: 'How to Convert Image Pixels to Inches for Printing',
+    description: 'A practical guide to sizing digital images for print - convert pixel dimensions to inches at print-quality resolution and avoid blurry prints.',
     category: 'Design Tools',
     date: '2026-06-30',
     readTime: '8 min read',
@@ -3766,8 +3621,8 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
 
   {
     slug: 'common-screen-resolutions-in-inches',
-    title: 'Common Screen Resolutions in Inches: 1920×1080, 1080px, and More Explained',
-    description: 'A worked-example guide converting the most common screen and image resolutions — including 1920x1080 and 1080 pixels — into inches at different DPI settings.',
+    title: 'Common Screen Resolutions in Inches Explained',
+    description: 'A worked-example guide converting common screen and image resolutions - including 1920x1080 - into inches at different DPI settings.',
     category: 'Design Tools',
     date: '2026-06-30',
     readTime: '7 min read',
@@ -4017,7 +3872,7 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
   },
   {
     slug: 'bulk-slug-generation-for-content-migration',
-    title: 'Bulk Slug Generation: How to Convert Hundreds of Titles to URLs Fast',
+    title: 'Bulk Slug Generation: Titles to URLs Fast',
     description: 'A practical guide to generating SEO-friendly URL slugs in bulk — for content migrations, CMS imports, and large publishing batches.',
     category: 'SEO & Content',
     date: '2026-07-05',
@@ -4082,8 +3937,8 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
   },
   {
     slug: 'guid-vs-uuid-difference',
-    title: 'GUID vs UUID: What\u2019s the Difference? (Spoiler: There Isn\u2019t One)',
-    description: 'GUID and UUID are used interchangeably, but are they really the same thing? A clear explanation of the GUID/UUID standard, format, and where each term comes from.',
+    title: "GUID vs UUID: What's the Difference?",
+    description: 'GUID and UUID are used interchangeably, but are they the same thing? A clear explanation of the standard, format, and where each term comes from.',
     category: 'Developer Guide',
     date: '2026-07-05',
     readTime: '6 min read',
@@ -4151,7 +4006,7 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
   },
   {
     slug: 'when-to-use-uuid-guid-in-development',
-    title: 'When (and When Not) to Use UUIDs/GUIDs in Your Database and Code',
+    title: 'When to Use UUIDs and GUIDs in Your Database',
     description: 'A practical guide to when UUID/GUID identifiers are the right choice for primary keys and unique IDs, and when a simpler auto-incrementing ID is better.',
     category: 'Developer Guide',
     date: '2026-07-05',
@@ -4221,8 +4076,8 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
   },
   {
     slug: 'can-you-decode-jwt-without-secret',
-    title: 'Can You Decode a JWT Without a Secret? Everything You Need to Know',
-    description: 'Wondering if you can decode a JWT without the secret key? Yes, you can decode the header and payload without any key. Learn how JWT decoding works, why the signature matters, and when you need the secret.',
+    title: 'Can You Decode a JWT Without a Secret?',
+    description: 'Yes, you can decode a JWT header and payload without the secret key. Learn how JWT decoding works, why the signature matters, and when you need it.',
     category: 'Developer Guide',
     date: '2026-07-06',
     readTime: '9 min read',
@@ -4371,6 +4226,7 @@ At 300 DPI: 1080 ÷ 300 = 3.6 inches</code></pre>
 
       <h2>Writing Your Own</h2>
       <p>Manually working out the right combination of fields for a specific schedule — especially anything beyond the simplest daily/hourly patterns — is easy to get subtly wrong. Use our <a href="/tools/cron-expression-generator">free Cron Expression Generator</a> to build a schedule using plain English, a visual builder, or by pasting an existing expression to see exactly what it means and when it'll next run.</p>
+      <p>For ready-made patterns, browse our list of <a href="/blog/common-cron-expression-examples">10 common cron expression examples</a>, or understand the differences between the two major dialects in <a href="/blog/cron-vs-quartz-cron-difference">cron vs Quartz cron</a>.</p>
 
       <h2>Conclusion</h2>
       <p>A cron expression's five fields — minute, hour, day-of-month, month, day-of-week — combine with a small set of special characters (*, ,, -, /) to express nearly any recurring schedule precisely. Once you can read the fields in order, decoding (or writing) any cron expression becomes straightforward.</p>
@@ -4574,7 +4430,7 @@ Quartz: *    *    *    *    *    ?    *
   },
   {
     slug: 'dice-roll-vs-coin-flip-random-decision-tools',
-    title: 'Dice Roll vs Coin Flip: Which Random Decision Tool Should You Use?',
+    title: 'Dice Roll vs Coin Flip: Which Random Tool to Use?',
     description: 'A practical guide to using dice rolls and coin flips for fair random decisions — when to use each, and how to avoid common decision-making biases.',
     category: 'Productivity',
     date: '2026-07-11',
@@ -4640,8 +4496,8 @@ Quartz: *    *    *    *    *    ?    *
   },
   {
     slug: 'timeboxing-pomodoro-simple-productivity-tools',
-    title: 'Timeboxing, Pomodoro, and To-Do Lists: Productivity Tools That Actually Work',
-    description: 'A practical look at using a simple timer and a to-do list together — timeboxing, the Pomodoro Technique, and why simple tools often beat complex productivity apps.',
+    title: 'Timeboxing, Pomodoro & To-Do Lists That Work',
+    description: 'A practical look at using a timer and to-do list together - timeboxing, the Pomodoro Technique, and why simple tools beat complex productivity apps.',
     category: 'Productivity',
     date: '2026-07-11',
     readTime: '7 min read',
@@ -4706,7 +4562,7 @@ Quartz: *    *    *    *    *    ?    *
   },
   {
     slug: 'how-morse-code-works-guide',
-    title: 'How Morse Code Works: A Complete Guide to Reading and Writing It',
+    title: 'How Morse Code Works: A Complete Guide',
     description: 'Learn how Morse code encodes letters as dots and dashes, its real-world uses today, and how to translate text to and from Morse code instantly.',
     category: 'Developer Guide',
     date: '2026-07-11',
@@ -4777,8 +4633,8 @@ S O S = ... --- ...</code></pre>
   },
   {
     slug: 'how-to-generate-names-for-projects-characters-brands',
-    title: 'How to Generate Names for Projects, Characters, and Brands (Without Overthinking It)',
-    description: 'A practical approach to naming projects, fictional characters, and brands quickly — including when a random name generator is genuinely useful versus when it isn\u2019t.',
+    title: 'How to Generate Names for Projects, Characters & Brands',
+    description: 'A practical approach to naming projects, characters, and brands quickly - including when a random name generator is useful versus when it isn\'t.',
     category: 'Productivity',
     date: '2026-07-11',
     readTime: '6 min read',
@@ -4844,8 +4700,8 @@ S O S = ... --- ...</code></pre>
   },
   {
     slug: 'dice-probability-explained',
-    title: 'Dice Probability Explained: Why 7 Is the Most Common Roll (and Other Dice Math)',
-    description: 'Understand the actual math behind dice rolls — why summing multiple dice creates a bell curve, how single-die probability differs, and what this means for tabletop games.',
+    title: 'Dice Probability Explained: Why 7 Is the Most Common Roll',
+    description: 'Understand the math behind dice rolls - why summing dice creates a bell curve, how single-die probability differs, and what it means for games.',
     category: 'Calculator Tips',
     date: '2026-07-12',
     readTime: '7 min read',
@@ -4912,8 +4768,8 @@ Probability: 1/36 for 2, rising to 6/36 for 7, falling back to 1/36 for 12</code
   },
   {
     slug: 'task-prioritization-methods-gtd-eisenhower',
-    title: 'Task Prioritization Methods That Actually Work: GTD, the Eisenhower Matrix, and Simple Lists',
-    description: 'A practical comparison of popular task management methods — Getting Things Done, the Eisenhower Matrix, and simple daily lists — and how to pick the right one for how you actually work.',
+    title: 'Task Prioritization Methods: GTD & the Eisenhower Matrix',
+    description: 'A practical comparison of task management methods - GTD, the Eisenhower Matrix, and simple lists - and how to pick the right one for you.',
     category: 'Productivity',
     date: '2026-07-12',
     readTime: '8 min read',
@@ -4988,7 +4844,7 @@ Not Important Delegate        Delete/ignore</code></pre>
 
   {
     slug: 'what-is-a-healthy-bmi-for-men',
-    title: 'What Is a Healthy BMI for Men? Healthy Weight Ranges Explained',
+    title: 'Healthy BMI for Men: Weight Ranges Explained',
     description: 'What is a healthy BMI for men? Learn the normal BMI range for men, how muscle mass affects BMI, and ideal weight ranges by age.',
     category: 'Health',
     date: '2026-07-18',
@@ -4999,7 +4855,7 @@ Not Important Delegate        Delete/ignore</code></pre>
     content: `
       <h2>Introduction</h2>
       <p>What is a healthy BMI for men? Understanding the correct BMI range for men is essential because men and women have different body compositions, fat distribution patterns, and health risk profiles. While the standard BMI categories are the same for both genders, how those numbers translate to actual health outcomes can differ significantly for men.</p>
-      <p>The World Health Organization defines a healthy BMI as 18.5 to 24.9 for all adults, but research shows that men face specific considerations around muscle mass, visceral fat, and age-related changes that make a deeper understanding of BMI important. In this guide, you will learn what a healthy BMI is for men, how muscle mass affects BMI accuracy, BMI considerations by age, a detailed men\u2019s BMI chart, and when to look beyond BMI for a complete health assessment.</p>
+      <p>The <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener noreferrer">World Health Organization</a> defines a healthy BMI as 18.5 to 24.9 for all adults, but research shows that men face specific considerations around muscle mass, visceral fat, and age-related changes that make a deeper understanding of BMI important. In this guide, you will learn what a healthy BMI is for men, how muscle mass affects BMI accuracy, BMI considerations by age, a detailed men\u2019s BMI chart, and when to look beyond BMI for a complete health assessment.</p>
 
       <h2>Healthy BMI Range for Men</h2>
       <p>The healthy BMI range for adult men is <strong>18.5 to 24.9</strong>, the same numerical range defined by the WHO for all adults. However, multiple studies suggest that the optimal BMI for men\u2014the range associated with the lowest mortality risk\u2014is actually <strong>20 to 23</strong>. A large-scale study published in the <em>New England Journal of Medicine</em> found that men with a BMI of 20 to 22 had the lowest risk of premature death from any cause.</p>
@@ -5115,7 +4971,7 @@ Not Important Delegate        Delete/ignore</code></pre>
 
   {
     slug: 'what-is-a-healthy-bmi-for-women',
-    title: 'What Is a Healthy BMI for Women? Healthy Weight Ranges Explained',
+    title: 'Healthy BMI for Women: Weight Ranges Explained',
     description: 'What is a healthy BMI for women? Learn the normal BMI range for women, how body composition affects BMI, and ideal weight ranges by age.',
     category: 'Health',
     date: '2026-07-18',

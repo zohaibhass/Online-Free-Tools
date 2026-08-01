@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     default: 'Free Online Tools - Developer & Productivity Tools',
     template: '%s | Free Online Tools'
   },
-  description: 'Access 30+ free online tools for developers, content creators, and productivity. JSON formatter, image compression, code generators, calculators, and more.',
+  description: 'Access 38+ free online tools for developers, content creators, and productivity. JSON formatter, image compression, code generators, calculators, and more.',
   keywords: ['free tools', 'online tools', 'developer tools', 'productivity', 'converters', 'generators'],
   authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
   creator: AUTHOR_NAME,
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: 'Free Online Tools - 30+ Developer & Productivity Tools',
-    description: 'Discover 30+ free online tools for developers and content creators. Fast, reliable, and browser-based.',
+    title: 'Free Online Tools - 38+ Developer & Productivity Tools',
+    description: 'Discover 38+ free online tools for developers and content creators. Fast, reliable, and browser-based.',
     images: [{
       url: OG_IMAGE,
       width: 1200,
@@ -57,8 +57,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Online Tools',
-    description: 'Access 30+ free online tools for developers and productivity.',
+    title: 'Free Online Tools - 38+ Free Tools',
+    description: 'Access 38+ free online tools for developers and productivity.',
     images: [OG_IMAGE],
   },
   alternates: {
@@ -106,7 +106,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'WebApplication',
               name: 'Free Online Tools',
-              description: 'Access 30+ free online tools for developers and content creators',
+              description: 'Access 38+ free online tools for developers and content creators',
               url: SITE_URL,
               applicationCategory: 'UtilityApplication',
               operatingSystem: 'All',
@@ -133,7 +133,7 @@ export default function RootLayout({
               '@type': 'WebSite',
               name: SITE_NAME,
               url: SITE_URL,
-              description: 'Access 30+ free online tools for developers and content creators',
+              description: 'Access 38+ free online tools for developers and content creators',
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {

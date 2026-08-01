@@ -14,4 +14,4 @@ export function LazyLayoutComponents() {
   )
 }
 
-export const LazyAdSenseAd = dynamic(() => import('@/components/AdSenseAd').then(m => ({ default: m.AdSenseAd })), { ssr: false })
+export const LazyAdSenseAd = dynamic(() => import('@/components/AdSenseAd').then(m => ({ default: m.AdSenseAd })))

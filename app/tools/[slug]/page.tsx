@@ -89,6 +89,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
       { title: 'What is a JWT Token? A Complete Beginner\'s Guide', url: '/blog/what-is-a-jwt-token' },
       { title: 'How JWT Authentication Works (Step-by-Step)', url: '/blog/how-jwt-authentication-works' },
       { title: 'What is a JWT Token? Plain English Explanation', url: '/blog/what-is-jwt-token' },
+      { title: 'Can You Decode a JWT Without a Secret?', url: '/blog/can-you-decode-jwt-without-secret' },
     ],
     'regex-tester': [
       { title: 'What is Regex? A Beginner\'s Guide to Regular Expressions', url: '/blog/what-is-regex' },
@@ -178,6 +179,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     'bmi-calculator': [
       { title: 'BMI Chart for Men and Women: What Your BMI Really Means', url: '/blog/bmi-chart-men-women' },
       { title: 'BMI and Health Metrics: What Developers Should Know', url: '/blog/bmi-health-metrics-developers' },
+      { title: 'Healthy BMI for Men: Weight Ranges Explained', url: '/blog/what-is-a-healthy-bmi-for-men' },
+      { title: 'Healthy BMI for Women: Weight Ranges Explained', url: '/blog/what-is-a-healthy-bmi-for-women' },
     ],
     'pixels-to-inches': [
       { title: 'How Many Pixels in an Inch? The Complete Pixels to Inches Guide', url: '/blog/pixels-to-inches-conversion-guide' },
@@ -213,6 +216,11 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     'password-generator': [
       { title: 'Secure Password Storage Practices', url: '/blog/secure-password-storage-practices' },
     ],
+    'cron-expression-generator': [
+      { title: 'What Is a Cron Expression? A Complete Guide to Cron Syntax', url: '/blog/what-is-a-cron-expression' },
+      { title: '10 Common Cron Expression Examples You\'ll Actually Use', url: '/blog/common-cron-expression-examples' },
+      { title: 'Cron vs Quartz Cron: What\'s the Difference?', url: '/blog/cron-vs-quartz-cron-difference' },
+    ],
   }
 
   return (
@@ -228,24 +236,46 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
         <ToolComponent />
       </ToolLayout>
 
-      {tool.slug === 'pixels-to-inches' && (
-        <Script
-          id="breadcrumb-schema"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
-                { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${SITE_URL}/tools` },
-                { "@type": "ListItem", "position": 3, "name": tool.name, "item": `${SITE_URL}/tools/${tool.slug}` }
-              ]
-            })
-          }}
-        />
-      )}
+      <Script
+        id="tool-webapp-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "@id": `${SITE_URL}/tools/${tool.slug}#webapp`,
+            "name": tool.name,
+            "url": `${SITE_URL}/tools/${tool.slug}`,
+            "description": tool.seoDescription ?? tool.description,
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "browserRequirements": "Requires JavaScript",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            }
+          })
+        }}
+      />
+
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE_URL}/` },
+              { "@type": "ListItem", "position": 2, "name": "Tools", "item": `${SITE_URL}/tools` },
+              { "@type": "ListItem", "position": 3, "name": tool.name, "item": `${SITE_URL}/tools/${tool.slug}` }
+            ]
+          })
+        }}
+      />
     </>
   )
 }

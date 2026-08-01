@@ -1,10 +1,14 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { Metadata } from 'next'
+import { SITE_URL } from '@/lib/config'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
+  title: { absolute: 'Terms of Service | Free Online Tools' },
   description: 'Terms of Service for Free Online Tools at onlinefreetools.online. Read about acceptable use, tool output disclaimers, and intellectual property.',
+  alternates: {
+    canonical: `${SITE_URL}/terms`,
+  },
 }
 
 export default function TermsPage() {

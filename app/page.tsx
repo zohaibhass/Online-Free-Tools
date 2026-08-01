@@ -8,11 +8,11 @@ import { Rocket, ShieldCheck, Eye, Globe, Zap, Laptop, Lock, BadgeCheck } from '
 import AuthorCard from '@/components/AuthorCard'
 
 export const metadata: Metadata = {
-  title: 'Free Online Tools — 40+ Browser Utilities for Developers, Students & Creators',
-  description: 'Free online tools for developers, students, and creators. Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser. No signup required.',
+  title: { absolute: 'Free Online Tools - 38+ Free Browser Utilities' },
+  description: 'Free online tools for developers, students, and creators. Format JSON, compress images, decode JWT, generate UUIDs, and more - in your browser, no signup.',
   openGraph: {
-    title: 'Free Online Tools — 40+ Browser Utilities',
-    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser. No signup required.',
+    title: 'Free Online Tools - 38+ Free Browser Utilities',
+    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, and more - all in your browser. No signup required.',
     url: SITE_URL,
     type: 'website',
     images: [{
@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Online Tools — 40+ Browser Utilities',
-    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, calculate loans, and more — all processing locally in your browser.',
+    title: 'Free Online Tools - 38+ Free Browser Utilities',
+    description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, and more - all in your browser.',
     images: [OG_IMAGE],
   },
   alternates: {
