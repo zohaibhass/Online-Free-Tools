@@ -7,6 +7,7 @@ import { LazyAdSenseAd } from './LazyComponents'
 import { Rocket, ShieldCheck, Eye, Globe, Zap, Laptop, Lock, BadgeCheck } from 'lucide-react'
 import AuthorCard from '@/components/AuthorCard'
 
+
 export const metadata: Metadata = {
   title: { absolute: 'Free Online Tools - 38+ Free Browser Utilities' },
   description: 'Free online tools for developers, students, and creators. Format JSON, compress images, decode JWT, generate UUIDs, and more - in your browser, no signup.',

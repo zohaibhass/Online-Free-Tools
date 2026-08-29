@@ -77,12 +77,15 @@ export function generateStructuredData(type: 'Tool' | 'WebPage' | 'BreadcrumbLis
         name: data.name,
         description: data.description,
         url: data.url,
-        applicationCategory: 'UtilityApplication',
+        applicationCategory: data.applicationCategory || 'UtilityApplication',
+        operatingSystem: data.operatingSystem ?? 'All',
+        browserRequirements: data.browserRequirements || 'Requires JavaScript',
         offers: {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD'
-        }
+        },
+        ...(data.author ? { author: data.author } : {}),
       }
     
     case 'BreadcrumbList':
@@ -105,5 +108,53 @@ export function generateStructuredData(type: 'Tool' | 'WebPage' | 'BreadcrumbLis
         description: data.description,
         url: data.url
       }
+  }
+}
+
+interface HowToStep {
+  name: string
+  text: string
+  url?: string
+  image?: string
+}
+
+export function generateHowToSchema(data: {
+  name: string
+  description: string
+  url: string
+  image?: string
+  steps: HowToStep[]
+  totalTime?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: data.name,
+    description: data.description,
+    url: data.url,
+    ...(data.image ? { image: data.image } : {}),
+    ...(data.totalTime ? { totalTime: data.totalTime } : {}),
+    step: data.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      ...(step.text ? { text: step.text } : {}),
+      ...(step.url ? { url: step.url } : {}),
+    })),
+  }
+}
+
+export function generateFaqSchema(questions: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: questions.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
   }
 }

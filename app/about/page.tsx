@@ -1,14 +1,15 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import Script from 'next/script'
 import type { Metadata } from 'next'
-import { SITE_URL } from '@/lib/config'
+import { SITE_URL, SITE_NAME, AUTHOR_NAME, AUTHOR_EMAIL } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: { absolute: 'About Free Online Tools' },
-  description: 'Learn more about Free Online Tools and our mission to provide fast, browser-based utilities for developers and creators.',
-  authors: [{ name: 'Zohaib' }],
-  creator: 'Zohaib',
-  publisher: 'Zohaib',
+  description: 'Learn about Free Online Tools, our editorial and calculation verification standards, and our commitment to 100% client-side, privacy-friendly tools built and maintained by Zohaib Hassan.',
+  authors: [{ name: AUTHOR_NAME }],
+  creator: AUTHOR_NAME,
+  publisher: AUTHOR_NAME,
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
@@ -59,6 +60,41 @@ export default function AboutPage() {
           </section>
 
           <section className="bg-card border border-border rounded-3xl p-8">
+            <h2 className="text-2xl font-semibold mb-4">About the author</h2>
+            <p className="text-muted-foreground leading-7">
+              Zohaib Hassan is a software engineer specializing in Angular, React, Next.js, and modern web performance. He builds and maintains the tools on this site, applies the formulas behind each calculator by hand against known-good references, and tests every transformer (Base64, slug, cron, JSON, regex) against a fixture suite before release.
+            </p>
+            <p className="mt-4 text-muted-foreground leading-7">
+              Zohaib is reachable by email at <a href={`mailto:${AUTHOR_EMAIL}`} className="text-primary hover:underline">{AUTHOR_EMAIL}</a> and maintains public profiles on GitHub and LinkedIn, linked at the bottom of this page.
+            </p>
+          </section>
+
+          <section className="bg-card border border-border rounded-3xl p-8">
+            <h2 className="text-2xl font-semibold mb-4">Editorial & calculation verification standards</h2>
+            <p className="text-muted-foreground leading-7">
+              Every calculation and conversion on this site is verified against an authoritative source before publication:
+            </p>
+            <ul className="mt-4 space-y-3 text-muted-foreground">
+              <li>• <strong>BMI</strong> — ratios are cross-checked against the WHO BMI classification table (underweight, normal, overweight, obese thresholds).</li>
+              <li>• <strong>Pixels to Inches</strong> — conversions use a fixed DPI scale (inches = pixels ÷ DPI) and are spot-checked against 72/96/150/300 DPI reference values.</li>
+              <li>• <strong>Cron</strong> — generated expressions are validated and their next run times are computed against documented Unix and Quartz field rules.</li>
+              <li>• <strong>Loan/Mortgage</strong> — amortization outputs are compared against standard payment formulas and sample calculators.</li>
+              <li>• <strong>Base64/URL/Hash</strong> — encoder-decoder round-trips are verified in automated tests so encode then decode always returns the original.</li>
+            </ul>
+            <p className="mt-4 text-muted-foreground leading-7">
+              Where a tool is an estimate (for example financial calculators), the output is clearly labeled and we advise reviewing results with a professional for binding decisions.
+            </p>
+          </section>
+
+          <section className="bg-card border border-border rounded-3xl p-8">
+            <h2 className="text-2xl font-semibold mb-4">Privacy commitment</h2>
+            <p className="text-muted-foreground leading-7">
+              Our privacy model is simple: <strong>the tools run 100% client-side in your browser.</strong> Your JSON, images, passwords, hashes, text, and calculations are processed locally and never uploaded to any server. Only the QR Code Generator uses a third-party rendering API (and you should avoid encoding sensitive data there), and standard analytics and advertising cookies are used as described on our{' '}
+              <a href="/privacy" className="text-primary hover:underline">privacy policy</a> page.
+            </p>
+          </section>
+
+          <section className="bg-card border border-border rounded-3xl p-8">
             <h2 className="text-2xl font-semibold mb-4">Our mission</h2>
             <p className="text-muted-foreground leading-7">
               We want to provide a dependable online toolbox for anyone who wants to solve problems quickly.
@@ -85,6 +121,47 @@ export default function AboutPage() {
           </section>
         </div>
       </main>
+      <Script
+        id="about-person-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: AUTHOR_NAME,
+            url: `${SITE_URL}/about`,
+            email: AUTHOR_EMAIL,
+            jobTitle: 'Software Engineer',
+            sameAs: [
+              'https://github.com/zohaibhassan',
+              'https://www.linkedin.com/in/zohaib-hassan',
+            ],
+          }),
+        }}
+      />
+      <Script
+        id="about-org-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: `${SITE_URL}/icon.svg`,
+            sameAs: [
+              'https://github.com/zohaibhassan',
+              'https://www.linkedin.com/in/zohaib-hassan',
+            ],
+            founder: {
+              '@type': 'Person',
+              name: AUTHOR_NAME,
+            },
+          }),
+        }}
+      />
       <Footer />
     </div>
   )
