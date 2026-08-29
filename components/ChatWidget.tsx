@@ -198,6 +198,7 @@ export function ChatWidget() {
   const [input, setInput] = useState('')
   const [mounted, setMounted] = useState(false)
   const [showClearConfirm, setShowClearConfirm] = useState(false)
+  const [bannerVisible, setBannerVisible] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -205,6 +206,15 @@ export function ChatWidget() {
     setMounted(true)
     const history = loadHistory()
     setMessages(history)
+  }, [])
+
+  useEffect(() => {
+    function onConsentState(e: Event) {
+      const detail = (e as CustomEvent<{ visible: boolean }>).detail
+      setBannerVisible(!!detail?.visible)
+    }
+    window.addEventListener('cookie-consent-state', onConsentState)
+    return () => window.removeEventListener('cookie-consent-state', onConsentState)
   }, [])
 
   useEffect(() => {
@@ -272,7 +282,10 @@ export function ChatWidget() {
         onClick={toggleOpen}
         aria-label={open ? 'Close chat' : 'Open chat assistant'}
         className={cn(
-          'fixed bottom-4 right-4 z-[9999] flex items-center justify-center rounded-full shadow-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          'fixed z-[9998] right-4 flex items-center justify-center rounded-full shadow-lg transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+          bannerVisible
+            ? 'bottom-[calc(1rem+92px)] sm:bottom-4'
+            : 'bottom-4',
           open
             ? 'bg-muted-foreground/20 hover:bg-muted-foreground/30 scale-75'
             : 'bg-primary text-primary-foreground hover:bg-primary/90 scale-100'
@@ -291,7 +304,8 @@ export function ChatWidget() {
         className={cn(
           'fixed z-[9998] flex flex-col bg-background border border-border shadow-xl transition-all duration-300 min-h-0',
           'sm:bottom-20 sm:right-4 sm:left-auto sm:top-auto sm:w-[380px] sm:h-[540px] sm:rounded-xl sm:max-h-[calc(100vh-6rem)]',
-          'bottom-0 left-0 right-0 mx-2 mb-2 h-[65vh] max-h-[calc(100vh-4rem)] rounded-t-xl sm:rounded-xl',
+          'bottom-0 left-0 right-0 mx-2 h-[65vh] max-h-[calc(100vh-4rem)] rounded-t-xl sm:rounded-xl',
+          bannerVisible ? 'mb-[calc(1rem+92px)] sm:mb-5' : 'mb-2',
           open
             ? 'opacity-100 scale-100 pointer-events-auto'
             : 'opacity-0 scale-95 pointer-events-none sm:scale-95 sm:origin-bottom-right'

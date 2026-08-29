@@ -1,8 +1,10 @@
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import Script from 'next/script'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/config'
+import { generateFaqSchema } from '@/lib/seo'
 
 export const metadata: Metadata = {
     title: { absolute: 'Frequently Asked Questions | Free Online Tools' },
@@ -120,6 +122,10 @@ const faqCategories = [
 ]
 
 export default function FAQPage() {
+    const allQuestions = faqCategories.flatMap((category) =>
+        category.questions.map((item) => ({ question: item.q, answer: item.a }))
+    )
+
     return (
         <div className="min-h-screen flex flex-col bg-background">
             <Header />
@@ -160,6 +166,14 @@ export default function FAQPage() {
                     </section>
                 </div>
             </main>
+            <Script
+                id="faq-page-schema"
+                type="application/ld+json"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(generateFaqSchema(allQuestions)),
+                }}
+            />
             <Footer />
         </div>
     )

@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { ToolLayout } from '@/components/ToolLayout'
 import { getToolBySlug, getToolDetails } from '@/lib/tools'
 import { notFound } from 'next/navigation'
-import { generateToolMetadata } from '@/lib/seo'
+import { generateToolMetadata, generateHowToSchema, generateFaqSchema } from '@/lib/seo'
 import { SITE_URL } from '@/lib/config'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -249,7 +249,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
             "url": `${SITE_URL}/tools/${tool.slug}`,
             "description": tool.seoDescription ?? tool.description,
             "applicationCategory": "UtilityApplication",
-            "operatingSystem": "Any",
+            "operatingSystem": "All",
             "browserRequirements": "Requires JavaScript",
             "offers": {
               "@type": "Offer",
@@ -259,6 +259,36 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
           })
         }}
       />
+
+      <Script
+        id="tool-howto-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateHowToSchema({
+            name: tool.name,
+            description: tool.seoDescription ?? tool.description,
+            url: `${SITE_URL}/tools/${tool.slug}`,
+            image: `${SITE_URL}/og-image.jpg`,
+            steps: toolDetails.howToUse.map((step) => ({
+              name: step,
+              text: step,
+              url: `${SITE_URL}/tools/${tool.slug}`,
+            })),
+          }))
+        }}
+      />
+
+      {toolDetails.faq.length > 0 && (
+        <Script
+          id="tool-faq-schema"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateFaqSchema(toolDetails.faq))
+          }}
+        />
+      )}
 
       <Script
         id="breadcrumb-schema"

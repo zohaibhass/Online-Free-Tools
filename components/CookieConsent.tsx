@@ -32,6 +32,13 @@ function setStoredConsent(value: ConsentChoice) {
   }
 }
 
+const CONSENT_STATE_EVENT = 'cookie-consent-state'
+
+function notifyConsentState(visible: boolean) {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(new CustomEvent(CONSENT_STATE_EVENT, { detail: { visible } }))
+}
+
 export function CookieConsent() {
   const [consent, setConsent] = useState<ConsentChoice>(null)
   const [visible, setVisible] = useState(false)
@@ -40,27 +47,42 @@ export function CookieConsent() {
     const stored = getStoredConsent()
     setConsent(stored)
     if (!stored) {
-      const timer = setTimeout(() => setVisible(true), 500)
+      const timer = setTimeout(() => {
+        setVisible(true)
+        notifyConsentState(true)
+      }, 500)
       return () => clearTimeout(timer)
     }
   }, [])
 
+  useEffect(() => {
+    return () => {
+      // Ensure overlays clear their offset if the banner unmounts
+      notifyConsentState(false)
+    }
+  }, [])
+
+  const hideBanner = () => {
+    setVisible(false)
+    notifyConsentState(false)
+  }
+
   const handleAccept = () => {
     setStoredConsent('accepted')
     setConsent('accepted')
-    setVisible(false)
+    hideBanner()
     window.dispatchEvent(new Event('cookie-consent-accepted'))
   }
 
   const handleReject = () => {
     setStoredConsent('rejected')
     setConsent('rejected')
-    setVisible(false)
+    hideBanner()
     window.dispatchEvent(new Event('cookie-consent-rejected'))
   }
 
   const handleDismiss = () => {
-    setVisible(false)
+    hideBanner()
   }
 
   if (consent !== null || !visible) return null

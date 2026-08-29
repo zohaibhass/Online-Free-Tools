@@ -116,8 +116,16 @@ export default function ContactPageClient() {
 
                                 <div className="space-y-4 text-sm text-muted-foreground">
                                     <div>
+                                        <p className="font-medium text-foreground">Response times</p>
+                                        <p>General support: within 24 hours (usually faster). Tool bug reports: within 48–72 hours.</p>
+                                    </div>
+                                    <div>
                                         <p className="font-medium text-foreground">Email</p>
                                         <p>onlinefreetools@zohomail.com</p>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-foreground">Reaching the author directly</p>
+                                        <p>Messages are read by Zohaib Hassan, the site’s founder and maintainer. Feature requests and correction reports are tracked and prioritized.</p>
                                     </div>
                                     <div>
                                         <p className="font-medium text-foreground">Help center</p>
