@@ -9,10 +9,12 @@ interface BMICategory {
 }
 
 const BMI_CATEGORIES: BMICategory[] = [
-  { name: 'Underweight', range: '< 18.5', color: 'bg-blue-500', description: 'May need to gain weight' },
-  { name: 'Normal weight', range: '18.5 – 24.9', color: 'bg-green-500', description: 'Healthy range' },
-  { name: 'Overweight', range: '25.0 – 29.9', color: 'bg-yellow-500', description: 'Consider losing weight' },
-  { name: 'Obese', range: '≥ 30.0', color: 'bg-red-500', description: 'High health risk' },
+  { name: 'Underweight', range: '< 18.5', color: 'bg-blue-500', description: 'Adult BMI screening category' },
+  { name: 'Healthy weight', range: '18.5 – 24.9', color: 'bg-green-500', description: 'Adult BMI screening category' },
+  { name: 'Overweight', range: '25.0 – 29.9', color: 'bg-yellow-500', description: 'Adult BMI screening category' },
+  { name: 'Obesity, class 1', range: '30.0 – 34.9', color: 'bg-orange-500', description: 'Adult BMI screening category' },
+  { name: 'Obesity, class 2', range: '35.0 – 39.9', color: 'bg-red-500', description: 'Adult BMI screening category' },
+  { name: 'Obesity, class 3', range: '≥ 40.0', color: 'bg-red-700', description: 'Adult BMI screening category' },
 ]
 
 type UnitSystem = 'metric' | 'imperial'
@@ -47,12 +49,14 @@ export function BmiCalculatorTool() {
     if (bmiValue < 18.5) cat = BMI_CATEGORIES[0]
     else if (bmiValue < 25) cat = BMI_CATEGORIES[1]
     else if (bmiValue < 30) cat = BMI_CATEGORIES[2]
-    else cat = BMI_CATEGORIES[3]
+    else if (bmiValue < 35) cat = BMI_CATEGORIES[3]
+    else if (bmiValue < 40) cat = BMI_CATEGORIES[4]
+    else cat = BMI_CATEGORIES[5]
 
     setCategory(cat)
   }, [heightInCm, weightInKg])
 
-  const idealWeightRange = useMemo(() => {
+  const healthyBmiWeightRange = useMemo(() => {
     const minIdeal = 18.5 * (heightInCm / 100) ** 2
     const maxIdeal = 24.9 * (heightInCm / 100) ** 2
     return {
@@ -186,7 +190,7 @@ export function BmiCalculatorTool() {
 
       {/* Results */}
       {bmi > 0 && category && (
-        <div className="space-y-5">
+        <div className="space-y-5" aria-live="polite">
           <div className="rounded-2xl border border-border bg-muted p-6 text-center">
             <div className="text-sm text-muted-foreground mb-1">Your BMI</div>
             <div className="text-6xl font-bold tabular-nums mb-2">{bmi.toFixed(1)}</div>
@@ -204,13 +208,13 @@ export function BmiCalculatorTool() {
           {/* Healthy Weight Range */}
           <div className="grid grid-cols-2 gap-3">
             <div className="p-4 rounded-xl border border-border bg-muted">
-              <p className="text-xs text-muted-foreground">Healthy Weight Range</p>
+              <p className="text-xs text-muted-foreground">Weight interval for BMI 18.5–24.9</p>
               <p className="text-lg font-semibold mt-1">
-                {idealWeightRange.min} – {idealWeightRange.max} kg
+                {healthyBmiWeightRange.min} – {healthyBmiWeightRange.max} kg
               </p>
               {unitSystem === 'imperial' && (
                 <p className="text-xs text-muted-foreground mt-1">
-                  ({Math.round(idealWeightRange.min * 2.20462)} – {Math.round(idealWeightRange.max * 2.20462)} lbs)
+                  ({Math.round(healthyBmiWeightRange.min * 2.20462)} – {Math.round(healthyBmiWeightRange.max * 2.20462)} lbs)
                 </p>
               )}
             </div>
@@ -233,7 +237,7 @@ export function BmiCalculatorTool() {
           {showDetails && (
             <div className="text-sm space-y-4 p-5 bg-muted rounded-2xl border border-border">
               <div>
-                <strong>BMI Meaning:</strong> Body Mass Index is a measure of body fat based on height and weight.
+                <strong>BMI meaning:</strong> BMI is a weight-to-height screening measure. It does not directly measure body fat or diagnose health.
               </div>
               <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-xs">
                 {BMI_CATEGORIES.map((cat, i) => (
@@ -244,7 +248,7 @@ export function BmiCalculatorTool() {
                 ))}
               </div>
               <div className="pt-3 border-t text-xs text-muted-foreground">
-                Note: BMI is a screening tool, not a diagnostic tool. Consult a healthcare professional for personalized advice.
+                For adults age 20 and older, these categories are the same regardless of sex. BMI does not distinguish fat from muscle or show fat distribution. This calculator is not for children, pregnancy assessment, or diagnosis. Discuss individual concerns with a qualified healthcare professional.
               </div>
             </div>
           )}

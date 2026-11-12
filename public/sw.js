@@ -43,7 +43,10 @@ self.addEventListener('fetch', event => {
         const clone = res.clone()
         caches.open(CACHE_NAME).then(cache => cache.put(request, clone))
         return res
-      }).catch(() => caches.match(request).then(cached => cached || caches.match('/')))
+      }).catch(() => caches.match(request).then(cached => cached || new Response('Offline', {
+        status: 503,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+      })))
     )
   }
 })

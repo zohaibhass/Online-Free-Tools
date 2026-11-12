@@ -94,7 +94,6 @@ export function PixelsInchesConverterTool() {
       setInches(inParam)
     }
     // Only run on mount / when the query string actually changes.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const handlePixelsChange = (value: string) => {

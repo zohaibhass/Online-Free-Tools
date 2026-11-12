@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <Header />
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-        <p className="text-sm text-muted-foreground mb-8 italic">Last Updated: July 2026</p>
+        <p className="text-sm text-muted-foreground mb-8 italic">Last Updated: November 12, 2026</p>
 
         <div className="prose prose-invert max-w-none space-y-6 text-foreground">
           <section>
@@ -30,10 +30,10 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">2. Information We Collect</h2>
             <p className="text-muted-foreground">
-              <strong>Personal Information:</strong> We collect minimal personal information. When you contact us via the contact form at onlinefreetools.online/contact, we collect your name, email address, and message. This information is used solely to respond to your inquiry.
+              <strong>Contact information:</strong> The contact page creates a draft in your own email application. The website does not submit or store the form fields. If you choose to send the email, the operator receives the information through the email provider and uses it to respond to your inquiry.
             </p>
             <p className="text-muted-foreground">
-              <strong>Tool Data Processing — Client-Side Tools:</strong> The majority of our tools process your data entirely within your browser and never send your input to our servers. Tools including our JSON Formatter, JWT Decoder, Regex Tester, SQL Formatter, Base64 Encoder/Decoder, URL Encoder/Decoder, Hash Generator, Color Converter, Code Minifier, Diff Checker, XML Formatter, UUID Generator, Word Counter, Markdown Editor, Image Compressor, Text to Speech, JSON to CSV, Text to HTML, Unit Converter, Loan Calculator, Percentage Calculator, Mortgage Calculator, Age Calculator, BMI Calculator, Discount Calculator, Tip Calculator, Password Generator, Random Name Generator, Todo List, Timer &amp; Stopwatch, Dice Roller, Coin Flipper, Morse Code Translator, Unit Calculator, Pixels to Inches converter, Slug Generator, and Cron Expression Generator all run computations locally in your browser. Your data never leaves your device when using these tools.
+              <strong>Tool Data Processing — Client-Side Tools:</strong> The majority of our tools process your data entirely within your browser and never send your input to our servers. Tools including our JSON Formatter, JWT Decoder, Regex Tester, SQL Formatter, Base64 Encoder/Decoder, URL Encoder/Decoder, Hash Generator, Color Converter, Code Minifier, Diff Checker, XML Formatter, UUID Generator, Word Counter, Markdown Editor, Image Compressor, Text to Speech, JSON to CSV, Text to HTML, Unit Converter, Loan Calculator, Percentage Calculator, Mortgage Calculator, Age Calculator, BMI Calculator, Discount Calculator, Tip Calculator, Password Generator, Random Name Generator, Todo List, Timer &amp; Stopwatch, Dice Roller, Coin Flipper, Morse Code Translator, Pixels to Inches converter, Slug Generator, and Cron Expression Generator all run computations locally in your browser. Your data does not go to our server when using these tools.
             </p>
             <p className="text-muted-foreground">
               <strong>Tool Data Processing — Network-Dependent Tool:</strong> Our QR Code Generator uses a third-party service (api.qrserver.com) to generate QR code images. When you create a QR code, the text or URL you enter is transmitted to that service to render the image. We do not control what that third-party service does with the data it receives. If you need to encode sensitive data as a QR code, be aware that it passes through an external server.
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
               We use the information we collect for the following purposes:
             </p>
             <ul className="list-disc list-inside text-muted-foreground space-y-2">
-              <li>To respond to your inquiries submitted through our contact form</li>
+              <li>To respond to emails you choose to send to the site operator</li>
               <li>To improve and optimize our website and tools</li>
               <li>To analyze website traffic and user engagement through Google Analytics 4</li>
               <li>To serve advertisements through Google AdSense</li>
@@ -67,7 +67,7 @@ export default function PrivacyPage() {
               <strong>Google AdSense:</strong> We use Google AdSense to display advertisements on our website. Google may use cookies and web beacons to collect information about your visits to this and other websites to create personalized ads. Google&apos;s use of cookies is subject to <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a>.
             </p>
             <p className="text-muted-foreground">
-              <strong>Google Analytics 4:</strong> We use GA4 to track anonymous usage patterns and website performance. This helps us understand how our tools are used and make improvements. All data collected is anonymized and aggregated. See <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a> for more information.
+              <strong>Google Analytics 4:</strong> We use GA4 to measure usage patterns and website performance. Google may process device, browser, approximate location, and interaction data under its own terms. We use these reports to improve the site. See <a href="https://policies.google.com/privacy" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Google&apos;s Privacy Policy</a> for more information.
             </p>
             <p className="text-muted-foreground">
               <strong>QR Code Generation Service:</strong> Our QR Code Generator transmits the text or URL you enter to api.qrserver.com for rendering. This is the only tool on our site that sends your input to an external server. All other tools process data locally in your browser.
@@ -115,7 +115,7 @@ export default function PrivacyPage() {
               <strong>Advertising Cookies:</strong> Used by Google AdSense to serve personalized advertisements.
             </p>
             <p className="text-muted-foreground">
-              You can manage your cookie preferences using our cookie consent banner (displayed on your first visit), or through your browser settings at any time.
+              Analytics, advertising scripts, and ad slots are not loaded by this website unless you select “Accept All.” Rejecting or dismissing the banner leaves them disabled. You can reopen the banner with the “Cookie choices” control or manage stored data through your browser settings. The operator must still confirm whether a Google-certified consent management platform is required for the jurisdictions in which ads are served.
             </p>
           </section>
 
@@ -129,7 +129,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-bold mb-4">9. Data Retention</h2>
             <p className="text-muted-foreground">
-              We retain your personal information only for as long as necessary to fulfill the purposes for which it was collected or as required by law. Contact form submissions are retained for one year unless you request deletion. Analytics data is retained by Google according to their retention policies. Tool data you enter (JSON text, images, passwords, etc.) is processed in your browser and is not retained by us.
+              The website does not retain contact-form submissions because it does not receive them. Emails you send may remain in the operator&apos;s mailbox as needed to answer the request or maintain necessary records. Analytics and advertising data are retained by Google according to the settings and policies for those services. Tool data processed locally is not retained by our servers.
             </p>
           </section>
 
@@ -164,7 +164,7 @@ export default function PrivacyPage() {
               We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of significant changes by posting the updated policy on this page and updating the &quot;Last Updated&quot; date below. Your continued use of the website after such changes indicates your acceptance of the updated Privacy Policy.
             </p>
             <p className="text-muted-foreground mt-4 text-sm">
-              <strong>Last Updated:</strong> {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              <strong>Last Updated:</strong> November 12, 2026
             </p>
           </section>
         </div>

@@ -31,20 +31,31 @@ export function AdSenseAd({
   minHeight,
 }: AdSenseAdProps) {
   const [mounted, setMounted] = useState(false)
+  const [hasConsent, setHasConsent] = useState(false)
 
   useEffect(() => {
     setMounted(true)
+    const syncConsent = () => setHasConsent(window.localStorage.getItem('cookie-consent-v1') === 'accepted')
+    syncConsent()
+    window.addEventListener('cookie-consent-accepted', syncConsent)
+    window.addEventListener('cookie-consent-rejected', syncConsent)
+    return () => {
+      window.removeEventListener('cookie-consent-accepted', syncConsent)
+      window.removeEventListener('cookie-consent-rejected', syncConsent)
+    }
   }, [])
 
   useEffect(() => {
-    if (mounted && typeof window !== 'undefined' && (window as any).adsbygoogle) {
+    if (mounted && hasConsent && typeof window !== 'undefined' && (window as any).adsbygoogle) {
       try {
         (window as any).adsbygoogle.push({})
       } catch (e) {
         // AdSense might not be loaded yet or already processed
       }
     }
-  }, [mounted])
+  }, [mounted, hasConsent])
+
+  if (!hasConsent) return null
 
   // Reserve the minimum ad space in SSR HTML too, so the post-hydration
   // <ins> insertion does not shift the layout (CLS). The <ins> itself only

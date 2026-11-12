@@ -4,11 +4,13 @@ import dynamic from 'next/dynamic'
 
 const CookieConsent = dynamic(() => import('@/components/CookieConsent').then(m => ({ default: m.CookieConsent })), { ssr: false })
 const ChatWidget = dynamic(() => import('@/components/ChatWidget').then(m => ({ default: m.ChatWidget })), { ssr: false })
+const ConsentScripts = dynamic(() => import('@/components/ConsentScripts').then(m => ({ default: m.ConsentScripts })), { ssr: false })
 
 export function LazyLayoutComponents() {
   return (
     <>
       <CookieConsent />
+      <ConsentScripts />
       <ChatWidget />
     </>
   )

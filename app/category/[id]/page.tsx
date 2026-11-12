@@ -5,6 +5,10 @@ import { AdSenseAd } from '@/components/AdSenseAd'
 import { notFound } from 'next/navigation'
 import { generateCategoryMetadata } from '@/lib/seo'
 
+export function generateStaticParams() {
+  return ['developer', 'document', 'calculator', 'utility'].map((id) => ({ id }))
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params
   const category = getCategory(id)
@@ -13,6 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return {
       title: 'Category Not Found',
       description: 'Category not found',
+      robots: { index: false, follow: false },
     }
   }
 
@@ -22,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const categoryIntros: Record<string, string> = {
   developer: 'Our Developer Tools collection includes 13 utilities built for programming workflows. Use the JSON Formatter to validate and pretty-print API responses, the JWT Decoder to inspect authentication tokens without writing code, and the Regex Tester to build and debug regular expressions with live matching feedback. The SQL Formatter beautifies queries for readability, while the Base64 Encoder/Decoder and URL Encoder/Decoder handle data encoding tasks for API integrations. Generate hash digests with the Hash Generator (MD5, SHA-1, SHA-256, SHA-512), switch between HEX, RGB, and HSL color formats with the Color Converter, and shrink CSS, JavaScript, or HTML with the Code Minifier. The Diff Checker highlights differences between two text snippets line by line, the XML Formatter tidies data exchange files, and the UUID Generator creates unique identifiers for database records and prototypes. The Cron Expression Generator builds cron schedules from plain English or visual selectors with run-time preview. All of these tools process your data entirely in your browser — nothing is sent to a server.',
   document: 'Our Document & Media tools help with text processing, image optimization, and content creation. The Word Counter measures words, characters, paragraphs, and reading time — useful for meeting assignment requirements or optimizing content length. The Image Compressor reduces file sizes using the browser\'s Canvas API, processing images entirely on your device without uploading them. The Markdown Editor provides a split-pane interface for writing Markdown and previewing the rendered output instantly. Generate scannable QR codes for links and text with the QR Code Generator, convert written text into audio with Text to Speech using the browser\'s Web Speech API, transform structured JSON data into spreadsheet-ready CSV with JSON to CSV, and convert plain text into clean HTML markup with Text to HTML. All tools except the QR Code Generator (which uses a third-party rendering service) process data entirely in your browser.',
-  calculator: 'Our Calculators collection covers 11 tools for everyday math and measurement conversions. The Unit Converter handles length, weight, volume, and temperature conversions, while the Unit Calculator solves formulas that combine multiple variables with units. Financial calculators include the Loan Calculator for estimating monthly payments and interest, the Mortgage Calculator for amortization schedules and total cost analysis, the Percentage Calculator for ratios and reverse percentage problems, the Discount Calculator for working out sale prices, and the Tip Calculator for splitting bills with custom tip percentages. The BMI Calculator computes body mass index with health category classification, and the Age Calculator determines exact age and days between dates. The Pixels to Inches converter (and its focused variants PX to Inches and Inches to PX) handles print-to-screen dimension conversions with selectable DPI settings. All calculations run locally in your browser.',
+  calculator: 'Our Calculators collection covers practical finance, percentage, date, health-screening, and measurement tasks. The Unit Converter handles length, weight, volume, and temperature conversions. Financial calculators estimate loan or mortgage payments, while focused tools handle percentages, discounts, tips, age, adult BMI screening, and pixel-to-inch conversion with selectable DPI. Calculations run locally in your browser.',
   utility: 'Our Utilities collection includes 9 general-purpose tools for everyday tasks. The Password Generator creates cryptographically random passwords with customizable length and character types. The Random Name Generator produces character names, team names, and creative ideas for writers and game developers. The Todo List provides simple browser-based task management with priorities, and the Timer & Stopwatch supports countdown and elapsed timing with optional sound alerts. For gaming and probability, the Dice Roller simulates 1-5 polyhedral dice (d4 through d100) with 3D animation and roll history, while the Coin Flipper offers Heads/Tails or Yes/No decisions with streak tracking. The Morse Code Translator encodes and decodes Morse code for learning and hobbyist use. All tools store data in your browser\'s local storage and never send your inputs to any server.',
 }
 

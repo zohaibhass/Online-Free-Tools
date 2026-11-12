@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   experimental: {
     optimizeCss: true,
   },
@@ -39,6 +36,51 @@ const nextConfig = {
         destination: '/tools/pixels-to-inches',
         permanent: true,
       },
+      {
+        source: '/tools/unit-calculator',
+        destination: '/tools/unit-converter',
+        permanent: true,
+      },
+      {
+        source: '/blog/what-is-jwt-token',
+        destination: '/blog/what-is-a-jwt-token',
+        permanent: true,
+      },
+      {
+        source: '/blog/base64-encoding-explained',
+        destination: '/blog/what-is-base64-encoding',
+        permanent: true,
+      },
+      {
+        source: '/blog/md5-vs-sha256',
+        destination: '/blog/sha256-vs-md5',
+        permanent: true,
+      },
+      {
+        source: '/blog/image-compression-guide',
+        destination: '/blog/how-to-compress-images-for-web',
+        permanent: true,
+      },
+      {
+        source: '/blog/regex-guide-beginners',
+        destination: '/blog/what-is-regex',
+        permanent: true,
+      },
+      {
+        source: '/blog/what-is-a-healthy-bmi-for-men',
+        destination: '/blog/bmi-chart-men-women',
+        permanent: true,
+      },
+      {
+        source: '/blog/what-is-a-healthy-bmi-for-women',
+        destination: '/blog/bmi-chart-men-women',
+        permanent: true,
+      },
+      {
+        source: '/blog/healthy-weight-by-height',
+        destination: '/blog/bmi-chart-by-height',
+        permanent: true,
+      },
     ]
   },
   async headers() {
@@ -61,24 +103,6 @@ const nextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-          },
-        ],
-      },
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, must-revalidate',
-          },
-        ],
-      },
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

@@ -3,6 +3,8 @@ import { SITE_URL } from '@/lib/config'
 import { tools, categories } from '@/lib/tools'
 import { blogPosts } from '@/lib/blog-posts'
 
+const CONTENT_LAST_REVIEWED = new Date('2026-11-12T00:00:00.000Z')
+
 const staticPages: { path: string; priority: number; changeFreq: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
   { path: '', priority: 1.0, changeFreq: 'weekly' },
   { path: 'tools', priority: 0.9, changeFreq: 'weekly' },
@@ -16,33 +18,30 @@ const staticPages: { path: string; priority: number; changeFreq: MetadataRoute.S
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const today = new Date()
-  const todayStr = today.toISOString().split('T')[0]
-
   const staticEntries: MetadataRoute.Sitemap = staticPages.map(({ path, priority, changeFreq }) => ({
     url: `${SITE_URL}/${path}`,
-    lastModified: today,
+    lastModified: CONTENT_LAST_REVIEWED,
     changeFrequency: changeFreq,
     priority,
   }))
 
   const toolEntries: MetadataRoute.Sitemap = tools.map(tool => ({
     url: `${SITE_URL}/tools/${tool.slug}`,
-    lastModified: today,
+    lastModified: CONTENT_LAST_REVIEWED,
     changeFrequency: 'monthly',
     priority: 0.9,
   }))
 
   const blogEntries: MetadataRoute.Sitemap = blogPosts.map(post => ({
     url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : today,
+    lastModified: post.date ? new Date(`${post.date}T00:00:00.000Z`) : CONTENT_LAST_REVIEWED,
     changeFrequency: 'monthly',
     priority: 0.7,
   }))
 
   const categoryEntries: MetadataRoute.Sitemap = categories.map(cat => ({
     url: `${SITE_URL}/category/${cat.id}`,
-    lastModified: today,
+    lastModified: CONTENT_LAST_REVIEWED,
     changeFrequency: 'weekly',
     priority: 0.8,
   }))

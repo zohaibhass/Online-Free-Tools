@@ -6,12 +6,13 @@ import HomePageClient from './HomePageClient'
 import { LazyAdSenseAd } from './LazyComponents'
 import { Rocket, ShieldCheck, Eye, Globe, Zap, Laptop, Lock, BadgeCheck } from 'lucide-react'
 import AuthorCard from '@/components/AuthorCard'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Free Online Tools - 38+ Free Browser Utilities' },
+  title: { absolute: 'Free Online Tools - 37 Free Browser Utilities' },
   description: 'Free online tools for developers, students, and creators. Format JSON, compress images, decode JWT, generate UUIDs, and more - in your browser, no signup.',
   openGraph: {
-    title: 'Free Online Tools - 38+ Free Browser Utilities',
+    title: 'Free Online Tools - 37 Free Browser Utilities',
     description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, and more - all in your browser. No signup required.',
     url: SITE_URL,
     type: 'website',
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Online Tools - 38+ Free Browser Utilities',
+    title: 'Free Online Tools - 37 Free Browser Utilities',
     description: 'Format JSON, compress images, decode JWT tokens, generate UUIDs, and more - all in your browser.',
     images: [OG_IMAGE],
   },
@@ -70,10 +71,10 @@ export default function Home() {
             <div className="bg-card border border-border rounded-3xl p-8">
               <h2 className="text-2xl font-semibold mb-4">Your Complete Online Toolkit for Everyday Tasks</h2>
               <p className="text-muted-foreground leading-7 mb-4">
-                OnlineFreeTools.online is a curated platform offering <strong>40 free online tools</strong> organized into four categories: <a href="/category/developer" className="text-primary hover:underline">Developer Tools</a> (13 tools including JSON Formatter, JWT Decoder, Regex Tester, SQL Formatter, Hash Generator, and Cron Expression Generator), <a href="/category/calculator" className="text-primary hover:underline">Calculators</a> (11 tools including Loan Calculator, Mortgage Calculator, BMI Calculator, Percentage Calculator, and Unit Converter), <a href="/category/document" className="text-primary hover:underline">Document &amp; Media</a> (7 tools including Word Counter, Image Compressor, Markdown Editor, QR Code Generator, and Text to Speech), and <a href="/category/utility" className="text-primary hover:underline">Utilities</a> (9 tools including Password Generator, Dice Roller, Todo List, and Timer &amp; Stopwatch).
+                OnlineFreeTools.online is a curated platform offering <strong>37 free online tools</strong> organized into four categories: <Link href="/category/developer" className="text-primary hover:underline">Developer Tools</Link> (13 tools including JSON Formatter, JWT Decoder, Regex Tester, SQL Formatter, Hash Generator, and Cron Expression Generator), <Link href="/category/calculator" className="text-primary hover:underline">Calculators</Link> (9 tools including Loan Calculator, Mortgage Calculator, BMI Calculator, Percentage Calculator, and Unit Converter), <Link href="/category/document" className="text-primary hover:underline">Document &amp; Media</Link> (7 tools including Word Counter, Image Compressor, Markdown Editor, QR Code Generator, and Text to Speech), and <Link href="/category/utility" className="text-primary hover:underline">Utilities</Link> (8 tools including Password Generator, Dice Roller, Todo List, and Timer &amp; Stopwatch).
               </p>
               <p className="text-muted-foreground leading-7 mb-4">
-                The majority of these tools — including the JSON Formatter, Hash Generator, Image Compressor, Password Generator, all calculators, and all text processing tools — process your data entirely within your browser using JavaScript. Your inputs never leave your device. The only exception is the <a href="/tools/qr-code-generator" className="text-primary hover:underline">QR Code Generator</a>, which uses a third-party service to render QR code images.
+                The majority of these tools — including the JSON Formatter, Hash Generator, Image Compressor, Password Generator, calculators, and text-processing tools — process input within your browser. The exception is the <Link href="/tools/qr-code-generator" className="text-primary hover:underline">QR Code Generator</Link>, which sends the entered value to a third-party rendering service as disclosed in the privacy policy.
               </p>
               <p className="text-muted-foreground leading-7 mb-4">
                 Every tool comes with a step-by-step guide and practical examples, making it easy for beginners to get started while still being powerful enough for experienced users. We regularly update our collection based on user feedback and emerging needs.

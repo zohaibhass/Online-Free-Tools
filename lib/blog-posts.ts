@@ -1,3 +1,5 @@
+import { reviewedHealthPosts } from './health-content'
+
 export interface BlogPost {
   slug: string
   title: string
@@ -12,7 +14,7 @@ export interface BlogPost {
   faq?: { question: string; answer: string }[]
 }
 
-export const blogPosts: BlogPost[] = [
+const allBlogPosts: BlogPost[] = [
   {
     slug: 'what-is-a-jwt-token',
     title: "What is a JWT Token? A Complete Beginner's Guide",
@@ -301,7 +303,7 @@ Host: api.example.com</code></pre>
 
       <h2>Try Base64 Encoding Yourself</h2>
       <p>Now that you understand what Base64 encoding is, try encoding and decoding strings yourself. Use our free <a href="/tools/base64-encoder">Base64 Encoder/Decoder online</a> to instantly encode text to Base64 or decode Base64 strings\u2014no signup required.</p>
-      <p>To go deeper, read <a href="/blog/base64-encoding-explained">Base64 encoding explained: how it works and when to use it</a>, or explore advanced topics like padding, URL-safe variants, and performance in <a href="/blog/base64-encoding-beyond-the-basics">Base64 encoding beyond the basics</a>.</p>
+      <p>To go deeper, read <a href="/blog/what-is-base64-encoding">Base64 encoding explained: how it works and when to use it</a>, or explore advanced topics like padding, URL-safe variants, and performance in <a href="/blog/base64-encoding-beyond-the-basics">Base64 encoding beyond the basics</a>.</p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -552,7 +554,7 @@ Host: api.example.com</code></pre>
 
       <h2>Try Hashing Algorithms Yourself</h2>
       <p>Now that you understand the differences between SHA256 vs MD5, try generating hashes yourself. Use our free <a href="/tools/hash-generator">Hash Generator online</a> to instantly create MD5, SHA1, SHA256, and SHA512 hashes\u2014no signup required.</p>
-      <p>For a head-to-head comparison of the two algorithms, see our companion guide on <a href="/blog/md5-vs-sha256">MD5 vs SHA256: which hash algorithm should you use?</a></p>
+      <p>For a head-to-head comparison of the two algorithms, see our companion guide on <a href="/blog/sha256-vs-md5">MD5 vs SHA256: which hash algorithm should you use?</a></p>
 
       <hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;" />
       
@@ -790,7 +792,7 @@ Host: api.example.com</code></pre>
       <p>For a more complete health assessment, combine BMI with waist circumference measurements (under 40 inches for men, under 35 for women), body fat percentage, and metabolic health markers like blood pressure, cholesterol, and blood sugar levels. Focus on sustainable lifestyle habits — balanced nutrition, regular physical activity, adequate sleep, and stress management — rather than obsessing over a single number on the scale. Use BMI as one tool among many in your overall health strategy.</p>
 
       <h2>Calculate Your BMI Today</h2>
-      <p>Want to understand how your BMI is interpreted in more detail? Read our gender-specific guides on <a href="/blog/what-is-a-healthy-bmi-for-men">what is a healthy BMI for men</a> and <a href="/blog/what-is-a-healthy-bmi-for-women">what is a healthy BMI for women</a>, or check <a href="/blog/healthy-weight-by-height">healthy weight by height</a> and the <a href="/blog/bmi-chart-by-height">BMI chart by height</a> for quick reference tables.</p>
+      <p>Want to understand how BMI is interpreted in more detail? Read the combined <a href="/blog/bmi-chart-men-women">BMI chart for men and women</a>, or use the <a href="/blog/bmi-chart-by-height">BMI chart by height</a> for quick reference tables.</p>
 
       <h2>References</h2>
       <ul>
@@ -2812,7 +2814,7 @@ hsl(24, 70%, 53%)   // Orange (180° away on color wheel)</code></pre>
     date: '2026-05-29',
     readTime: '8 min read',
     author: 'Zohaib Hassan',
-    relatedTools: [{ name: 'Unit Converter', url: '/tools/unit-converter' }, { name: 'Unit Calculator', url: '/tools/unit-calculator' }],
+    relatedTools: [{ name: 'Unit Converter', url: '/tools/unit-converter' }],
     content: `
       <h2>Floating-Point in Conversion Math</h2>
       <p>IEEE 754 double-precision arithmetic causes rounding errors in seemingly simple conversions. 1 inch to cm: 1 × 2.54 = 2.54 (exact, because 2.54 is representable). 1/3 meter to cm: 100/3 = 33.333333333333336 (inexact, because 1/3 repeats in binary). Always round results to a reasonable precision — 10 significant figures for engineering, 4 for everyday use. Never display unrounded raw floating-point output to users.</p>
@@ -5478,6 +5480,24 @@ Not Important Delegate        Delete/ignore</code></pre>
   },
 
 ]
+
+// These older URLs duplicate the same search intent as the destination pages.
+// Keep the source copy in version control for editorial history, but publish only
+// the consolidated destinations. next.config.mjs owns the permanent redirects.
+export const consolidatedBlogRedirects: Record<string, string> = {
+  'what-is-jwt-token': 'what-is-a-jwt-token',
+  'base64-encoding-explained': 'what-is-base64-encoding',
+  'md5-vs-sha256': 'sha256-vs-md5',
+  'image-compression-guide': 'how-to-compress-images-for-web',
+  'regex-guide-beginners': 'what-is-regex',
+  'what-is-a-healthy-bmi-for-men': 'bmi-chart-men-women',
+  'what-is-a-healthy-bmi-for-women': 'bmi-chart-men-women',
+  'healthy-weight-by-height': 'bmi-chart-by-height',
+}
+
+export const blogPosts = allBlogPosts.filter(
+  (post) => !Object.hasOwn(consolidatedBlogRedirects, post.slug),
+).map((post) => reviewedHealthPosts[post.slug] ? { ...post, ...reviewedHealthPosts[post.slug] } : post)
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find(post => post.slug === slug)
 }
