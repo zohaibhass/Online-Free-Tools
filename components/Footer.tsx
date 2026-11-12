@@ -3,6 +3,7 @@ import { Logo } from '@/components/Logo'
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const lastUpdated = '2026-11-12'
 
   return (
     <footer className="border-t border-border/70 bg-card/95">
@@ -63,7 +64,12 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-border/60 pt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-sm text-muted-foreground">
-          <p>&copy; {year} Free Online Tools. All rights reserved.</p>
+          <div className="space-y-1">
+            <p>&copy; {year} Free Online Tools. All rights reserved.</p>
+            <p className="text-xs">
+              Last updated: <time dateTime={lastUpdated}>November 12, 2026</time>
+            </p>
+          </div>
           <p>
             Crafted for developers, students, and teams who value private browser-first utilities.
           </p>
