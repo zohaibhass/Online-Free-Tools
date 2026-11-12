@@ -14,7 +14,7 @@ export default function ContactPageClient() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [message, setMessage] = useState('')
-    const [status, setStatus] = useState<'idle' | 'sent' | 'error'>('idle')
+    const [status, setStatus] = useState<'idle' | 'opened' | 'error'>('idle')
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -23,12 +23,10 @@ export default function ContactPageClient() {
             return
         }
 
-        try {
-            setStatus('sent')
-        } catch (error) {
-            console.error(error)
-            setStatus('error')
-        }
+        const subject = encodeURIComponent(`Online Free Tools message from ${name}`)
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)
+        window.location.href = `mailto:onlinefreetools@zohomail.com?subject=${subject}&body=${body}`
+        setStatus('opened')
     }
 
     return (
@@ -46,7 +44,7 @@ export default function ContactPageClient() {
                             Contact our support team
                         </h1>
                         <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-                            Have questions about the tools or need help with the site? Send us a message and we’ll respond as soon as possible.
+                            Have questions about the tools or need help with the site? Create an email draft for the site operator.
                         </p>
                     </div>
 
@@ -56,17 +54,17 @@ export default function ContactPageClient() {
                                 <div className="space-y-3">
                                     <h2 className="text-2xl font-semibold">Send a message</h2>
                                     <p className="text-sm text-muted-foreground">
-                                        We typically respond within 24 hours.
+                                        This form opens your email application. It does not send data to this website.
                                     </p>
                                 </div>
 
-                                {status === 'sent' && (
+                                {status === 'opened' && (
                                     <Alert variant="default">
                                         <div className="flex items-start gap-3">
                                             <Sparkles className="h-5 w-5" />
                                             <div>
-                                                <p className="font-semibold">Message received</p>
-                                                <p className="text-sm text-muted-foreground">We’ll get back to you shortly.</p>
+                                                <p className="font-semibold">Email application opened</p>
+                                                <p className="text-sm text-muted-foreground">Review the draft and send it from your email account.</p>
                                             </div>
                                         </div>
                                     </Alert>
@@ -97,7 +95,7 @@ export default function ContactPageClient() {
                                         <label className="block text-sm font-medium text-foreground">Message</label>
                                         <Textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What can we help you with?" rows={6} />
                                     </div>
-                                    <Button type="submit">Send message</Button>
+                                    <Button type="submit">Open email draft</Button>
                                 </form>
                             </div>
                         </div>

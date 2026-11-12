@@ -111,8 +111,8 @@ export function TextToSpeechTool() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div className="text-center">
-        <h1 className="text-4xl font-bold">Text to Speech + Recorder</h1>
-        <p className="text-muted-foreground mt-2">Speak + Record + Download</p>
+        <h1 className="text-4xl font-bold">Text to Speech and Microphone Recorder</h1>
+        <p className="text-muted-foreground mt-2">Listen with browser voices; optionally record microphone input</p>
       </div>
 
       <Card>

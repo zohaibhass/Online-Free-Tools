@@ -88,6 +88,7 @@ export function CodeMinifierTool() {
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight">Code Minifier</h1>
         <p className="text-muted-foreground mt-2">Reduce file size instantly</p>
+        <p className="mx-auto mt-2 max-w-2xl text-sm text-muted-foreground">This lightweight whitespace/comment remover is useful for experiments. It does not parse an AST and can change JavaScript when comment-like text appears inside strings or regular expressions. Use a parser-based build tool for production code.</p>
       </div>
 
       <div className="flex flex-wrap gap-2 justify-center">

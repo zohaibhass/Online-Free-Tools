@@ -1,32 +1,16 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { LazyLayoutComponents } from './LazyComponents'
 import { SITE_URL, OG_IMAGE, SITE_NAME, AUTHOR_NAME } from '@/lib/config'
 import './globals.css'
 import Script from 'next/script'
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-  preload: true,
-})
-const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-})
-
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-3491641485391296'
-
 export const metadata: Metadata = {
   title: {
     default: 'Free Online Tools - Developer & Productivity Tools',
     template: '%s | Free Online Tools'
   },
-  description: 'Access 38+ free online tools for developers, content creators, and productivity. JSON formatter, image compression, code generators, calculators, and more.',
+  description: 'Access 37 free online tools for developers, content creators, and productivity. JSON formatting, image compression, code generators, calculators, and more.',
   keywords: ['free tools', 'online tools', 'developer tools', 'productivity', 'converters', 'generators'],
   authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
   creator: AUTHOR_NAME,
@@ -47,8 +31,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: 'Free Online Tools - 38+ Developer & Productivity Tools',
-    description: 'Discover 38+ free online tools for developers and content creators. Fast, reliable, and browser-based.',
+    title: 'Free Online Tools - 37 Developer & Productivity Tools',
+    description: 'Discover 37 free online tools for developers and content creators. Fast, reliable, and browser-based.',
     images: [{
       url: OG_IMAGE,
       width: 1200,
@@ -57,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Online Tools - 38+ Free Tools',
-    description: 'Access 38+ free online tools for developers and productivity.',
+    title: 'Free Online Tools - 37 Free Tools',
+    description: 'Access 37 free online tools for developers and productivity.',
     images: [OG_IMAGE],
   },
   alternates: {
@@ -91,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-    <html lang="en" className={`${inter.variable} bg-background`} suppressHydrationWarning>
+    <html lang="en" className="bg-background" suppressHydrationWarning>
       <head>
         {/* Content-Security-Policy meta tag (fallback for environments without header support) */}
         <meta
@@ -104,36 +88,15 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'WebApplication',
-              name: 'Free Online Tools',
-              description: 'Access 38+ free online tools for developers and content creators',
-              url: SITE_URL,
-              applicationCategory: 'UtilityApplication',
-              operatingSystem: 'All',
-              browserRequirements: 'Modern browser with JavaScript enabled',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD'
-              },
-              author: {
-                '@type': 'Person',
-                name: AUTHOR_NAME,
-                url: SITE_URL
-              }
-            })
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: SITE_NAME,
               url: SITE_URL,
-              description: 'Access 38+ free online tools for developers and content creators',
+              description: 'Access 37 free online tools for developers and content creators',
+              publisher: {
+                '@type': 'Person',
+                name: AUTHOR_NAME,
+                url: `${SITE_URL}/about`,
+              },
               potentialAction: {
                 '@type': 'SearchAction',
                 target: {
@@ -169,25 +132,6 @@ export default function RootLayout({
           })()`}
         </Script>
 
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID || 'G-BKCT5KC2W4'}`}
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID || 'G-BKCT5KC2W4'}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
-
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <meta
             name="google-site-verification"
@@ -196,14 +140,6 @@ export default function RootLayout({
         )}
 
         {/* Google AdSense — loads after page is interactive */}
-        {adsenseClientId && (
-          <Script
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
-            strategy="afterInteractive"
-            crossOrigin="anonymous"
-          />
-        )}
-
         {process.env.NODE_ENV === 'production' && (
           <Script id="register-service-worker" strategy="lazyOnload">
             {`if ('serviceWorker' in navigator) {
@@ -231,7 +167,6 @@ export default function RootLayout({
       <body className="font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
           <LazyLayoutComponents />
         </ThemeProvider>
       </body>

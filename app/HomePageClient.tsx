@@ -152,8 +152,8 @@ export default function HomePageClient() {
                             <div className="grid gap-4">
                                 <div className="rounded-3xl border border-border bg-card/80 p-4 text-sm text-muted-foreground dark:bg-card/70">
                                     {`{`}<br />
-                                    &nbsp;&nbsp;<span className="text-foreground">"name"</span>: <span className="text-sky-700">"OnlineFreeTools"</span>,<br />
-                                    &nbsp;&nbsp;<span className="text-foreground">"tools"</span>: <span className="text-emerald-700">{totalTools}</span><br />
+                                    &nbsp;&nbsp;<span className="text-foreground">&quot;name&quot;</span>: <span className="text-sky-700">&quot;OnlineFreeTools&quot;</span>,<br />
+                                    &nbsp;&nbsp;<span className="text-foreground">&quot;tools&quot;</span>: <span className="text-emerald-700">{totalTools}</span><br />
                                     {`}`}
                                 </div>
                                 <div className="rounded-3xl border border-border bg-card/80 p-4 text-sm text-muted-foreground dark:bg-card/70">

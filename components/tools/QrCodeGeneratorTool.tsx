@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Download } from 'lucide-react'
+import Image from 'next/image'
 
 export function QrCodeGeneratorTool() {
   const [text, setText] = useState('')
@@ -51,7 +52,7 @@ export function QrCodeGeneratorTool() {
       {qrUrl && (
         <div className="space-y-4">
           <div className="flex justify-center p-4 bg-white rounded-lg border border-border">
-            <img src={qrUrl} alt="QR Code" className="w-64 h-64" />
+            <Image src={qrUrl} alt="Generated QR code" width={256} height={256} unoptimized className="w-64 h-64" />
           </div>
 
           <Button onClick={downloadQR} variant="outline" className="w-full">

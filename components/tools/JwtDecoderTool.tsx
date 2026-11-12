@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Copy,
@@ -364,7 +364,7 @@ export function JwtDecoderTool() {
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const now = useMemo(() => Math.floor(Date.now() / 1000), [decoded])
+  const now = Math.floor(Date.now() / 1000)
 
   const handleDecode = (value?: string) => {
     const source = value ?? jwt

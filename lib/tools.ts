@@ -54,7 +54,7 @@ const toolUseCases: Record<string, string> = {
   'qr-code-generator': 'generate QR codes for links, text, and contact details',
   'markdown-editor': 'edit Markdown and preview rendered output instantly',
   'image-compressor': 'reduce image file size while preserving visual quality',
-  'text-to-speech': 'convert text into natural-sounding audio files',
+  'text-to-speech': 'read text aloud with voices supplied by your browser and operating system',
   'json-to-csv': 'turn structured JSON into spreadsheet-ready CSV data',
   'text-to-html': 'transform plain text into clean HTML markup for web use',
   'unit-converter': 'convert between length, weight, volume, temperature, and more',
@@ -62,7 +62,7 @@ const toolUseCases: Record<string, string> = {
   'percentage-calculator': 'calculate percentages, increases, decreases, reverse values, and ratios',
   'mortgage-calculator': 'estimate mortgage payments, amortization schedules, and loan performance',
   'age-calculator': 'calculate age and the time between important dates',
-  'bmi-calculator': 'determine body mass index, ideal weight range, and health categories',
+  'bmi-calculator': 'calculate adult body mass index and review standard screening categories',
   'discount-calculator': 'work out sale prices, fixed or percent savings, and final totals',
   'tip-calculator': 'split tips, calculate per-person totals, and support currency selection',
   'password-generator': 'create strong random passwords for accounts and services',
@@ -136,7 +136,7 @@ const toolAboutBlurbs: Record<string, string> = {
   'word-counter': 'Word Counter is essential for writers, content creators, and students tracking essay and article length. Count words, characters, paragraphs, and get accurate reading time estimates. Use it to meet assignment requirements, plan content, and optimize writing for readability and SEO.',
   'qr-code-generator': 'QR Code Generator creates scannable codes from URLs, text, and contact details. Marketers, event organizers, and business owners use this to link print materials to websites, share WiFi, and distribute contact info. Instant QR codes ready to print or share online.',
   'markdown-editor': 'Markdown Editor is perfect for technical writers, documentation specialists, and developers who work with Markdown syntax. Write in Markdown, preview rendered output instantly, and verify formatting before publishing to blogs, GitHub, or documentation sites.',
-  'text-to-speech': 'Text to Speech converts written text into natural-sounding audio, helping content creators, educators, and accessibility specialists. Generate audio files for videos, presentations, and blogs. Great for reaching audiences who prefer listening and for making content accessible to people with visual impairments.',
+  'text-to-speech': 'Text to Speech reads written text aloud using the Web Speech voices available in your browser and operating system. Voice availability and quality vary by device. The separate microphone recorder records microphone input as WebM; it does not capture or export the synthesized voice.',
   'json-to-csv': 'JSON to CSV transforms structured data into spreadsheet-ready format for data analysts, business intelligence teams, and developers. Convert API responses or data exports to CSV instantly for analysis in Excel, Google Sheets, or data visualization tools.',
   'text-to-html': 'Text to HTML converts plain text into a complete HTML document for web developers, content managers, and bloggers. Type or paste your text using simple conventions — lines starting with # become heading tags (h1 through h6 based on the number of hashes), and blank lines separate paragraphs into <p> tags. Click "Convert to HTML" to generate a full document with DOCTYPE, head, charset, and body markup. Copy the output to paste into your website, CMS, or email template. The tool handles paragraph separation and heading detection automatically, so you can quickly turn rough notes into publishable HTML without writing any markup by hand.',
   'unit-converter': 'Unit Converter handles conversions across length, weight, volume, and temperature for students, engineers, and international professionals. Quick, accurate conversions for homework, recipes, science projects, and working across measurement systems globally.',
@@ -144,7 +144,7 @@ const toolAboutBlurbs: Record<string, string> = {
   'percentage-calculator': 'Percentage Calculator quickly answers percentage questions for students, shoppers, and business professionals. Calculate what percent one number is of another, find percentage increases and decreases, compare values with ratios, and work backwards using reverse percentage calculations.',
   'mortgage-calculator': 'Mortgage Calculator helps homebuyers, real estate agents, and financial advisors estimate monthly payments, compare loan options, and review amortization details. See total interest paid, down payment impact, loan-to-value, and how extra payments can shorten your loan term.',
   'age-calculator': 'Age Calculator determines your exact age in years, months, and days from any date of birth. Simply select your birth date and click Calculate Age to see a precise breakdown. The calculator handles month-length differences and leap years correctly, so the result is always accurate. Whether you are planning a birthday celebration, filling out a form that asks for your age, or just curious how many days until a milestone, this tool gives you an instant answer without any signup or installation. It works entirely in your browser, so your birth date never leaves your device. Students, parents, and anyone who needs a quick age check will find this calculator fast and reliable.',
-  'bmi-calculator': 'BMI Calculator computes your Body Mass Index using either metric (cm/kg) or imperial (ft/in/lbs) measurements. Select your unit system, adjust the height and weight sliders, and click Calculate BMI to see your result. The tool displays your BMI value, assigns a health category (Underweight, Normal weight, Overweight, or Obese), and shows your healthy weight range for your height. A detailed insights section explains what each BMI category means and includes all four classification ranges. Whether you are tracking fitness goals, filling out a health form, or just curious about your BMI, this calculator gives you a clear, instant answer. It works entirely in your browser with no data sent to any server.',
+  'bmi-calculator': 'BMI Calculator applies the standard adult weight-to-height formula using metric (cm/kg) or US customary (ft/in/lb) measurements. It reports the CDC adult screening category and the weight interval corresponding to BMI 18.5–24.9 at the entered height. BMI is not a diagnosis, does not directly measure body fat, and is not the appropriate interpretation method for children. The calculation runs in your browser and the measurements are not sent to our server.',
   'discount-calculator': 'Discount Calculator figures out final prices, savings amounts, and discounted costs for shoppers and sales staff. Choose between percentage-based or fixed-amount discounts, select your currency from over 150 options, and use the quick preset buttons (10%, 20%, 30%, 50%, 70%) for fast calculations. The tool shows the final price, total savings, and the original price side by side, and you can copy the breakdown to your clipboard. Whether you are comparing sale deals at the store, setting up a promotion for your shop, or just double-checking a checkout total, this calculator gives you an instant, accurate answer without any signup.',
   'tip-calculator': 'Tip Calculator splits bills and calculates tips instantly for diners, servers, and group payments. Enter your bill amount, choose a currency from over 150 options, and pick a tip percentage using the quick preset buttons (10%, 15%, 18%, 20%, 25%) or the slider for custom values. The calculator shows the tip amount, total bill, and per-person cost when splitting among multiple people. A "Copy Results" button lets you grab the breakdown for easy sharing. Whether you are splitting a dinner check with friends, figuring out gratuity at a restaurant, or handling group travel expenses, this tool gives you accurate results in seconds without any signup or app download.',
   'password-generator': 'Password Generator creates strong, random passwords with customizable length and character types. Adjust the slider to set a password length from 4 to 64 characters, then toggle checkboxes for uppercase letters (A-Z), lowercase letters (a-z), numbers (0-9), and symbols (!@#$...). Click Generate Password to create a new random password, and Copy to save it to your clipboard. All generation happens in your browser — no password data is ever sent to a server. Whether you are securing a new online account, rotating credentials for a work system, or creating test data for development, this tool gives you a strong, unique password in seconds.',
@@ -3138,7 +3138,7 @@ export function getToolDetails(tool: Tool): ToolDetails {
   }
 }
 
-export const tools: Tool[] = [
+const allTools: Tool[] = [
   // Developer Tools (12)
   {
     id: 'json-formatter',
@@ -3614,6 +3614,8 @@ export const tools: Tool[] = [
     h1: 'Cron Expression Generator — Free Cron Job Schedule Builder',
   },
 ]
+
+export const tools = allTools.filter((tool) => tool.slug !== 'unit-calculator')
 
 export const categories = [
   { id: 'developer', name: 'Developer Tools', description: 'Tools for developers and programmers' },

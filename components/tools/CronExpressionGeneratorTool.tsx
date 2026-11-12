@@ -789,7 +789,7 @@ export function CronExpressionGeneratorTool() {
         <p className="text-sm text-muted-foreground">
           Cron expressions do not include timezone information. A cron job runs according to the
           local timezone of the system executing it. If your server is in UTC and you are in
-          Eastern Time, "0 3 * * *" will run at 3:00 AM server time, not your local time.
+          Eastern Time, &quot;0 3 * * *&quot; will run at 3:00 AM server time, not your local time.
           Always verify your server&apos;s timezone before deploying a cron schedule.
         </p>
       </div>

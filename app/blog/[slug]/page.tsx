@@ -1,15 +1,18 @@
-export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Script from 'next/script'
 import { SITE_URL, OG_IMAGE } from '@/lib/config'
-import { getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-posts'
+import { blogPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-posts'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import AuthorCard from '@/components/AuthorCard'
 import { Card } from '@/components/ui/card'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+
+export function generateStaticParams() {
+    return blogPosts.map(({ slug }) => ({ slug }))
+}
 
 function extractFaqItems(html: string) {
     const faqSectionMatch = html.match(/<h2>Frequently Asked Questions<\/h2>([\s\S]*?)(?:<h2>|$)/i)
@@ -47,6 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             alternates: {
                 canonical: `${SITE_URL}/blog`,
             },
+            robots: { index: false, follow: false },
         }
     }
 

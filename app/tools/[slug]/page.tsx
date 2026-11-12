@@ -2,10 +2,14 @@ import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import Script from 'next/script'
 import { ToolLayout } from '@/components/ToolLayout'
-import { getToolBySlug, getToolDetails } from '@/lib/tools'
+import { getToolBySlug, getToolDetails, tools } from '@/lib/tools'
 import { notFound } from 'next/navigation'
 import { generateToolMetadata } from '@/lib/seo'
 import { SITE_URL } from '@/lib/config'
+
+export function generateStaticParams() {
+  return tools.map(({ slug }) => ({ slug }))
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
@@ -15,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     return {
       title: 'Tool Not Found',
       description: 'Tool not found',
+      robots: { index: false, follow: false },
     }
   }
 
@@ -57,7 +62,6 @@ const toolComponents: Record<string, React.ComponentType> = {
   'dice-roller': dynamic(() => import('@/components/tools/DiceRollerTool').then(m => ({ default: m.DiceRollerTool }))),
   'coin-flipper': dynamic(() => import('@/components/tools/CoinFlipperTool').then(m => ({ default: m.CoinFlipperTool }))),
   'morse-code-translator': dynamic(() => import('@/components/tools/MorseCodeTranslatorTool').then(m => ({ default: m.MorseCodeTranslatorTool }))),
-  'unit-calculator': dynamic(() => import('@/components/tools/UnitCalculatorTool').then(m => ({ default: m.UnitCalculatorTool }))),
   'pixels-to-inches': dynamic(() => import('@/components/tools/PixelsInchesConverterTool').then(m => ({ default: m.PixelsInchesConverterTool }))),
   'slug-generator': dynamic(() => import('@/components/tools/SlugGeneratorTool').then(m => ({ default: m.SlugGeneratorTool }))),
   'cron-expression-generator': dynamic(() => import('@/components/tools/CronExpressionGeneratorTool').then(m => ({ default: m.CronExpressionGeneratorTool }))),
@@ -88,12 +92,12 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     'jwt-decoder': [
       { title: 'What is a JWT Token? A Complete Beginner\'s Guide', url: '/blog/what-is-a-jwt-token' },
       { title: 'How JWT Authentication Works (Step-by-Step)', url: '/blog/how-jwt-authentication-works' },
-      { title: 'What is a JWT Token? Plain English Explanation', url: '/blog/what-is-jwt-token' },
+      { title: 'What is a JWT Token? Plain English Explanation', url: '/blog/what-is-a-jwt-token' },
       { title: 'Can You Decode a JWT Without a Secret?', url: '/blog/can-you-decode-jwt-without-secret' },
     ],
     'regex-tester': [
       { title: 'What is Regex? A Beginner\'s Guide to Regular Expressions', url: '/blog/what-is-regex' },
-      { title: 'Regex Guide for Beginners', url: '/blog/regex-guide-beginners' },
+      { title: 'Regex Guide for Beginners', url: '/blog/what-is-regex' },
       { title: 'Real-World Regex Testing Tips', url: '/blog/real-world-regex-testing-tips' },
     ],
     'sql-formatter': [
@@ -101,7 +105,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     ],
     'base64-encoder': [
       { title: 'What is Base64 Encoding? How It Works and When to Use It', url: '/blog/what-is-base64-encoding' },
-      { title: 'Base64 Encoding Explained', url: '/blog/base64-encoding-explained' },
+      { title: 'Base64 Encoding Explained', url: '/blog/what-is-base64-encoding' },
       { title: 'Base64 Encoding: Beyond the Basics', url: '/blog/base64-encoding-beyond-the-basics' },
     ],
     'url-encoder': [
@@ -110,7 +114,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     ],
     'hash-generator': [
       { title: 'SHA256 vs MD5: Which Hashing Algorithm Should You Use?', url: '/blog/sha256-vs-md5' },
-      { title: 'MD5 vs SHA256: A Side-by-Side Comparison', url: '/blog/md5-vs-sha256' },
+      { title: 'MD5 vs SHA256: A Side-by-Side Comparison', url: '/blog/sha256-vs-md5' },
       { title: 'Secure Password Storage Practices', url: '/blog/secure-password-storage-practices' },
     ],
     'color-converter': [
@@ -133,7 +137,7 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     ],
     'image-compressor': [
       { title: 'How to Compress Images for Web Without Losing Quality', url: '/blog/how-to-compress-images-for-web' },
-      { title: 'Image Compression Guide', url: '/blog/image-compression-guide' },
+      { title: 'Image Compression Guide', url: '/blog/how-to-compress-images-for-web' },
     ],
     'word-counter': [
       { title: 'Text Analysis for SEO: A Practical Guide', url: '/blog/text-analysis-for-seo' },
@@ -179,8 +183,8 @@ export default async function ToolPage({ params }: { params: Promise<{ slug: str
     'bmi-calculator': [
       { title: 'BMI Chart for Men and Women: What Your BMI Really Means', url: '/blog/bmi-chart-men-women' },
       { title: 'BMI and Health Metrics: What Developers Should Know', url: '/blog/bmi-health-metrics-developers' },
-      { title: 'Healthy BMI for Men: Weight Ranges Explained', url: '/blog/what-is-a-healthy-bmi-for-men' },
-      { title: 'Healthy BMI for Women: Weight Ranges Explained', url: '/blog/what-is-a-healthy-bmi-for-women' },
+      { title: 'Healthy BMI for Men: Weight Ranges Explained', url: '/blog/bmi-chart-men-women' },
+      { title: 'Healthy BMI for Women: Weight Ranges Explained', url: '/blog/bmi-chart-men-women' },
     ],
     'pixels-to-inches': [
       { title: 'How Many Pixels in an Inch? The Complete Pixels to Inches Guide', url: '/blog/pixels-to-inches-conversion-guide' },

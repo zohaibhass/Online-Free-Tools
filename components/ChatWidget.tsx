@@ -46,7 +46,7 @@ function getHardcodedIntent(input: string): Message | null {
   if (/^what tools|^show tools|^list tools|^all tools|^tools$/.test(lower)) {
     return {
       role: 'bot',
-      content: 'We have **38+ free online tools** across these categories:\n\n• **Developer Tools** — JSON formatter, JWT decoder, regex tester, code minifier, diff checker, slug generator, and more\n• **Calculators** — BMI, loan, mortgage, discount, tip, percentage, age, unit converter\n• **Document & Media** — QR code generator, markdown editor, image compressor, word counter\n• **Utilities** — Password generator, timer, dice roller, coin flipper, text to speech\n\nBrowse all tools or explore by category!',
+      content: 'We have **37 free online tools** across these categories:\n\n• **Developer Tools** — JSON formatter, JWT decoder, regex tester, code minifier, diff checker, slug generator, and more\n• **Calculators** — BMI, loan, mortgage, discount, tip, percentage, age, unit converter\n• **Document & Media** — QR code generator, markdown editor, image compressor, word counter\n• **Utilities** — Password generator, timer, dice roller, coin flipper, text to speech\n\nBrowse all tools or explore by category!',
       buttons: [
         { label: 'Browse All Tools →', url: '/tools' },
         { label: 'Developer', url: '/category/developer' },

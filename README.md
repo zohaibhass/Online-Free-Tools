@@ -1,6 +1,6 @@
 # Free Online Tools - SEO-Optimized Tools Website
 
-A comprehensive, production-ready website featuring 30+ free online tools for developers, content creators, and productivity enthusiasts. Fully optimized for Google AdSense monetization.
+A website featuring 37 free online tools for developers, content creators, and productivity workflows. See `docs/final-production-readiness.md` for the current production and AdSense readiness status.
 
 ## Features
 
@@ -72,11 +72,7 @@ A comprehensive, production-ready website featuring 30+ free online tools for de
 
 ## Google AdSense Integration
 
-The site is fully ready for Google AdSense monetization with:
-- 5 ad placement zones
-- Responsive ad formats
-- Easy configuration with publisher ID
-- Privacy and Terms pages for compliance
+AdSense and analytics scripts are gated behind the site's consent choice. Publisher ownership, production disclosures, Search Console status, and any jurisdiction-specific certified CMP requirements must be verified by the owner before an AdSense review. Approval is not guaranteed.
 
 ## Getting Started
 
@@ -87,10 +83,10 @@ The site is fully ready for Google AdSense monetization with:
 cd free-online-tools
 
 # Install dependencies
-pnpm install
+npm ci
 
 # Set up environment variables
-cp .env.example .env.local
+Copy the documented public environment values into the hosting provider's production environment.
 
 # Add your AdSense publisher ID to .env.local
 NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-xxxxxxxxxxxxxxxx
@@ -101,7 +97,7 @@ NEXT_PUBLIC_BASE_URL=https://yoursite.com
 
 ```bash
 # Start development server
-pnpm dev
+npm run dev
 
 # Open http://localhost:3000
 ```
@@ -110,10 +106,10 @@ pnpm dev
 
 ```bash
 # Build for production
-pnpm build
+npm run build
 
 # Start production server
-pnpm start
+npm run start
 ```
 
 ## Project Structure
@@ -268,11 +264,10 @@ Update `NEXT_PUBLIC_BASE_URL` in `.env.local` with your domain.
 ### Vercel (Recommended)
 
 ```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
+# Validate locally before using the connected Git/Vercel release workflow
+npm ci
+npm run build
+npm test
 ```
 
 ### Other Platforms
@@ -288,9 +283,10 @@ The project works on any platform that supports Node.js:
 
 1. Get your publisher ID from Google AdSense
 2. Add to `.env.local`: `NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-xxx`
-3. The site will automatically display ads
-4. Make sure you have Privacy Policy and Terms of Service pages (included)
-5. Submit your site to Google AdSense for approval
+3. Confirm `public/ads.txt` contains the same publisher ID
+4. Verify consent behavior and legal disclosures on the deployed site
+5. Configure a Google-certified CMP where Google requires one
+6. Submit manually only after the checks in `docs/final-production-readiness.md`
 
 ## SEO Tips
 
@@ -313,4 +309,4 @@ For issues or questions, please open an issue on GitHub or contact support.
 ---
 
 Built with Next.js 16, TypeScript, and Tailwind CSS.
-Ready for Google AdSense monetization.
+AdSense readiness requires the documented owner and production checks.

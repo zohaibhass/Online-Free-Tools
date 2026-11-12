@@ -21,9 +21,9 @@ describe('ToolCard Component', () => {
     expect(screen.getByText('This is a test tool')).toBeInTheDocument()
   })
 
-  it('renders tool card with correct icon', () => {
+  it('renders an accessible tool link when an unknown icon name falls back', () => {
     render(<ToolCard {...mockProps} />)
-    expect(screen.getByText('🧪')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /test tool/i })).toBeInTheDocument()
   })
 
   it('renders correct link href', () => {
@@ -34,6 +34,6 @@ describe('ToolCard Component', () => {
 
   it('renders use tool button', () => {
     render(<ToolCard {...mockProps} />)
-    expect(screen.getByText('Use Tool')).toBeInTheDocument()
+    expect(screen.getByText('Use tool')).toBeInTheDocument()
   })
 })

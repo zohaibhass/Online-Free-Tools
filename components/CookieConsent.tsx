@@ -63,7 +63,18 @@ export function CookieConsent() {
     setVisible(false)
   }
 
-  if (consent !== null || !visible) return null
+  const reopen = () => {
+    setConsent(null)
+    setVisible(true)
+  }
+
+  if (consent !== null || !visible) {
+    return consent ? (
+      <button type="button" onClick={reopen} className="fixed bottom-3 left-3 z-[9998] rounded-full border border-border bg-background px-3 py-2 text-xs text-muted-foreground shadow-sm hover:text-foreground">
+        Cookie choices
+      </button>
+    ) : null
+  }
 
   return (
     <div

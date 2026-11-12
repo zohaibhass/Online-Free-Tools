@@ -3,6 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Globe, Mail, Sparkles, Package, Image as ImageIcon, Camera, Zap, Check, X, Download, Clock } from 'lucide-react'
+import NextImage from 'next/image'
 
 type OutputFormat = 'jpeg' | 'png' | 'webp'
 type ViewMode = 'split' | 'original' | 'compressed'
@@ -242,9 +243,12 @@ export function ImageCompressorTool() {
               <div className="flex gap-2 overflow-x-auto flex-1 py-1" onClick={(e) => e.stopPropagation()}>
                 {images.map((img, i) => (
                   <div key={img.id} className="relative flex-shrink-0">
-                    <img
+                    <NextImage
                       src={img.src}
                       alt={img.name}
+                      width={56}
+                      height={56}
+                      unoptimized
                       className={`w-14 h-14 object-cover rounded-lg cursor-pointer border-2 transition-all ${i === activeIdx ? 'border-primary' : 'border-transparent'}`}
                       onClick={() => setActiveIdx(i)}
                     />
@@ -367,18 +371,21 @@ export function ImageCompressorTool() {
                       {view === 'split' && active.compressed ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-5xl">
                           <div className="relative rounded-xl overflow-hidden border border-border bg-white dark:bg-black">
-                            <img src={active.src} alt="Original" className="w-full h-auto max-h-[420px] object-contain" />
+                            <NextImage src={active.src} alt="Original" width={800} height={600} unoptimized className="w-full h-auto max-h-[420px] object-contain" />
                             <div className="absolute bottom-3 left-3 bg-black/70 text-white text-xs px-3 py-1 rounded">Original</div>
                           </div>
                           <div className="relative rounded-xl overflow-hidden border border-border bg-white dark:bg-black">
-                            <img src={active.compressed.dataUrl} alt="Compressed" className="w-full h-auto max-h-[420px] object-contain" />
+                            <NextImage src={active.compressed.dataUrl} alt="Compressed" width={800} height={600} unoptimized className="w-full h-auto max-h-[420px] object-contain" />
                             <div className="absolute bottom-3 right-3 bg-black/70 text-white text-xs px-3 py-1 rounded">Compressed</div>
                           </div>
                         </div>
                       ) : (
-                        <img
+                        <NextImage
                           src={view === 'compressed' && active.compressed ? active.compressed.dataUrl : active.src}
                           alt="Preview"
+                          width={1000}
+                          height={750}
+                          unoptimized
                           className="w-full h-auto max-h-[520px] object-contain rounded-xl"
                         />
                       )}
@@ -434,7 +441,7 @@ export function ImageCompressorTool() {
                           className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-secondary/50 transition-colors ${i === activeIdx ? 'bg-secondary' : ''}`}
                           onClick={() => setActiveIdx(i)}
                         >
-                          <img src={img.src} alt="" className="w-10 h-10 object-cover rounded" />
+                          <NextImage src={img.src} alt="" width={40} height={40} unoptimized className="w-10 h-10 object-cover rounded" />
                           <div className="flex-1 min-w-0">
                             <div className="text-sm font-medium truncate">{img.name}</div>
                             <div className="text-xs text-muted-foreground">
